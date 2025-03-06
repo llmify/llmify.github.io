@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLMify - Custom LLM Integration Solutions</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" />
+  <style>
+    /* Reset and basic styles */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    a { color: #00A8FF; text-decoration: none; }
+    h1, h2, h3 { color: #fff; }
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+    /* Global section offset for fixed header */
+    section { scroll-margin-top: 80px; }
+    /* Navigation */
+    nav {
+      position: fixed; width: 100%; top: 0; left: 0;
+      background: rgba(0, 0, 0, 0.9); z-index: 1000;
+    }
+    .nav-container {
+      display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 1rem;
+    }
+    .logo a {
+      font-weight: bold; font-size: 1.5rem; color: #00A8FF;
+    }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links li { margin: 0 1rem; }
+    .nav-links li a {
+      padding: 1rem; color: #fff; transition: color 0.3s;
+    }
+    .nav-links li a:hover { color: #008ED2; }
+    .menu-icon {
+      display: none; flex-direction: column; cursor: pointer;
+    }
+    .menu-icon span {
+      display: block; width: 25px; height: 3px; margin: 4px; background-color: #00A8FF;
+    }
+    /* Hero Section - Plain Background */
+    .hero {
+      background-color: #121212; padding: 8rem 0 6rem; text-align: center; position: relative;
+      margin-top: 60px;
+    }
+    .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+    .btn {
+      background: #00A8FF; color: #121212; padding: 0.75rem 1.5rem; font-size: 1rem;
+      border: none; border-radius: 25px; cursor: pointer; transition: background 0.3s, transform 0.3s;
+    }
+    .btn:hover { background: #008ED2; transform: translateY(-3px); }
+    /* Solutions Section */
+    .solutions {
+      background-color: #1a1a1a; text-align: center; padding: 4rem 0;
+    }
+    .solutions h2 { margin-bottom: 2rem; }
+    .solution-cards {
+      display: flex; flex-wrap: wrap; justify-content: space-around; gap: 2rem;
+    }
+    .card {
+      background: #242424; padding: 2rem; border-radius: 10px;
+      flex: 1; min-width: 280px; max-width: 350px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 168, 255, 0.2);
+    }
+    .card h3 { margin-bottom: 1rem; color: #00A8FF; }
+    .card p { font-size: 0.9rem; }
+    /* Why Choose Us Section */
+    .why-us {
+      background-color: #121212; text-align: center; padding: 4rem 0;
+    }
+    .why-us h2 { margin-bottom: 2rem; }
+    .why-us ul {
+      list-style: none; max-width: 800px; margin: 0 auto; text-align: left;
+    }
+    .why-us li {
+      padding: 1rem; border-bottom: 1px solid #333;
+    }
+    .why-us li:last-child { border-bottom: none; }
+    /* Contact Section with Formspree Integration */
+    .contact {
+      background-color: #1a1a1a; text-align: center; padding: 4rem 0;
+    }
+    .contact h2 { margin-bottom: 1rem; }
+    .contact form {
+      max-width: 600px; margin: 0 auto; text-align: left;
+    }
+    .contact label { display: block; margin-bottom: 0.5rem; }
+    .contact input,
+    .contact textarea {
+      width: 100%; padding: 0.75rem; margin-bottom: 1rem;
+      border: none; border-radius: 5px; background: #242424; color: #e0e0e0; resize: vertical;
+    }
+    .contact input:focus,
+    .contact textarea:focus { outline: 2px solid #00A8FF; }
+    .contact button {
+      background: #00A8FF; color: #121212; padding: 0.75rem 1.5rem; border: none;
+      border-radius: 25px; cursor: pointer; transition: background 0.3s, transform 0.3s;
+      display: block; margin: 0 auto;
+    }
+    .contact button:hover { background: #008ED2; transform: translateY(-3px); }
+    /* Message display for form submission */
+    #form-message {
+      text-align: center; margin-top: 1rem; font-size: 1.1rem; color: #00A8FF;
+    }
+    /* Footer */
+    footer {
+      background: #0d0d0d; padding: 2rem 0; text-align: center; font-size: 0.9rem;
+    }
+    footer a { margin: 0 0.5rem; }
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .nav-container { padding: 0.5rem 1rem; }
+      .menu-icon { display: flex; }
+      .nav-links {
+        display: none; flex-direction: column; width: 100%;
+        position: absolute; top: 60px; left: 0; background-color: rgba(0, 0, 0, 0.9);
+      }
+      .nav-links.active { display: flex; }
+      .nav-links li { margin: 0; text-align: center; border-bottom: 1px solid #333; }
+      .nav-links li a { padding: 1rem; display: block; }
+      .hero { padding: 6rem 0 4rem; margin-top: 60px; }
+      .hero h1 { font-size: 2.5rem; }
+      .hero p { font-size: 1rem; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 0.9rem; }
+      .btn { padding: 0.5rem 1.2rem; font-size: 0.9rem; }
+      .contact input,
+      .contact textarea { padding: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <div class="logo">
+        <a href="#hero">LLMify</a>
+      </div>
+      <div class="menu-icon" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero" onclick="toggleMenu()">Home</a></li>
+        <li><a href="#solutions" onclick="toggleMenu()">Solutions</a></li>
+        <li><a href="#whyus" onclick="toggleMenu()">Why Us</a></li>
+        <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="container">
+      <h1>Supercharge Your Workflow with Custom LLM Solutions</h1>
+      <p>Empowering your business with tailored AI integrations that boost efficiency and innovation.</p>
+      <button class="btn" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">
+        Get in Touch
+      </button>
+    </div>
+  </section>
+  <!-- Solutions Section -->
+  <section id="solutions" class="solutions">
+    <div class="container">
+      <h2>Our Solutions</h2>
+      <div class="solution-cards">
+        <div class="card">
+          <h3>Data Privacy &amp; Hosting</h3>
+          <p>
+            Secure Swiss-hosted LLM solutions ensuring your data <strong>never leaves the country</strong>.
+            Experience enterprise-grade security and privacy.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Consulting &amp; Optimization</h3>
+          <p>
+            Our experts help streamline your processes with AI.
+            Optimize operations and resource allocation for improved efficiency and profit margins.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Custom Integration</h3>
+          <p>
+            Seamlessly integrate the power of LLMs into your workflows.
+            Get tailored AI solutions that automate tasks and elevate your business performance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Why Choose Us Section -->
+  <section id="whyus" class="why-us">
+    <div class="container">
+      <h2>Why Choose LLMify?</h2>
+      <ul>
+        <li>
+          <strong>Cutting-Edge Technology:</strong> We leverage the latest in AI to provide state-of-the-art solutions customized for your needs.
+        </li>
+        <li>
+          <strong>Scalable Options:</strong> Choose from a range of model sizes to fit your resource requirements and business growth.
+        </li>
+        <li>
+          <strong>Swiss-Grade Security:</strong> Your data is protected in Switzerland, under rigorous privacy laws and compliance standards.
+        </li>
+        <li>
+          <strong>Expert Guidance:</strong> Our team offers consulting services to help optimize your workflows and reduce operational costs.
+        </li>
+      </ul>
+    </div>
+  </section>
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>Let's build the future together! Fill out the form below to start your AI journey with LLMify.</p>
+      <form id="contactForm" action="https://formspree.io/f/mjkybyeb" method="POST">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required placeholder="Your Name">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="_replyto" required placeholder="Your Email">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required placeholder="How can we help you?"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <div id="form-message"></div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 LLMify. All Rights Reserved.</p>
+      
+      <!--
+      <p>
+        <a href="#">LinkedIn</a> |
+        <a href="#">Twitter</a> |
+        <a href="#">GitHub</a>
+        
+       -->
+       
+      </p>
+      
+    </div>
+  </footer>
+  <script>
+    // Toggle mobile navigation menu
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      navLinks.classList.toggle('active');
+    }
+    // Helper function to show a message and remove it after 3 seconds
+    function showMessage(message) {
+      const messageDiv = document.getElementById("form-message");
+      messageDiv.innerText = message;
+      setTimeout(() => { messageDiv.innerText = ""; }, 3000);
+    }
+    // Form submission using fetch to avoid redirection
+    document.addEventListener("DOMContentLoaded", function() {
+      const form = document.getElementById("contactForm");
+      form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        fetch(form.action, {
+          method: form.method,
+          headers: { 'Accept': 'application/json' },
+          body: formData
+        }).then(response => {
+          if (response.ok) {
+            form.reset();
+            showMessage("Message sent successfully!");
+          } else {
+            response.json().then(data => {
+              if (data.errors) {
+                showMessage(data.errors.map(error => error.message).join(", "));
+              } else {
+                showMessage("Oops! There was a problem submitting your form");
+              }
+            });
+          }
+        }).catch(error => {
+          showMessage("Oops! There was a problem submitting your form");
+        });
+        return false;
+      });
+    });
+  </script>
+</body>
+</html>
+
