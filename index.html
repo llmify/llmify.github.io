@@ -44,13 +44,23 @@
     .menu-icon span {
       display: block; width: 25px; height: 3px; margin: 4px; background-color: #00A8FF;
     }
-    /* Hero Section - Plain Background */
+    /* Hero Section with SVG Background Animation */
     .hero {
       background-color: #121212; padding: 8rem 0 6rem; text-align: center; position: relative;
-      margin-top: 60px;
+      margin-top: 60px; overflow: hidden;
     }
-    .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
-    .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+    .hero-background {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+      overflow: hidden;
+    }
+    .background-animation {
+      width: 100%; height: 100%; object-fit: cover; opacity: 1;
+    }
+    .hero .container {
+      position: relative; z-index: 1;
+    }
+    .hero h1 { font-size: 3rem; margin-bottom: 1rem; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
+    .hero p { font-size: 1.2rem; margin-bottom: 2rem; text-shadow: 0 0 8px rgba(0,0,0,0.5); }
     .btn {
       background: #00A8FF; color: #121212; padding: 0.75rem 1.5rem; font-size: 1rem;
       border: none; border-radius: 25px; cursor: pointer; transition: background 0.3s, transform 0.3s;
@@ -132,11 +142,13 @@
       .hero { padding: 6rem 0 4rem; margin-top: 60px; }
       .hero h1 { font-size: 2.5rem; }
       .hero p { font-size: 1rem; }
+      .background-animation { height: 120%; /* Slightly larger to ensure full coverage */ }
     }
     @media (max-width: 480px) {
       .hero h1 { font-size: 2rem; }
       .hero p { font-size: 0.9rem; }
       .btn { padding: 0.5rem 1.2rem; font-size: 0.9rem; }
+      .background-animation { height: 130%; /* Even larger for smallest screens */ }
       .contact input,
       .contact textarea { padding: 0.5rem; }
     }
@@ -162,8 +174,11 @@
       </ul>
     </div>
   </nav>
-  <!-- Hero Section -->
+  <!-- Hero Section with SVG Background Animation -->
   <section id="hero" class="hero">
+    <div class="hero-background">
+      <object type="image/svg+xml" data="background_img.svg" class="background-animation"></object>
+    </div>
     <div class="container">
       <h1>Supercharge Your Workflow with Custom LLM Solutions</h1>
       <p>Empowering your business with tailored AI integrations that boost efficiency and innovation.</p>
