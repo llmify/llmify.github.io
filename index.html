@@ -4,163 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LLMify - Custom LLM Integration Solutions</title>
-  <link rel="icon" href="only_logo.png" type="image/png" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" />
-  <style>
-    /* Reset and basic styles */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: #121212;
-      color: #e0e0e0;
-      line-height: 1.6;
-      scroll-behavior: smooth;
-    }
-    a { color: #00A8FF; text-decoration: none; }
-    h1, h2, h3 { color: #fff; }
-    .container { width: 90%; max-width: 1200px; margin: 0 auto; }
-    /* Global section offset for fixed header */
-    section { scroll-margin-top: 80px; }
-    /* Navigation */
-    nav {
-      position: fixed; width: 100%; top: 0; left: 0;
-      background: rgba(0, 0, 0, 0.9); z-index: 1000;
-    }
-    .nav-container {
-      display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 1rem;
-    }
-    .logo a {
-      font-weight: bold; font-size: 1.5rem; color: #00A8FF;
-    }
-    .nav-links { display: flex; list-style: none; }
-    .nav-links li { margin: 0 1rem; }
-    .nav-links li a {
-      padding: 1rem; color: #fff; transition: color 0.3s;
-    }
-    .nav-links li a:hover { color: #008ED2; }
-    .menu-icon {
-      display: none; flex-direction: column; cursor: pointer;
-    }
-    .menu-icon span {
-      display: block; width: 25px; height: 3px; margin: 4px; background-color: #00A8FF;
-    }
-    /* Hero Section with SVG Background Animation */
-    .hero {
-      background-color: #121212; padding: 8rem 0 6rem; text-align: center; position: relative;
-      margin-top: 60px; overflow: hidden;
-    }
-    .hero-background {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-      overflow: hidden;
-    }
-    .background-animation {
-      width: 100%; height: 100%; object-fit: cover; opacity: 1;
-    }
-    .hero .container {
-      position: relative; z-index: 1;
-    }
-    .hero h1 { font-size: 3rem; margin-bottom: 1rem; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
-    .hero p { font-size: 1.2rem; margin-bottom: 2rem; text-shadow: 0 0 8px rgba(0,0,0,0.5); }
-    .btn {
-      background: #00A8FF; color: #121212; padding: 0.75rem 1.5rem; font-size: 1rem;
-      border: none; border-radius: 25px; cursor: pointer; transition: background 0.3s, transform 0.3s;
-    }
-    .btn:hover { background: #008ED2; transform: translateY(-3px); }
-    /* Solutions Section */
-    .solutions {
-      background-color: #1a1a1a; text-align: center; padding: 4rem 0;
-    }
-    .solutions h2 { margin-bottom: 2rem; }
-    .solution-cards {
-      display: flex; flex-wrap: wrap; justify-content: space-around; gap: 2rem;
-    }
-    .card {
-      background: #242424; padding: 2rem; border-radius: 10px;
-      flex: 1; min-width: 280px; max-width: 350px;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 168, 255, 0.2);
-    }
-    .card h3 { margin-bottom: 1rem; color: #00A8FF; }
-    .card p { font-size: 0.9rem; }
-    /* Why Choose Us Section */
-    .why-us {
-      background-color: #121212; text-align: center; padding: 4rem 0;
-    }
-    .why-us h2 { margin-bottom: 2rem; }
-    .why-us ul {
-      list-style: none; max-width: 800px; margin: 0 auto; text-align: left;
-    }
-    .why-us li {
-      padding: 1rem; border-bottom: 1px solid #333;
-    }
-    .why-us li:last-child { border-bottom: none; }
-    /* Contact Section with Formspree Integration */
-    .contact {
-      background-color: #1a1a1a; text-align: center; padding: 4rem 0;
-    }
-    .contact h2 { margin-bottom: 1rem; }
-    .contact form {
-      max-width: 600px; margin: 0 auto; text-align: left;
-    }
-    .contact label { display: block; margin-bottom: 0.5rem; }
-    .contact input,
-    .contact textarea {
-      width: 100%; padding: 0.75rem; margin-bottom: 1rem;
-      border: none; border-radius: 5px; background: #242424; color: #e0e0e0; resize: vertical;
-    }
-    .contact input:focus,
-    .contact textarea:focus { outline: 2px solid #00A8FF; }
-    .contact button {
-      background: #00A8FF; color: #121212; padding: 0.75rem 1.5rem; border: none;
-      border-radius: 25px; cursor: pointer; transition: background 0.3s, transform 0.3s;
-      display: block; margin: 0 auto;
-    }
-    .contact button:hover { background: #008ED2; transform: translateY(-3px); }
-    /* Message display for form submission */
-    #form-message {
-      text-align: center; margin-top: 1rem; font-size: 1.1rem; color: #00A8FF;
-    }
-    /* Footer */
-    footer {
-      background: #0d0d0d; padding: 2rem 0; text-align: center; font-size: 0.9rem;
-    }
-    footer a { margin: 0 0.5rem; }
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .nav-container { padding: 0.5rem 1rem; }
-      .menu-icon { display: flex; }
-      .nav-links {
-        display: none; flex-direction: column; width: 100%;
-        position: absolute; top: 60px; left: 0; background-color: rgba(0, 0, 0, 0.9);
-      }
-      .nav-links.active { display: flex; }
-      .nav-links li { margin: 0; text-align: center; border-bottom: 1px solid #333; }
-      .nav-links li a { padding: 1rem; display: block; }
-      .hero { padding: 6rem 0 4rem; margin-top: 60px; }
-      .hero h1 { font-size: 2.5rem; }
-      .hero p { font-size: 1rem; }
-      .background-animation { height: 120%; /* Slightly larger to ensure full coverage */ }
-    }
-    @media (max-width: 480px) {
-      .hero h1 { font-size: 2rem; }
-      .hero p { font-size: 0.9rem; }
-      .btn { padding: 0.5rem 1.2rem; font-size: 0.9rem; }
-      .background-animation { height: 130%; /* Even larger for smallest screens */ }
-      .contact input,
-      .contact textarea { padding: 0.5rem; }
-    }
-  </style>
+  <link rel="icon" href="images/only_logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress"></div>
+  
   <!-- Navigation -->
-  <nav>
-    <div class="container nav-container">
+  <nav id="navbar">
+    <div class="nav-container">
       <div class="logo">
         <a href="#hero">
-          <img src="full_logo.png" alt="LLMify Logo" height="40">
+          <img src="images/full_logo.png" alt="LLMify Logo" height="40">
         </a>
       </div>
       <div class="menu-icon" onclick="toggleMenu()">
@@ -171,42 +29,48 @@
         <li><a href="#solutions" onclick="toggleMenu()">Solutions</a></li>
         <li><a href="#whyus" onclick="toggleMenu()">Why Us</a></li>
         <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        <li><a href="#" onclick="showDemoModal(); toggleMenu();" class="demo-nav-btn">Book Demo</a></li>
       </ul>
     </div>
   </nav>
-  <!-- Hero Section with SVG Background Animation -->
+  
+  <!-- Hero Section -->
   <section id="hero" class="hero">
     <div class="hero-background">
-      <object type="image/svg+xml" data="background_img.svg" class="background-animation"></object>
+      <canvas id="particle-canvas"></canvas>
     </div>
+    
     <div class="container">
-      <h1>Supercharge Your Workflow with Custom LLM Solutions</h1>
-      <p>Empowering your business with tailored AI integrations that boost efficiency and innovation.</p>
-      <button class="btn" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">
-        Get in Touch
-      </button>
+      <h1 class="fade-in">Supercharge Your Workflow with Custom LLM Solutions</h1>
+      <p class="fade-in">Empowering your business with tailored AI integrations that boost efficiency and innovation.</p>
+      <div class="hero-buttons fade-in">
+        <button class="btn" onclick="showDemoModal();">
+          Book a Demo
+        </button>
+      </div>
     </div>
   </section>
+  
   <!-- Solutions Section -->
   <section id="solutions" class="solutions">
     <div class="container">
-      <h2>Our Solutions</h2>
+      <h2 class="fade-in">Our Solutions</h2>
       <div class="solution-cards">
-        <div class="card">
+        <div class="card scale-in">
           <h3>Data Privacy &amp; Hosting</h3>
           <p>
             Secure Swiss-hosted LLM solutions ensuring your data <strong>never leaves the country</strong>.
-            Experience enterprise-grade security and privacy.
+            Experience enterprise-grade security and privacy compliance.
           </p>
         </div>
-        <div class="card">
+        <div class="card scale-in">
           <h3>Consulting &amp; Optimization</h3>
           <p>
             Our experts help streamline your processes with AI.
             Optimize operations and resource allocation for improved efficiency and profit margins.
           </p>
         </div>
-        <div class="card">
+        <div class="card scale-in">
           <h3>Custom Integration</h3>
           <p>
             Seamlessly integrate the power of LLMs into your workflows.
@@ -216,102 +80,266 @@
       </div>
     </div>
   </section>
+  
   <!-- Why Choose Us Section -->
   <section id="whyus" class="why-us">
     <div class="container">
-      <h2>Why Choose LLMify?</h2>
+      <h2 class="fade-in">Why Choose LLMify?</h2>
       <ul>
-        <li>
+        <li class="slide-in-left">
           <strong>Cutting-Edge Technology:</strong> We leverage the latest in AI to provide state-of-the-art solutions customized for your needs.
         </li>
-        <li>
+        <li class="slide-in-right">
           <strong>Scalable Options:</strong> Choose from a range of model sizes to fit your resource requirements and business growth.
         </li>
-        <li>
+        <li class="slide-in-left">
           <strong>Swiss-Grade Security:</strong> Your data is protected in Switzerland, under rigorous privacy laws and compliance standards.
         </li>
-        <li>
+        <li class="slide-in-right">
           <strong>Expert Guidance:</strong> Our team offers consulting services to help optimize your workflows and reduce operational costs.
         </li>
       </ul>
     </div>
   </section>
+  
   <!-- Contact Section -->
   <section id="contact" class="contact">
     <div class="container">
-      <h2>Contact Us</h2>
-      <p>Let's build the future together! Fill out the form below to start your AI journey with LLMify.</p>
-      <form id="contactForm" action="https://formspree.io/f/mjkybyeb" method="POST">
+      <h2 class="fade-in">Contact Us</h2>
+      <p class="fade-in">Let's build the future together! Fill out the form below to start your AI journey with LLMify.</p>
+      <form id="contactForm" action="https://formspree.io/f/mjkybyeb" method="POST" class="scale-in">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" required placeholder="Your Name">
         <label for="email">Email</label>
         <input type="email" id="email" name="_replyto" required placeholder="Your Email">
         <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required placeholder="How can we help you?"></textarea>
-        <button type="submit">Submit</button>
+        <textarea id="message" name="message" rows="5" required placeholder="How can we help you transform your business with AI?"></textarea>
+        <button type="submit">Send Message</button>
       </form>
       <div id="form-message"></div>
     </div>
   </section>
+  
   <!-- Footer -->
   <footer>
     <div class="container">
       <p>&copy; 2025 LLMify. All Rights Reserved.</p>
-      
-      <!--
-      <p>
-        <a href="#">LinkedIn</a> |
-        <a href="#">Twitter</a> |
-        <a href="#">GitHub</a>
-        
-       -->
-       
-      </p>
-      
+      <div class="footer-links">
+        <a href="#" onclick="showPrivacyModal()">Privacy Policy</a>
+        <a href="#" onclick="showImpressumModal()">Impressum</a>
+        <a href="#" onclick="showCookieSettings()">Cookie Settings</a>
+      </div>
     </div>
   </footer>
-  <script>
-    // Toggle mobile navigation menu
-    function toggleMenu() {
-      const navLinks = document.querySelector('.nav-links');
-      navLinks.classList.toggle('active');
-    }
-    // Helper function to show a message and remove it after 3 seconds
-    function showMessage(message) {
-      const messageDiv = document.getElementById("form-message");
-      messageDiv.innerText = message;
-      setTimeout(() => { messageDiv.innerText = ""; }, 3000);
-    }
-    // Form submission using fetch to avoid redirection
-    document.addEventListener("DOMContentLoaded", function() {
-      const form = document.getElementById("contactForm");
-      form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        fetch(form.action, {
-          method: form.method,
-          headers: { 'Accept': 'application/json' },
-          body: formData
-        }).then(response => {
-          if (response.ok) {
-            form.reset();
-            showMessage("Message sent successfully!");
-          } else {
-            response.json().then(data => {
-              if (data.errors) {
-                showMessage(data.errors.map(error => error.message).join(", "));
-              } else {
-                showMessage("Oops! There was a problem submitting your form");
-              }
-            });
-          }
-        }).catch(error => {
-          showMessage("Oops! There was a problem submitting your form");
-        });
-        return false;
-      });
-    });
-  </script>
+  
+  <!-- Cookie Banner -->
+  <div class="cookie-banner" id="cookie-banner">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        This website uses cookies to ensure you get the best experience on our website.
+        <a href="#" onclick="showPrivacyModal()">Learn more</a>
+      </div>
+      <div class="cookie-buttons">
+        <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
+        <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Privacy Policy Modal -->
+  <div class="modal" id="privacy-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hidePrivacyModal()">&times;</span>
+        <h2>Privacy Policy</h2>
+      </div>
+      <div class="modal-body">
+        <p><strong>Last updated: January 2025</strong></p>
+        
+        <h3>1. Information We Collect</h3>
+        <p>
+          We collect information you provide directly to us, such as when you contact us through our website form. This may include your name, email address, and message content.
+        </p>
+        
+        <h3>2. How We Use Your Information</h3>
+        <p>
+          We use the information we collect to:
+        </p>
+        <p>
+          • Respond to your inquiries and provide customer support<br>
+          • Improve our services and develop new features<br>
+          • Send you marketing communications (with your consent)<br>
+          • Comply with legal obligations
+        </p>
+        
+        <h3>3. Data Security</h3>
+        <p>
+          We implement appropriate technical and organizational security measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction. All data processing is performed in accordance with Swiss data protection laws.
+        </p>
+        
+        <h3>4. Your Rights</h3>
+        <p>
+          Under Swiss data protection law, you have the right to:
+        </p>
+        <p>
+          • Access your personal data<br>
+          • Correct inaccurate data<br>
+          • Delete your data<br>
+          • Object to data processing<br>
+          • Data portability
+        </p>
+        
+        <h3>5. Contact Us</h3>
+        <p>
+          If you have any questions about this Privacy Policy, please contact us through our contact form.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Impressum Modal -->
+  <div class="modal" id="impressum-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hideImpressumModal()">&times;</span>
+        <h2>Impressum</h2>
+      </div>
+      <div class="modal-body">
+        <h3>Company Information</h3>
+        <p>
+          <strong>LLMify AG</strong><br>
+          Alte Steinhauserstrasse 19<br>
+          6330 Cham<br>
+          Switzerland
+        </p>
+        <p>
+          <strong>Legal Form:</strong> Aktiengesellschaft (Corporation)<br>
+          <strong>Company Registration:</strong> CHE-479.856.227<br>
+          <strong>Registered Office:</strong> Cham, Switzerland
+        </p>
+        
+        <h3>Business Purpose</h3>
+        <p>
+          Software development and the sale of services, products, and consulting in the IT sector.
+        </p>
+        
+        <h3>Contact Information</h3>
+        <p>
+          <strong>Address:</strong> Alte Steinhauserstrasse 19, 6330 Cham, Switzerland<br>
+          <strong>Email:</strong> Contact us through our contact form<br>
+          <strong>Website:</strong> www.llmify.com
+        </p>
+        
+        <h3>Regulatory Information</h3>
+        <p>
+          <strong>Commercial Register:</strong> Registered in the Commercial Register of Zug<br>
+          <strong>Registration Date:</strong> March 19, 2025<br>
+          <strong>Official Publication:</strong> Swiss Official Gazette of Commerce (SHAB)
+        </p>
+        
+        <h3>Disclaimer</h3>
+        <p>
+          The information on this website is provided on an "as is" basis. To the fullest extent permitted by law, LLMify AG excludes all representations, warranties, undertakings, and guarantees relating to the content of this website.
+        </p>
+        
+        <h3>Copyright</h3>
+        <p>
+          All content on this website, including text, graphics, logos, and images, is the property of LLMify AG and is protected by copyright laws. Unauthorized use is prohibited.
+        </p>
+        
+        <h3>Applicable Law</h3>
+        <p>
+          This website and its content are governed by Swiss law. Any disputes arising from the use of this website shall be subject to the exclusive jurisdiction of the Swiss courts, with the place of jurisdiction being Zug, Switzerland.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Demo Booking Modal -->
+  <div class="modal" id="demo-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hideDemoModal()">&times;</span>
+        <h2>Book a Demo</h2>
+      </div>
+      <div class="modal-body">
+        <p>Let's explore how LLMify can transform your business with custom AI solutions. Fill out the form below and we'll schedule a personalized demo.</p>
+        
+        <form id="demoForm" action="https://formspree.io/f/mjkybyeb" method="POST" class="demo-form">
+          <input type="hidden" name="form_type" value="demo_booking">
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-name">Full Name *</label>
+              <input type="text" id="demo-name" name="name" required placeholder="Your Full Name">
+            </div>
+            <div class="form-group">
+              <label for="demo-email">Business Email *</label>
+              <input type="email" id="demo-email" name="email" required placeholder="your.email@company.com">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-company">Company Name *</label>
+              <input type="text" id="demo-company" name="company" required placeholder="Your Company">
+            </div>
+            <div class="form-group">
+              <label for="demo-role">Your Role</label>
+              <input type="text" id="demo-role" name="role" placeholder="e.g., CTO, Product Manager">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="demo-use-case">Primary Use Case *</label>
+            <select id="demo-use-case" name="use_case" required>
+              <option value="">Select your primary interest</option>
+              <option value="data-privacy">Data Privacy & Swiss Hosting</option>
+              <option value="process-optimization">Process Optimization</option>
+              <option value="custom-integration">Custom LLM Integration</option>
+              <option value="consulting">AI Strategy Consulting</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="demo-description">Tell us about your project</label>
+            <textarea id="demo-description" name="description" rows="4" placeholder="Briefly describe your AI integration needs or current challenges..."></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-timeline">Timeline</label>
+              <select id="demo-timeline" name="timeline">
+                <option value="">When do you plan to implement?</option>
+                <option value="immediate">Immediate (within 1 month)</option>
+                <option value="short">Short-term (1-3 months)</option>
+                <option value="medium">Medium-term (3-6 months)</option>
+                <option value="long">Long-term (6+ months)</option>
+                <option value="research">Research phase</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="demo-preferred-time">Preferred Demo Time</label>
+              <select id="demo-preferred-time" name="preferred_time">
+                <option value="">Select preferred time</option>
+                <option value="morning">Morning (9-12 CET)</option>
+                <option value="afternoon">Afternoon (12-17 CET)</option>
+                <option value="evening">Evening (17-19 CET)</option>
+                <option value="flexible">Flexible</option>
+              </select>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn demo-submit-btn">
+            Schedule Demo
+          </button>
+        </form>
+        <div id="demo-message"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="scripts.js"></script>
 </body>
 </html>
-
