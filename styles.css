@@ -1044,8 +1044,9 @@ footer a:hover {
     min-height: 90vh;
   }
   
+  /* Hide WebGL canvas on mobile for performance */
   .hero-background canvas {
-    opacity: 0.7;
+    display: none !important;
   }
   .solution-cards {
     grid-template-columns: 1fr;
@@ -1167,8 +1168,9 @@ footer a:hover {
     max-width: 280px;
   }
   
+  /* Hide WebGL canvas on small mobile devices */
   .hero-background canvas {
-    opacity: 0.6;
+    display: none !important;
   }
   
 

@@ -49,6 +49,17 @@ function initLightningSystem() {
     return;
   }
 
+  // Check if device is mobile/tablet
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                   window.innerWidth <= 768 || 
+                   ('ontouchstart' in window);
+
+  if (isMobile) {
+    console.log('Mobile device detected, using simplified background effect');
+    createMobileBackground();
+    return;
+  }
+
   console.log('Initializing lightning system...');
 
   // Hide the original canvas and get its container
@@ -280,6 +291,55 @@ function initLightningSystem() {
   lightningAnimationId = requestAnimationFrame(render);
   
   console.log('Lightning system initialized successfully!');
+}
+
+// Mobile-optimized simple background
+function createMobileBackground() {
+  const canvas = document.getElementById('particle-canvas');
+  canvas.style.display = 'none';
+  
+  const heroBackground = document.querySelector('.hero-background');
+  if (!heroBackground) return;
+  
+  // Create simple CSS gradient animation for mobile
+  const mobileBackground = document.createElement('div');
+  mobileBackground.style.cssText = `
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+      rgba(37, 99, 235, 0.1) 0%, 
+      rgba(14, 165, 233, 0.05) 25%, 
+      rgba(6, 182, 212, 0.08) 50%, 
+      rgba(59, 130, 246, 0.06) 75%, 
+      rgba(37, 99, 235, 0.1) 100%
+    );
+    background-size: 400% 400%;
+    animation: mobileGradient 15s ease infinite;
+    pointer-events: none;
+    opacity: 0.6;
+    z-index: 1;
+  `;
+  
+  heroBackground.appendChild(mobileBackground);
+  
+  // Add CSS animation if not already present
+  if (!document.getElementById('mobile-background-styles')) {
+    const style = document.createElement('style');
+    style.id = 'mobile-background-styles';
+    style.textContent = `
+      @keyframes mobileGradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  console.log('Mobile background created');
 }
 
 // Fallback CSS-only particle effect if WebGL fails to load
