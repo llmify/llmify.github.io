@@ -148,9 +148,10 @@ nav.scrolled {
   display: flex; 
   justify-content: space-between; 
   align-items: center; 
-  padding: 1rem;
+  padding: 1rem 5%; /* Use percentage padding to match .container width */
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .logo a {
@@ -1018,7 +1019,10 @@ footer a:hover {
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-  .nav-container { padding: 1rem; }
+  .nav-container { 
+    padding: 1rem 5%; /* Match content container width on mobile */
+    width: 100%;
+  }
   .menu-icon { display: flex; }
   .nav-links {
     display: none; 
@@ -1040,8 +1044,14 @@ footer a:hover {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
   .hero { 
-    padding: 8rem 0 6rem;
-    min-height: 90vh;
+    padding: 6rem 0 4rem; /* Reduced padding for mobile */
+    min-height: 100vh; /* Full viewport height on mobile */
+  }
+  
+  /* Ensure all content containers have consistent mobile spacing */
+  .container {
+    width: 90%; /* Consistent with desktop but properly responsive */
+    padding: 0 1rem; /* Additional padding for very small screens */
   }
   
   /* Hide WebGL canvas on mobile for performance */
@@ -1109,6 +1119,20 @@ footer a:hover {
 }
 
 @media (max-width: 480px) {
+  /* Further mobile optimizations for very small screens */
+  .nav-container { 
+    padding: 0.75rem 4%; /* Slightly tighter padding on very small screens */
+  }
+  
+  .container {
+    width: 92%; /* Slightly wider content area */
+    padding: 0 0.75rem;
+  }
+  
+  .hero {
+    padding: 5rem 0 3rem; /* Even more compact on small screens */
+  }
+  
   .btn { 
     padding: 0.8rem 1.5rem; 
     font-size: 1rem; 
