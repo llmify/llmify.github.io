@@ -35,6 +35,14 @@ body {
   line-height: 1.7;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  width: 100%;
+  min-width: 100%;
+}
+
+/* Prevent layout shifts and ensure proper mobile viewport */
+html {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Scroll Progress Indicator */
@@ -152,6 +160,8 @@ nav.scrolled {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .logo a {
@@ -739,6 +749,13 @@ footer a:hover {
   transition: all 0.3s ease;
 }
 
+/* Prevent body scroll and layout shifts when modal is open */
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
 .modal.show {
   opacity: 1;
   visibility: visible;
@@ -1019,9 +1036,24 @@ footer a:hover {
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
+  /* Fix navigation overflow and sizing issues */
+  nav {
+    width: 100vw; /* Use viewport width to prevent overflow */
+    left: 0;
+    right: 0;
+  }
+  
   .nav-container { 
-    padding: 1rem 5%; /* Match content container width on mobile */
+    padding: 0.75rem 4%; /* Reduce padding for mobile */
+    max-width: 100%;
     width: 100%;
+    min-height: 60px; /* Set consistent height */
+    box-sizing: border-box;
+  }
+  
+  /* Make logo smaller on mobile */
+  .logo img {
+    height: 28px; /* Smaller logo for mobile */
   }
   .menu-icon { display: flex; }
   .nav-links {
@@ -1120,8 +1152,32 @@ footer a:hover {
 
 @media (max-width: 480px) {
   /* Further mobile optimizations for very small screens */
+  nav {
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+  
   .nav-container { 
-    padding: 0.75rem 4%; /* Slightly tighter padding on very small screens */
+    padding: 0.5rem 3%; /* Even tighter padding on very small screens */
+    min-height: 55px; /* Slightly smaller height for small screens */
+  }
+  
+  /* Even smaller logo for very small screens */
+  .logo img {
+    height: 24px;
+  }
+  
+  /* Make hamburger menu more touch-friendly */
+  .menu-icon {
+    padding: 8px;
+    margin: -8px; /* Expand touch area */
+  }
+  
+  .menu-icon span {
+    width: 20px; /* Slightly smaller hamburger lines */
+    height: 2px;
   }
   
   .container {

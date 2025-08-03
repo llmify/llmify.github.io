@@ -572,28 +572,34 @@ function showCookieSettings() {
 // Privacy Modal functionality
 function showPrivacyModal() {
   document.getElementById('privacy-modal').classList.add('show');
+  document.body.classList.add('modal-open');
 }
 
 function hidePrivacyModal() {
   document.getElementById('privacy-modal').classList.remove('show');
+  document.body.classList.remove('modal-open');
 }
 
 // Impressum Modal functionality
 function showImpressumModal() {
   document.getElementById('impressum-modal').classList.add('show');
+  document.body.classList.add('modal-open');
 }
 
 function hideImpressumModal() {
   document.getElementById('impressum-modal').classList.remove('show');
+  document.body.classList.remove('modal-open');
 }
 
 // Demo Modal functionality
 function showDemoModal() {
   document.getElementById('demo-modal').classList.add('show');
+  document.body.classList.add('modal-open');
 }
 
 function hideDemoModal() {
   document.getElementById('demo-modal').classList.remove('show');
+  document.body.classList.remove('modal-open');
 }
 
 function showDemoMessage(message, isError = false) {
