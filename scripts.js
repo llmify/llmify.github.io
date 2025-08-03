@@ -35,7 +35,7 @@ let lightningAnimationId;
 
 // Lightning configuration
 const lightningOptions = {
-  hue: 200, // Blue hue for brand consistency
+  hue: 215, // Blue hue matching the new primary color #5c9fff
   xOffset: 0,
   speed: 0.4, // Reduced speed for smoother animation
   intensity: 0.4, // Reduced intensity to be less distracting
@@ -403,9 +403,51 @@ function createFallbackParticles() {
   console.log('Fallback particle effect created');
 }
 
+// Fix mobile layout immediately to prevent initial sizing issues
+function fixMobileLayout() {
+  const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  if (isMobile) {
+    console.log('Applying mobile layout fixes...');
+    
+    // Force proper viewport constraints
+    document.documentElement.style.width = '100%';
+    document.documentElement.style.overflowX = 'hidden';
+    document.body.style.width = '100%';
+    document.body.style.overflowX = 'hidden';
+    document.body.style.position = 'relative';
+    
+    // Fix navigation container immediately
+    const navContainer = document.querySelector('.nav-container');
+    if (navContainer) {
+      navContainer.style.width = '100%';
+      navContainer.style.maxWidth = '100%';
+      navContainer.style.padding = '0.75rem 4%';
+      navContainer.style.margin = '0';
+      navContainer.style.boxSizing = 'border-box';
+    }
+    
+    // Fix navigation element
+    const nav = document.querySelector('nav');
+    if (nav) {
+      nav.style.width = '100%';
+      nav.style.maxWidth = '100%';
+      nav.style.left = '0';
+      nav.style.right = '0';
+      nav.style.position = 'fixed';
+    }
+  }
+}
+
+// Run layout fix immediately - before DOM ready
+fixMobileLayout();
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
   console.log('DOM loaded, initializing components...');
+  
+  // Apply mobile layout fixes again after DOM is ready
+  fixMobileLayout();
   
   // Initialize lightning system
   try {
@@ -608,3 +650,13 @@ function showDemoMessage(message, isError = false) {
   messageDiv.style.color = isError ? '#ef4444' : '#10b981';
   setTimeout(() => { messageDiv.innerText = ""; }, 5000);
 }
+
+// Fix layout on resize as well
+window.addEventListener('resize', function() {
+  fixMobileLayout();
+});
+
+// Also fix layout when orientation changes on mobile
+window.addEventListener('orientationchange', function() {
+  setTimeout(fixMobileLayout, 100); // Small delay to allow orientation to complete
+});
