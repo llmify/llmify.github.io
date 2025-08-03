@@ -179,7 +179,7 @@ nav {
   z-index: 1000;
   transition: all 0.3s ease;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible; /* Allow mobile dropdown to show */
 }
 
 nav.scrolled {
@@ -1083,6 +1083,8 @@ body.modal-open {
     width: 100%;
     min-height: 60px; /* Set consistent height */
     box-sizing: border-box;
+    position: relative; /* Ensure dropdown positions correctly */
+    overflow: visible; /* Allow dropdown to show */
   }
   
   /* Make logo smaller on mobile */
@@ -1101,20 +1103,35 @@ body.modal-open {
     backdrop-filter: blur(20px);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     gap: 0;
+    z-index: 1001;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
   .nav-links.active { 
     display: flex !important; 
+    animation: slideDown 0.3s ease-out;
   }
   
-  /* Style the hamburger menu when active */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Style the hamburger menu when active - perfect centered X */
   .menu-icon.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: translateY(7px) rotate(45deg);
   }
   .menu-icon.active span:nth-child(2) {
     opacity: 0;
+    transform: scale(0);
   }
   .menu-icon.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
+    transform: translateY(-7px) rotate(-45deg);
   }
   .nav-links li { margin: 0; text-align: center; }
   .nav-links li a { 

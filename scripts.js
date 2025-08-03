@@ -425,6 +425,8 @@ function fixMobileLayout() {
       navContainer.style.padding = '0.75rem 4%';
       navContainer.style.margin = '0';
       navContainer.style.boxSizing = 'border-box';
+      navContainer.style.position = 'relative';
+      navContainer.style.overflow = 'visible';
     }
     
     // Fix navigation element
@@ -435,6 +437,7 @@ function fixMobileLayout() {
       nav.style.left = '0';
       nav.style.right = '0';
       nav.style.position = 'fixed';
+      nav.style.overflow = 'visible';
     }
   }
 }
@@ -582,12 +585,18 @@ function toggleMenu() {
   const menuIcon = document.querySelector('.menu-icon');
   
   if (navLinks) {
+    const wasActive = navLinks.classList.contains('active');
     navLinks.classList.toggle('active');
-    console.log('Nav links active class:', navLinks.classList.contains('active'));
+    const isActive = navLinks.classList.contains('active');
+    
+    console.log('Nav links toggle: was', wasActive, 'now', isActive);
+    console.log('Nav links computed display:', window.getComputedStyle(navLinks).display);
+    console.log('Nav links computed z-index:', window.getComputedStyle(navLinks).zIndex);
     
     // Also toggle the hamburger icon state
     if (menuIcon) {
       menuIcon.classList.toggle('active');
+      console.log('Menu icon active:', menuIcon.classList.contains('active'));
     }
   } else {
     console.error('Nav links element not found');
