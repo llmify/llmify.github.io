@@ -1087,7 +1087,7 @@ body.modal-open {
   
   /* Make logo smaller on mobile */
   .logo img {
-    height: 28px; /* Smaller logo for mobile */
+    height: 32px; /* 1.15x mobile logo size */
   }
   .menu-icon { display: flex; }
   .nav-links {
@@ -1102,7 +1102,20 @@ body.modal-open {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     gap: 0;
   }
-  .nav-links.active { display: flex; }
+  .nav-links.active { 
+    display: flex !important; 
+  }
+  
+  /* Style the hamburger menu when active */
+  .menu-icon.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .menu-icon.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-icon.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
   .nav-links li { margin: 0; text-align: center; }
   .nav-links li a { 
     padding: 1.5rem; 
@@ -1200,7 +1213,7 @@ body.modal-open {
   
   /* Even smaller logo for very small screens */
   .logo img {
-    height: 24px;
+    height: 28px; /* 1.15x small mobile logo size */
   }
   
   /* Make hamburger menu more touch-friendly */

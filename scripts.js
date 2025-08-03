@@ -577,8 +577,21 @@ window.addEventListener('resize', () => {
 
 // Toggle mobile navigation menu
 function toggleMenu() {
+  console.log('toggleMenu called');
   const navLinks = document.querySelector('.nav-links');
-  navLinks.classList.toggle('active');
+  const menuIcon = document.querySelector('.menu-icon');
+  
+  if (navLinks) {
+    navLinks.classList.toggle('active');
+    console.log('Nav links active class:', navLinks.classList.contains('active'));
+    
+    // Also toggle the hamburger icon state
+    if (menuIcon) {
+      menuIcon.classList.toggle('active');
+    }
+  } else {
+    console.error('Nav links element not found');
+  }
 }
 
 // Helper function to show a message and remove it after 3 seconds
@@ -660,3 +673,6 @@ window.addEventListener('resize', function() {
 window.addEventListener('orientationchange', function() {
   setTimeout(fixMobileLayout, 100); // Small delay to allow orientation to complete
 });
+
+// Make sure toggleMenu is available globally
+window.toggleMenu = toggleMenu;
