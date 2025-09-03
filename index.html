@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
-  <title>LLMify - Custom LLM Integration Solutions</title>
-  <link rel="icon" href="images/only_logo.png" type="image/png" />
+  <title>LLMify - AI Agents as Digital Team Members</title>
+  <link rel="icon" href="assets/logo/only_logo.png" type="image/png" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -17,18 +17,19 @@
   <nav id="navbar">
     <div class="nav-container">
       <div class="logo">
-        <a href="#hero">
-          <img src="images/full_logo.png" alt="LLMify Logo" height="40">
+        <a href="index.html">
+          <img src="assets/logo/full_logo.png" alt="LLMify Logo" height="40">
         </a>
       </div>
       <div class="menu-icon" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </div>
       <ul class="nav-links">
-        <li><a href="#hero" onclick="toggleMenu()">Home</a></li>
-        <li><a href="#solutions" onclick="toggleMenu()">Solutions</a></li>
-        <li><a href="#whyus" onclick="toggleMenu()">Why Us</a></li>
-        <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+        <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+        <li><a href="security.html" onclick="toggleMenu()">Security</a></li>
+        <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
+        <li><a href="contact.html" onclick="toggleMenu()">Contact</a></li>
         <li><a href="#" onclick="showDemoModal(); toggleMenu();" class="demo-nav-btn">Book Demo</a></li>
       </ul>
     </div>
@@ -37,16 +38,26 @@
   <!-- Hero Section -->
   <section id="hero" class="hero">
     <div class="hero-background">
-      <canvas id="particle-canvas"></canvas>
+      <canvas id="hero-particle-canvas"></canvas>
     </div>
     
     <div class="container">
-      <h1 class="fade-in">Supercharge Your Workflows with Custom LLM Solutions</h1>
-      <p class="fade-in">Empowering your business with tailored AI integrations that boost efficiency and innovation.</p>
-      <div class="hero-buttons fade-in">
-        <button class="btn" onclick="showDemoModal();">
-          Book a Demo
-        </button>
+      <h1 class="fade-in">We transform AI into your custom digital team member</h1>
+      <p class="fade-in">Free your team to focus on creative, high-value work while AI handles the routine tasks.</p>
+      
+      <div class="hero-stats fade-in">
+        <div class="stat-item">
+          <div class="stat-number">AI</div>
+          <div class="stat-label">Powered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Swiss</div>
+          <div class="stat-label">Based</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Custom</div>
+          <div class="stat-label">Solutions</div>
+        </div>
       </div>
     </div>
   </section>
@@ -54,69 +65,75 @@
   <!-- Solutions Section -->
   <section id="solutions" class="solutions">
     <div class="container">
-      <h2 class="fade-in">Our Solutions</h2>
-      <div class="solution-cards">
-        <div class="card scale-in">
-          <h3>Data Privacy &amp; Hosting</h3>
-          <p>
-            Secure Swiss-hosted LLM solutions ensuring your data <strong>never leaves the country</strong>.
-            Experience enterprise-grade security and privacy compliance.
-          </p>
+      <h2 class="fade-in">Our Approach</h2>
+      <p class="solutions-intro fade-in">
+        We design AI Agents that integrate into your existing team structures. Each agent is specialized in repetitive, document-heavy processes – from checking compliance documents to creating standardized reports. Seamlessly embedded in your workflows, our AI Agents behave like colleagues: reliable, efficient, and always available.
+      </p>
+      <div class="video-container fade-in">
+        <video id="teaser-video" controls muted loop preload="metadata" poster="assets/video/video-poster.jpg">
+          <source src="assets/video/LLMify-Teaser.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="value-points">
+        <div class="value-point scale-in">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="value-svg">
+              <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+            </svg>
+          </div>
+          <div class="value-content">
+            <h3>Automate repetitive checklist & document tasks</h3>
+            <p>Eliminate time-consuming manual work with intelligent automation</p>
+          </div>
         </div>
-        <div class="card scale-in">
-          <h3>Consulting &amp; Optimization</h3>
-          <p>
-            Our experts help streamline your processes with AI.
-            Optimize operations and resource allocation for improved efficiency and profit margins.
-          </p>
+        <div class="value-point scale-in">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="value-svg">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div class="value-content">
+            <h3>Seamless integration into your existing team processes</h3>
+            <p>Works alongside your team without disrupting current workflows</p>
+          </div>
         </div>
-        <div class="card scale-in">
-          <h3>Custom Integration</h3>
-          <p>
-            Seamlessly integrate the power of LLMs into your workflows.
-            Get tailored AI solutions that automate tasks and elevate your business performance.
-          </p>
+        <div class="value-point scale-in">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="value-svg">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+            </svg>
+          </div>
+          <div class="value-content">
+            <h3>Consistent results and reduced error rates</h3>
+            <p>Maintain accuracy and regulatory compliance across all processes</p>
+          </div>
+        </div>
+        <div class="value-point scale-in">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="value-svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+          </div>
+          <div class="value-content">
+            <h3>Free up specialists to focus on high-value work</h3>
+            <p>Let your team concentrate on strategic tasks that drive growth</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
   
-  <!-- Why Choose Us Section -->
-  <section id="whyus" class="why-us">
+  <!-- Call to Action Section -->
+  <section id="cta" class="cta">
     <div class="container">
-      <h2 class="fade-in">Why Choose LLMify?</h2>
-      <ul>
-        <li class="slide-in-left">
-          <strong>Cutting-Edge Technology:</strong> We leverage the latest in AI to provide state-of-the-art solutions customized for your needs.
-        </li>
-        <li class="slide-in-right">
-          <strong>Scalable Options:</strong> Choose from a range of model sizes to fit your resource requirements and business growth.
-        </li>
-        <li class="slide-in-left">
-          <strong>Swiss-Grade Security:</strong> Your data is protected in Switzerland, under rigorous privacy laws and compliance standards.
-        </li>
-        <li class="slide-in-right">
-          <strong>Expert Guidance:</strong> Our team offers consulting services to help optimize your workflows and reduce operational costs.
-        </li>
-      </ul>
-    </div>
-  </section>
-  
-  <!-- Contact Section -->
-  <section id="contact" class="contact">
-    <div class="container">
-      <h2 class="fade-in">Contact Us</h2>
-      <p class="fade-in">Let's build the future together! Fill out the form below to start your AI journey with LLMify.</p>
-      <form id="contactForm" action="https://formspree.io/f/mjkybyeb" method="POST" class="scale-in">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required placeholder="Your Name">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="_replyto" required placeholder="Your Email">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required placeholder="How can we help you transform your business with AI?"></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-      <div id="form-message"></div>
+      <h2 class="fade-in">Ready to add a digital team member to your company?</h2>
+      <p class="fade-in">See how our AI Agents can seamlessly integrate into your workflows.</p>
+      <div class="cta-buttons fade-in">
+        <button class="btn btn-primary" onclick="showDemoModal();">
+          Book a Demo
+        </button>
+      </div>
     </div>
   </section>
   

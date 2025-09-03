@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+  <title>Data Security - LLMify</title>
+  <link rel="icon" href="assets/logo/only_logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress"></div>
+  
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/logo/full_logo.png" alt="LLMify Logo" height="40">
+        </a>
+      </div>
+      <div class="menu-icon" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+        <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+        <li><a href="security.html" onclick="toggleMenu()" class="active">Security</a></li>
+        <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
+        <li><a href="contact.html" onclick="toggleMenu()">Contact</a></li>
+        <li><a href="#" onclick="showDemoModal(); toggleMenu();" class="demo-nav-btn">Book Demo</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <!-- Security Hero Section -->
+  <section class="security-hero">
+    <div class="hero-background">
+      <canvas id="security-particle-canvas"></canvas>
+    </div>
+    
+    <div class="container">
+      <h1 class="fade-in">Your Data Security is Our Priority</h1>
+      <p class="fade-in">Enterprise-grade security with Swiss precision. Choose from cloud, on-premise, or hybrid deployment options that keep your data exactly where you want it.</p>
+      
+      <div class="hero-stats fade-in">
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Swiss Hosted</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Privacy</div>
+          <div class="stat-label">First</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Secure</div>
+          <div class="stat-label">By Design</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Data Security Section -->
+  <section id="security" class="security">
+    <div class="container">
+      <div class="security-features">
+        <div class="security-feature scale-in">
+          <div class="security-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="security-svg">
+              <path d="M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10A2,2 0 0,1 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/>
+            </svg>
+          </div>
+          <h3>Data Processing, Not Storage</h3>
+          <p>Your data is processed in the cloud for AI analysis but never permanently stored on our systems. All processing happens in secure, isolated environments.</p>
+        </div>
+        
+        <div class="security-feature scale-in">
+          <div class="security-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="security-svg">
+              <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.4 16,11.9 16,12.5V16.5C16,17.1 15.6,17.5 15,17.5H9C8.4,17.5 8,17.1 8,16.5V12.5C8,11.9 8.4,11.5 9,11.5V10C9,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.2,9.2 10.2,10V11.5H13.8V10C13.8,9.2 12.8,8.2 12,8.2Z"/>
+            </svg>
+          </div>
+          <h3>On-Premise Deployment</h3>
+          <p>For maximum control, deploy our AI agents directly within your infrastructure. Keep all data processing completely within your network perimeter.</p>
+        </div>
+        
+        <div class="security-feature scale-in">
+          <div class="security-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="security-svg">
+              <path d="M4,6H20V16H4M20,18A2,2 0 0,0 22,16V6C22,4.89 21.1,4 20,4H4C2.89,4 2,4.89 2,6V16A2,2 0 0,0 4,18H0V20H24V18H20Z"/>
+            </svg>
+          </div>
+          <h3>Hybrid Cloud Solutions</h3>
+          <p>Combine the flexibility of cloud processing with on-premise data residency. Secure connections ensure your sensitive data never leaves your control.</p>
+        </div>
+        
+        <div class="security-feature scale-in">
+          <div class="security-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="security-svg">
+              <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
+            </svg>
+          </div>
+          <h3>Private GPT Instances</h3>
+          <p>Access logically private GPT instances that ensure your data is isolated from other users. Enterprise-grade security with dedicated processing environments.</p>
+        </div>
+      </div>
+      
+      <!-- Additional Security Information -->
+      <div class="security-details fade-in">
+        <div class="security-detail">
+          <h3>Compliance Standards</h3>
+          <p>Our security measures meet and exceed industry standards including GDPR, SOC 2, and ISO 27001. We regularly undergo third-party security audits to ensure continuous compliance.</p>
+        </div>
+        
+        <div class="security-detail">
+          <h3>Encryption & Access Control</h3>
+          <p>All data in transit and at rest is encrypted using AES-256 encryption. Multi-factor authentication and role-based access controls ensure only authorized personnel can access systems.</p>
+        </div>
+        
+        <div class="security-detail">
+          <h3>Monitoring & Incident Response</h3>
+          <p>24/7 security monitoring with automated threat detection and response capabilities. Our incident response team is ready to address any security concerns immediately.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Call to Action Section -->
+  <section id="cta" class="cta">
+    <div class="container">
+      <h2 class="fade-in">Ready to discuss your security requirements?</h2>
+      <p class="fade-in">Let's talk about how we can meet your specific security and compliance needs.</p>
+      <div class="cta-buttons fade-in">
+        <button class="btn btn-primary" onclick="showDemoModal();">
+          Schedule Security Consultation
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 LLMify. All Rights Reserved.</p>
+      <div class="footer-links">
+        <a href="#" onclick="showPrivacyModal()">Privacy Policy</a>
+        <a href="#" onclick="showImpressumModal()">Impressum</a>
+        <a href="#" onclick="showCookieSettings()">Cookie Settings</a>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Cookie Banner -->
+  <div class="cookie-banner" id="cookie-banner">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        This website uses cookies to ensure you get the best experience on our website.
+        <a href="#" onclick="showPrivacyModal()">Learn more</a>
+      </div>
+      <div class="cookie-buttons">
+        <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
+        <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Privacy Policy Modal -->
+  <div class="modal" id="privacy-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hidePrivacyModal()">&times;</span>
+        <h2>Privacy Policy</h2>
+      </div>
+      <div class="modal-body">
+        <p><strong>Last updated: January 2025</strong></p>
+        
+        <h3>1. Information We Collect</h3>
+        <p>
+          We collect information you provide directly to us, such as when you contact us through our website form. This may include your name, email address, and message content.
+        </p>
+        
+        <h3>2. How We Use Your Information</h3>
+        <p>
+          We use the information we collect to:
+        </p>
+        <p>
+          • Respond to your inquiries and provide customer support<br>
+          • Improve our services and develop new features<br>
+          • Send you marketing communications (with your consent)<br>
+          • Comply with legal obligations
+        </p>
+        
+        <h3>3. Data Security</h3>
+        <p>
+          We implement appropriate technical and organizational security measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction. All data processing is performed in accordance with Swiss data protection laws.
+        </p>
+        
+        <h3>4. Your Rights</h3>
+        <p>
+          Under Swiss data protection law, you have the right to:
+        </p>
+        <p>
+          • Access your personal data<br>
+          • Correct inaccurate data<br>
+          • Delete your data<br>
+          • Object to data processing<br>
+          • Data portability
+        </p>
+        
+        <h3>5. Contact Us</h3>
+        <p>
+          If you have any questions about this Privacy Policy, please contact us through our contact form.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Impressum Modal -->
+  <div class="modal" id="impressum-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hideImpressumModal()">&times;</span>
+        <h2>Impressum</h2>
+      </div>
+      <div class="modal-body">
+        <h3>Company Information</h3>
+        <p>
+          <strong>LLMify AG</strong><br>
+          Alte Steinhauserstrasse 19<br>
+          6330 Cham<br>
+          Switzerland
+        </p>
+        <p>
+          <strong>Legal Form:</strong> Aktiengesellschaft (Corporation)<br>
+          <strong>Company Registration:</strong> CHE-479.856.227<br>
+          <strong>Registered Office:</strong> Cham, Switzerland
+        </p>
+        
+        <h3>Business Purpose</h3>
+        <p>
+          Software development and the sale of services, products, and consulting in the IT sector.
+        </p>
+        
+        <h3>Contact Information</h3>
+        <p>
+          <strong>Address:</strong> Alte Steinhauserstrasse 19, 6330 Cham, Switzerland<br>
+          <strong>Email:</strong> Contact us through our contact form<br>
+          <strong>Website:</strong> www.llmify.com
+        </p>
+        
+        <h3>Regulatory Information</h3>
+        <p>
+          <strong>Commercial Register:</strong> Registered in the Commercial Register of Zug<br>
+          <strong>Registration Date:</strong> March 19, 2025<br>
+          <strong>Official Publication:</strong> Swiss Official Gazette of Commerce (SHAB)
+        </p>
+        
+        <h3>Disclaimer</h3>
+        <p>
+          The information on this website is provided on an "as is" basis. To the fullest extent permitted by law, LLMify AG excludes all representations, warranties, undertakings, and guarantees relating to the content of this website.
+        </p>
+        
+        <h3>Copyright</h3>
+        <p>
+          All content on this website, including text, graphics, logos, and images, is the property of LLMify AG and is protected by copyright laws. Unauthorized use is prohibited.
+        </p>
+        
+        <h3>Applicable Law</h3>
+        <p>
+          This website and its content are governed by Swiss law. Any disputes arising from the use of this website shall be subject to the exclusive jurisdiction of the Swiss courts, with the place of jurisdiction being Zug, Switzerland.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Demo Booking Modal -->
+  <div class="modal" id="demo-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hideDemoModal()">&times;</span>
+        <h2>Book a Demo</h2>
+      </div>
+      <div class="modal-body">
+        <p>Let's explore how LLMify can transform your business with custom AI solutions. Fill out the form below and we'll schedule a personalized demo.</p>
+        
+        <form id="demoForm" action="https://formspree.io/f/mjkybyeb" method="POST" class="demo-form">
+          <input type="hidden" name="form_type" value="demo_booking">
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-name">Full Name *</label>
+              <input type="text" id="demo-name" name="name" required placeholder="Your Full Name">
+            </div>
+            <div class="form-group">
+              <label for="demo-email">Business Email *</label>
+              <input type="email" id="demo-email" name="email" required placeholder="your.email@company.com">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-company">Company Name *</label>
+              <input type="text" id="demo-company" name="company" required placeholder="Your Company">
+            </div>
+            <div class="form-group">
+              <label for="demo-role">Your Role</label>
+              <input type="text" id="demo-role" name="role" placeholder="e.g., CTO, Product Manager">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="demo-use-case">Primary Use Case *</label>
+            <select id="demo-use-case" name="use_case" required>
+              <option value="">Select your primary interest</option>
+              <option value="data-privacy">Data Privacy & Swiss Hosting</option>
+              <option value="process-optimization">Process Optimization</option>
+              <option value="custom-integration">Custom LLM Integration</option>
+              <option value="consulting">AI Strategy Consulting</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="demo-description">Tell us about your project</label>
+            <textarea id="demo-description" name="description" rows="4" placeholder="Briefly describe your AI integration needs or current challenges..."></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-timeline">Timeline</label>
+              <select id="demo-timeline" name="timeline">
+                <option value="">When do you plan to implement?</option>
+                <option value="immediate">Immediate (within 1 month)</option>
+                <option value="short">Short-term (1-3 months)</option>
+                <option value="medium">Medium-term (3-6 months)</option>
+                <option value="long">Long-term (6+ months)</option>
+                <option value="research">Research phase</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="demo-preferred-time">Preferred Demo Time</label>
+              <select id="demo-preferred-time" name="preferred_time">
+                <option value="">Select preferred time</option>
+                <option value="morning">Morning (9-12 CET)</option>
+                <option value="afternoon">Afternoon (12-17 CET)</option>
+                <option value="evening">Evening (17-19 CET)</option>
+                <option value="flexible">Flexible</option>
+              </select>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn demo-submit-btn">
+            Schedule Demo
+          </button>
+        </form>
+        <div id="demo-message"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="scripts.js"></script>
+</body>
+</html>

@@ -29,379 +29,48 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Lightning Animation System
-let lightningCanvas, lightningGL, lightningProgram;
-let lightningAnimationId;
+// Hero background animation variables removed - section is now static
 
-// Lightning configuration
-const lightningOptions = {
-  hue: 215, // Blue hue matching the new primary color #5c9fff
-  xOffset: 0,
-  speed: 0.4, // Reduced speed for smoother animation
-  intensity: 0.4, // Reduced intensity to be less distracting
-  size: 2.0
-};
-
-function initLightningSystem() {
-  const canvas = document.getElementById('particle-canvas');
-  if (!canvas) {
-    console.error('Canvas element not found');
-    return;
-  }
-
-  // Check if device is mobile/tablet
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-                   window.innerWidth <= 768 || 
-                   ('ontouchstart' in window);
-
-  if (isMobile) {
-    console.log('Mobile device detected, using simplified background effect');
-    createMobileBackground();
-    return;
-  }
-
-  console.log('Initializing lightning system...');
-
-  // Hide the original canvas and get its container
-  canvas.style.display = 'none';
-  const container = canvas.parentElement;
-
-  // Create new canvas for lightning effect
-  lightningCanvas = document.createElement('canvas');
-  lightningCanvas.style.cssText = `
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    opacity: 0.8;
-    mix-blend-mode: screen;
-    z-index: 1;
-  `;
+function cleanupHeroBackground() {
+  console.log('Cleaning up hero background animations...');
   
-  container.appendChild(lightningCanvas);
-
-  // Resize canvas function
-  const resizeCanvas = () => {
-    lightningCanvas.width = lightningCanvas.clientWidth;
-    lightningCanvas.height = lightningCanvas.clientHeight;
-  };
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  // Get WebGL context
-  lightningGL = lightningCanvas.getContext('webgl');
-  if (!lightningGL) {
-    console.error('WebGL not supported, falling back to particles');
-    createFallbackParticles();
-    return;
-  }
-
-  // Vertex shader
-  const vertexShaderSource = `
-    attribute vec2 aPosition;
-    void main() {
-      gl_Position = vec4(aPosition, 0.0, 1.0);
-    }
-  `;
-
-  // Fragment shader - modified for horizontal lightning
-  const fragmentShaderSource = `
-    precision mediump float;
-    uniform vec2 iResolution;
-    uniform float iTime;
-    uniform float uHue;
-    uniform float uXOffset;
-    uniform float uSpeed;
-    uniform float uIntensity;
-    uniform float uSize;
-    
-    #define OCTAVE_COUNT 8
-
-    vec3 hsv2rgb(vec3 c) {
-        vec3 rgb = clamp(abs(mod(c.x * 6.0 + vec3(0.0,4.0,2.0), 6.0) - 3.0) - 1.0, 0.0, 1.0);
-        return c.z * mix(vec3(1.0), rgb, c.y);
-    }
-
-    float hash11(float p) {
-        p = fract(p * .1031);
-        p *= p + 33.33;
-        p *= p + p;
-        return fract(p);
-    }
-
-    float hash12(vec2 p) {
-        vec3 p3 = fract(vec3(p.xyx) * .1031);
-        p3 += dot(p3, p3.yzx + 33.33);
-        return fract((p3.x + p3.y) * p3.z);
-    }
-
-    mat2 rotate2d(float theta) {
-        float c = cos(theta);
-        float s = sin(theta);
-        return mat2(c, -s, s, c);
-    }
-
-    float noise(vec2 p) {
-        vec2 ip = floor(p);
-        vec2 fp = fract(p);
-        float a = hash12(ip);
-        float b = hash12(ip + vec2(1.0, 0.0));
-        float c = hash12(ip + vec2(0.0, 1.0));
-        float d = hash12(ip + vec2(1.0, 1.0));
-        
-        vec2 t = smoothstep(0.0, 1.0, fp);
-        return mix(mix(a, b, t.x), mix(c, d, t.x), t.y);
-    }
-
-    float fbm(vec2 p) {
-        float value = 0.0;
-        float amplitude = 0.5;
-        for (int i = 0; i < OCTAVE_COUNT; ++i) {
-            value += amplitude * noise(p);
-            p *= rotate2d(0.45);
-            p *= 2.0;
-            amplitude *= 0.5;
-        }
-        return value;
-    }
-
-    void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
-        vec2 uv = fragCoord / iResolution.xy;
-        uv = 2.0 * uv - 1.0;
-        uv.x *= iResolution.x / iResolution.y;
-        
-        // Keep original orientation for horizontal lightning (left to right)
-        uv.x += uXOffset;
-        
-        // Apply fbm with vertical movement (bottom to top)
-        vec2 noiseOffset = vec2(0.0, -iTime * uSpeed * 0.6);
-        uv += 1.5 * fbm(uv * uSize + noiseOffset) - 0.75;
-        
-        // Use y distance for horizontal lightning bolts (left to right)
-        float dist = abs(uv.y);
-        vec3 baseColor = hsv2rgb(vec3(uHue / 360.0, 0.8, 0.9));
-        
-        // Add smoother randomness with less blinking
-        float time1 = iTime * uSpeed * 0.3 + 1.0;
-        float time2 = iTime * uSpeed * 0.4 + 10.0;
-        float time3 = iTime * uSpeed * 0.2 + 20.0;
-        
-        float intensity1 = 0.08 + 0.04 * sin(time1) * sin(time1 * 1.3);
-        float intensity2 = 0.06 + 0.02 * sin(time2) * sin(time2 * 0.7);
-        float intensity3 = 0.04 + 0.02 * sin(time3) * sin(time3 * 1.1);
-        
-        float lightning1 = pow(intensity1 / (dist + 0.01), 1.2);
-        float lightning2 = pow(intensity2 / (dist + 0.02), 1.0);
-        float lightning3 = pow(intensity3 / (dist + 0.03), 0.8);
-        
-        vec3 col = baseColor * (lightning1 + lightning2 * 0.7 + lightning3 * 0.5) * uIntensity;
-        
-        // Add some glow
-        col += baseColor * 0.3 * exp(-dist * 8.0) * uIntensity;
-        
-        // Subtle color variations for smooth effect
-        col.r *= 0.9 + 0.1 * sin(iTime * 0.5 + uv.y * 1.5);
-        col.b *= 1.0 + 0.1 * cos(iTime * 0.3 + uv.y * 1.0);
-        
-        col = pow(col, vec3(0.9));
-        fragColor = vec4(col, 1.0);
+  try {
+    // Remove any wireframe background elements
+    const hero = document.querySelector('.hero');
+    if (hero) {
+      const wireframeBackground = hero.querySelector('.wireframe-background');
+      if (wireframeBackground) {
+        wireframeBackground.remove();
+      }
+      
+      // Remove any other animation-related background elements
+      const mobileBackground = hero.querySelector('.simple-background, .mobile-background');
+      if (mobileBackground) {
+        mobileBackground.remove();
+      }
     }
     
-    void main() {
-        mainImage(gl_FragColor, gl_FragCoord.xy);
+    // Hide canvas if it exists
+    const canvas = document.getElementById('particle-canvas');
+    if (canvas) {
+      canvas.style.display = 'none';
     }
-  `;
-
-  // Compile shader function
-  const compileShader = (source, type) => {
-    const shader = lightningGL.createShader(type);
-    if (!shader) return null;
-    lightningGL.shaderSource(shader, source);
-    lightningGL.compileShader(shader);
-    if (!lightningGL.getShaderParameter(shader, lightningGL.COMPILE_STATUS)) {
-      console.error('Shader compile error:', lightningGL.getShaderInfoLog(shader));
-      lightningGL.deleteShader(shader);
-      return null;
-    }
-    return shader;
-  };
-
-  // Compile shaders
-  const vertexShader = compileShader(vertexShaderSource, lightningGL.VERTEX_SHADER);
-  const fragmentShader = compileShader(fragmentShaderSource, lightningGL.FRAGMENT_SHADER);
-  if (!vertexShader || !fragmentShader) {
-    console.error('Failed to compile shaders');
-    createFallbackParticles();
-    return;
+    
+    console.log('Hero background cleanup completed - section is now static');
+  } catch (error) {
+    console.error('Error cleaning up background:', error);
   }
-
-  // Create program
-  lightningProgram = lightningGL.createProgram();
-  if (!lightningProgram) return;
-  lightningGL.attachShader(lightningProgram, vertexShader);
-  lightningGL.attachShader(lightningProgram, fragmentShader);
-  lightningGL.linkProgram(lightningProgram);
-  if (!lightningGL.getProgramParameter(lightningProgram, lightningGL.LINK_STATUS)) {
-    console.error('Program linking error:', lightningGL.getProgramInfoLog(lightningProgram));
-    return;
-  }
-  lightningGL.useProgram(lightningProgram);
-
-  // Set up vertices
-  const vertices = new Float32Array([
-    -1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1,
-  ]);
-  const vertexBuffer = lightningGL.createBuffer();
-  lightningGL.bindBuffer(lightningGL.ARRAY_BUFFER, vertexBuffer);
-  lightningGL.bufferData(lightningGL.ARRAY_BUFFER, vertices, lightningGL.STATIC_DRAW);
-
-  const aPosition = lightningGL.getAttribLocation(lightningProgram, 'aPosition');
-  lightningGL.enableVertexAttribArray(aPosition);
-  lightningGL.vertexAttribPointer(aPosition, 2, lightningGL.FLOAT, false, 0, 0);
-
-  // Get uniform locations
-  const iResolutionLocation = lightningGL.getUniformLocation(lightningProgram, 'iResolution');
-  const iTimeLocation = lightningGL.getUniformLocation(lightningProgram, 'iTime');
-  const uHueLocation = lightningGL.getUniformLocation(lightningProgram, 'uHue');
-  const uXOffsetLocation = lightningGL.getUniformLocation(lightningProgram, 'uXOffset');
-  const uSpeedLocation = lightningGL.getUniformLocation(lightningProgram, 'uSpeed');
-  const uIntensityLocation = lightningGL.getUniformLocation(lightningProgram, 'uIntensity');
-  const uSizeLocation = lightningGL.getUniformLocation(lightningProgram, 'uSize');
-
-  const startTime = performance.now();
-  
-  // Render function
-  const render = () => {
-    resizeCanvas();
-    lightningGL.viewport(0, 0, lightningCanvas.width, lightningCanvas.height);
-    lightningGL.uniform2f(iResolutionLocation, lightningCanvas.width, lightningCanvas.height);
-    const currentTime = performance.now();
-    lightningGL.uniform1f(iTimeLocation, (currentTime - startTime) / 1000.0);
-    lightningGL.uniform1f(uHueLocation, lightningOptions.hue);
-    lightningGL.uniform1f(uXOffsetLocation, lightningOptions.xOffset);
-    lightningGL.uniform1f(uSpeedLocation, lightningOptions.speed);
-    lightningGL.uniform1f(uIntensityLocation, lightningOptions.intensity);
-    lightningGL.uniform1f(uSizeLocation, lightningOptions.size);
-    lightningGL.drawArrays(lightningGL.TRIANGLES, 0, 6);
-    lightningAnimationId = requestAnimationFrame(render);
-  };
-  
-  lightningAnimationId = requestAnimationFrame(render);
-  
-  console.log('Lightning system initialized successfully!');
 }
 
-// Mobile-optimized simple background
-function createMobileBackground() {
-  const canvas = document.getElementById('particle-canvas');
-  canvas.style.display = 'none';
-  
-  const heroBackground = document.querySelector('.hero-background');
-  if (!heroBackground) return;
-  
-  // Create simple CSS gradient animation for mobile
-  const mobileBackground = document.createElement('div');
-  mobileBackground.style.cssText = `
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, 
-      rgba(37, 99, 235, 0.1) 0%, 
-      rgba(14, 165, 233, 0.05) 25%, 
-      rgba(6, 182, 212, 0.08) 50%, 
-      rgba(59, 130, 246, 0.06) 75%, 
-      rgba(37, 99, 235, 0.1) 100%
-    );
-    background-size: 400% 400%;
-    animation: mobileGradient 15s ease infinite;
-    pointer-events: none;
-    opacity: 0.6;
-    z-index: 1;
-  `;
-  
-  heroBackground.appendChild(mobileBackground);
-  
-  // Add CSS animation if not already present
-  if (!document.getElementById('mobile-background-styles')) {
-    const style = document.createElement('style');
-    style.id = 'mobile-background-styles';
-    style.textContent = `
-      @keyframes mobileGradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-  
-  console.log('Mobile background created');
-}
+// Animation functions removed - hero background is now static
 
-// Fallback CSS-only particle effect if WebGL fails to load
-function createFallbackParticles() {
-  const canvas = document.getElementById('particle-canvas');
-  canvas.style.display = 'none';
-  
-  const heroBackground = document.querySelector('.hero-background');
-  if (!heroBackground) return;
-  
-  // Create CSS-based floating particles
-  for (let i = 0; i < 50; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'fallback-particle';
-    
-    const size = Math.random() * 4 + 2;
-    const x = Math.random() * 100;
-    const y = Math.random() * 100;
-    const duration = Math.random() * 20 + 10;
-    const delay = Math.random() * 5;
-    
-    particle.style.cssText = `
-      position: absolute;
-      width: ${size}px;
-      height: ${size}px;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.9), rgba(37, 99, 235, 0.7), rgba(14, 165, 233, 0.4));
-      border-radius: 50%;
-      left: ${x}%;
-      top: ${y}%;
-      opacity: 0.8;
-      animation: float ${duration}s ${delay}s infinite ease-in-out, pulse ${duration * 0.3}s ${delay}s infinite alternate ease-in-out;
-      pointer-events: none;
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.7), 0 0 35px rgba(37, 99, 235, 0.5);
-    `;
-    
-    heroBackground.appendChild(particle);
-  }
-  
-  // Add CSS animation if not already present
-  if (!document.getElementById('fallback-particle-styles')) {
-    const style = document.createElement('style');
-    style.id = 'fallback-particle-styles';
-    style.textContent = `
-      @keyframes float {
-        0%, 100% { transform: translateY(0px) translateX(0px) scale(1); }
-        25% { transform: translateY(-20px) translateX(15px) scale(1.1); }
-        50% { transform: translateY(-10px) translateX(-10px) scale(0.9); }
-        75% { transform: translateY(-30px) translateX(5px) scale(1.05); }
-      }
-      @keyframes pulse {
-        0% { opacity: 0.6; }
-        100% { opacity: 1.0; }
-      }
-      .fallback-particle {
-        z-index: 0;
-      }
-    `;
-    document.head.appendChild(style);
-  }
-  
-  console.log('Fallback particle effect created');
-}
+// Wireframe creation functions removed - hero background is now static
+
+// Animation update functions removed - hero background is now static
+
+// Background animation functions removed - hero section is now static
+
+// Background fallback functions removed - hero section is now static
 
 // Fix mobile layout immediately to prevent initial sizing issues
 function fixMobileLayout() {
@@ -442,8 +111,219 @@ function fixMobileLayout() {
   }
 }
 
+// Video autoplay functionality
+function initVideoAutoplay() {
+  const video = document.getElementById('teaser-video');
+  if (!video) {
+    console.log('Video element not found');
+    return;
+  }
+
+  // Create intersection observer for video autoplay
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Video is visible, try to play it
+        const playPromise = video.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            console.log('Video autoplay started successfully');
+          }).catch(error => {
+            console.log('Video autoplay failed (likely due to browser policy):', error);
+            // Show a play button or message to user if needed
+          });
+        }
+      } else {
+        // Video is not visible, pause it
+        if (!video.paused) {
+          video.pause();
+          console.log('Video paused (out of view)');
+        }
+      }
+    });
+  }, {
+    threshold: 0.5, // Video needs to be 50% visible
+    rootMargin: '0px'
+  });
+
+  // Start observing the video
+  videoObserver.observe(video);
+  
+  // Add event listeners for better user experience
+  video.addEventListener('play', () => {
+    console.log('Video started playing');
+  });
+  
+  video.addEventListener('pause', () => {
+    console.log('Video paused');
+  });
+  
+  // Handle errors
+  video.addEventListener('error', (e) => {
+    console.error('Video error:', e);
+  });
+}
+
 // Run layout fix immediately - before DOM ready
 fixMobileLayout();
+
+// Initialize particle animation for hero sections
+function initHeroParticles() {
+  const canvasIds = ['hero-particle-canvas', 'agents-particle-canvas', 'security-particle-canvas', 'team-particle-canvas', 'contact-particle-canvas'];
+  
+  canvasIds.forEach(canvasId => {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationId;
+    
+    // Enhanced settings for home page
+    const isHomePage = canvasId === 'hero-particle-canvas';
+    
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    
+    function createParticle() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        size: Math.random() * 2.5 + 2,
+        opacity: Math.random() * 0.6 + 0.5
+      };
+    }
+    
+    function initParticles() {
+      particles = [];
+      const baseCount = Math.floor(canvas.width * canvas.height / 12000);
+      const particleCount = Math.min(100, baseCount);
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(createParticle());
+      }
+    }
+    
+    function updateParticles() {
+      particles.forEach(particle => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+      });
+    }
+    
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Page-specific colors
+      let particleColor, connectionColor;
+      switch(canvasId) {
+        case 'hero-particle-canvas':
+          particleColor = 'rgba(168, 85, 247, '; // Purple for home
+          connectionColor = 'rgba(168, 85, 247, ';
+          break;
+        case 'agents-particle-canvas':
+          particleColor = 'rgba(59, 130, 246, '; // Blue for agents
+          connectionColor = 'rgba(59, 130, 246, ';
+          break;
+        case 'security-particle-canvas':
+          particleColor = 'rgba(6, 182, 212, '; // Cyan for security
+          connectionColor = 'rgba(6, 182, 212, ';
+          break;
+        case 'team-particle-canvas':
+          particleColor = 'rgba(37, 99, 235, '; // Deep blue for team
+          connectionColor = 'rgba(37, 99, 235, ';
+          break;
+        case 'contact-particle-canvas':
+          particleColor = 'rgba(14, 165, 233, '; // Sky blue for contact
+          connectionColor = 'rgba(14, 165, 233, ';
+          break;
+        default:
+          particleColor = 'rgba(92, 159, 255, ';
+          connectionColor = 'rgba(92, 159, 255, ';
+      }
+      
+      particles.forEach(particle => {
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = particleColor + particle.opacity + ')';
+        ctx.fill();
+        
+        // Add glow effect for all pages
+        ctx.shadowColor = particleColor + '0.4)';
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+      
+      // Draw connections with enhanced visibility
+      const connectionDistance = 150;
+      const connectionOpacity = 0.25;
+      
+      particles.forEach((particle, i) => {
+        particles.slice(i + 1).forEach(otherParticle => {
+          const distance = Math.sqrt(
+            Math.pow(particle.x - otherParticle.x, 2) + 
+            Math.pow(particle.y - otherParticle.y, 2)
+          );
+          
+          if (distance < connectionDistance) {
+            ctx.beginPath();
+            ctx.moveTo(particle.x, particle.y);
+            ctx.lineTo(otherParticle.x, otherParticle.y);
+            const lineOpacity = connectionOpacity * (1 - distance / connectionDistance);
+            ctx.strokeStyle = connectionColor + lineOpacity + ')';
+            ctx.lineWidth = 2;
+            
+            // Add glow effect to connections for all pages
+            ctx.shadowColor = connectionColor + (lineOpacity * 0.6) + ')';
+            ctx.shadowBlur = 4;
+            
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+          }
+        });
+      });
+    }
+    
+    function animate() {
+      updateParticles();
+      drawParticles();
+      animationId = requestAnimationFrame(animate);
+    }
+    
+    function startAnimation() {
+      resizeCanvas();
+      initParticles();
+      animate();
+    }
+    
+    function stopAnimation() {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    }
+    
+    // Initialize
+    startAnimation();
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      initParticles();
+    });
+    
+    // Clean up on page unload
+    window.addEventListener('beforeunload', stopAnimation);
+  });
+}
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -452,17 +332,21 @@ document.addEventListener('DOMContentLoaded', function() {
   // Apply mobile layout fixes again after DOM is ready
   fixMobileLayout();
   
-  // Initialize lightning system
-  try {
-    initLightningSystem();
-  } catch (error) {
-    console.error('Error initializing lightning system:', error);
-    createFallbackParticles();
-  }
+  // Clean up any existing hero background animations
+  cleanupHeroBackground();
+  
+  // Initialize hero particle animations for all pages
+  initHeroParticles();
+  
+  // Initialize timeline scroll activation
+  initTimelineScrollActivation();
   
   // Initialize animations
   const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
   animatedElements.forEach(el => observer.observe(el));
+  
+  // Initialize video autoplay
+  initVideoAutoplay();
   
   // Initialize form submission
   const form = document.getElementById("contactForm");
@@ -572,10 +456,11 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('scroll', () => {
   updateScrollProgress();
   updateNavbar();
+  // updateScrollBackground is called via requestAnimationFrame, no need to call here
 });
 
 window.addEventListener('resize', () => {
-  // Lightning canvas resizing is handled internally
+  // Scroll background automatically adapts to window size
 });
 
 // Toggle mobile navigation menu
@@ -682,6 +567,34 @@ window.addEventListener('resize', function() {
 window.addEventListener('orientationchange', function() {
   setTimeout(fixMobileLayout, 100); // Small delay to allow orientation to complete
 });
+
+// Timeline scroll activation
+function initTimelineScrollActivation() {
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  
+  if (timelineItems.length === 0) return;
+  
+  const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const timelineItem = entry.target;
+      
+      if (entry.isIntersecting) {
+        // Remove active class from all items
+        timelineItems.forEach(item => item.classList.remove('active'));
+        // Add active class to current item
+        timelineItem.classList.add('active');
+      }
+    });
+  }, {
+    threshold: 0.6, // Item needs to be 60% visible to be considered active
+    rootMargin: '-20% 0px -20% 0px' // Only activate when item is in the center area of viewport
+  });
+  
+  // Observe all timeline items
+  timelineItems.forEach(item => {
+    timelineObserver.observe(item);
+  });
+}
 
 // Make sure toggleMenu is available globally
 window.toggleMenu = toggleMenu;

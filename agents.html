@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+  <title>Our AI Agents - LLMify</title>
+  <link rel="icon" href="assets/logo/only_logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress"></div>
+  
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/logo/full_logo.png" alt="LLMify Logo" height="40">
+        </a>
+      </div>
+      <div class="menu-icon" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+        <li><a href="agents.html" onclick="toggleMenu()" class="active">Agents</a></li>
+        <li><a href="security.html" onclick="toggleMenu()">Security</a></li>
+        <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
+        <li><a href="contact.html" onclick="toggleMenu()">Contact</a></li>
+        <li><a href="#" onclick="showDemoModal(); toggleMenu();" class="demo-nav-btn">Book Demo</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <!-- Agents Hero Section -->
+  <section class="agents-hero">
+    <div class="hero-background">
+      <canvas id="agents-particle-canvas"></canvas>
+    </div>
+    
+    <div class="container">
+      <h1 class="fade-in">Meet Our Agents</h1>
+      <p class="fade-in">Every team deserves reliable colleagues. Ours just happen to be digital.</p>
+      
+      <div class="hero-stats fade-in">
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Availability</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Higher</div>
+          <div class="stat-label">Accuracy</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">10x</div>
+          <div class="stat-label">Faster Processing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Our Philosophy Section -->
+  <section id="philosophy" class="philosophy">
+    <div class="container">
+      <h2 class="fade-in">Our Approach</h2>
+      <p class="philosophy-intro fade-in">
+        We believe when it comes to building successful integrations of agents, there are a few key things to consider.
+      </p>
+      
+      <div class="philosophy-content">
+        <div class="philosophy-card scale-in">
+          <div class="philosophy-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="philosophy-svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+          </div>
+          <div class="philosophy-text">
+            <h3>Intuitive Integration</h3>
+            <p>We leverage LLM capabilities to make usage as intuitive as possible – it should feel like onboarding another employee. Our agents integrate seamlessly via standard business communication channels like email or other platforms, augmented with our Agent Cockpit that gives you a unique view of what the agent is working on, their current backlog, and well-thought-through visualizations of results. This allows co-workers to easily confirm results, building trust while making everything validatable and decisions traceable.</p>
+          </div>
+        </div>
+        
+        <div class="philosophy-card scale-in">
+          <div class="philosophy-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="philosophy-svg">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+            </svg>
+          </div>
+          <div class="philosophy-text">
+            <h3>Reliability Over Flash</h3>
+            <p>Rather than building agents that deliver astonishing results 50% of the time like many fully autonomous agent systems advertise, we believe there's great value in carefully designed systems. We leverage LLMs when confronted with uncertain structures, using them systematically to restructure data, then perform transformations deterministically. This approach improves overall system reliability and explainability – crucial properties for highly regulated tasks.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="philosophy-benefits fade-in">
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="benefit-svg">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div class="benefit-text">
+            <h4>Seamless Workflow Integration</h4>
+            <p>Integrates directly into your existing communication channels and workflows, eliminating the need to learn new tools or switch between applications</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="benefit-svg">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+            </svg>
+          </div>
+          <div class="benefit-text">
+            <h4>Consistent Reliability</h4>
+            <p>Delivers predictable, high-quality results through our hybrid approach of intelligent data restructuring and deterministic processing</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="benefit-svg">
+              <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+            </svg>
+          </div>
+          <div class="benefit-text">
+            <h4>Complete Traceability</h4>
+            <p>Every decision and action is logged and visualized, ensuring full audit trails and regulatory compliance for your processes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Meet Our Agents Section -->
+  <section id="agents" class="agents">
+    <div class="container">
+      <div class="agent-cards">
+        <div class="agent-card scale-in">
+          <div class="agent-avatar">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="agent-icon">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </div>
+          <h3>Max – The Onboarding Agent</h3>
+          <p>
+            Max takes care of client onboarding in regulated environments. From verifying KYC documents for individuals and legal entities to ensuring compliance checks, Max relieves your legal and compliance teams of repetitive work. He integrates smoothly into your workflow, just like another team member.
+          </p>
+          <button class="btn btn-agent" onclick="showDemoModal();">Book a demo with Max</button>
+        </div>
+        <div class="agent-card scale-in">
+          <div class="agent-avatar">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="agent-icon">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+            </svg>
+          </div>
+          <h3>Clara – The Auditing Agent</h3>
+          <p>
+            Clara automates balance sheet reviews and document preparation. Instead of manually transferring financial statements into spreadsheets and running validations, Clara takes over these steps with precision and speed. She supports your audit team in ensuring accuracy while saving valuable hours.
+          </p>
+          <button class="btn btn-agent" onclick="showDemoModal();">Book a demo with Clara</button>
+        </div>
+      </div>
+      
+
+    </div>
+  </section>
+  
+  <!-- Custom Agent Solutions Section -->
+  <section id="custom-solutions" class="custom-solutions">
+    <div class="container">
+      <h2 class="fade-in">Need Something Custom?</h2>
+      <p class="custom-solutions-intro fade-in">
+        Whether it's filling out standard contracts, approving credit applications, processing invoices, or any other document-heavy workflow – we're here to help. Every business has unique repetitive tasks, and we love creating custom AI agents tailored to your specific needs.
+      </p>
+      
+      <div class="custom-agent-features">
+        <div class="custom-feature scale-in">
+          <div class="custom-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="custom-svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+            </svg>
+          </div>
+          <div class="custom-feature-content">
+            <h4>Collaborative Approach</h4>
+            <p>We work closely with your team to understand your unique processes and requirements</p>
+          </div>
+        </div>
+        
+        <div class="custom-feature scale-in">
+          <div class="custom-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="custom-svg">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div class="custom-feature-content">
+            <h4>Tailored to Your Workflow</h4>
+            <p>Every agent is custom-built to integrate seamlessly with your existing systems and processes</p>
+          </div>
+        </div>
+        
+        <div class="custom-feature scale-in">
+          <div class="custom-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="custom-svg">
+              <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
+            </svg>
+          </div>
+          <div class="custom-feature-content">
+            <h4>Fast Implementation</h4>
+            <p>Rapid development and deployment to get your AI agent working for you as quickly as possible</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="custom-solutions-cta fade-in">
+        <button class="btn btn-secondary" onclick="showDemoModal();">
+          Let's build your custom agent
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- AI as Team Member Pricing Section -->
+  <section id="pricing-model" class="pricing-model">
+    <div class="container">
+      <h2 class="fade-in">AI as a Team Member</h2>
+      <p class="pricing-intro fade-in">
+        We help you develop customized AI agent solutions that deliver real value to your business. Our confidence in our approach is reflected in our unique pricing model – designed to minimize your risk while maximizing your success.
+      </p>
+      
+      <div class="pricing-process">
+        <div class="process-title fade-in">
+          <h3>Our 3-Step Process</h3>
+          <p>From initial setup to full deployment - here's how we bring your AI team member to life</p>
+        </div>
+        
+        <div class="pricing-steps">
+          <!-- Step 1 -->
+          <div class="pricing-step step-1 scale-in">
+            <div class="step-header">
+              <div class="step-number">1</div>
+              <h4>Preparation</h4>
+            </div>
+            <div class="step-content">
+              <ul class="step-features">
+                <li>Requirements Analysis</li>
+                <li>Process Mapping</li>
+                <li>Initial Development</li>
+              </ul>
+              <div class="step-duration">1-3 Months</div>
+              <div class="step-price">Setup Fee</div>
+            </div>
+          </div>
+          
+          <!-- Arrow 1 -->
+          <div class="step-arrow">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+            </svg>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="pricing-step step-2 scale-in">
+            <div class="step-header">
+              <div class="step-number">2</div>
+              <h4>Internship Phase</h4>
+            </div>
+            <div class="step-content">
+              <ul class="step-features">
+                <li>Live Deployment</li>
+                <li>Performance Monitoring</li>
+                <li>Continuous Feedback</li>
+              </ul>
+              <div class="step-duration">1-3 Months</div>
+              <div class="step-price">Reduced Rate</div>
+            </div>
+          </div>
+          
+          <!-- Arrow 2 -->
+          <div class="step-arrow">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+            </svg>
+          </div>
+          
+          <!-- Step 3 -->
+          <div class="pricing-step step-3 scale-in">
+            <div class="step-header">
+              <div class="step-number">3</div>
+              <h4>Full-Time Position</h4>
+            </div>
+            <div class="step-content">
+              <ul class="step-features">
+                <li>Fully Trained Agent</li>
+                <li>24/7 Availability</li>
+                <li>Ongoing Support</li>
+              </ul>
+              <div class="step-duration">Unlimited</div>
+              <div class="step-price">License Model</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pricing-explanation">
+        <div class="pricing-point scale-in">
+          <div class="pricing-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+          </div>
+          <div class="pricing-text">
+            <h6>Minimal Setup Investment</h6>
+            <p>We charge a modest setup fee for your first agent – think of it as an engagement rather than a barrier. This covers the initial development and ensures we're aligned on your needs.</p>
+          </div>
+        </div>
+        
+        <div class="pricing-point scale-in">
+          <div class="pricing-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div class="pricing-text">
+            <h6>Risk-Free Internship Phase</h6>
+            <p>Your agent starts working immediately at a reduced rate. Like a human intern, it may need guidance initially, but you're already seeing value while we perfect its performance together.</p>
+          </div>
+        </div>
+        
+        <div class="pricing-point scale-in">
+          <div class="pricing-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
+            </svg>
+          </div>
+          <div class="pricing-text">
+            <h6>Full-Time Licensing Only When Ready</h6>
+            <p>Once your agent performs exactly as needed, we transition to a standard licensing model. You only commit to full development costs after experiencing the value firsthand.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pricing-cta fade-in">
+        <p><strong>This approach lets you test your fully customized agent without the upfront commitment.</strong> If you're not completely satisfied with the results, you've minimized your investment while gaining valuable insights.</p>
+        <button class="btn btn-primary" onclick="showDemoModal();">
+          Discuss Your Custom Agent
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Call to Action Section -->
+  <section id="cta" class="cta">
+    <div class="container">
+      <h2 class="fade-in">Ready to add a digital team member to your company?</h2>
+      <p class="fade-in">See how our AI Agents can seamlessly integrate into your workflows.</p>
+      <div class="cta-buttons fade-in">
+        <button class="btn btn-primary" onclick="showDemoModal();">
+          Book a Demo
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 LLMify. All Rights Reserved.</p>
+      <div class="footer-links">
+        <a href="#" onclick="showPrivacyModal()">Privacy Policy</a>
+        <a href="#" onclick="showImpressumModal()">Impressum</a>
+        <a href="#" onclick="showCookieSettings()">Cookie Settings</a>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Cookie Banner -->
+  <div class="cookie-banner" id="cookie-banner">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        This website uses cookies to ensure you get the best experience on our website.
+        <a href="#" onclick="showPrivacyModal()">Learn more</a>
+      </div>
+      <div class="cookie-buttons">
+        <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
+        <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Privacy Policy Modal -->
+  <div class="modal" id="privacy-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hidePrivacyModal()">&times;</span>
+        <h2>Privacy Policy</h2>
+      </div>
+      <div class="modal-body">
+        <p><strong>Last updated: January 2025</strong></p>
+        
+        <h3>1. Information We Collect</h3>
+        <p>
+          We collect information you provide directly to us, such as when you contact us through our website form. This may include your name, email address, and message content.
+        </p>
+        
+        <h3>2. How We Use Your Information</h3>
+        <p>
+          We use the information we collect to:
+        </p>
+        <p>
+          • Respond to your inquiries and provide customer support<br>
+          • Improve our services and develop new features<br>
+          • Send you marketing communications (with your consent)<br>
+          • Comply with legal obligations
+        </p>
+        
+        <h3>3. Data Security</h3>
+        <p>
+          We implement appropriate technical and organizational security measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction. All data processing is performed in accordance with Swiss data protection laws.
+        </p>
+        
+        <h3>4. Your Rights</h3>
+        <p>
+          Under Swiss data protection law, you have the right to:
+        </p>
+        <p>
+          • Access your personal data<br>
+          • Correct inaccurate data<br>
+          • Delete your data<br>
+          • Object to data processing<br>
+          • Data portability
+        </p>
+        
+        <h3>5. Contact Us</h3>
+        <p>
+          If you have any questions about this Privacy Policy, please contact us through our contact form.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Impressum Modal -->
+  <div class="modal" id="impressum-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hideImpressumModal()">&times;</span>
+        <h2>Impressum</h2>
+      </div>
+      <div class="modal-body">
+        <h3>Company Information</h3>
+        <p>
+          <strong>LLMify AG</strong><br>
+          Alte Steinhauserstrasse 19<br>
+          6330 Cham<br>
+          Switzerland
+        </p>
+        <p>
+          <strong>Legal Form:</strong> Aktiengesellschaft (Corporation)<br>
+          <strong>Company Registration:</strong> CHE-479.856.227<br>
+          <strong>Registered Office:</strong> Cham, Switzerland
+        </p>
+        
+        <h3>Business Purpose</h3>
+        <p>
+          Software development and the sale of services, products, and consulting in the IT sector.
+        </p>
+        
+        <h3>Contact Information</h3>
+        <p>
+          <strong>Address:</strong> Alte Steinhauserstrasse 19, 6330 Cham, Switzerland<br>
+          <strong>Email:</strong> Contact us through our contact form<br>
+          <strong>Website:</strong> www.llmify.com
+        </p>
+        
+        <h3>Regulatory Information</h3>
+        <p>
+          <strong>Commercial Register:</strong> Registered in the Commercial Register of Zug<br>
+          <strong>Registration Date:</strong> March 19, 2025<br>
+          <strong>Official Publication:</strong> Swiss Official Gazette of Commerce (SHAB)
+        </p>
+        
+        <h3>Disclaimer</h3>
+        <p>
+          The information on this website is provided on an "as is" basis. To the fullest extent permitted by law, LLMify AG excludes all representations, warranties, undertakings, and guarantees relating to the content of this website.
+        </p>
+        
+        <h3>Copyright</h3>
+        <p>
+          All content on this website, including text, graphics, logos, and images, is the property of LLMify AG and is protected by copyright laws. Unauthorized use is prohibited.
+        </p>
+        
+        <h3>Applicable Law</h3>
+        <p>
+          This website and its content are governed by Swiss law. Any disputes arising from the use of this website shall be subject to the exclusive jurisdiction of the Swiss courts, with the place of jurisdiction being Zug, Switzerland.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Demo Booking Modal -->
+  <div class="modal" id="demo-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hideDemoModal()">&times;</span>
+        <h2>Book a Demo</h2>
+      </div>
+      <div class="modal-body">
+        <p>Let's explore how LLMify can transform your business with custom AI solutions. Fill out the form below and we'll schedule a personalized demo.</p>
+        
+        <form id="demoForm" action="https://formspree.io/f/mjkybyeb" method="POST" class="demo-form">
+          <input type="hidden" name="form_type" value="demo_booking">
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-name">Full Name *</label>
+              <input type="text" id="demo-name" name="name" required placeholder="Your Full Name">
+            </div>
+            <div class="form-group">
+              <label for="demo-email">Business Email *</label>
+              <input type="email" id="demo-email" name="email" required placeholder="your.email@company.com">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-company">Company Name *</label>
+              <input type="text" id="demo-company" name="company" required placeholder="Your Company">
+            </div>
+            <div class="form-group">
+              <label for="demo-role">Your Role</label>
+              <input type="text" id="demo-role" name="role" placeholder="e.g., CTO, Product Manager">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="demo-use-case">Primary Use Case *</label>
+            <select id="demo-use-case" name="use_case" required>
+              <option value="">Select your primary interest</option>
+              <option value="data-privacy">Data Privacy & Swiss Hosting</option>
+              <option value="process-optimization">Process Optimization</option>
+              <option value="custom-integration">Custom LLM Integration</option>
+              <option value="consulting">AI Strategy Consulting</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="demo-description">Tell us about your project</label>
+            <textarea id="demo-description" name="description" rows="4" placeholder="Briefly describe your AI integration needs or current challenges..."></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-timeline">Timeline</label>
+              <select id="demo-timeline" name="timeline">
+                <option value="">When do you plan to implement?</option>
+                <option value="immediate">Immediate (within 1 month)</option>
+                <option value="short">Short-term (1-3 months)</option>
+                <option value="medium">Medium-term (3-6 months)</option>
+                <option value="long">Long-term (6+ months)</option>
+                <option value="research">Research phase</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="demo-preferred-time">Preferred Demo Time</label>
+              <select id="demo-preferred-time" name="preferred_time">
+                <option value="">Select preferred time</option>
+                <option value="morning">Morning (9-12 CET)</option>
+                <option value="afternoon">Afternoon (12-17 CET)</option>
+                <option value="evening">Evening (17-19 CET)</option>
+                <option value="flexible">Flexible</option>
+              </select>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn demo-submit-btn">
+            Schedule Demo
+          </button>
+        </form>
+        <div id="demo-message"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="scripts.js"></script>
+</body>
+</html>

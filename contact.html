@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+  <title>Contact Us - LLMify</title>
+  <link rel="icon" href="assets/logo/only_logo.png" type="image/png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress"></div>
+  
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/logo/full_logo.png" alt="LLMify Logo" height="40">
+        </a>
+      </div>
+      <div class="menu-icon" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+        <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+        <li><a href="security.html" onclick="toggleMenu()">Security</a></li>
+        <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
+        <li><a href="contact.html" onclick="toggleMenu()" class="active">Contact</a></li>
+        <li><a href="#" onclick="showDemoModal(); toggleMenu();" class="demo-nav-btn">Book Demo</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <!-- Contact Hero Section -->
+  <section class="contact-hero">
+    <div class="hero-background">
+      <canvas id="contact-particle-canvas"></canvas>
+    </div>
+    
+    <div class="container">
+      <h1 class="fade-in">Contact Us</h1>
+      <p class="fade-in">Have questions or want to learn more? Get in touch with our team.</p>
+      
+      <div class="hero-stats fade-in">
+        <div class="stat-item">
+          <div class="stat-number">&lt;24h</div>
+          <div class="stat-label">Response Time</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">CET</div>
+          <div class="stat-label">Business Hours</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">🇨🇭</div>
+          <div class="stat-label">Swiss Based</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Personal Contact Section -->
+  <section id="personal-contact" class="personal-contact">
+    <div class="container">
+      <div class="personal-contact-card fade-in">
+        <div class="contact-photo">
+          <img src="assets/team/axel_pohl.png" alt="Axel Pohl, Founder" />
+        </div>
+        <div class="contact-details">
+          <h2>Get in Touch Directly</h2>
+          <h3>Axel Pohl</h3>
+          <p class="contact-role">Founder</p>
+          <p class="contact-message">
+            Have questions about our AI agents or want to discuss how we can help your business? I'd love to hear from you personally. Feel free to reach out directly for a quick chat or to schedule a detailed consultation.
+          </p>
+          <div class="direct-contact">
+            <a href="mailto:axel@llmify.ch" class="email-link">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="email-icon">
+                <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+              </svg>
+              axel@llmify.ch
+            </a>
+            <a href="https://www.linkedin.com/in/axpohl/" target="_blank" rel="noopener noreferrer" class="linkedin-link">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="linkedin-icon">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              Connect on LinkedIn
+            </a>
+          </div>
+          <div class="contact-cta">
+            <button class="btn btn-secondary schedule-btn" onclick="showDemoModal();">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="schedule-icon">
+                <path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"/>
+              </svg>
+              Schedule a Call with Axel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Form Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="fade-in">Or Send Us a Message</h2>
+      <p class="fade-in">Prefer to use a contact form? Fill out the details below and we'll get back to you.</p>
+      
+      <form id="contactForm" action="https://formspree.io/f/mjkybyeb" method="POST" class="scale-in">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required placeholder="Your Name">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="_replyto" required placeholder="Your Email">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required placeholder="How can we help you with AI integration?"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <div id="form-message"></div>
+    </div>
+  </section>
+  
+  <!-- Contact Information Section -->
+  <section id="contact-info" class="contact-information">
+    <div class="container">
+      <h2 class="fade-in">Visit Us</h2>
+      <p class="contact-info-intro fade-in">
+        Ready to meet in person or need to know when to reach us? Here's everything you need to know about our location and availability.
+      </p>
+      
+      <div class="contact-info-grid fade-in">
+        <div class="info-card">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="info-svg">
+              <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+            </svg>
+          </div>
+          <h3>Business Hours</h3>
+          <div class="info-details">
+            <p><strong>Monday - Friday:</strong><br>9:00 AM - 6:00 PM CET</p>
+            <p><strong>Saturday - Sunday:</strong><br>Closed</p>
+          </div>
+        </div>
+        
+        <div class="info-card">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="info-svg">
+              <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/>
+            </svg>
+          </div>
+          <h3>Office Location</h3>
+          <div class="info-details">
+            <p><strong>LLMify AG</strong></p>
+            <p>Alte Steinhauserstrasse 19<br>
+            6330 Cham<br>
+            Switzerland</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 LLMify. All Rights Reserved.</p>
+      <div class="footer-links">
+        <a href="#" onclick="showPrivacyModal()">Privacy Policy</a>
+        <a href="#" onclick="showImpressumModal()">Impressum</a>
+        <a href="#" onclick="showCookieSettings()">Cookie Settings</a>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Cookie Banner -->
+  <div class="cookie-banner" id="cookie-banner">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        This website uses cookies to ensure you get the best experience on our website.
+        <a href="#" onclick="showPrivacyModal()">Learn more</a>
+      </div>
+      <div class="cookie-buttons">
+        <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
+        <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Privacy Policy Modal -->
+  <div class="modal" id="privacy-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hidePrivacyModal()">&times;</span>
+        <h2>Privacy Policy</h2>
+      </div>
+      <div class="modal-body">
+        <p><strong>Last updated: January 2025</strong></p>
+        
+        <h3>1. Information We Collect</h3>
+        <p>
+          We collect information you provide directly to us, such as when you contact us through our website form. This may include your name, email address, and message content.
+        </p>
+        
+        <h3>2. How We Use Your Information</h3>
+        <p>
+          We use the information we collect to:
+        </p>
+        <p>
+          • Respond to your inquiries and provide customer support<br>
+          • Improve our services and develop new features<br>
+          • Send you marketing communications (with your consent)<br>
+          • Comply with legal obligations
+        </p>
+        
+        <h3>3. Data Security</h3>
+        <p>
+          We implement appropriate technical and organizational security measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction. All data processing is performed in accordance with Swiss data protection laws.
+        </p>
+        
+        <h3>4. Your Rights</h3>
+        <p>
+          Under Swiss data protection law, you have the right to:
+        </p>
+        <p>
+          • Access your personal data<br>
+          • Correct inaccurate data<br>
+          • Delete your data<br>
+          • Object to data processing<br>
+          • Data portability
+        </p>
+        
+        <h3>5. Contact Us</h3>
+        <p>
+          If you have any questions about this Privacy Policy, please contact us through our contact form.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Impressum Modal -->
+  <div class="modal" id="impressum-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hideImpressumModal()">&times;</span>
+        <h2>Impressum</h2>
+      </div>
+      <div class="modal-body">
+        <h3>Company Information</h3>
+        <p>
+          <strong>LLMify AG</strong><br>
+          Alte Steinhauserstrasse 19<br>
+          6330 Cham<br>
+          Switzerland
+        </p>
+        <p>
+          <strong>Legal Form:</strong> Aktiengesellschaft (Corporation)<br>
+          <strong>Company Registration:</strong> CHE-479.856.227<br>
+          <strong>Registered Office:</strong> Cham, Switzerland
+        </p>
+        
+        <h3>Business Purpose</h3>
+        <p>
+          Software development and the sale of services, products, and consulting in the IT sector.
+        </p>
+        
+        <h3>Contact Information</h3>
+        <p>
+          <strong>Address:</strong> Alte Steinhauserstrasse 19, 6330 Cham, Switzerland<br>
+          <strong>Email:</strong> Contact us through our contact form<br>
+          <strong>Website:</strong> www.llmify.com
+        </p>
+        
+        <h3>Regulatory Information</h3>
+        <p>
+          <strong>Commercial Register:</strong> Registered in the Commercial Register of Zug<br>
+          <strong>Registration Date:</strong> March 19, 2025<br>
+          <strong>Official Publication:</strong> Swiss Official Gazette of Commerce (SHAB)
+        </p>
+        
+        <h3>Disclaimer</h3>
+        <p>
+          The information on this website is provided on an "as is" basis. To the fullest extent permitted by law, LLMify AG excludes all representations, warranties, undertakings, and guarantees relating to the content of this website.
+        </p>
+        
+        <h3>Copyright</h3>
+        <p>
+          All content on this website, including text, graphics, logos, and images, is the property of LLMify AG and is protected by copyright laws. Unauthorized use is prohibited.
+        </p>
+        
+        <h3>Applicable Law</h3>
+        <p>
+          This website and its content are governed by Swiss law. Any disputes arising from the use of this website shall be subject to the exclusive jurisdiction of the Swiss courts, with the place of jurisdiction being Zug, Switzerland.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Demo Booking Modal -->
+  <div class="modal" id="demo-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="hideDemoModal()">&times;</span>
+        <h2>Book a Demo</h2>
+      </div>
+      <div class="modal-body">
+        <p>Let's explore how LLMify can transform your business with custom AI solutions. Fill out the form below and we'll schedule a personalized demo.</p>
+        
+        <form id="demoForm" action="https://formspree.io/f/mjkybyeb" method="POST" class="demo-form">
+          <input type="hidden" name="form_type" value="demo_booking">
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-name">Full Name *</label>
+              <input type="text" id="demo-name" name="name" required placeholder="Your Full Name">
+            </div>
+            <div class="form-group">
+              <label for="demo-email">Business Email *</label>
+              <input type="email" id="demo-email" name="email" required placeholder="your.email@company.com">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-company">Company Name *</label>
+              <input type="text" id="demo-company" name="company" required placeholder="Your Company">
+            </div>
+            <div class="form-group">
+              <label for="demo-role">Your Role</label>
+              <input type="text" id="demo-role" name="role" placeholder="e.g., CTO, Product Manager">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="demo-use-case">Primary Use Case *</label>
+            <select id="demo-use-case" name="use_case" required>
+              <option value="">Select your primary interest</option>
+              <option value="data-privacy">Data Privacy & Swiss Hosting</option>
+              <option value="process-optimization">Process Optimization</option>
+              <option value="custom-integration">Custom LLM Integration</option>
+              <option value="consulting">AI Strategy Consulting</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="demo-description">Tell us about your project</label>
+            <textarea id="demo-description" name="description" rows="4" placeholder="Briefly describe your AI integration needs or current challenges..."></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="demo-timeline">Timeline</label>
+              <select id="demo-timeline" name="timeline">
+                <option value="">When do you plan to implement?</option>
+                <option value="immediate">Immediate (within 1 month)</option>
+                <option value="short">Short-term (1-3 months)</option>
+                <option value="medium">Medium-term (3-6 months)</option>
+                <option value="long">Long-term (6+ months)</option>
+                <option value="research">Research phase</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="demo-preferred-time">Preferred Demo Time</label>
+              <select id="demo-preferred-time" name="preferred_time">
+                <option value="">Select preferred time</option>
+                <option value="morning">Morning (9-12 CET)</option>
+                <option value="afternoon">Afternoon (12-17 CET)</option>
+                <option value="evening">Evening (17-19 CET)</option>
+                <option value="flexible">Flexible</option>
+              </select>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn demo-submit-btn">
+            Schedule Demo
+          </button>
+        </form>
+        <div id="demo-message"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="scripts.js"></script>
+</body>
+</html>
