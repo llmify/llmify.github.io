@@ -7,7 +7,6 @@
   <link rel="icon" href="assets/logo/only_logo.png" type="image/png" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
   <!-- Scroll Progress Indicator -->
@@ -27,10 +26,10 @@
       <ul class="nav-links">
         <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
         <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+        <li><a href="workshop.html" onclick="toggleMenu()">Workshop</a></li>
         <li><a href="security.html" onclick="toggleMenu()">Security</a></li>
         <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
-        <li><a href="contact.html" onclick="toggleMenu()" class="active">Contact</a></li>
-        <li><a href="#" onclick="showDemoModal(); toggleMenu();" class="demo-nav-btn">Book Demo</a></li>
+        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn active">Contact Us</a></li>
       </ul>
     </div>
   </nav>
@@ -44,21 +43,12 @@
     <div class="container">
       <h1 class="fade-in">Contact Us</h1>
       <p class="fade-in">Have questions or want to learn more? Get in touch with our team.</p>
-      
-      <div class="hero-stats fade-in">
-        <div class="stat-item">
-          <div class="stat-number">&lt;24h</div>
-          <div class="stat-label">Response Time</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">CET</div>
-          <div class="stat-label">Business Hours</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">🇨🇭</div>
-          <div class="stat-label">Swiss Based</div>
-        </div>
-      </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" onclick="document.getElementById('personal-contact').scrollIntoView({behavior: 'smooth'});">
+      <div class="scroll-text">Scroll</div>
+      <div class="scroll-arrow"></div>
     </div>
   </section>
   
@@ -106,7 +96,7 @@
   <!-- Contact Form Section -->
   <section id="contact" class="contact">
     <div class="container">
-      <h2 class="fade-in">Or Send Us a Message</h2>
+      <h2 class="fade-in">Send Us a Message</h2>
       <p class="fade-in">Prefer to use a contact form? Fill out the details below and we'll get back to you.</p>
       
       <form id="contactForm" action="https://formspree.io/f/mjkybyeb" method="POST" class="scale-in">
@@ -122,46 +112,7 @@
     </div>
   </section>
   
-  <!-- Contact Information Section -->
-  <section id="contact-info" class="contact-information">
-    <div class="container">
-      <h2 class="fade-in">Visit Us</h2>
-      <p class="contact-info-intro fade-in">
-        Ready to meet in person or need to know when to reach us? Here's everything you need to know about our location and availability.
-      </p>
-      
-      <div class="contact-info-grid fade-in">
-        <div class="info-card">
-          <div class="info-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="info-svg">
-              <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
-            </svg>
-          </div>
-          <h3>Business Hours</h3>
-          <div class="info-details">
-            <p><strong>Monday - Friday:</strong><br>9:00 AM - 6:00 PM CET</p>
-            <p><strong>Saturday - Sunday:</strong><br>Closed</p>
-          </div>
-        </div>
-        
-        <div class="info-card">
-          <div class="info-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="info-svg">
-              <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/>
-            </svg>
-          </div>
-          <h3>Office Location</h3>
-          <div class="info-details">
-            <p><strong>LLMify AG</strong></p>
-            <p>Alte Steinhauserstrasse 19<br>
-            6330 Cham<br>
-            Switzerland</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
+
   <!-- Footer -->
   <footer>
     <div class="container">
@@ -269,7 +220,7 @@
         <p>
           <strong>Address:</strong> Alte Steinhauserstrasse 19, 6330 Cham, Switzerland<br>
           <strong>Email:</strong> Contact us through our contact form<br>
-          <strong>Website:</strong> www.llmify.com
+          <strong>Website:</strong> www.llmify.ch
         </p>
         
         <h3>Regulatory Information</h3>

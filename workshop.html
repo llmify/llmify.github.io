@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
-  <title>Our AI Agents - LLMify</title>
+  <title>AI Workshop - LLMify</title>
   <link rel="icon" href="assets/logo/only_logo.png" type="image/png" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,8 +25,8 @@
       </div>
       <ul class="nav-links">
         <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
-        <li><a href="agents.html" onclick="toggleMenu()" class="active">Agents</a></li>
-        <li><a href="workshop.html" onclick="toggleMenu()">Workshop</a></li>
+        <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+        <li><a href="workshop.html" onclick="toggleMenu()" class="active">Workshop</a></li>
         <li><a href="security.html" onclick="toggleMenu()">Security</a></li>
         <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
         <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn">Contact Us</a></li>
@@ -34,182 +34,211 @@
     </div>
   </nav>
   
-  <!-- Agents Hero Section -->
+  <!-- Workshop Hero Section -->
   <section class="agents-hero">
     <div class="hero-background">
       <canvas id="agents-particle-canvas"></canvas>
     </div>
     
     <div class="container">
-      <h1 class="fade-in">We transform AI into your custom digital team member</h1>
-      <p class="fade-in">Free your team to focus on creative, high-value work while AI handles the routine tasks.</p>
+      <h1 class="fade-in">AI Education Workshop</h1>
+      <p class="fade-in">Transform your team's relationship with AI – from uncertainty to empowerment.</p>
       
       <div class="hero-stats fade-in">
         <div class="stat-item">
-          <div class="stat-number">24/7</div>
-          <div class="stat-label">Availability</div>
+          <div class="stat-number">People</div>
+          <div class="stat-label">First</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">10x</div>
-          <div class="stat-label">Faster Processing</div>
+          <div class="stat-number">No</div>
+          <div class="stat-label">Fear</div>
         </div>
       </div>
     </div>
     
     <!-- Scroll Indicator -->
-    <div class="scroll-indicator" onclick="document.getElementById('philosophy').scrollIntoView({behavior: 'smooth'});">
+    <div class="scroll-indicator" onclick="document.getElementById('workshop-intro').scrollIntoView({behavior: 'smooth'});">
       <div class="scroll-text">Scroll</div>
       <div class="scroll-arrow"></div>
     </div>
   </section>
   
-  <!-- Our Philosophy Section -->
-  <section id="philosophy" class="philosophy">
+  <!-- Workshop Introduction Section -->
+  <section id="workshop-intro" class="philosophy">
     <div class="container">
-      <h2 class="fade-in">Our Philosophy</h2>
+      <h2 class="fade-in">Why Start With Education?</h2>
       <p class="philosophy-intro fade-in">
-        We believe when it comes to building successful integrations of agents, there are a few key things to consider.
+        The transformation starts with people. We provide education workshops to bring employees on board and sensitize them to AI – all without creating fear.
       </p>
       
       <div class="philosophy-principles">
         <div class="principle-item fade-in">
           <div class="principle-number">1</div>
           <div class="principle-content">
-            <h3>Built for Reliability</h3>
-            <p>Rather than building agents that deliver astonishing results 50% of the time like many fully autonomous agent systems advertise, we believe there's great value in carefully designed systems. We leverage LLMs when confronted with uncertain structures, using them systematically to restructure data, then perform transformations deterministically. This approach improves overall system reliability and explainability – crucial properties for highly regulated tasks.</p>
+            <h3>Understanding Over Fear</h3>
+            <p>Many employees fear AI will replace them. Our workshop demystifies AI technology, showing how it augments human capabilities rather than replacing them. We address concerns directly and create a foundation of understanding that enables successful adoption.</p>
           </div>
         </div>
         
         <div class="principle-item fade-in">
           <div class="principle-number">2</div>
           <div class="principle-content">
-            <h3>Transparent Operations</h3>
-            <p>Our Agent Cockpit gives you a unique view of what the agent is working on, their current backlog, and well-thought-through visualizations of results. This allows co-workers to easily confirm results, building trust while making everything validatable and decisions traceable.</p>
+            <h3>Practical Application</h3>
+            <p>We don't just talk about AI in abstract terms. Participants experience hands-on demonstrations of AI tools relevant to their daily work, seeing immediate practical applications and benefits for their specific roles.</p>
           </div>
         </div>
         
         <div class="principle-item fade-in">
           <div class="principle-number">3</div>
           <div class="principle-content">
-            <h3>Intuitive Integration</h3>
-            <p>We leverage LLM capabilities to make usage as intuitive as possible – it should feel like onboarding another employee. Our agents integrate seamlessly via standard business communication channels like email or other platforms.</p>
+            <h3>Employee-Driven Innovation</h3>
+            <p>Your employees know their processes best. Our workshop creates a collaborative environment where teams identify automation opportunities from within, ensuring buy-in and practical relevance for implementation.</p>
           </div>
         </div>
       </div>
-      
-
     </div>
   </section>
   
-  <!-- Meet Our Agents Section -->
-  <section id="agents" class="agents">
+  <!-- Workshop Content Section -->
+  <section id="workshop-content" class="agents">
     <div class="container">
-      <h2 class="fade-in">Meet Our Agents</h2>
-      <p class="agents-intro fade-in">Every team deserves reliable colleagues. Ours just happen to be digital. These are the AI agents we're building for regulated environments. Each one is designed to handle specific, complex workflows that currently consume hours of human time. See exactly how they would integrate into your processes and deliver the reliability your business demands.</p>
+      <h2 class="fade-in">What We Cover</h2>
+      <p class="agents-intro fade-in">Our comprehensive workshop is designed to take your team from AI newcomers to informed advocates, ready to identify and implement automation opportunities in their daily work.</p>
       
       <div class="agent-cards">
         <div class="agent-card scale-in">
           <div class="agent-avatar">
             <svg viewBox="0 0 24 24" fill="currentColor" class="agent-icon">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
           </div>
-          <h3>The Onboarding Agent<br><span class="agent-name">Victor</span></h3>
+          <h3>AI Fundamentals</h3>
           <p>
-            Victor takes care of client onboarding in regulated environments. From verifying KYC documents for individuals and legal entities to ensuring compliance checks, Victor relieves your legal and compliance teams of repetitive work. He integrates smoothly into your workflow, just like another team member.
+            We start with the basics: What is AI really? How do Large Language Models work? We explain complex concepts in simple terms, ensuring everyone understands the technology behind the tools they'll be using.
           </p>
-          <a href="contact.html" class="btn btn-agent">Book a demo with Victor</a>
         </div>
+        
         <div class="agent-card scale-in">
           <div class="agent-avatar">
             <svg viewBox="0 0 24 24" fill="currentColor" class="agent-icon">
-              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
           </div>
-          <h3>The Auditing Agent<br><span class="agent-name">Audrey</span></h3>
+          <h3>Hands-On Experience</h3>
           <p>
-            Audrey automates balance sheet reviews and document preparation. Instead of manually transferring financial statements into spreadsheets and running validations, Audrey takes over these steps with precision and speed. She supports your audit team in ensuring accuracy while saving valuable hours.
+            Participants work with real AI tools relevant to their roles. From document processing to data analysis, everyone leaves with practical experience and confidence in using AI for their daily tasks.
           </p>
-          <a href="contact.html" class="btn btn-agent">Book a demo with Audrey</a>
         </div>
-        <div class="agent-card scale-in coming-soon">
-          <div class="agent-avatar coming-soon-avatar">
+        
+        <div class="agent-card scale-in">
+          <div class="agent-avatar">
             <svg viewBox="0 0 24 24" fill="currentColor" class="agent-icon">
-              <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z"/>
+              <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20a3 3 0 01-3-3v-2a3 3 0 013-3h10a3 3 0 013 3v2a3 3 0 01-3 3M7 20v-2c0-.656.126-1.283.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
           </div>
-          <h3>More Agents Coming Soon</h3>
+          <h3>Opportunity Mapping</h3>
           <p>
-            We're constantly developing new AI agents for different industries and use cases. From legal document processing to customer service automation, your next digital team member is on the way.
+            Together, we identify processes in your organization that could benefit from AI automation. This collaborative session ensures that proposed solutions address real pain points and have strong internal support.
           </p>
-          <div class="coming-soon-badge">
-            <span>Stay Tuned</span>
+        </div>
+        
+        <div class="agent-card scale-in">
+          <div class="agent-avatar">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="agent-icon">
+              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
           </div>
+          <h3>Ethics & Best Practices</h3>
+          <p>
+            We address important considerations around data privacy, bias, and responsible AI use. Participants learn to evaluate AI solutions critically and implement them in compliance with regulations and ethical standards.
+          </p>
         </div>
       </div>
-
     </div>
   </section>
   
-  <!-- Custom Agent Solutions Section -->
-  <section id="custom-solutions" class="custom-solutions">
+  <!-- Workshop Format Section -->
+  <section id="workshop-format" class="custom-solutions">
     <div class="container">
-      <h2 class="fade-in">Different Process, Same Approach</h2>
+      <h2 class="fade-in">Workshop Format</h2>
       <p class="custom-solutions-intro fade-in">
-        Every business has repetitive workflows that consume valuable time – whether it's document processing, data validation, compliance checks, or approval workflows. We focus on understanding the specific steps, rules, and requirements that make your processes unique. Let's explore together how we can automate your particular workflow and build an AI agent that handles your exact process requirements.
+        Our workshop is designed to be engaging, practical, and immediately applicable. We adapt the format to your team's size, technical background, and specific needs, ensuring maximum value for every participant.
       </p>
       
-
-      
-      <div class="custom-solutions-cta fade-in">
-        <div class="slide-button-container">
-          <div class="slide-button" id="customAgentSlider">
-            <div class="slide-track">
-              <div class="slide-text-container">
-                <span class="slide-text-main">Slide to Unlock</span>
-                <span class="slide-text-highlight">Your Custom Agent</span>
-              </div>
-              <div class="slide-thumb" id="slideThumb">
-                <svg viewBox="0 0 24 24" fill="currentColor" class="slide-arrow">
-                  <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
-                </svg>
-              </div>
-            </div>
+      <div class="workshop-format-cards">
+        <div class="format-card format-card-1 fade-in">
+          <div class="format-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
           </div>
+          <h3>Pre-Workshop Assessment</h3>
+          <p>We conduct brief interviews with key stakeholders to understand your team's current AI knowledge, concerns, and specific use cases. This allows us to customize the content for maximum relevance.</p>
+          <div class="format-duration">Before Workshop</div>
+        </div>
+
+        <div class="format-card format-card-2 fade-in">
+          <div class="format-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <h3>Interactive Sessions</h3>
+          <p>Half-day or full-day sessions combining presentations, live demonstrations, and hands-on exercises. Participants work in small groups to ensure everyone gets personalized attention and can ask questions freely.</p>
+          <div class="format-duration">4-8 Hours</div>
+        </div>
+
+        <div class="format-card format-card-3 fade-in">
+          <div class="format-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
+              <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20a3 3 0 01-3-3v-2a3 3 0 013-3h10a3 3 0 013 3v2a3 3 0 01-3 3M7 20v-2c0-.656.126-1.283.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <h3>Opportunity Workshop</h3>
+          <p>Collaborative sessions where teams map their current processes and identify automation opportunities. We facilitate discussions that leverage employee knowledge to find the most impactful use cases.</p>
+          <div class="format-duration">2-4 Hours</div>
+        </div>
+
+        <div class="format-card format-card-4 fade-in">
+          <div class="format-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
+              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3>Implementation Roadmap</h3>
+          <p>We conclude with a clear action plan, prioritizing identified opportunities by impact and feasibility. Teams leave with concrete next steps and a timeline for AI integration.</p>
+          <div class="format-duration">After Workshop</div>
         </div>
       </div>
     </div>
   </section>
   
-  <!-- AI as Team Member Pricing Section -->
-  <section id="pricing-model" class="pricing-model">
+  <!-- Workshop Benefits Section -->
+  <section id="workshop-benefits" class="pricing-model">
     <div class="container">
-      <h2 class="fade-in">AI as a Team Member</h2>
+      <h2 class="fade-in">Workshop Outcomes</h2>
       <p class="pricing-intro fade-in">
-        Our 3-phase approach ensures your AI agent completes tasks to your complete satisfaction. We build, test, and refine until the agent meets your exact requirements. At each stage, you validate the results before moving forward, guaranteeing a solution that truly works for your business.
+        Our workshop creates the foundation for successful AI integration by addressing the human element first. Teams that complete our education program are significantly more likely to embrace and effectively use AI solutions.
       </p>
       
       <div class="phase-approach">
         <div class="approach-title fade-in">
-          <h3>Our 3 Phase Approach</h3>
+          <h3>What Your Team Gains</h3>
         </div>
         
         <div class="phases-container">
-          <!-- Phase 1 -->
+          <!-- Benefit 1 -->
           <div class="phase-card phase-1 fade-in">
             <div class="phase-header">
-              <div class="phase-number">1</div>
-              <h4>Study Phase</h4>
+              <div class="phase-number">✓</div>
+              <h4>AI Confidence</h4>
             </div>
             <div class="phase-body">
               <ul class="phase-features">
-                <li>Requirements Analysis</li>
-                <li>Process Mapping</li>
-                <li>Initial Development</li>
+                <li>Clear understanding of AI capabilities</li>
+                <li>Hands-on experience with relevant tools</li>
+                <li>Reduced anxiety about AI adoption</li>
               </ul>
-            </div>
-            <div class="phase-footer">
-              <div class="phase-duration">1-3 Months</div>
             </div>
           </div>
           
@@ -220,21 +249,18 @@
             </svg>
           </div>
           
-          <!-- Phase 2 -->
+          <!-- Benefit 2 -->
           <div class="phase-card phase-2 fade-in">
             <div class="phase-header">
-              <div class="phase-number">2</div>
-              <h4>Internship Phase</h4>
+              <div class="phase-number">✓</div>
+              <h4>Process Insights</h4>
             </div>
             <div class="phase-body">
               <ul class="phase-features">
-                <li>Live Deployment</li>
-                <li>Performance Monitoring</li>
-                <li>Continuous Feedback</li>
+                <li>Identified automation opportunities</li>
+                <li>Prioritized implementation roadmap</li>
+                <li>Employee-driven innovation ideas</li>
               </ul>
-            </div>
-            <div class="phase-footer">
-              <div class="phase-duration">1-3 Months</div>
             </div>
           </div>
           
@@ -245,38 +271,34 @@
             </svg>
           </div>
           
-          <!-- Phase 3 -->
+          <!-- Benefit 3 -->
           <div class="phase-card phase-3 fade-in">
             <div class="phase-header">
-              <div class="phase-number">3</div>
-              <h4>Full-Time Position</h4>
+              <div class="phase-number">✓</div>
+              <h4>Implementation Readiness</h4>
             </div>
             <div class="phase-body">
               <ul class="phase-features">
-                <li>Fully Trained Agent</li>
-                <li>24/7 Availability</li>
-                <li>Ongoing Support</li>
+                <li>Team buy-in for AI initiatives</li>
+                <li>Clear next steps and timeline</li>
+                <li>Foundation for ongoing AI adoption</li>
               </ul>
-            </div>
-            <div class="phase-footer">
-              <div class="phase-duration">Unlimited</div>
             </div>
           </div>
         </div>
       </div>
-      
     </div>
   </section>
   
   <!-- Call to Action Section -->
   <section id="cta" class="cta">
     <div class="container">
-      <h2 class="fade-in">Ready to add a digital team member to your company?</h2>
-      <p class="fade-in">See how our AI Agents can seamlessly integrate into your workflows.</p>
+      <h2 class="fade-in">Ready to empower your team with AI knowledge?</h2>
+      <p class="fade-in">Start your AI journey with our comprehensive education workshop.</p>
       <div class="cta-buttons fade-in">
-        <a href="contact.html" class="btn btn-primary">
-          Contact Us
-        </a>
+        <button class="btn btn-primary" onclick="showDemoModal();">
+          Book a Workshop
+        </button>
       </div>
     </div>
   </section>
@@ -421,13 +443,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <span class="modal-close" onclick="hideDemoModal()">&times;</span>
-        <h2>Book a Demo</h2>
+        <h2>Book a Workshop</h2>
       </div>
       <div class="modal-body">
-        <p>Let's explore how LLMify can transform your business with custom AI solutions. Fill out the form below and we'll schedule a personalized demo.</p>
+        <p>Transform your team's relationship with AI through our comprehensive education workshop. Fill out the form below and we'll schedule a customized session for your organization.</p>
         
         <form id="demoForm" action="https://formspree.io/f/mjkybyeb" method="POST" class="demo-form">
-          <input type="hidden" name="form_type" value="demo_booking">
+          <input type="hidden" name="form_type" value="workshop_booking">
           
           <div class="form-row">
             <div class="form-group">
@@ -447,53 +469,63 @@
             </div>
             <div class="form-group">
               <label for="demo-role">Your Role</label>
-              <input type="text" id="demo-role" name="role" placeholder="e.g., CTO, Product Manager">
+              <input type="text" id="demo-role" name="role" placeholder="e.g., HR Director, CTO">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="team-size">Team Size *</label>
+              <select id="team-size" name="team_size" required>
+                <option value="">Select team size</option>
+                <option value="5-15">5-15 people</option>
+                <option value="16-30">16-30 people</option>
+                <option value="31-50">31-50 people</option>
+                <option value="50+">50+ people</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="workshop-format">Preferred Format</label>
+              <select id="workshop-format" name="workshop_format">
+                <option value="">Select format</option>
+                <option value="half-day">Half-day (4 hours)</option>
+                <option value="full-day">Full-day (8 hours)</option>
+                <option value="multi-day">Multi-day program</option>
+                <option value="flexible">Flexible</option>
+              </select>
             </div>
           </div>
           
           <div class="form-group">
-            <label for="demo-use-case">Primary Use Case *</label>
-            <select id="demo-use-case" name="use_case" required>
-              <option value="">Select your primary interest</option>
-              <option value="data-privacy">Data Privacy & Swiss Hosting</option>
-              <option value="process-optimization">Process Optimization</option>
-              <option value="custom-integration">Custom LLM Integration</option>
-              <option value="consulting">AI Strategy Consulting</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="demo-description">Tell us about your project</label>
-            <textarea id="demo-description" name="description" rows="4" placeholder="Briefly describe your AI integration needs or current challenges..."></textarea>
+            <label for="demo-description">Tell us about your team's AI experience and goals</label>
+            <textarea id="demo-description" name="description" rows="4" placeholder="Describe your team's current AI knowledge level, specific interests, or challenges you'd like the workshop to address..."></textarea>
           </div>
           
           <div class="form-row">
             <div class="form-group">
               <label for="demo-timeline">Timeline</label>
               <select id="demo-timeline" name="timeline">
-                <option value="">When do you plan to implement?</option>
-                <option value="immediate">Immediate (within 1 month)</option>
-                <option value="short">Short-term (1-3 months)</option>
-                <option value="medium">Medium-term (3-6 months)</option>
-                <option value="long">Long-term (6+ months)</option>
-                <option value="research">Research phase</option>
+                <option value="">When would you like to schedule?</option>
+                <option value="immediate">Within 2 weeks</option>
+                <option value="short">Within 1 month</option>
+                <option value="medium">Within 3 months</option>
+                <option value="flexible">Flexible timing</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="demo-preferred-time">Preferred Demo Time</label>
-              <select id="demo-preferred-time" name="preferred_time">
-                <option value="">Select preferred time</option>
-                <option value="morning">Morning (9-12 CET)</option>
-                <option value="afternoon">Afternoon (12-17 CET)</option>
-                <option value="evening">Evening (17-19 CET)</option>
-                <option value="flexible">Flexible</option>
+              <label for="location-preference">Location Preference</label>
+              <select id="location-preference" name="location_preference">
+                <option value="">Select preference</option>
+                <option value="on-site">On-site at our office</option>
+                <option value="virtual">Virtual workshop</option>
+                <option value="hybrid">Hybrid format</option>
+                <option value="flexible">No preference</option>
               </select>
             </div>
           </div>
           
           <button type="submit" class="btn demo-submit-btn">
-            Schedule Demo
+            Book Workshop
           </button>
         </form>
         <div id="demo-message"></div>

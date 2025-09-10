@@ -1,17 +1,34 @@
-// Scroll Progress Indicator
+// Throttled scroll functions for better performance
+let scrollTicking = false;
+
 function updateScrollProgress() {
   const scrollProgress = document.querySelector('.scroll-progress');
-  const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-  scrollProgress.style.width = scrolled + '%';
+  if (scrollProgress) {
+    const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    scrollProgress.style.width = scrolled + '%';
+  }
 }
 
-// Navigation scroll effect
 function updateNavbar() {
   const navbar = document.getElementById('navbar');
-  if (window.scrollY > 50) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
+  if (navbar) {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+}
+
+// Throttled scroll handler using requestAnimationFrame
+function handleScroll() {
+  if (!scrollTicking) {
+    requestAnimationFrame(() => {
+      updateScrollProgress();
+      updateNavbar();
+      scrollTicking = false;
+    });
+    scrollTicking = true;
   }
 }
 
@@ -28,49 +45,6 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, observerOptions);
-
-// Hero background animation variables removed - section is now static
-
-function cleanupHeroBackground() {
-  console.log('Cleaning up hero background animations...');
-  
-  try {
-    // Remove any wireframe background elements
-    const hero = document.querySelector('.hero');
-    if (hero) {
-      const wireframeBackground = hero.querySelector('.wireframe-background');
-      if (wireframeBackground) {
-        wireframeBackground.remove();
-      }
-      
-      // Remove any other animation-related background elements
-      const mobileBackground = hero.querySelector('.simple-background, .mobile-background');
-      if (mobileBackground) {
-        mobileBackground.remove();
-      }
-    }
-    
-    // Hide canvas if it exists
-    const canvas = document.getElementById('particle-canvas');
-    if (canvas) {
-      canvas.style.display = 'none';
-    }
-    
-    console.log('Hero background cleanup completed - section is now static');
-  } catch (error) {
-    console.error('Error cleaning up background:', error);
-  }
-}
-
-// Animation functions removed - hero background is now static
-
-// Wireframe creation functions removed - hero background is now static
-
-// Animation update functions removed - hero background is now static
-
-// Background animation functions removed - hero section is now static
-
-// Background fallback functions removed - hero section is now static
 
 // Fix mobile layout immediately to prevent initial sizing issues
 function fixMobileLayout() {
@@ -111,388 +85,425 @@ function fixMobileLayout() {
   }
 }
 
-// Video autoplay functionality
+// Optimized video autoplay functionality with lazy loading
 function initVideoAutoplay() {
   const video = document.getElementById('teaser-video');
-  if (!video) {
-    console.log('Video element not found');
-    return;
-  }
+  if (!video) return;
 
-  // Create intersection observer for video autoplay
+  const isLowPerformance = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                          window.innerWidth <= 768 ||
+                          (navigator.deviceMemory && navigator.deviceMemory < 4);
+
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Video is visible, try to play it
-        const playPromise = video.play();
+        if (!video.src && video.dataset.src) {
+          video.src = video.dataset.src;
+          video.load();
+        }
         
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            console.log('Video autoplay started successfully');
-          }).catch(error => {
-            console.log('Video autoplay failed (likely due to browser policy):', error);
-            // Show a play button or message to user if needed
-          });
+        if (!isLowPerformance) {
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              console.log('Video autoplay started successfully');
+            }).catch(error => {
+              console.log('Video autoplay failed (likely due to browser policy):', error);
+            });
+          }
         }
       } else {
-        // Video is not visible, pause it
         if (!video.paused) {
           video.pause();
-          console.log('Video paused (out of view)');
         }
       }
     });
   }, {
-    threshold: 0.5, // Video needs to be 50% visible
-    rootMargin: '0px'
+    threshold: 0.3,
+    rootMargin: '50px'
   });
 
-  // Start observing the video
   videoObserver.observe(video);
-  
-  // Add event listeners for better user experience
-  video.addEventListener('play', () => {
-    console.log('Video started playing');
-  });
-  
-  video.addEventListener('pause', () => {
-    console.log('Video paused');
-  });
-  
-  // Handle errors
-  video.addEventListener('error', (e) => {
-    console.error('Video error:', e);
-  });
+  video.preload = 'metadata';
 }
 
-// Run layout fix immediately - before DOM ready
-fixMobileLayout();
-
-// Initialize particle animation for hero sections
-function initHeroParticles() {
-  const canvasIds = ['hero-particle-canvas', 'agents-particle-canvas', 'security-particle-canvas', 'team-particle-canvas', 'contact-particle-canvas'];
+// Performance optimization utilities
+const PerformanceOptimizer = {
+  isLowPerformance: false,
   
-  canvasIds.forEach(canvasId => {
-    const canvas = document.getElementById(canvasId);
-    if (!canvas) return;
+  init() {
+    this.detectPerformance();
+    this.optimizeForDevice();
+  },
+  
+  detectPerformance() {
+    this.isLowPerformance = 
+      (navigator.deviceMemory && navigator.deviceMemory < 2) ||
+      (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 2) ||
+      (navigator.connection && (navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g'));
     
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let animationId;
-    
-    // Enhanced settings for home page
-    const isHomePage = canvasId === 'hero-particle-canvas';
-    
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    console.log(`Performance mode: ${this.isLowPerformance ? 'Low' : 'High'} performance`);
+  },
+  
+  optimizeForDevice() {
+    if (this.isLowPerformance) {
+      this.disableExpensiveEffects();
+      this.reduceAnimationQuality();
+      this.optimizeImages();
     }
-    
-    function createParticle() {
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        size: Math.random() * 2.5 + 2,
-        opacity: Math.random() * 0.6 + 0.5
-      };
+  },
+  
+  disableExpensiveEffects() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .card::before,
+      .value-point::before,
+      .security-feature::before,
+      .timeline-content::before,
+      .philosophy-card::before,
+      .benefit-item::before {
+        display: none !important;
+      }
+      
+      .btn, .card, .value-point, .security-feature {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+      }
+      
+      .glass, .modal-content, .nav-links, nav {
+        backdrop-filter: none !important;
+      }
+      
+      .card:hover, .value-point:hover, .security-feature:hover {
+        transform: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  },
+  
+  reduceAnimationQuality() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .fade-in, .slide-in-left, .slide-in-right, .scale-in {
+        transition-duration: 0.2s !important;
+      }
+    `;
+    document.head.appendChild(style);
+  },
+  
+  optimizeImages() {
+    const images = document.querySelectorAll('img:not([loading])');
+    images.forEach(img => {
+      img.loading = 'lazy';
+    });
+  }
+};
+
+fixMobileLayout();
+PerformanceOptimizer.init();
+
+// OPTIMIZED particle animation - only runs for current page's canvas
+function initParticleAnimation() {
+  const isVeryLowPerformance = (navigator.deviceMemory && navigator.deviceMemory < 2) ||
+                               (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 2) ||
+                               (navigator.connection && (navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g'));
+  
+  if (isVeryLowPerformance) {
+    console.log('Very low performance device detected - disabling particle animations');
+    return;
+  }
+
+  // Find the canvas that actually exists on this page
+  const canvasSelectors = [
+    '#hero-particle-canvas',
+    '#agents-particle-canvas', 
+    '#security-particle-canvas',
+    '#team-particle-canvas',
+    '#contact-particle-canvas'
+  ];
+  
+  let canvas = null;
+  let canvasId = null;
+  
+  for (const selector of canvasSelectors) {
+    const element = document.querySelector(selector);
+    if (element) {
+      canvas = element;
+      canvasId = selector.substring(1); // Remove the # from selector
+      break;
     }
+  }
+  
+  if (!canvas) {
+    console.log('No particle canvas found on this page');
+    return;
+  }
+
+  console.log(`Initializing particles for: ${canvasId}`);
+  
+  const ctx = canvas.getContext('2d');
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+  
+  let particles = [];
+  let connections = [];
+  let animationId;
+  let isVisible = true;
+  let isInViewport = true; // Start as true since hero sections are typically initially visible
+  let lastFrameTime = 0;
+  let connectionTimer;
+  
+  const targetFPS = 25;
+  const frameInterval = 1000 / targetFPS;
+  
+  // Page-specific colors
+  const colorMap = {
+    'hero-particle-canvas': 'rgba(168, 85, 247, ',      // Purple for home
+    'agents-particle-canvas': 'rgba(59, 130, 246, ',    // Blue for agents  
+    'security-particle-canvas': 'rgba(6, 182, 212, ',   // Cyan for security
+    'team-particle-canvas': 'rgba(37, 99, 235, ',       // Deep blue for team
+    'contact-particle-canvas': 'rgba(14, 165, 233, '    // Sky blue for contact
+  };
+  
+  const particleColor = colorMap[canvasId] || 'rgba(92, 159, 255, ';
+  const connectionColor = particleColor;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function createParticle() {
+    const size = Math.random() * 4 + 3; // Simplified size: 3-7px
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: (Math.random() - 0.5) * 0.6,
+      size: size,
+      opacity: Math.random() * 0.3 + 0.5
+    };
+  }
+
+  function initParticles() {
+    particles = [];
+    // Always use 25 particles as requested
+    for (let i = 0; i < 25; i++) {
+      particles.push(createParticle());
+    }
+    buildConnections();
+    startConnectionTimer();
+  }
+
+  function buildConnections() {
+    connections = [];
+    const maxDistance = isMobile ? 250 : 320; // Increased distance for more connections
+    const minConnections = 3; // Guarantee minimum connections per particle
     
-    function initParticles() {
-      particles = [];
-      const baseCount = Math.floor(canvas.width * canvas.height / 12000);
-      const particleCount = Math.min(100, baseCount);
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(createParticle());
+    // First pass: Connect particles within maxDistance
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const distance = Math.sqrt(
+          Math.pow(particles[i].x - particles[j].x, 2) + 
+          Math.pow(particles[i].y - particles[j].y, 2)
+        );
+        
+        if (distance < maxDistance) {
+          connections.push({
+            i: i,
+            j: j,
+            opacity: (1 - distance / maxDistance) * 0.6, // Increased opacity
+            distance: distance
+          });
+        }
       }
     }
     
-    function updateParticles() {
-      particles.forEach(particle => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-      });
-    }
-    
-    function drawParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Second pass: Ensure each particle has minimum connections
+    for (let i = 0; i < particles.length; i++) {
+      const particleConnections = connections.filter(conn => conn.i === i || conn.j === i);
       
-      // Page-specific colors
-      let particleColor, connectionColor;
-      switch(canvasId) {
-        case 'hero-particle-canvas':
-          particleColor = 'rgba(168, 85, 247, '; // Purple for home
-          connectionColor = 'rgba(168, 85, 247, ';
-          break;
-        case 'agents-particle-canvas':
-          particleColor = 'rgba(59, 130, 246, '; // Blue for agents
-          connectionColor = 'rgba(59, 130, 246, ';
-          break;
-        case 'security-particle-canvas':
-          particleColor = 'rgba(6, 182, 212, '; // Cyan for security
-          connectionColor = 'rgba(6, 182, 212, ';
-          break;
-        case 'team-particle-canvas':
-          particleColor = 'rgba(37, 99, 235, '; // Deep blue for team
-          connectionColor = 'rgba(37, 99, 235, ';
-          break;
-        case 'contact-particle-canvas':
-          particleColor = 'rgba(14, 165, 233, '; // Sky blue for contact
-          connectionColor = 'rgba(14, 165, 233, ';
-          break;
-        default:
-          particleColor = 'rgba(92, 159, 255, ';
-          connectionColor = 'rgba(92, 159, 255, ';
-      }
-      
-      particles.forEach(particle => {
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = particleColor + particle.opacity + ')';
-        ctx.fill();
-        
-        // Add glow effect for all pages
-        ctx.shadowColor = particleColor + '0.4)';
-        ctx.shadowBlur = 12;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      });
-      
-      // Draw connections with enhanced visibility
-      const connectionDistance = 150;
-      const connectionOpacity = 0.25;
-      
-      particles.forEach((particle, i) => {
-        particles.slice(i + 1).forEach(otherParticle => {
-          const distance = Math.sqrt(
-            Math.pow(particle.x - otherParticle.x, 2) + 
-            Math.pow(particle.y - otherParticle.y, 2)
-          );
-          
-          if (distance < connectionDistance) {
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(otherParticle.x, otherParticle.y);
-            const lineOpacity = connectionOpacity * (1 - distance / connectionDistance);
-            ctx.strokeStyle = connectionColor + lineOpacity + ')';
-            ctx.lineWidth = 2;
+      if (particleConnections.length < minConnections) {
+        // Find nearest particles not yet connected
+        const distances = [];
+        for (let j = 0; j < particles.length; j++) {
+          if (i !== j) {
+            const distance = Math.sqrt(
+              Math.pow(particles[i].x - particles[j].x, 2) + 
+              Math.pow(particles[i].y - particles[j].y, 2)
+            );
+            const alreadyConnected = connections.some(conn => 
+              (conn.i === i && conn.j === j) || (conn.i === j && conn.j === i)
+            );
             
-            // Add glow effect to connections for all pages
-            ctx.shadowColor = connectionColor + (lineOpacity * 0.6) + ')';
-            ctx.shadowBlur = 4;
-            
-            ctx.stroke();
-            ctx.shadowBlur = 0;
+            if (!alreadyConnected) {
+              distances.push({ index: j, distance: distance });
+            }
           }
-        });
-      });
+        }
+        
+        // Sort by distance and add nearest connections
+        distances.sort((a, b) => a.distance - b.distance);
+        const needed = minConnections - particleConnections.length;
+        
+        for (let k = 0; k < needed && k < distances.length; k++) {
+          const target = distances[k];
+          connections.push({
+            i: Math.min(i, target.index),
+            j: Math.max(i, target.index),
+            opacity: Math.max(0.2, (1 - target.distance / (maxDistance * 1.5)) * 0.5),
+            distance: target.distance,
+            forced: true // Mark as guaranteed connection
+          });
+        }
+      }
     }
     
-    function animate() {
+    console.log(`Rebuilt connections: ${connections.length} edges for ${particles.length} particles (${connections.filter(c => c.forced).length} guaranteed)`);
+  }
+
+  function startConnectionTimer() {
+    if (connectionTimer) clearInterval(connectionTimer);
+    connectionTimer = setInterval(() => {
+      if (isVisible) {
+        buildConnections();
+      }
+    }, 3000); // 3 seconds as requested
+  }
+
+  function updateParticles() {
+    particles.forEach(particle => {
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      
+      if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+      if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+    });
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw connections first
+    connections.forEach(conn => {
+      const p1 = particles[conn.i];
+      const p2 = particles[conn.j];
+      
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.strokeStyle = connectionColor + conn.opacity + ')';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    });
+    
+    // Draw particles
+    particles.forEach(particle => {
+      ctx.beginPath();
+      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      ctx.fillStyle = particleColor + particle.opacity + ')';
+      ctx.fill();
+      
+      // Simple glow effect
+      ctx.shadowColor = particleColor + (particle.opacity * 0.6) + ')';
+      ctx.shadowBlur = particle.size * 1.2;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    });
+  }
+
+  function animate(currentTime) {
+    if (!isVisible || !isInViewport) {
+      animationId = requestAnimationFrame(animate);
+      return;
+    }
+    
+    if (currentTime - lastFrameTime >= frameInterval) {
       updateParticles();
       drawParticles();
-      animationId = requestAnimationFrame(animate);
+      lastFrameTime = currentTime;
     }
     
-    function startAnimation() {
-      resizeCanvas();
-      initParticles();
-      animate();
-    }
-    
-    function stopAnimation() {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-        animationId = null;
-      }
-    }
-    
-    // Initialize
-    startAnimation();
-    
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      initParticles();
-    });
-    
-    // Clean up on page unload
-    window.addEventListener('beforeunload', stopAnimation);
-  });
-}
-
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM loaded, initializing components...');
-  
-  // Apply mobile layout fixes again after DOM is ready
-  fixMobileLayout();
-  
-  // Clean up any existing hero background animations
-  cleanupHeroBackground();
-  
-  // Initialize hero particle animations for all pages
-  initHeroParticles();
-  
-  // Initialize timeline scroll activation
-  initTimelineScrollActivation();
-  
-  // Initialize animations
-  const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
-  animatedElements.forEach(el => observer.observe(el));
-  
-  // Initialize video autoplay
-  initVideoAutoplay();
-  
-  // Initialize form submission
-  const form = document.getElementById("contactForm");
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const formData = new FormData(form);
-    
-    // Add loading state
-    const button = form.querySelector('button');
-    const originalText = button.textContent;
-    button.textContent = 'Sending...';
-    button.disabled = true;
-    
-    fetch(form.action, {
-      method: form.method,
-      headers: { 'Accept': 'application/json' },
-      body: formData
-    }).then(response => {
-      if (response.ok) {
-        form.reset();
-        showMessage("Message sent successfully! We'll get back to you soon.");
-      } else {
-        response.json().then(data => {
-          if (data.errors) {
-            showMessage(data.errors.map(error => error.message).join(", "));
-          } else {
-            showMessage("Oops! There was a problem submitting your form");
-          }
-        });
-      }
-    }).catch(error => {
-      showMessage("Oops! There was a problem submitting your form");
-    }).finally(() => {
-      // Reset button state
-      button.textContent = originalText;
-      button.disabled = false;
-    });
-    
-    return false;
-  });
-  
-  // Initialize demo form submission
-  const demoForm = document.getElementById("demoForm");
-  demoForm.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const formData = new FormData(demoForm);
-    
-    // Add loading state
-    const button = demoForm.querySelector('button');
-    const originalText = button.textContent;
-    button.textContent = 'Scheduling...';
-    button.disabled = true;
-    
-    fetch(demoForm.action, {
-      method: demoForm.method,
-      headers: { 'Accept': 'application/json' },
-      body: formData
-    }).then(response => {
-      if (response.ok) {
-        demoForm.reset();
-        showDemoMessage("Demo request sent successfully! We'll contact you within 24 hours to schedule your personalized demo.");
-        // Hide modal after successful submission
-        setTimeout(() => hideDemoModal(), 2000);
-      } else {
-        response.json().then(data => {
-          if (data.errors) {
-            showDemoMessage(data.errors.map(error => error.message).join(", "), true);
-          } else {
-            showDemoMessage("Oops! There was a problem submitting your request", true);
-          }
-        });
-      }
-    }).catch(error => {
-      showDemoMessage("Oops! There was a problem submitting your request", true);
-    }).finally(() => {
-      // Reset button state
-      button.textContent = originalText;
-      button.disabled = false;
-    });
-    
-    return false;
-  });
-  
-  // Initialize smooth scrolling for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    });
-  });
-  
-  // Check cookie preference and show banner if needed
-  const cookiesAccepted = localStorage.getItem('cookiesAccepted');
-  if (cookiesAccepted === null) {
-    // Show cookie banner if no preference set
-    setTimeout(showCookieBanner, 1000);
+    animationId = requestAnimationFrame(animate);
   }
-});
 
-// Event listeners
-window.addEventListener('scroll', () => {
-  updateScrollProgress();
-  updateNavbar();
-  // updateScrollBackground is called via requestAnimationFrame, no need to call here
-});
+  function start() {
+    resizeCanvas();
+    initParticles();
+    animate();
+  }
 
-window.addEventListener('resize', () => {
-  // Scroll background automatically adapts to window size
-});
+  function stop() {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+    if (connectionTimer) {
+      clearInterval(connectionTimer);
+      connectionTimer = null;
+    }
+    if (intersectionObserver) {
+      intersectionObserver.disconnect();
+    }
+  }
+
+  // Visibility optimization
+  document.addEventListener('visibilitychange', () => {
+    isVisible = !document.hidden;
+  });
+
+  // Viewport visibility optimization
+  const intersectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      isInViewport = entry.isIntersecting;
+      if (isInViewport) {
+        console.log(`Particles for ${canvasId} entered viewport - resuming animation`);
+      } else {
+        console.log(`Particles for ${canvasId} left viewport - pausing animation`);
+      }
+    });
+  }, {
+    rootMargin: '100px', // Start animating 100px before entering viewport
+    threshold: 0.1 // Trigger when at least 10% of canvas is visible
+  });
+
+  intersectionObserver.observe(canvas);
+
+  // Resize handling
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      resizeCanvas();
+      initParticles();
+    }, 250);
+  });
+
+  // Cleanup
+  window.addEventListener('beforeunload', stop);
+
+  // Start animation
+  start();
+}
 
 // Toggle mobile navigation menu
 function toggleMenu() {
-  console.log('toggleMenu called');
   const navLinks = document.querySelector('.nav-links');
   const menuIcon = document.querySelector('.menu-icon');
   
   if (navLinks) {
-    const wasActive = navLinks.classList.contains('active');
     navLinks.classList.toggle('active');
-    const isActive = navLinks.classList.contains('active');
-    
-    console.log('Nav links toggle: was', wasActive, 'now', isActive);
-    console.log('Nav links computed display:', window.getComputedStyle(navLinks).display);
-    console.log('Nav links computed z-index:', window.getComputedStyle(navLinks).zIndex);
-    
-    // Also toggle the hamburger icon state
     if (menuIcon) {
       menuIcon.classList.toggle('active');
-      console.log('Menu icon active:', menuIcon.classList.contains('active'));
     }
-  } else {
-    console.error('Nav links element not found');
   }
 }
 
-// Helper function to show a message and remove it after 3 seconds
+// Form message helper
 function showMessage(message) {
   const messageDiv = document.getElementById("form-message");
-  messageDiv.innerText = message;
-  setTimeout(() => { messageDiv.innerText = ""; }, 3000);
+  if (messageDiv) {
+    messageDiv.innerText = message;
+    setTimeout(() => { messageDiv.innerText = ""; }, 3000);
+  }
 }
 
 // Cookie banner functionality
@@ -553,48 +564,276 @@ function hideDemoModal() {
 
 function showDemoMessage(message, isError = false) {
   const messageDiv = document.getElementById("demo-message");
-  messageDiv.innerText = message;
-  messageDiv.style.color = isError ? '#ef4444' : '#10b981';
-  setTimeout(() => { messageDiv.innerText = ""; }, 5000);
+  if (messageDiv) {
+    messageDiv.innerText = message;
+    messageDiv.style.color = isError ? '#ef4444' : '#10b981';
+    setTimeout(() => { messageDiv.innerText = ""; }, 5000);
+  }
 }
-
-// Fix layout on resize as well
-window.addEventListener('resize', function() {
-  fixMobileLayout();
-});
-
-// Also fix layout when orientation changes on mobile
-window.addEventListener('orientationchange', function() {
-  setTimeout(fixMobileLayout, 100); // Small delay to allow orientation to complete
-});
 
 // Timeline scroll activation
 function initTimelineScrollActivation() {
   const timelineItems = document.querySelectorAll('.timeline-item');
-  
   if (timelineItems.length === 0) return;
   
   const timelineObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      const timelineItem = entry.target;
-      
       if (entry.isIntersecting) {
-        // Remove active class from all items
         timelineItems.forEach(item => item.classList.remove('active'));
-        // Add active class to current item
-        timelineItem.classList.add('active');
+        entry.target.classList.add('active');
       }
     });
   }, {
-    threshold: 0.6, // Item needs to be 60% visible to be considered active
-    rootMargin: '-20% 0px -20% 0px' // Only activate when item is in the center area of viewport
+    threshold: 0.6,
+    rootMargin: '-20% 0px -20% 0px'
   });
   
-  // Observe all timeline items
-  timelineItems.forEach(item => {
-    timelineObserver.observe(item);
-  });
+  timelineItems.forEach(item => timelineObserver.observe(item));
 }
 
-// Make sure toggleMenu is available globally
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM loaded, initializing components...');
+  
+  fixMobileLayout();
+  initParticleAnimation(); // Only runs for current page's canvas
+  initTimelineScrollActivation();
+  
+  // Initialize animations
+  const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
+  animatedElements.forEach(el => observer.observe(el));
+  
+  initVideoAutoplay();
+  
+  // Contact form submission
+  const form = document.getElementById("contactForm");
+  if (form) {
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const button = form.querySelector('button');
+      const originalText = button.textContent;
+      
+      button.textContent = 'Sending...';
+      button.disabled = true;
+      
+      fetch(form.action, {
+        method: form.method,
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      }).then(response => {
+        if (response.ok) {
+          form.reset();
+          showMessage("Message sent successfully! We'll get back to you soon.");
+        } else {
+          response.json().then(data => {
+            if (data.errors) {
+              showMessage(data.errors.map(error => error.message).join(", "));
+            } else {
+              showMessage("Oops! There was a problem submitting your form");
+            }
+          });
+        }
+      }).catch(error => {
+        showMessage("Oops! There was a problem submitting your form");
+      }).finally(() => {
+        button.textContent = originalText;
+        button.disabled = false;
+      });
+    });
+  }
+  
+  // Demo form submission
+  const demoForm = document.getElementById("demoForm");
+  if (demoForm) {
+    demoForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(demoForm);
+      const button = demoForm.querySelector('button');
+      const originalText = button.textContent;
+      
+      button.textContent = 'Scheduling...';
+      button.disabled = true;
+      
+      fetch(demoForm.action, {
+        method: demoForm.method,
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      }).then(response => {
+        if (response.ok) {
+          demoForm.reset();
+          showDemoMessage("Demo request sent successfully! We'll contact you within 24 hours to schedule your personalized demo.");
+          setTimeout(() => hideDemoModal(), 2000);
+        } else {
+          response.json().then(data => {
+            if (data.errors) {
+              showDemoMessage(data.errors.map(error => error.message).join(", "), true);
+            } else {
+              showDemoMessage("Oops! There was a problem submitting your request", true);
+            }
+          });
+        }
+      }).catch(error => {
+        showDemoMessage("Oops! There was a problem submitting your request", true);
+      }).finally(() => {
+        button.textContent = originalText;
+        button.disabled = false;
+      });
+    });
+  }
+  
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+  
+  // Cookie banner
+  const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+  if (cookiesAccepted === null) {
+    setTimeout(showCookieBanner, 1000);
+  }
+
+  // Initialize slide button
+  initializeSlideButton();
+});
+
+// Optimized event listeners
+window.addEventListener('scroll', handleScroll, { passive: true });
+window.addEventListener('resize', fixMobileLayout);
+window.addEventListener('orientationchange', () => {
+  setTimeout(fixMobileLayout, 100);
+});
+
+// Make toggleMenu available globally
 window.toggleMenu = toggleMenu;
+
+// Slide Button Functionality
+function initializeSlideButton() {
+  const slideButton = document.getElementById('customAgentSlider');
+  const slideThumb = document.getElementById('slideThumb');
+  
+  if (!slideButton || !slideThumb) return;
+
+  let isDragging = false;
+  let startX = 0;
+  let currentX = 0;
+  let thumbStartX = 0;
+  let maxDistance = 0;
+  const threshold = 0.8; // 80% of the track needs to be covered
+
+  function calculateMaxDistance() {
+    const buttonRect = slideButton.getBoundingClientRect();
+    const thumbRect = slideThumb.getBoundingClientRect();
+    maxDistance = buttonRect.width - thumbRect.width - 8; // 8px for padding
+  }
+
+  function getEventX(e) {
+    return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+  }
+
+  function startDrag(e) {
+    if (slideButton.classList.contains('completed')) return;
+    
+    isDragging = true;
+    slideButton.classList.add('sliding');
+    startX = getEventX(e);
+    
+    const thumbRect = slideThumb.getBoundingClientRect();
+    const buttonRect = slideButton.getBoundingClientRect();
+    thumbStartX = thumbRect.left - buttonRect.left;
+    
+    calculateMaxDistance();
+    
+    e.preventDefault();
+  }
+
+  function drag(e) {
+    if (!isDragging) return;
+    
+    currentX = getEventX(e);
+    const deltaX = currentX - startX;
+    let newPosition = thumbStartX + deltaX;
+    
+    // Constrain movement
+    newPosition = Math.max(4, Math.min(newPosition, maxDistance));
+    
+    slideThumb.style.left = newPosition + 'px';
+    
+    // Update button opacity based on progress
+    const progress = (newPosition - 4) / (maxDistance - 4);
+    const textOpacity = Math.max(0.2, 1 - progress * 1.2);
+    const textContainer = slideButton.querySelector('.slide-text-container');
+    textContainer.style.opacity = textOpacity;
+    
+    // Add cool scale effect during drag
+    const scale = 1 + (progress * 0.05);
+    textContainer.style.transform = `scale(${scale})`;
+    
+    e.preventDefault();
+  }
+
+  function endDrag(e) {
+    if (!isDragging) return;
+    
+    isDragging = false;
+    slideButton.classList.remove('sliding');
+    
+    const currentPosition = parseFloat(slideThumb.style.left) || 4;
+    const progress = (currentPosition - 4) / (maxDistance - 4);
+    
+    if (progress >= threshold) {
+      // Success! Complete the action
+      completeSlide();
+    } else {
+      // Return to start position
+      resetSlide();
+    }
+  }
+
+  function completeSlide() {
+    slideButton.classList.add('completed', 'success');
+    slideThumb.style.left = maxDistance + 'px';
+    
+    // Trigger success animation and navigate
+    setTimeout(() => {
+      window.location.href = 'contact.html';
+    }, 500);
+  }
+
+  function resetSlide() {
+    slideThumb.style.left = '4px';
+    const textContainer = slideButton.querySelector('.slide-text-container');
+    textContainer.style.opacity = '1';
+    textContainer.style.transform = 'scale(1)';
+  }
+
+  // Mouse events
+  slideThumb.addEventListener('mousedown', startDrag);
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('mouseup', endDrag);
+
+  // Touch events
+  slideThumb.addEventListener('touchstart', startDrag, { passive: false });
+  document.addEventListener('touchmove', drag, { passive: false });
+  document.addEventListener('touchend', endDrag);
+
+  // Prevent context menu on long press
+  slideThumb.addEventListener('contextmenu', e => e.preventDefault());
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    if (!isDragging) {
+      calculateMaxDistance();
+      resetSlide();
+    }
+  });
+}

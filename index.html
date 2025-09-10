@@ -7,7 +7,6 @@
   <link rel="icon" href="assets/logo/only_logo.png" type="image/png" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
   <!-- Scroll Progress Indicator -->
@@ -18,7 +17,7 @@
     <div class="nav-container">
       <div class="logo">
         <a href="index.html">
-          <img src="assets/logo/full_logo.png" alt="LLMify Logo" height="40">
+          <img src="assets/logo/full_logo.png" alt="LLMify Logo" height="40" loading="eager">
         </a>
       </div>
       <div class="menu-icon" onclick="toggleMenu()">
@@ -27,10 +26,10 @@
       <ul class="nav-links">
         <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
         <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+        <li><a href="workshop.html" onclick="toggleMenu()">Workshop</a></li>
         <li><a href="security.html" onclick="toggleMenu()">Security</a></li>
         <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
-        <li><a href="contact.html" onclick="toggleMenu()">Contact</a></li>
-        <li><a href="#" onclick="showDemoModal(); toggleMenu();" class="demo-nav-btn">Book Demo</a></li>
+        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn">Contact Us</a></li>
       </ul>
     </div>
   </nav>
@@ -42,14 +41,10 @@
     </div>
     
     <div class="container">
-      <h1 class="fade-in">We transform AI into your custom digital team member</h1>
-      <p class="fade-in">Free your team to focus on creative, high-value work while AI handles the routine tasks.</p>
+      <h1 class="fade-in">Your trusted partner for AI transformation</h1>
+      <p class="fade-in">From strategy to implementation – we guide your journey to intelligent automation that actually works.</p>
       
       <div class="hero-stats fade-in">
-        <div class="stat-item">
-          <div class="stat-number">AI</div>
-          <div class="stat-label">Powered</div>
-        </div>
         <div class="stat-item">
           <div class="stat-number">Swiss</div>
           <div class="stat-label">Based</div>
@@ -60,6 +55,40 @@
         </div>
       </div>
     </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" onclick="document.getElementById('solutions').scrollIntoView({behavior: 'smooth'});">
+      <div class="scroll-text">Scroll</div>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+  
+  <!-- Pain Points Section -->
+  <section id="pain-points" class="pain-points">
+    <div class="container">
+      <h2 class="fade-in">Are you struggling with...</h2>
+      <div class="pain-list fade-in">
+        <div class="pain-item">
+          <div class="pain-icon">❌</div>
+          <h3>Manual processes eating up hours</h3>
+        </div>
+        <div class="pain-item">
+          <div class="pain-icon">❌</div>
+          <h3>AI solutions that don't actually work</h3>
+        </div>
+        <div class="pain-item">
+          <div class="pain-icon">❌</div>
+          <h3>Employee resistance to AI adoption</h3>
+        </div>
+        <div class="pain-item">
+          <div class="pain-icon">❌</div>
+          <h3>Compliance concerns with AI</h3>
+        </div>
+      </div>
+      <div class="pain-cta fade-in">
+        <p>We solve these problems with proven AI solutions.</p>
+      </div>
+    </div>
   </section>
   
   <!-- Solutions Section -->
@@ -67,57 +96,121 @@
     <div class="container">
       <h2 class="fade-in">Our Approach</h2>
       <p class="solutions-intro fade-in">
-        We design AI Agents that integrate into your existing team structures. Each agent is specialized in repetitive, document-heavy processes – from checking compliance documents to creating standardized reports. Seamlessly embedded in your workflows, our AI Agents behave like colleagues: reliable, efficient, and always available.
+        We believe integrating AI into business workflows is a continuous process. We want to become your partner to support you on your AI journey – from the first AI workshop to fully integrated AI solutions.
       </p>
+      
+      <div class="approach-overview fade-in">
+        <p>Our comprehensive approach combines strategic planning with hands-on implementation, ensuring both technical success and organizational buy-in throughout your AI transformation journey.</p>
+      </div>
+
+      <div class="approach-process">
+        <div class="process-flow">
+          
+          <div class="process-step fade-in">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Business Deep Dive</h3>
+              <p>We start by getting to know you and your company to understand your exact business needs, challenges, and strategic goals.</p>
+            </div>
+          </div>
+
+          <div class="process-step fade-in">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>People-First Approach</h3>
+              <p>The transformation starts with people. We provide education workshops to bring employees on board and sensitize them to AI – all without creating fear.</p>
+            </div>
+          </div>
+
+          <div class="process-step fade-in">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Opportunity Mapping</h3>
+              <p>Employee knowledge is instrumental. Together with all levels of your organization, we identify the best potential for automation.</p>
+            </div>
+          </div>
+
+          <div class="process-step fade-in">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Strategic Evaluation</h3>
+              <p>We evaluate processes on multiple metrics: difficulty to implement, expected reliability, potential savings, and forward-looking technology factors.</p>
+            </div>
+          </div>
+
+          <div class="process-step fade-in">
+            <div class="step-number">5</div>
+            <div class="step-content">
+              <h3>MVP & Iteration</h3>
+              <p>We start with an MVP solution to measure real-world impact quickly, then refine based on feedback for continuous improvement.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Agent Demo Section -->
+  <section id="ai-demo" class="ai-demo">
+    <div class="container">
+      <h2 class="fade-in">Sneak Peek</h2>
+      <p class="demo-intro fade-in">
+        Ever wondered what it actually looks like when AI takes over your daily tasks? Here's a glimpse behind the curtain. But this is just the beginning of what's possible.
+      </p>
+      
       <div class="video-container fade-in">
-        <video id="teaser-video" controls muted loop preload="metadata" poster="assets/video/video-poster.jpg">
-          <source src="assets/video/LLMify-Teaser.mp4" type="video/mp4">
+        <video id="teaser-video" controls muted loop preload="none" data-src="assets/video/LLMify-Teaser.mp4" poster="assets/video/video-poster.jpg">
+          <source data-src="assets/video/LLMify-Teaser.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
-      <div class="value-points">
-        <div class="value-point scale-in">
-          <div class="value-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="value-svg">
-              <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
-            </svg>
-          </div>
-          <div class="value-content">
-            <h3>Automate repetitive checklist & document tasks</h3>
-            <p>Eliminate time-consuming manual work with intelligent automation</p>
-          </div>
-        </div>
-        <div class="value-point scale-in">
-          <div class="value-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="value-svg">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-          </div>
-          <div class="value-content">
-            <h3>Seamless integration into your existing team processes</h3>
-            <p>Works alongside your team without disrupting current workflows</p>
+    </div>
+  </section>
+  
+  <!-- Next Steps Section -->
+  <section id="next-steps" class="next-steps">
+    <div class="container">
+      <h2 class="fade-in">What Happens Next?</h2>
+      <p class="next-steps-intro fade-in">Getting started with AI transformation is easier than you think. Here's exactly what happens when you work with us:</p>
+      
+      <div class="steps-flow">
+        <div class="step-item fade-in">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Free Consultation</h3>
+            <p>30-minute call to understand your specific needs, challenges, and goals. No sales pitch, just honest advice.</p>
+            <div class="step-duration">30 minutes</div>
           </div>
         </div>
-        <div class="value-point scale-in">
-          <div class="value-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="value-svg">
-              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-            </svg>
-          </div>
-          <div class="value-content">
-            <h3>Consistent results and reduced error rates</h3>
-            <p>Maintain accuracy and regulatory compliance across all processes</p>
+        
+        <div class="step-arrow">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+          </svg>
+        </div>
+        
+        <div class="step-item fade-in">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Custom Workshop</h3>
+            <p>Tailored AI education for your team. We address fears, build understanding, and identify real opportunities.</p>
+            <div class="step-duration">Half or full day</div>
           </div>
         </div>
-        <div class="value-point scale-in">
-          <div class="value-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="value-svg">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
-          </div>
-          <div class="value-content">
-            <h3>Free up specialists to focus on high-value work</h3>
-            <p>Let your team concentrate on strategic tasks that drive growth</p>
+        
+        <div class="step-arrow">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+          </svg>
+        </div>
+        
+        <div class="step-item fade-in">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>AI Implementation</h3>
+            <p>Your custom digital team member goes to work. We build, test, and refine until you're completely satisfied.</p>
+            <div class="step-duration">1-3 months</div>
           </div>
         </div>
       </div>
@@ -127,12 +220,15 @@
   <!-- Call to Action Section -->
   <section id="cta" class="cta">
     <div class="container">
-      <h2 class="fade-in">Ready to add a digital team member to your company?</h2>
-      <p class="fade-in">See how our AI Agents can seamlessly integrate into your workflows.</p>
+      <h2 class="fade-in">Stop Losing Hours to Manual Work</h2>
+      <p class="fade-in">Transform your business with AI that actually works. Get your free consultation today.</p>
       <div class="cta-buttons fade-in">
         <button class="btn btn-primary" onclick="showDemoModal();">
-          Book a Demo
+          Get Free Consultation
         </button>
+      </div>
+      <div class="cta-note fade-in">
+        <p>✓ No commitment required ✓ 30-minute call ✓ Custom recommendations</p>
       </div>
     </div>
   </section>
@@ -244,7 +340,7 @@
         <p>
           <strong>Address:</strong> Alte Steinhauserstrasse 19, 6330 Cham, Switzerland<br>
           <strong>Email:</strong> Contact us through our contact form<br>
-          <strong>Website:</strong> www.llmify.com
+          <strong>Website:</strong> www.llmify.ch
         </p>
         
         <h3>Regulatory Information</h3>

@@ -7,7 +7,6 @@
   <link rel="icon" href="assets/logo/only_logo.png" type="image/png" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
   <!-- Scroll Progress Indicator -->
@@ -27,10 +26,10 @@
       <ul class="nav-links">
         <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
         <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+        <li><a href="workshop.html" onclick="toggleMenu()">Workshop</a></li>
         <li><a href="security.html" onclick="toggleMenu()" class="active">Security</a></li>
         <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
-        <li><a href="contact.html" onclick="toggleMenu()">Contact</a></li>
-        <li><a href="#" onclick="showDemoModal(); toggleMenu();" class="demo-nav-btn">Book Demo</a></li>
+        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn">Contact Us</a></li>
       </ul>
     </div>
   </nav>
@@ -50,92 +49,120 @@
           <div class="stat-number">100%</div>
           <div class="stat-label">Swiss Hosted</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">Privacy</div>
-          <div class="stat-label">First</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">Secure</div>
-          <div class="stat-label">By Design</div>
-        </div>
       </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" onclick="document.getElementById('security-intro').scrollIntoView({behavior: 'smooth'});">
+      <div class="scroll-text">Scroll</div>
+      <div class="scroll-arrow"></div>
     </div>
   </section>
   
-  <!-- Data Security Section -->
-  <section id="security" class="security">
+  <!-- Security Introduction Section -->
+  <section id="security-intro" class="security-intro">
     <div class="container">
-      <div class="security-features">
-        <div class="security-feature scale-in">
+      <div class="intro-content fade-in">
+        <h2>Your Data, Your Choice</h2>
+        <p class="intro-lead">Every organization has different security needs and infrastructure. We offer flexible deployment options that put you in control of your data while delivering powerful AI capabilities.</p>
+        <p>Choose the approach that fits your business: fully managed Swiss cloud, hybrid deployment that keeps your data on-premise, or let's work together to design a custom solution that meets your specific requirements. We're committed to finding the right approach for your organization.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Private Cloud Solution Section -->
+  <section class="security-solution">
+    <div class="container">
+      <div class="solution-header fade-in">
+        <h2>Swiss Private Cloud</h2>
+        <p class="solution-subtitle">Fully managed, dedicated infrastructure in Switzerland. No hardware investment, no operational overhead.</p>
+      </div>
+      
+      <div class="solution-features">
+        <div class="solution-feature scale-in">
+          <div class="security-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="security-svg">
+              <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z"/>
+            </svg>
+          </div>
+          <h3>Dedicated Environment</h3>
+          <p>Your own private cloud instance that never shares resources with other customers. Complete isolation for maximum security.</p>
+        </div>
+        
+        <div class="solution-feature scale-in">
           <div class="security-icon">
             <svg viewBox="0 0 24 24" fill="currentColor" class="security-svg">
               <path d="M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10A2,2 0 0,1 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/>
             </svg>
           </div>
-          <h3>Data Processing, Not Storage</h3>
-          <p>Your data is processed in the cloud for AI analysis but never permanently stored on our systems. All processing happens in secure, isolated environments.</p>
+          <h3>Swiss Data Residency</h3>
+          <p>All data stays in Switzerland. No cross-border transfers, full compliance with Swiss data protection laws.</p>
         </div>
         
-        <div class="security-feature scale-in">
+        <div class="solution-feature scale-in">
           <div class="security-icon">
             <svg viewBox="0 0 24 24" fill="currentColor" class="security-svg">
-              <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.4 16,11.9 16,12.5V16.5C16,17.1 15.6,17.5 15,17.5H9C8.4,17.5 8,17.1 8,16.5V12.5C8,11.9 8.4,11.5 9,11.5V10C9,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.2,9.2 10.2,10V11.5H13.8V10C13.8,9.2 12.8,8.2 12,8.2Z"/>
+              <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
             </svg>
           </div>
-          <h3>On-Premise Deployment</h3>
-          <p>For maximum control, deploy our AI agents directly within your infrastructure. Keep all data processing completely within your network perimeter.</p>
+          <h3>Fully Managed</h3>
+          <p>We handle all infrastructure, security updates, and monitoring. You focus on your AI applications, we handle the rest.</p>
         </div>
-        
-        <div class="security-feature scale-in">
+      </div>
+    </div>
+  </section>
+
+  <!-- On-Premise Solution Section -->
+  <section class="security-solution on-premise">
+    <div class="container">
+      <div class="solution-header fade-in">
+        <h2>Hybrid On-Premise</h2>
+        <p class="solution-subtitle">Keep your data on-premise while accessing powerful AI processing through secure connections.</p>
+      </div>
+      
+      <div class="solution-features">
+        <div class="solution-feature scale-in">
           <div class="security-icon">
             <svg viewBox="0 0 24 24" fill="currentColor" class="security-svg">
               <path d="M4,6H20V16H4M20,18A2,2 0 0,0 22,16V6C22,4.89 21.1,4 20,4H4C2.89,4 2,4.89 2,6V16A2,2 0 0,0 4,18H0V20H24V18H20Z"/>
             </svg>
           </div>
-          <h3>Hybrid Cloud Solutions</h3>
-          <p>Combine the flexibility of cloud processing with on-premise data residency. Secure connections ensure your sensitive data never leaves your control.</p>
+          <h3>Data Stays Local</h3>
+          <p>Your data never leaves your infrastructure. All storage and sensitive processing happens on your servers.</p>
         </div>
         
-        <div class="security-feature scale-in">
+        <div class="solution-feature scale-in">
           <div class="security-icon">
             <svg viewBox="0 0 24 24" fill="currentColor" class="security-svg">
-              <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
+              <path d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M21,9V7L15,1L13.5,2.5L16.17,5.33H10.83L13.5,2.5L12,1L6,7V9H7.5V12H4.5L5,13.5L3.5,15L9.5,21L15.5,15L14,13.5L14.5,12H11.5V9H21Z"/>
             </svg>
           </div>
-          <h3>Private GPT Instances</h3>
-          <p>Access logically private GPT instances that ensure your data is isolated from other users. Enterprise-grade security with dedicated processing environments.</p>
-        </div>
-      </div>
-      
-      <!-- Additional Security Information -->
-      <div class="security-details fade-in">
-        <div class="security-detail">
-          <h3>Compliance Standards</h3>
-          <p>Our security measures meet and exceed industry standards including GDPR, SOC 2, and ISO 27001. We regularly undergo third-party security audits to ensure continuous compliance.</p>
+          <h3>Secure AI Processing</h3>
+          <p>Connect to our private AI models through encrypted tunnels. Get powerful AI capabilities without compromising data security.</p>
         </div>
         
-        <div class="security-detail">
-          <h3>Encryption & Access Control</h3>
-          <p>All data in transit and at rest is encrypted using AES-256 encryption. Multi-factor authentication and role-based access controls ensure only authorized personnel can access systems.</p>
-        </div>
-        
-        <div class="security-detail">
-          <h3>Monitoring & Incident Response</h3>
-          <p>24/7 security monitoring with automated threat detection and response capabilities. Our incident response team is ready to address any security concerns immediately.</p>
+        <div class="solution-feature scale-in">
+          <div class="security-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="security-svg">
+              <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
+            </svg>
+          </div>
+          <h3>Best of Both Worlds</h3>
+          <p>Maintain complete data control while accessing enterprise-grade AI infrastructure without the hardware investment.</p>
         </div>
       </div>
     </div>
   </section>
-  
+
   <!-- Call to Action Section -->
   <section id="cta" class="cta">
     <div class="container">
       <h2 class="fade-in">Ready to discuss your security requirements?</h2>
       <p class="fade-in">Let's talk about how we can meet your specific security and compliance needs.</p>
       <div class="cta-buttons fade-in">
-        <button class="btn btn-primary" onclick="showDemoModal();">
-          Schedule Security Consultation
-        </button>
+        <a href="contact.html" class="btn btn-primary">
+          Contact Us
+        </a>
       </div>
     </div>
   </section>
@@ -247,7 +274,7 @@
         <p>
           <strong>Address:</strong> Alte Steinhauserstrasse 19, 6330 Cham, Switzerland<br>
           <strong>Email:</strong> Contact us through our contact form<br>
-          <strong>Website:</strong> www.llmify.com
+          <strong>Website:</strong> www.llmify.ch
         </p>
         
         <h3>Regulatory Information</h3>

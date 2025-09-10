@@ -7,7 +7,6 @@
   <link rel="icon" href="assets/logo/only_logo.png" type="image/png" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
   <!-- Scroll Progress Indicator -->
@@ -27,10 +26,10 @@
       <ul class="nav-links">
         <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
         <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+        <li><a href="workshop.html" onclick="toggleMenu()">Workshop</a></li>
         <li><a href="security.html" onclick="toggleMenu()">Security</a></li>
         <li><a href="team.html" onclick="toggleMenu()" class="active">Team</a></li>
-        <li><a href="contact.html" onclick="toggleMenu()">Contact</a></li>
-        <li><a href="#" onclick="showDemoModal(); toggleMenu();" class="demo-nav-btn">Book Demo</a></li>
+        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn">Contact Us</a></li>
       </ul>
     </div>
   </nav>
@@ -47,10 +46,6 @@
       
       <div class="hero-stats fade-in">
         <div class="stat-item">
-          <div class="stat-number">6</div>
-          <div class="stat-label">Expert Team Members</div>
-        </div>
-        <div class="stat-item">
           <div class="stat-number">ETH</div>
           <div class="stat-label">Zurich Alumni</div>
         </div>
@@ -59,6 +54,12 @@
           <div class="stat-label">Years Experience</div>
         </div>
       </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" onclick="document.getElementById('journey').scrollIntoView({behavior: 'smooth'});">
+      <div class="scroll-text">Scroll</div>
+      <div class="scroll-arrow"></div>
     </div>
   </section>
   
@@ -70,52 +71,41 @@
         From regulatory compliance experts to AI automation pioneers – here's how we discovered the power of intelligent process automation.
       </p>
       
-      <div class="journey-timeline">
-        <!-- Timeline Line -->
-        <div class="timeline-line"></div>
-        
-        <!-- Step 1 -->
-        <div class="timeline-item scale-in">
-          <div class="timeline-dot">
-            <div class="dot-inner">1</div>
+      <div class="approach-process">
+        <div class="process-flow">
+          
+          <div class="process-step fade-in">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Z22 Spin-off Foundations</h3>
+              <p>Started as a small core team with FINMA licence expertise, specializing in developing and deploying software in highly regulated environments. We understood the complexities of compliance from day one.</p>
+            </div>
           </div>
-          <div class="timeline-content">
-            <h4>Z22 Spin-off Foundations</h4>
-            <p>Started as a small core team with FINMA licence expertise, specializing in developing and deploying software in highly regulated environments. We understood the complexities of compliance from day one.</p>
+
+          <div class="process-step fade-in">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>The Documentation Challenge</h3>
+              <p>New regulations brought extensive documentation requirements and monitoring. To avoid drowning in paperwork, we built deterministic automation first, then leveraged LLMs like ChatGPT to automate increasingly complex tasks.</p>
+            </div>
           </div>
-        </div>
-        
-        <!-- Step 2 -->
-        <div class="timeline-item scale-in">
-          <div class="timeline-dot">
-            <div class="dot-inner">2</div>
+
+          <div class="process-step fade-in">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Client Interest & Validation</h3>
+              <p>After sharing our automation successes with clients, we received overwhelmingly positive feedback. They expressed strong interest in applying our proven processes to automate their own workflows.</p>
+            </div>
           </div>
-          <div class="timeline-content">
-            <h4>The Documentation Challenge</h4>
-            <p>New regulations brought extensive documentation requirements and monitoring. To avoid drowning in paperwork, we built deterministic automation first, then leveraged LLMs like ChatGPT to automate increasingly complex tasks.</p>
+
+          <div class="process-step fade-in">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>LLMify AG is Born</h3>
+              <p>Founded LLMify AG as a separate entity to build a dedicated team around sharing the knowledge and lessons learned over years of automation experience, helping other companies optimize their processes.</p>
+            </div>
           </div>
-        </div>
-        
-        <!-- Step 3 -->
-        <div class="timeline-item scale-in">
-          <div class="timeline-dot">
-            <div class="dot-inner">3</div>
-          </div>
-          <div class="timeline-content">
-            <h4>Client Interest & Validation</h4>
-            <p>After sharing our automation successes with clients, we received overwhelmingly positive feedback. They expressed strong interest in applying our proven processes to automate their own workflows.</p>
-          </div>
-        </div>
-        
-        <!-- Step 4 -->
-        <div class="timeline-item scale-in">
-          <div class="timeline-dot">
-            <div class="dot-inner">4</div>
-          </div>
-          <div class="timeline-content">
-            <h4>LLMify AG is Born</h4>
-            <p>Founded LLMify AG as a separate entity to build a dedicated team around sharing the knowledge and lessons learned over years of automation experience, helping other companies optimize their processes.</p>
-          </div>
+
         </div>
       </div>
       
@@ -131,6 +121,8 @@
   <!-- Team Section -->
   <section id="team" class="team">
     <div class="container">
+      <h2 class="fade-in">Our Team</h2>
+      
       <div class="team-grid">
         <!-- Axel Pohl -->
         <div class="team-member scale-in">
@@ -198,13 +190,13 @@
                 </div>
                 <div class="team-front-info">
                   <h3>Niklas Pohl</h3>
-                  <p class="team-role">Head of Product Engineering</p>
+                  <p class="team-role">Head of Products</p>
                 </div>
               </div>
               <div class="flip-card-back">
                 <div class="business-card">
                   <h3>Niklas Pohl</h3>
-                  <p class="role">Head of Product Engineering</p>
+                  <p class="role">Head of Products</p>
                   <p class="education">Computer Science, ETH Zurich</p>
                   <p class="email">niklas@llmify.ch</p>
                 </div>
@@ -294,9 +286,9 @@
       <h2 class="fade-in">Ready to work with our team?</h2>
       <p class="fade-in">Let's discuss how our expertise can help transform your business with AI.</p>
       <div class="cta-buttons fade-in">
-        <button class="btn btn-primary" onclick="showDemoModal();">
+        <a href="contact.html" class="btn btn-primary">
           Get in Touch
-        </button>
+        </a>
       </div>
     </div>
   </section>
@@ -408,7 +400,7 @@
         <p>
           <strong>Address:</strong> Alte Steinhauserstrasse 19, 6330 Cham, Switzerland<br>
           <strong>Email:</strong> Contact us through our contact form<br>
-          <strong>Website:</strong> www.llmify.com
+          <strong>Website:</strong> www.llmify.ch
         </p>
         
         <h3>Regulatory Information</h3>
