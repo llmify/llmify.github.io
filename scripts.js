@@ -1,6 +1,57 @@
 // Throttled scroll functions for better performance
 let scrollTicking = false;
 
+// Dropdown toggle function
+function toggleDropdown(event) {
+  event.preventDefault();
+  const dropdown = event.target.closest('.dropdown');
+  const menu = dropdown.querySelector('.dropdown-menu');
+  const arrow = dropdown.querySelector('.dropdown-arrow');
+  
+  // Check if we're on mobile
+  const isMobile = window.innerWidth <= 768;
+  
+  if (isMobile) {
+    // On mobile, just toggle visibility without animations
+    if (menu.style.display === 'block') {
+      menu.style.display = 'none';
+      arrow.style.transform = 'rotate(0deg)';
+    } else {
+      // Close other dropdowns first
+      document.querySelectorAll('.dropdown-menu').forEach(otherMenu => {
+        if (otherMenu !== menu) {
+          otherMenu.style.display = 'none';
+        }
+      });
+      menu.style.display = 'block';
+      arrow.style.transform = 'rotate(180deg)';
+    }
+  } else {
+    // Desktop behavior
+    // Close other dropdowns
+    document.querySelectorAll('.dropdown-menu').forEach(otherMenu => {
+      if (otherMenu !== menu) {
+        otherMenu.style.opacity = '0';
+        otherMenu.style.visibility = 'hidden';
+        otherMenu.style.transform = 'translateY(-10px)';
+      }
+    });
+    
+    // Toggle current dropdown
+    if (menu.style.opacity === '1') {
+      menu.style.opacity = '0';
+      menu.style.visibility = 'hidden';
+      menu.style.transform = 'translateY(-10px)';
+      arrow.style.transform = 'rotate(0deg)';
+    } else {
+      menu.style.opacity = '1';
+      menu.style.visibility = 'visible';
+      menu.style.transform = 'translateY(0)';
+      arrow.style.transform = 'rotate(180deg)';
+    }
+  }
+}
+
 function updateScrollProgress() {
   const scrollProgress = document.querySelector('.scroll-progress');
   if (scrollProgress) {
@@ -51,7 +102,6 @@ function fixMobileLayout() {
   const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   
   if (isMobile) {
-    console.log('Applying mobile layout fixes...');
     
     // Force proper viewport constraints
     document.documentElement.style.width = '100%';
@@ -106,9 +156,9 @@ function initVideoAutoplay() {
           const playPromise = video.play();
           if (playPromise !== undefined) {
             playPromise.then(() => {
-              console.log('Video autoplay started successfully');
+              // Video autoplay started successfully
             }).catch(error => {
-              console.log('Video autoplay failed (likely due to browser policy):', error);
+              // Video autoplay failed (likely due to browser policy)
             });
           }
         }
@@ -142,7 +192,7 @@ const PerformanceOptimizer = {
       (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 2) ||
       (navigator.connection && (navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g'));
     
-    console.log(`Performance mode: ${this.isLowPerformance ? 'Low' : 'High'} performance`);
+    // Performance mode detected
   },
   
   optimizeForDevice() {
@@ -208,7 +258,7 @@ function initParticleAnimation() {
                                (navigator.connection && (navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g'));
   
   if (isVeryLowPerformance) {
-    console.log('Very low performance device detected - disabling particle animations');
+    // Very low performance device detected - disabling particle animations
     return;
   }
 
@@ -234,11 +284,11 @@ function initParticleAnimation() {
   }
   
   if (!canvas) {
-    console.log('No particle canvas found on this page');
+    // No particle canvas found on this page
     return;
   }
 
-  console.log(`Initializing particles for: ${canvasId}`);
+  // Initializing particles for current page
   
   const ctx = canvas.getContext('2d');
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
@@ -285,8 +335,9 @@ function initParticleAnimation() {
 
   function initParticles() {
     particles = [];
-    // Always use 25 particles as requested
-    for (let i = 0; i < 25; i++) {
+    // Use 50 particles on desktop, 25 on mobile
+    const particleCount = isMobile ? 25 : 50;
+    for (let i = 0; i < particleCount; i++) {
       particles.push(createParticle());
     }
     buildConnections();
@@ -357,7 +408,7 @@ function initParticleAnimation() {
       }
     }
     
-    console.log(`Rebuilt connections: ${connections.length} edges for ${particles.length} particles (${connections.filter(c => c.forced).length} guaranteed)`);
+    // Rebuilt particle connections
   }
 
   function startConnectionTimer() {
@@ -454,11 +505,7 @@ function initParticleAnimation() {
   const intersectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       isInViewport = entry.isIntersecting;
-      if (isInViewport) {
-        console.log(`Particles for ${canvasId} entered viewport - resuming animation`);
-      } else {
-        console.log(`Particles for ${canvasId} left viewport - pausing animation`);
-      }
+      // Particles viewport visibility changed
     });
   }, {
     rootMargin: '100px', // Start animating 100px before entering viewport
@@ -593,7 +640,7 @@ function initTimelineScrollActivation() {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM loaded, initializing components...');
+  // DOM loaded, initializing components
   
   fixMobileLayout();
   initParticleAnimation(); // Only runs for current page's canvas
@@ -602,6 +649,26 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize animations
   const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
   animatedElements.forEach(el => observer.observe(el));
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(event) {
+    if (!event.target.closest('.dropdown')) {
+      const isMobile = window.innerWidth <= 768;
+      
+      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        if (isMobile) {
+          menu.style.display = 'none';
+        } else {
+          menu.style.opacity = '0';
+          menu.style.visibility = 'hidden';
+          menu.style.transform = 'translateY(-10px)';
+        }
+      });
+      document.querySelectorAll('.dropdown-arrow').forEach(arrow => {
+        arrow.style.transform = 'rotate(0deg)';
+      });
+    }
+  });
   
   initVideoAutoplay();
   
@@ -662,7 +729,13 @@ document.addEventListener('DOMContentLoaded', function() {
       }).then(response => {
         if (response.ok) {
           demoForm.reset();
-          showDemoMessage("Demo request sent successfully! We'll contact you within 24 hours to schedule your personalized demo.");
+          // Check form type to show appropriate message
+          const formType = formData.get('form_type');
+          if (formType === 'workshop_booking') {
+            showDemoMessage("Workshop request sent successfully! We'll contact you within 24 hours to schedule your customized workshop session.");
+          } else {
+            showDemoMessage("Demo request sent successfully! We'll contact you within 24 hours to schedule your personalized demo.");
+          }
           setTimeout(() => hideDemoModal(), 2000);
         } else {
           response.json().then(data => {
@@ -686,12 +759,19 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+      const href = this.getAttribute('href');
+      if (href && href.length > 1) { // Check if href exists and is not just '#'
+        try {
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        } catch (error) {
+          // Silently handle invalid selectors
+        }
       }
     });
   });

@@ -3,7 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
-  <title>Our Team - LLMify</title>
+  <title>Meet Our AI Experts Team | LLMify Switzerland</title>
+  <meta name="description" content="Meet the LLMify team: AI experts from ETH Zurich combining deep technical knowledge with proven business experience. Led by founder Axel Pohl and our expert team.">
+  <meta name="keywords" content="AI experts, LLMify team, ETH Zurich, AI consultants, Swiss AI company, AI specialists">
+  <link rel="canonical" href="https://www.llmify.ch/team.html">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Meet Our AI Experts Team | LLMify Switzerland">
+  <meta property="og:description" content="Meet the LLMify team: AI experts from ETH Zurich with deep technical knowledge and business experience.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.llmify.ch/team.html">
+  <meta property="og:image" content="https://www.llmify.ch/assets/logo/full_logo.png">
+  
   <link rel="icon" href="assets/logo/only_logo.png" type="image/png" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,9 +36,14 @@
       </div>
       <ul class="nav-links">
         <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
-        <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
-        <li><a href="workshop.html" onclick="toggleMenu()">Workshop</a></li>
-        <li><a href="security.html" onclick="toggleMenu()">Security</a></li>
+        <li class="dropdown">
+          <a href="#" onclick="toggleDropdown(event); return false;">Services <span class="dropdown-arrow">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="workshop.html" onclick="toggleMenu()">Workshop</a></li>
+            <li><a href="private-ai.html" onclick="toggleMenu()">Private AI</a></li>
+            <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+          </ul>
+        </li>
         <li><a href="team.html" onclick="toggleMenu()" class="active">Team</a></li>
         <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn">Contact Us</a></li>
       </ul>
@@ -44,77 +60,12 @@
       <h1 class="fade-in">Meet Our Team</h1>
       <p class="fade-in">Behind LLMify is a passionate team of experts combining deep technical knowledge with proven business experience to revolutionize how companies work with AI.</p>
       
-      <div class="hero-stats fade-in">
-        <div class="stat-item">
-          <div class="stat-number">ETH</div>
-          <div class="stat-label">Zurich Alumni</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">10+</div>
-          <div class="stat-label">Years Experience</div>
-        </div>
-      </div>
     </div>
     
     <!-- Scroll Indicator -->
-    <div class="scroll-indicator" onclick="document.getElementById('journey').scrollIntoView({behavior: 'smooth'});">
+    <div class="scroll-indicator" onclick="document.getElementById('team').scrollIntoView({behavior: 'smooth'});">
       <div class="scroll-text">Scroll</div>
       <div class="scroll-arrow"></div>
-    </div>
-  </section>
-  
-  <!-- Our Journey Section -->
-  <section id="journey" class="journey">
-    <div class="container">
-      <h2 class="fade-in">Our Journey to LLMify</h2>
-      <p class="journey-intro fade-in">
-        From regulatory compliance experts to AI automation pioneers – here's how we discovered the power of intelligent process automation.
-      </p>
-      
-      <div class="approach-process">
-        <div class="process-flow">
-          
-          <div class="process-step fade-in">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <h3>Z22 Spin-off Foundations</h3>
-              <p>Started as a small core team with FINMA licence expertise, specializing in developing and deploying software in highly regulated environments. We understood the complexities of compliance from day one.</p>
-            </div>
-          </div>
-
-          <div class="process-step fade-in">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <h3>The Documentation Challenge</h3>
-              <p>New regulations brought extensive documentation requirements and monitoring. To avoid drowning in paperwork, we built deterministic automation first, then leveraged LLMs like ChatGPT to automate increasingly complex tasks.</p>
-            </div>
-          </div>
-
-          <div class="process-step fade-in">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <h3>Client Interest & Validation</h3>
-              <p>After sharing our automation successes with clients, we received overwhelmingly positive feedback. They expressed strong interest in applying our proven processes to automate their own workflows.</p>
-            </div>
-          </div>
-
-          <div class="process-step fade-in">
-            <div class="step-number">4</div>
-            <div class="step-content">
-              <h3>LLMify AG is Born</h3>
-              <p>Founded LLMify AG as a separate entity to build a dedicated team around sharing the knowledge and lessons learned over years of automation experience, helping other companies optimize their processes.</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      
-      <div class="journey-conclusion fade-in">
-        <div class="conclusion-card">
-          <h5>The Result</h5>
-          <p>Today, we combine deep regulatory expertise with cutting-edge AI automation to help businesses transform their most complex, document-heavy processes into streamlined, intelligent workflows.</p>
-        </div>
-      </div>
     </div>
   </section>
   
@@ -134,21 +85,16 @@
                 </div>
                 <div class="team-front-info">
                   <h3>Axel Pohl</h3>
-                  <p class="team-role">Founder</p>
+                  <p class="team-role">Developer</p>
                 </div>
               </div>
               <div class="flip-card-back">
                 <div class="business-card">
                   <h3>Axel Pohl</h3>
-                  <p class="role">Founder</p>
+                  <p class="role">Developer</p>
+                  <p class="role-sub">Founder</p>
                   <p class="education">Computer Science, ETH Zurich</p>
                   <p class="email">axel@llmify.ch</p>
-                  <a href="https://www.linkedin.com/in/axpohl/" target="_blank" rel="noopener noreferrer" class="team-linkedin">
-                    <svg viewBox="0 0 24 24" fill="currentColor" class="team-linkedin-icon">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                    LinkedIn
-                  </a>
                 </div>
               </div>
             </div>
@@ -165,13 +111,13 @@
                 </div>
                 <div class="team-front-info">
                   <h3>Francesco Laessig</h3>
-                  <p class="team-role">Lead AI Engineer</p>
+                  <p class="team-role">Developer</p>
                 </div>
               </div>
               <div class="flip-card-back">
                 <div class="business-card">
                   <h3>Francesco Laessig</h3>
-                  <p class="role">Lead AI Engineer</p>
+                  <p class="role">Developer</p>
                   <p class="education">Computer Science, ETH Zurich</p>
                   <p class="email">francesco@llmify.ch</p>
                 </div>
@@ -190,13 +136,13 @@
                 </div>
                 <div class="team-front-info">
                   <h3>Niklas Pohl</h3>
-                  <p class="team-role">Head of Products</p>
+                  <p class="team-role">Developer</p>
                 </div>
               </div>
               <div class="flip-card-back">
                 <div class="business-card">
                   <h3>Niklas Pohl</h3>
-                  <p class="role">Head of Products</p>
+                  <p class="role">Developer</p>
                   <p class="education">Computer Science, ETH Zurich</p>
                   <p class="email">niklas@llmify.ch</p>
                 </div>

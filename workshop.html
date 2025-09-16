@@ -3,7 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
-  <title>AI Workshop - LLMify</title>
+  <title>AI Strategy Workshop - From Confusion to Clear Strategy | LLMify</title>
+  <meta name="description" content="Navigate the AI landscape with confidence. Our structured workshop identifies your best AI opportunities, provides security insights, and creates actionable implementation roadmaps.">
+  <meta name="keywords" content="AI workshop, AI strategy, AI consulting, AI implementation, business AI training, AI opportunity assessment">
+  <link rel="canonical" href="https://www.llmify.ch/workshop.html">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="AI Strategy Workshop - From Confusion to Clear Strategy | LLMify">
+  <meta property="og:description" content="Navigate the AI landscape with confidence. Structured workshop for AI strategy and implementation planning.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.llmify.ch/workshop.html">
+  <meta property="og:image" content="https://www.llmify.ch/assets/logo/full_logo.png">
+  
   <link rel="icon" href="assets/logo/only_logo.png" type="image/png" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,9 +36,14 @@
       </div>
       <ul class="nav-links">
         <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
-        <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
-        <li><a href="workshop.html" onclick="toggleMenu()" class="active">Workshop</a></li>
-        <li><a href="security.html" onclick="toggleMenu()">Security</a></li>
+        <li class="dropdown">
+          <a href="#" onclick="toggleDropdown(event); return false;">Services <span class="dropdown-arrow">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="workshop.html" onclick="toggleMenu()" class="active">Workshop</a></li>
+            <li><a href="private-ai.html" onclick="toggleMenu()">Private AI</a></li>
+            <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+          </ul>
+        </li>
         <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
         <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn">Contact Us</a></li>
       </ul>
@@ -41,19 +57,9 @@
     </div>
     
     <div class="container">
-      <h1 class="fade-in">AI Education Workshop</h1>
-      <p class="fade-in">Transform your team's relationship with AI – from uncertainty to empowerment.</p>
+      <h1 class="fade-in">AI Strategy Workshop</h1>
+      <p class="fade-in">Discover your best AI opportunities and build a clear roadmap for implementation.</p>
       
-      <div class="hero-stats fade-in">
-        <div class="stat-item">
-          <div class="stat-number">People</div>
-          <div class="stat-label">First</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">No</div>
-          <div class="stat-label">Fear</div>
-        </div>
-      </div>
     </div>
     
     <!-- Scroll Indicator -->
@@ -66,126 +72,58 @@
   <!-- Workshop Introduction Section -->
   <section id="workshop-intro" class="philosophy">
     <div class="container">
-      <h2 class="fade-in">Why Start With Education?</h2>
+      <h2 class="fade-in">From AI Confusion to Clear Strategy</h2>
       <p class="philosophy-intro fade-in">
-        The transformation starts with people. We provide education workshops to bring employees on board and sensitize them to AI – all without creating fear.
+        Navigate the AI landscape with confidence. Our workshop cuts through the hype to identify real opportunities that drive measurable business value for your organization.
       </p>
       
       <div class="philosophy-principles">
         <div class="principle-item fade-in">
           <div class="principle-number">1</div>
           <div class="principle-content">
-            <h3>Understanding Over Fear</h3>
-            <p>Many employees fear AI will replace them. Our workshop demystifies AI technology, showing how it augments human capabilities rather than replacing them. We address concerns directly and create a foundation of understanding that enables successful adoption.</p>
+            <h3>Technology Landscape Overview</h3>
+            <p>Understand the current AI ecosystem, available models, and tools. We provide insights into the rapid development process and help you separate genuine opportunities from marketing hype.</p>
           </div>
         </div>
         
         <div class="principle-item fade-in">
           <div class="principle-number">2</div>
           <div class="principle-content">
-            <h3>Practical Application</h3>
-            <p>We don't just talk about AI in abstract terms. Participants experience hands-on demonstrations of AI tools relevant to their daily work, seeing immediate practical applications and benefits for their specific roles.</p>
+            <h3>Security & Validation Insights</h3>
+            <p>Learn critical data security aspects and result validation techniques. Discover what data you can safely use with public AI tools and what requires private solutions.</p>
           </div>
         </div>
         
         <div class="principle-item fade-in">
           <div class="principle-number">3</div>
           <div class="principle-content">
-            <h3>Employee-Driven Innovation</h3>
-            <p>Your employees know their processes best. Our workshop creates a collaborative environment where teams identify automation opportunities from within, ensuring buy-in and practical relevance for implementation.</p>
+            <h3>Strategic Opportunity Mapping</h3>
+            <p>Identify and prioritize your highest-value AI applications using proven decision frameworks. Leave with a ranked list of opportunities based on complexity and strategic importance.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
   
-  <!-- Workshop Content Section -->
-  <section id="workshop-content" class="agents">
+  <!-- Workshop Outcomes Section -->
+  <section id="workshop-outcomes" class="custom-solutions">
     <div class="container">
-      <h2 class="fade-in">What We Cover</h2>
-      <p class="agents-intro fade-in">Our comprehensive workshop is designed to take your team from AI newcomers to informed advocates, ready to identify and implement automation opportunities in their daily work.</p>
-      
-      <div class="agent-cards">
-        <div class="agent-card scale-in">
-          <div class="agent-avatar">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="agent-icon">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-          </div>
-          <h3>AI Fundamentals</h3>
-          <p>
-            We start with the basics: What is AI really? How do Large Language Models work? We explain complex concepts in simple terms, ensuring everyone understands the technology behind the tools they'll be using.
-          </p>
-        </div>
-        
-        <div class="agent-card scale-in">
-          <div class="agent-avatar">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="agent-icon">
-              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </div>
-          <h3>Hands-On Experience</h3>
-          <p>
-            Participants work with real AI tools relevant to their roles. From document processing to data analysis, everyone leaves with practical experience and confidence in using AI for their daily tasks.
-          </p>
-        </div>
-        
-        <div class="agent-card scale-in">
-          <div class="agent-avatar">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="agent-icon">
-              <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20a3 3 0 01-3-3v-2a3 3 0 013-3h10a3 3 0 013 3v2a3 3 0 01-3 3M7 20v-2c0-.656.126-1.283.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
-          </div>
-          <h3>Opportunity Mapping</h3>
-          <p>
-            Together, we identify processes in your organization that could benefit from AI automation. This collaborative session ensures that proposed solutions address real pain points and have strong internal support.
-          </p>
-        </div>
-        
-        <div class="agent-card scale-in">
-          <div class="agent-avatar">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="agent-icon">
-              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-            </svg>
-          </div>
-          <h3>Ethics & Best Practices</h3>
-          <p>
-            We address important considerations around data privacy, bias, and responsible AI use. Participants learn to evaluate AI solutions critically and implement them in compliance with regulations and ethical standards.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Workshop Format Section -->
-  <section id="workshop-format" class="custom-solutions">
-    <div class="container">
-      <h2 class="fade-in">Workshop Format</h2>
+      <h2 class="fade-in">What You'll Achieve</h2>
       <p class="custom-solutions-intro fade-in">
-        Our workshop is designed to be engaging, practical, and immediately applicable. We adapt the format to your team's size, technical background, and specific needs, ensuring maximum value for every participant.
+        Leave with a clear AI strategy, ranked opportunities, and the foundation for successful implementation. Our structured approach ensures you identify the highest-value applications for your specific business context.
       </p>
       
-      <div class="workshop-format-cards">
-        <div class="format-card format-card-1 fade-in">
+      <div class="workshop-grid-2x2">
+        <!-- Top Row -->
+        <div class="format-card format-card-4 fade-in">
           <div class="format-icon">
             <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
             </svg>
           </div>
-          <h3>Pre-Workshop Assessment</h3>
-          <p>We conduct brief interviews with key stakeholders to understand your team's current AI knowledge, concerns, and specific use cases. This allows us to customize the content for maximum relevance.</p>
-          <div class="format-duration">Before Workshop</div>
-        </div>
-
-        <div class="format-card format-card-2 fade-in">
-          <div class="format-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-          </div>
-          <h3>Interactive Sessions</h3>
-          <p>Half-day or full-day sessions combining presentations, live demonstrations, and hands-on exercises. Participants work in small groups to ensure everyone gets personalized attention and can ask questions freely.</p>
-          <div class="format-duration">4-8 Hours</div>
+          <h3>Practical AI Knowledge</h3>
+          <p>Deep understanding of the AI landscape, available tools, and emerging technologies. Cut through the hype and focus on solutions that deliver real business value.</p>
+          <div class="format-duration">Technology Insights</div>
         </div>
 
         <div class="format-card format-card-3 fade-in">
@@ -194,97 +132,32 @@
               <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20a3 3 0 01-3-3v-2a3 3 0 013-3h10a3 3 0 013 3v2a3 3 0 01-3 3M7 20v-2c0-.656.126-1.283.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
           </div>
-          <h3>Opportunity Workshop</h3>
-          <p>Collaborative sessions where teams map their current processes and identify automation opportunities. We facilitate discussions that leverage employee knowledge to find the most impactful use cases.</p>
-          <div class="format-duration">2-4 Hours</div>
+          <h3>Team Confidence & Buy-in</h3>
+          <p>Your team gains hands-on AI experience, reduced anxiety about adoption, and shared understanding for the transformation journey ahead. Foundation for successful implementation.</p>
+          <div class="format-duration">Change Management</div>
         </div>
 
-        <div class="format-card format-card-4 fade-in">
+        <!-- Bottom Row -->
+        <div class="format-card format-card-2 fade-in">
           <div class="format-icon">
             <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
               <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
             </svg>
           </div>
-          <h3>Implementation Roadmap</h3>
-          <p>We conclude with a clear action plan, prioritizing identified opportunities by impact and feasibility. Teams leave with concrete next steps and a timeline for AI integration.</p>
-          <div class="format-duration">After Workshop</div>
+          <h3>Security & Risk Framework</h3>
+          <p>Clear guidelines on data handling, security requirements, and validation processes. Understand what can be processed with public tools versus what requires private AI solutions.</p>
+          <div class="format-duration">Risk Management</div>
         </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Workshop Benefits Section -->
-  <section id="workshop-benefits" class="pricing-model">
-    <div class="container">
-      <h2 class="fade-in">Workshop Outcomes</h2>
-      <p class="pricing-intro fade-in">
-        Our workshop creates the foundation for successful AI integration by addressing the human element first. Teams that complete our education program are significantly more likely to embrace and effectively use AI solutions.
-      </p>
-      
-      <div class="phase-approach">
-        <div class="approach-title fade-in">
-          <h3>What Your Team Gains</h3>
-        </div>
-        
-        <div class="phases-container">
-          <!-- Benefit 1 -->
-          <div class="phase-card phase-1 fade-in">
-            <div class="phase-header">
-              <div class="phase-number">✓</div>
-              <h4>AI Confidence</h4>
-            </div>
-            <div class="phase-body">
-              <ul class="phase-features">
-                <li>Clear understanding of AI capabilities</li>
-                <li>Hands-on experience with relevant tools</li>
-                <li>Reduced anxiety about AI adoption</li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Arrow 1 -->
-          <div class="phase-arrow">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+
+        <div class="format-card format-card-1 fade-in">
+          <div class="format-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
           </div>
-          
-          <!-- Benefit 2 -->
-          <div class="phase-card phase-2 fade-in">
-            <div class="phase-header">
-              <div class="phase-number">✓</div>
-              <h4>Process Insights</h4>
-            </div>
-            <div class="phase-body">
-              <ul class="phase-features">
-                <li>Identified automation opportunities</li>
-                <li>Prioritized implementation roadmap</li>
-                <li>Employee-driven innovation ideas</li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Arrow 2 -->
-          <div class="phase-arrow">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
-            </svg>
-          </div>
-          
-          <!-- Benefit 3 -->
-          <div class="phase-card phase-3 fade-in">
-            <div class="phase-header">
-              <div class="phase-number">✓</div>
-              <h4>Implementation Readiness</h4>
-            </div>
-            <div class="phase-body">
-              <ul class="phase-features">
-                <li>Team buy-in for AI initiatives</li>
-                <li>Clear next steps and timeline</li>
-                <li>Foundation for ongoing AI adoption</li>
-              </ul>
-            </div>
-          </div>
+          <h3>Prioritized AI Roadmap</h3>
+          <p>Receive a comprehensive analysis of your AI opportunities ranked by implementation complexity, robustness, and strategic value. Know exactly where to focus your efforts first.</p>
+          <div class="format-duration">Strategic Planning</div>
         </div>
       </div>
     </div>
@@ -293,7 +166,7 @@
   <!-- Call to Action Section -->
   <section id="cta" class="cta">
     <div class="container">
-      <h2 class="fade-in">Ready to empower your team with AI knowledge?</h2>
+      <h2 class="fade-in">Ready to turn AI confusion into competitive advantage?</h2>
       <p class="fade-in">Start your AI journey with our comprehensive education workshop.</p>
       <div class="cta-buttons fade-in">
         <button class="btn btn-primary" onclick="showDemoModal();">
