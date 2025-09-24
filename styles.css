@@ -1455,6 +1455,17 @@ nav.scrolled {
     -webkit-transform: rotateY(-180deg);
     transform: rotateY(-180deg);
   }
+
+  /* Ensure front face elements are completely hidden when flipped */
+  .team-member:hover .flip-card-front {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .team-member:hover .flip-card-front .team-front-info {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
 }
 
 /* Front card styling moved to photo and info containers */
