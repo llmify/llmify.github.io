@@ -165,7 +165,7 @@ async function downloadTile(tileId) {
 // Uses tile-by-tile lookup to avoid Map size limits
 async function buildElevationGrid(mountain) {
   const { easting, northing, extent = 3000 } = mountain;
-  const gridResolution = 20; // meters per grid cell (for reasonable SVG size)
+  const gridResolution = 10; // meters per grid cell (for reasonable SVG size)
 
   console.log(`Building elevation grid for ${mountain.name}...`);
   console.log(`  Center: E ${easting} / N ${northing}`);
