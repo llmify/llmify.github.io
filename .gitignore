@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+
+# Topo generation (can be regenerated with: node scripts/generate-topo.js <mountain>)
+scripts/.cache/
+assets/topo/

@@ -49,6 +49,42 @@ The codebase has been refactored from a single large HTML file into modular comp
 2. All styles and scripts are automatically loaded from external files
 3. The website is fully functional with all original features preserved
 
+## Topographic Backgrounds
+
+The website uses real Swiss elevation data from [swisstopo](https://www.swisstopo.admin.ch/) to generate SVG contour backgrounds for different sections.
+
+### Generating Topo SVGs
+
+```bash
+# Generate individual mountains
+node scripts/generate-topo.js matterhorn   # Hero section
+node scripts/generate-topo.js eiger        # Our Approach section
+node scripts/generate-topo.js jungfrau     # Agents section (not currently used)
+node scripts/generate-topo.js pilatus      # CTA section
+
+# Or generate all
+node scripts/generate-topo.js matterhorn && \
+node scripts/generate-topo.js eiger && \
+node scripts/generate-topo.js jungfrau && \
+node scripts/generate-topo.js pilatus
+```
+
+### How It Works
+
+1. Downloads XYZ elevation tiles from swisstopo's swissALTI3D dataset (2m resolution)
+2. Caches tiles locally in `scripts/.cache/` for fast regeneration
+3. Uses marching squares algorithm to extract contour lines
+4. Outputs SVG files to `assets/topo/`
+
+### Mountain Configurations
+
+Each mountain has customizable parameters in `scripts/generate-topo.js`:
+- `easting`/`northing`: Swiss LV95 coordinates (EPSG:2056)
+- `extent`: Area size in meters from center
+- `baseElevation`: Minimum elevation to show contours
+- `contourInterval`: Meters between contour lines
+- `svgWidth`/`svgHeight`: Output SVG dimensions
+
 ## Development Notes
 
 - Follow the user rules: Keep files small, use simple code with minimal fallback
