@@ -1173,7 +1173,7 @@ nav.scrolled {
 
 /* Data Security Section */
 .security {
-  background: var(--bg-tertiary);
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 15%, #f1f5f9 85%, #f8fafc 100%);
   padding: 6rem 0;
   position: relative;
 }
@@ -1331,7 +1331,7 @@ nav.scrolled {
 
 /* Team Section */
 .team {
-  background: var(--bg-secondary);
+  background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 15%, #f8fafc 85%, #f8fafc 100%);
   padding: 6rem 0;
   position: relative;
 }
@@ -1775,8 +1775,8 @@ nav.scrolled {
 
 /* Contact Section */
 .contact {
-  background: var(--bg-primary);
-  text-align: center; 
+  background: linear-gradient(180deg, #f1f5f9 0%, #ffffff 15%, #ffffff 100%);
+  text-align: center;
   padding: 6rem 0;
   position: relative;
 }
@@ -2380,7 +2380,7 @@ nav.scrolled {
 
 /* AI Demo Section - Home Page */
 .ai-demo {
-  background: var(--bg-secondary);
+  background: linear-gradient(180deg, #f8fafc 0%, #f8fafc 85%, #ffffff 100%);
   padding: 5rem 0;
   position: relative;
 }
@@ -3547,7 +3547,7 @@ nav.scrolled {
 
 /* Custom Solutions Section */
 .custom-solutions {
-  background: var(--bg-secondary);
+  background: linear-gradient(180deg, #f8fafc 0%, #f8fafc 85%, #f8fafc 100%);
   padding: 6rem 0;
   position: relative;
 }
@@ -3625,7 +3625,7 @@ nav.scrolled {
 
 /* Pricing Model Section */
 .pricing-model {
-  background: var(--bg-tertiary);
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 15%, #f1f5f9 85%, #f8fafc 100%);
   padding: 6rem 0;
   position: relative;
 }
@@ -4385,10 +4385,15 @@ nav.scrolled {
 
 /* Philosophy Section */
 .philosophy {
-  background: var(--bg-secondary);
+  background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 15%, #f8fafc 85%, #f8fafc 100%);
   padding: 6rem 0;
   position: relative;
   overflow: hidden;
+}
+
+/* Override for private-ai.html where philosophy comes after white sections */
+#beyond-solutions.philosophy {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 15%, #f8fafc 85%, #f8fafc 100%);
 }
 
 .philosophy::before {
@@ -5223,7 +5228,7 @@ nav.scrolled {
 
 /* Footer */
 footer {
-  background: var(--bg-primary);
+  background: #ffffff;
   padding: 3rem 0;
   text-align: center;
   font-size: 0.9rem;
