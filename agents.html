@@ -35,17 +35,33 @@
         <span></span><span></span><span></span>
       </div>
       <ul class="nav-links">
-        <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+        <li><a href="index.html" onclick="toggleMenu()" data-i18n="nav.home">Home</a></li>
         <li class="dropdown">
-          <a href="#" onclick="toggleDropdown(event); return false;">Services <span class="dropdown-arrow">▼</span></a>
+          <a href="#" onclick="toggleDropdown(event); return false;"><span data-i18n="nav.services">Services</span> <span class="dropdown-arrow">▼</span></a>
           <ul class="dropdown-menu">
-            <li><a href="workshop.html" onclick="toggleMenu()">Workshop</a></li>
-            <li><a href="private-ai.html" onclick="toggleMenu()">Private AI</a></li>
-            <li><a href="agents.html" onclick="toggleMenu()" class="active">Agents</a></li>
+            <li><a href="workshop.html" onclick="toggleMenu()" data-i18n="nav.workshop">Workshop</a></li>
+            <li><a href="private-ai.html" onclick="toggleMenu()" data-i18n="nav.privateAi">Private AI</a></li>
+            <li><a href="agents.html" onclick="toggleMenu()" class="active" data-i18n="nav.agents">Agents</a></li>
           </ul>
         </li>
-        <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
-        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn">Contact Us</a></li>
+        <li><a href="team.html" onclick="toggleMenu()" data-i18n="nav.team">Team</a></li>
+        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn" data-i18n="nav.contact">Contact Us</a></li>
+        <li class="language-selector">
+          <button class="language-btn" onclick="toggleLanguageDropdown(event)">
+            <span class="lang-code">DE</span>
+            <span class="lang-arrow">▼</span>
+          </button>
+          <div class="language-dropdown">
+            <div class="language-option" data-lang="de" onclick="switchLanguage('de')">
+              <span class="lang-name">Deutsch</span>
+              <span class="lang-check">✓</span>
+            </div>
+            <div class="language-option" data-lang="en" onclick="switchLanguage('en')">
+              <span class="lang-name">English</span>
+              <span class="lang-check">✓</span>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -55,50 +71,50 @@
     <div class="hero-background">
       <canvas id="agents-particle-canvas"></canvas>
     </div>
-    
+
     <div class="container">
-      <h1 class="fade-in">We transform AI into your custom digital team member</h1>
-      <p class="fade-in">Free your team to focus on creative, high-value work while AI handles the routine tasks.</p>
-      
+      <h1 class="fade-in" data-i18n="agents.hero.title">We transform AI into your custom digital team member</h1>
+      <p class="fade-in" data-i18n="agents.hero.subtitle">Free your team to focus on creative, high-value work while AI handles the routine tasks.</p>
+
     </div>
-    
+
     <!-- Scroll Indicator -->
     <div class="scroll-indicator" onclick="document.getElementById('philosophy').scrollIntoView({behavior: 'smooth'});">
-      <div class="scroll-text">Scroll</div>
+      <div class="scroll-text" data-i18n="common.scroll">Scroll</div>
       <div class="scroll-arrow"></div>
     </div>
   </section>
-  
+
   <!-- Our Philosophy Section -->
   <section id="philosophy" class="philosophy">
     <div class="container">
-      <h2 class="fade-in">Our Philosophy</h2>
-      <p class="philosophy-intro fade-in">
+      <h2 class="fade-in" data-i18n="agents.philosophy.title">Our Philosophy</h2>
+      <p class="philosophy-intro fade-in" data-i18n="agents.philosophy.intro">
         We believe when it comes to building successful integrations of agents, there are a few key things to consider.
       </p>
-      
+
       <div class="philosophy-principles">
         <div class="principle-item fade-in">
           <div class="principle-number">1</div>
           <div class="principle-content">
-            <h3>Built for Reliability</h3>
-            <p>Rather than building agents that deliver astonishing results 50% of the time like many fully autonomous agent systems advertise, we believe there's great value in carefully designed systems. We leverage LLMs when confronted with uncertain structures, using them systematically to restructure data, then perform transformations deterministically. This approach improves overall system reliability and explainability – crucial properties for highly regulated tasks.</p>
+            <h3 data-i18n="agents.philosophy.item1.title">Built for Reliability</h3>
+            <p data-i18n="agents.philosophy.item1.desc">Rather than building agents that deliver astonishing results 50% of the time like many fully autonomous agent systems advertise, we believe there's great value in carefully designed systems. We leverage LLMs when confronted with uncertain structures, using them systematically to restructure data, then perform transformations deterministically. This approach improves overall system reliability and explainability – crucial properties for highly regulated tasks.</p>
           </div>
         </div>
-        
+
         <div class="principle-item fade-in">
           <div class="principle-number">2</div>
           <div class="principle-content">
-            <h3>Transparent Operations</h3>
-            <p>Our Agent Cockpit gives you a unique view of what the agent is working on, their current backlog, and well-thought-through visualizations of results. This allows co-workers to easily confirm results, building trust while making everything validatable and decisions traceable.</p>
+            <h3 data-i18n="agents.philosophy.item2.title">Transparent Operations</h3>
+            <p data-i18n="agents.philosophy.item2.desc">Our Agent Cockpit gives you a unique view of what the agent is working on, their current backlog, and well-thought-through visualizations of results. This allows co-workers to easily confirm results, building trust while making everything validatable and decisions traceable.</p>
           </div>
         </div>
-        
+
         <div class="principle-item fade-in">
           <div class="principle-number">3</div>
           <div class="principle-content">
-            <h3>Intuitive Integration</h3>
-            <p>We leverage LLM capabilities to make usage as intuitive as possible – it should feel like onboarding another employee. Our agents integrate seamlessly via standard business communication channels like email or other platforms.</p>
+            <h3 data-i18n="agents.philosophy.item3.title">Intuitive Integration</h3>
+            <p data-i18n="agents.philosophy.item3.desc">We leverage LLM capabilities to make usage as intuitive as possible – it should feel like onboarding another employee. Our agents integrate seamlessly via standard business communication channels like email or other platforms.</p>
           </div>
         </div>
       </div>
@@ -109,8 +125,8 @@
   <!-- Agent in Action Section -->
   <section id="agent-demo" class="ai-demo">
     <div class="container">
-      <h2 class="fade-in">From Overwhelmed to Automated</h2>
-      <p class="demo-intro fade-in">
+      <h2 class="fade-in" data-i18n="agents.demo.title">From Overwhelmed to Automated</h2>
+      <p class="demo-intro fade-in" data-i18n="agents.demo.subtitle">
         See the transformation in action. Watch how our AI agents take complex, time-consuming tasks off your plate while keeping you in complete control through our monitoring interface.
       </p>
       
@@ -126,9 +142,9 @@
   <!-- Meet Our Agents Section -->
   <section id="agents" class="agents">
     <div class="container">
-      <h2 class="fade-in">Meet Our Agents</h2>
-      <p class="agents-intro fade-in">Every team deserves reliable colleagues. Ours just happen to be digital. These are the AI agents we're building for regulated environments. Each one is designed to handle specific, complex workflows that currently consume hours of human time. See exactly how they would integrate into your processes and deliver the reliability your business demands.</p>
-      
+      <h2 class="fade-in" data-i18n="agents.meet.title">Meet Our Agents</h2>
+      <p class="agents-intro fade-in" data-i18n="agents.meet.intro">Every team deserves reliable colleagues. Ours just happen to be digital. These are the AI agents we're building for regulated environments. Each one is designed to handle specific, complex workflows that currently consume hours of human time. See exactly how they would integrate into your processes and deliver the reliability your business demands.</p>
+
       <div class="agent-cards">
         <div class="agent-card scale-in">
           <div class="agent-avatar">
@@ -136,8 +152,8 @@
               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
           </div>
-          <h3>The Onboarding Agent<br><span class="agent-name">Reto</span></h3>
-          <p>
+          <h3><span data-i18n="agents.reto.title">The Onboarding Agent</span><br><span class="agent-name" data-i18n="agents.reto.name">Reto</span></h3>
+          <p data-i18n="agents.reto.desc">
             Reto takes care of client onboarding in regulated environments. From verifying KYC documents for individuals and legal entities to ensuring compliance checks, Reto relieves your legal and compliance teams of repetitive work. He integrates smoothly into your workflow, just like another team member.
           </p>
         </div>
@@ -147,8 +163,8 @@
               <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
             </svg>
           </div>
-          <h3>The Auditing Agent<br><span class="agent-name">Beat</span></h3>
-          <p>
+          <h3><span data-i18n="agents.beat.title">The Auditing Agent</span><br><span class="agent-name" data-i18n="agents.beat.name">Beat</span></h3>
+          <p data-i18n="agents.beat.desc">
             Beat automates balance sheet reviews and document preparation. Instead of manually transferring financial statements into spreadsheets and running validations, Beat takes over these steps with precision and speed. He supports your audit team in ensuring accuracy while saving valuable hours.
           </p>
         </div>
@@ -158,12 +174,12 @@
               <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z"/>
             </svg>
           </div>
-          <h3>More Agents Coming Soon</h3>
-          <p>
+          <h3 data-i18n="agents.comingSoon.title">More Agents Coming Soon</h3>
+          <p data-i18n="agents.comingSoon.desc">
             We're constantly developing new AI agents for different industries and use cases. From legal document processing to customer service automation, your next digital team member is on the way.
           </p>
           <div class="coming-soon-badge">
-            <span>Stay Tuned</span>
+            <span data-i18n="agents.comingSoon.badge">Stay Tuned</span>
           </div>
         </div>
       </div>
@@ -174,20 +190,19 @@
   <!-- Custom Agent Solutions Section -->
   <section id="custom-solutions" class="custom-solutions">
     <div class="container">
-      <h2 class="fade-in">Different Process, Same Approach</h2>
-      <p class="custom-solutions-intro fade-in">
+      <h2 class="fade-in" data-i18n="agents.custom.title">Different Process, Same Approach</h2>
+      <p class="custom-solutions-intro fade-in" data-i18n="agents.custom.intro">
         Every business has repetitive workflows that consume valuable time – whether it's document processing, data validation, compliance checks, or approval workflows. We focus on understanding the specific steps, rules, and requirements that make your processes unique. Let's explore together how we can automate your particular workflow and build an AI agent that handles your exact process requirements.
       </p>
-      
 
-      
+
       <div class="custom-solutions-cta fade-in">
         <div class="slide-button-container">
           <div class="slide-button" id="customAgentSlider">
             <div class="slide-track">
               <div class="slide-text-container">
-                <span class="slide-text-main">Slide to Unlock</span>
-                <span class="slide-text-highlight">Your Custom Agent</span>
+                <span class="slide-text-main" data-i18n="agents.slider.text1">Slide to Unlock</span>
+                <span class="slide-text-highlight" data-i18n="agents.slider.text2">Your Custom Agent</span>
               </div>
               <div class="slide-thumb" id="slideThumb">
                 <svg viewBox="0 0 24 24" fill="currentColor" class="slide-arrow">
@@ -200,129 +215,129 @@
       </div>
     </div>
   </section>
-  
+
   <!-- AI as Team Member Pricing Section -->
   <section id="pricing-model" class="pricing-model">
     <div class="container">
-      <h2 class="fade-in">AI as a Team Member</h2>
-      <p class="pricing-intro fade-in">
+      <h2 class="fade-in" data-i18n="agents.pricing.title">AI as a Team Member</h2>
+      <p class="pricing-intro fade-in" data-i18n="agents.pricing.intro">
         Our 3-phase approach ensures your AI agent completes tasks to your complete satisfaction. We build, test, and refine until the agent meets your exact requirements. At each stage, you validate the results before moving forward, guaranteeing a solution that truly works for your business.
       </p>
-      
+
       <div class="phase-approach">
         <div class="approach-title fade-in">
-          <h3>Our 3 Phase Approach</h3>
+          <h3 data-i18n="agents.pricing.approach">Our 3 Phase Approach</h3>
         </div>
-        
+
         <div class="phases-container">
           <!-- Phase 1 -->
           <div class="phase-card phase-1 fade-in">
             <div class="phase-header">
               <div class="phase-number">1</div>
-              <h4>Study Phase</h4>
+              <h4 data-i18n="agents.pricing.phase1.title">Study Phase</h4>
             </div>
             <div class="phase-body">
               <ul class="phase-features">
-                <li>Requirements Analysis</li>
-                <li>Process Mapping</li>
-                <li>Initial Development</li>
+                <li data-i18n="agents.pricing.phase1.item1">Requirements Analysis</li>
+                <li data-i18n="agents.pricing.phase1.item2">Process Mapping</li>
+                <li data-i18n="agents.pricing.phase1.item3">Initial Development</li>
               </ul>
             </div>
             <div class="phase-footer">
-              <div class="phase-duration">1-3 Months</div>
+              <div class="phase-duration" data-i18n="agents.pricing.phase1.duration">1-3 Months</div>
             </div>
           </div>
-          
+
           <!-- Arrow 1 -->
           <div class="phase-arrow">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
             </svg>
           </div>
-          
+
           <!-- Phase 2 -->
           <div class="phase-card phase-2 fade-in">
             <div class="phase-header">
               <div class="phase-number">2</div>
-              <h4>Internship Phase</h4>
+              <h4 data-i18n="agents.pricing.phase2.title">Internship Phase</h4>
             </div>
             <div class="phase-body">
               <ul class="phase-features">
-                <li>Live Deployment</li>
-                <li>Performance Monitoring</li>
-                <li>Continuous Feedback</li>
+                <li data-i18n="agents.pricing.phase2.item1">Live Deployment</li>
+                <li data-i18n="agents.pricing.phase2.item2">Performance Monitoring</li>
+                <li data-i18n="agents.pricing.phase2.item3">Continuous Feedback</li>
               </ul>
             </div>
             <div class="phase-footer">
-              <div class="phase-duration">1-3 Months</div>
+              <div class="phase-duration" data-i18n="agents.pricing.phase2.duration">1-3 Months</div>
             </div>
           </div>
-          
+
           <!-- Arrow 2 -->
           <div class="phase-arrow">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
             </svg>
           </div>
-          
+
           <!-- Phase 3 -->
           <div class="phase-card phase-3 fade-in">
             <div class="phase-header">
               <div class="phase-number">3</div>
-              <h4>Full-Time Position</h4>
+              <h4 data-i18n="agents.pricing.phase3.title">Full-Time Position</h4>
             </div>
             <div class="phase-body">
               <ul class="phase-features">
-                <li>Fully Trained Agent</li>
-                <li>24/7 Availability</li>
-                <li>Ongoing Support</li>
+                <li data-i18n="agents.pricing.phase3.item1">Fully Trained Agent</li>
+                <li data-i18n="agents.pricing.phase3.item2">24/7 Availability</li>
+                <li data-i18n="agents.pricing.phase3.item3">Ongoing Support</li>
               </ul>
             </div>
             <div class="phase-footer">
-              <div class="phase-duration">Unlimited</div>
+              <div class="phase-duration" data-i18n="agents.pricing.phase3.duration">Unlimited</div>
             </div>
           </div>
         </div>
       </div>
-      
+
     </div>
   </section>
 
   <!-- Call to Action Section -->
   <section id="cta" class="cta">
     <div class="container">
-      <h2 class="fade-in">Ready to add a digital team member to your company?</h2>
-      <p class="fade-in">See how our AI Agents can seamlessly integrate into your workflows.</p>
+      <h2 class="fade-in" data-i18n="agents.cta.title">Ready to add a digital team member to your company?</h2>
+      <p class="fade-in" data-i18n="agents.cta.subtitle">See how our AI Agents can seamlessly integrate into your workflows.</p>
       <div class="cta-buttons fade-in">
-        <a href="contact.html" class="btn btn-primary">
+        <a href="contact.html" class="btn btn-primary" data-i18n="agents.cta.button">
           Contact Us
         </a>
       </div>
     </div>
   </section>
-  
+
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p>&copy; 2025 LLMify. All Rights Reserved.</p>
+      <p data-i18n="footer.copyright">&copy; 2025 LLMify. All Rights Reserved.</p>
       <div class="footer-links">
-        <a href="#" onclick="showPrivacyModal()">Privacy Policy</a>
-        <a href="#" onclick="showImpressumModal()">Impressum</a>
-        <a href="#" onclick="showCookieSettings()">Cookie Settings</a>
+        <a href="#" onclick="showPrivacyModal()" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="#" onclick="showImpressumModal()" data-i18n="footer.impressum">Impressum</a>
+        <a href="#" onclick="showCookieSettings()" data-i18n="footer.cookies">Cookie Settings</a>
       </div>
     </div>
   </footer>
-  
+
   <!-- Cookie Banner -->
   <div class="cookie-banner" id="cookie-banner">
     <div class="cookie-content">
       <div class="cookie-text">
-        This website uses cookies to ensure you get the best experience on our website.
-        <a href="#" onclick="showPrivacyModal()">Learn more</a>
+        <span data-i18n="cookie.text">This website uses cookies to ensure you get the best experience on our website.</span>
+        <a href="#" onclick="showPrivacyModal()" data-i18n="common.learnMore">Learn more</a>
       </div>
       <div class="cookie-buttons">
-        <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
-        <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
+        <button class="cookie-btn decline" onclick="declineCookies()" data-i18n="cookie.decline">Decline</button>
+        <button class="cookie-btn accept" onclick="acceptCookies()" data-i18n="cookie.accept">Accept</button>
       </div>
     </div>
   </div>
