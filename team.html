@@ -35,17 +35,33 @@
         <span></span><span></span><span></span>
       </div>
       <ul class="nav-links">
-        <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+        <li><a href="index.html" onclick="toggleMenu()" data-i18n="nav.home">Home</a></li>
         <li class="dropdown">
-          <a href="#" onclick="toggleDropdown(event); return false;">Services <span class="dropdown-arrow">▼</span></a>
+          <a href="#" onclick="toggleDropdown(event); return false;"><span data-i18n="nav.services">Services</span> <span class="dropdown-arrow">▼</span></a>
           <ul class="dropdown-menu">
-            <li><a href="workshop.html" onclick="toggleMenu()">Workshop</a></li>
-            <li><a href="private-ai.html" onclick="toggleMenu()">Private AI</a></li>
-            <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+            <li><a href="workshop.html" onclick="toggleMenu()" data-i18n="nav.workshop">Workshop</a></li>
+            <li><a href="private-ai.html" onclick="toggleMenu()" data-i18n="nav.privateAi">Private AI</a></li>
+            <li><a href="agents.html" onclick="toggleMenu()" data-i18n="nav.agents">Agents</a></li>
           </ul>
         </li>
-        <li><a href="team.html" onclick="toggleMenu()" class="active">Team</a></li>
-        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn">Contact Us</a></li>
+        <li><a href="team.html" onclick="toggleMenu()" class="active" data-i18n="nav.team">Team</a></li>
+        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn" data-i18n="nav.contact">Contact Us</a></li>
+        <li class="language-selector">
+          <button class="language-btn" onclick="toggleLanguageDropdown(event)">
+            <span class="lang-code">DE</span>
+            <span class="lang-arrow">▼</span>
+          </button>
+          <div class="language-dropdown">
+            <div class="language-option" data-lang="de" onclick="switchLanguage('de')">
+              <span class="lang-name">Deutsch</span>
+              <span class="lang-check">✓</span>
+            </div>
+            <div class="language-option" data-lang="en" onclick="switchLanguage('en')">
+              <span class="lang-name">English</span>
+              <span class="lang-check">✓</span>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -55,25 +71,25 @@
     <div class="hero-background">
       <canvas id="team-particle-canvas"></canvas>
     </div>
-    
+
     <div class="container">
-      <h1 class="fade-in">Meet Our Team</h1>
-      <p class="fade-in">Behind LLMify is a passionate team of experts combining deep technical knowledge with proven business experience to revolutionize how companies work with AI.</p>
-      
+      <h1 class="fade-in" data-i18n="team.hero.title">Meet Our Team</h1>
+      <p class="fade-in" data-i18n="team.hero.subtitle">Behind LLMify is a passionate team of experts combining deep technical knowledge with proven business experience to revolutionize how companies work with AI.</p>
+
     </div>
-    
+
     <!-- Scroll Indicator -->
     <div class="scroll-indicator" onclick="document.getElementById('team').scrollIntoView({behavior: 'smooth'});">
-      <div class="scroll-text">Scroll</div>
+      <div class="scroll-text" data-i18n="common.scroll">Scroll</div>
       <div class="scroll-arrow"></div>
     </div>
   </section>
-  
+
   <!-- Team Section -->
   <section id="team" class="team">
     <div class="container">
-      <h2 class="fade-in">Our Team</h2>
-      
+      <h2 class="fade-in" data-i18n="team.section.title">Our Team</h2>
+
       <div class="team-grid">
         <!-- Axel Pohl -->
         <div class="team-member scale-in">
@@ -85,15 +101,15 @@
                 </div>
                 <div class="team-front-info">
                   <h3>Axel Pohl</h3>
-                  <p class="team-role">Developer</p>
+                  <p class="team-role" data-i18n="team.axel.role">Developer</p>
                 </div>
               </div>
               <div class="flip-card-back">
                 <div class="business-card">
                   <h3>Axel Pohl</h3>
-                  <p class="role">Developer</p>
-                  <p class="role-sub">Founder</p>
-                  <p class="education">Computer Science, ETH Zurich</p>
+                  <p class="role" data-i18n="team.axel.role">Developer</p>
+                  <p class="role-sub" data-i18n="team.axel.roleDesc">Founder</p>
+                  <p class="education" data-i18n="team.axel.education">Computer Science, ETH Zurich</p>
                   <p class="email">axel@llmify.ch</p>
                 </div>
               </div>
@@ -111,14 +127,14 @@
                 </div>
                 <div class="team-front-info">
                   <h3>Francesco Laessig</h3>
-                  <p class="team-role">Developer</p>
+                  <p class="team-role" data-i18n="team.francesco.role">Developer</p>
                 </div>
               </div>
               <div class="flip-card-back">
                 <div class="business-card">
                   <h3>Francesco Laessig</h3>
-                  <p class="role">Developer</p>
-                  <p class="education">Computer Science, ETH Zurich</p>
+                  <p class="role" data-i18n="team.francesco.role">Developer</p>
+                  <p class="education" data-i18n="team.francesco.education">Computer Science, ETH Zurich</p>
                   <p class="email">francesco@llmify.ch</p>
                 </div>
               </div>
@@ -136,14 +152,14 @@
                 </div>
                 <div class="team-front-info">
                   <h3>Niklas Pohl</h3>
-                  <p class="team-role">Developer</p>
+                  <p class="team-role" data-i18n="team.niklas.role">Developer</p>
                 </div>
               </div>
               <div class="flip-card-back">
                 <div class="business-card">
                   <h3>Niklas Pohl</h3>
-                  <p class="role">Developer</p>
-                  <p class="education">Computer Science, ETH Zurich</p>
+                  <p class="role" data-i18n="team.niklas.role">Developer</p>
+                  <p class="education" data-i18n="team.niklas.education">Computer Science, ETH Zurich</p>
                   <p class="email">niklas@llmify.ch</p>
                 </div>
               </div>
@@ -161,14 +177,14 @@
                 </div>
                 <div class="team-front-info">
                   <h3>Philipp Baumann</h3>
-                  <p class="team-role">President of the Board</p>
+                  <p class="team-role" data-i18n="team.philipp.role">President of the Board</p>
                 </div>
               </div>
               <div class="flip-card-back">
                 <div class="business-card">
                   <h3>Philipp Baumann</h3>
-                  <p class="role">President of the Board</p>
-                  <p class="education">Founder of Z22 Technologies AG and Araneum Technologies GmbH</p>
+                  <p class="role" data-i18n="team.philipp.role">President of the Board</p>
+                  <p class="education" data-i18n="team.philipp.education">Founder of Z22 Technologies AG and Araneum Technologies GmbH</p>
                 </div>
               </div>
             </div>
@@ -185,14 +201,14 @@
                 </div>
                 <div class="team-front-info">
                   <h3>Armin Herbsthofer</h3>
-                  <p class="team-role">Board Member</p>
+                  <p class="team-role" data-i18n="team.armin.role">Board Member</p>
                 </div>
               </div>
               <div class="flip-card-back">
                 <div class="business-card">
                   <h3>Armin Herbsthofer</h3>
-                  <p class="role">Board Member</p>
-                  <p class="education">Founder of Z22 Technologies AG and Araneum Technologies GmbH</p>
+                  <p class="role" data-i18n="team.armin.role">Board Member</p>
+                  <p class="education" data-i18n="team.armin.education">Founder of Z22 Technologies AG and Araneum Technologies GmbH</p>
                 </div>
               </div>
             </div>
@@ -209,14 +225,14 @@
                 </div>
                 <div class="team-front-info">
                   <h3>Matthias Pohl</h3>
-                  <p class="team-role">Board Member</p>
+                  <p class="team-role" data-i18n="team.matthias.role">Board Member</p>
                 </div>
               </div>
               <div class="flip-card-back">
                 <div class="business-card">
                   <h3>Matthias Pohl</h3>
-                  <p class="role">Board Member</p>
-                  <p class="education">Managing Partner at Interpharma Link</p>
+                  <p class="role" data-i18n="team.matthias.role">Board Member</p>
+                  <p class="education" data-i18n="team.matthias.education">Managing Partner at Interpharma Link</p>
                 </div>
               </div>
             </div>
@@ -225,42 +241,42 @@
       </div>
     </div>
   </section>
-  
+
   <!-- Call to Action Section -->
   <section id="cta" class="cta">
     <div class="container">
-      <h2 class="fade-in">Ready to work with our team?</h2>
-      <p class="fade-in">Let's discuss how our expertise can help transform your business with AI.</p>
+      <h2 class="fade-in" data-i18n="team.cta.title">Ready to work with our team?</h2>
+      <p class="fade-in" data-i18n="team.cta.subtitle">Let's discuss how our expertise can help transform your business with AI.</p>
       <div class="cta-buttons fade-in">
-        <a href="contact.html" class="btn btn-primary">
+        <a href="contact.html" class="btn btn-primary" data-i18n="team.cta.button">
           Get in Touch
         </a>
       </div>
     </div>
   </section>
-  
+
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p>&copy; 2025 LLMify. All Rights Reserved.</p>
+      <p data-i18n="footer.copyright">&copy; 2025 LLMify. All Rights Reserved.</p>
       <div class="footer-links">
-        <a href="#" onclick="showPrivacyModal()">Privacy Policy</a>
-        <a href="#" onclick="showImpressumModal()">Impressum</a>
-        <a href="#" onclick="showCookieSettings()">Cookie Settings</a>
+        <a href="#" onclick="showPrivacyModal()" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="#" onclick="showImpressumModal()" data-i18n="footer.impressum">Impressum</a>
+        <a href="#" onclick="showCookieSettings()" data-i18n="footer.cookies">Cookie Settings</a>
       </div>
     </div>
   </footer>
-  
+
   <!-- Cookie Banner -->
   <div class="cookie-banner" id="cookie-banner">
     <div class="cookie-content">
       <div class="cookie-text">
-        This website uses cookies to ensure you get the best experience on our website.
-        <a href="#" onclick="showPrivacyModal()">Learn more</a>
+        <span data-i18n="cookie.text">This website uses cookies to ensure you get the best experience on our website.</span>
+        <a href="#" onclick="showPrivacyModal()" data-i18n="common.learnMore">Learn more</a>
       </div>
       <div class="cookie-buttons">
-        <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
-        <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
+        <button class="cookie-btn decline" onclick="declineCookies()" data-i18n="cookie.decline">Decline</button>
+        <button class="cookie-btn accept" onclick="acceptCookies()" data-i18n="cookie.accept">Accept</button>
       </div>
     </div>
   </div>

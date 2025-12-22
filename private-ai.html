@@ -35,17 +35,33 @@
         <span></span><span></span><span></span>
       </div>
       <ul class="nav-links">
-        <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+        <li><a href="index.html" onclick="toggleMenu()" data-i18n="nav.home">Home</a></li>
         <li class="dropdown">
-          <a href="#" onclick="toggleDropdown(event); return false;">Services <span class="dropdown-arrow">▼</span></a>
+          <a href="#" onclick="toggleDropdown(event); return false;"><span data-i18n="nav.services">Services</span> <span class="dropdown-arrow">▼</span></a>
           <ul class="dropdown-menu">
-            <li><a href="workshop.html" onclick="toggleMenu()">Workshop</a></li>
-            <li><a href="private-ai.html" onclick="toggleMenu()">Private AI</a></li>
-            <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+            <li><a href="workshop.html" onclick="toggleMenu()" data-i18n="nav.workshop">Workshop</a></li>
+            <li><a href="private-ai.html" onclick="toggleMenu()" data-i18n="nav.privateAi">Private AI</a></li>
+            <li><a href="agents.html" onclick="toggleMenu()" data-i18n="nav.agents">Agents</a></li>
           </ul>
         </li>
-        <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
-        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn">Contact Us</a></li>
+        <li><a href="team.html" onclick="toggleMenu()" data-i18n="nav.team">Team</a></li>
+        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn" data-i18n="nav.contact">Contact Us</a></li>
+        <li class="language-selector">
+          <button class="language-btn" onclick="toggleLanguageDropdown(event)">
+            <span class="lang-code">DE</span>
+            <span class="lang-arrow">▼</span>
+          </button>
+          <div class="language-dropdown">
+            <div class="language-option" data-lang="de" onclick="switchLanguage('de')">
+              <span class="lang-name">Deutsch</span>
+              <span class="lang-check">✓</span>
+            </div>
+            <div class="language-option" data-lang="en" onclick="switchLanguage('en')">
+              <span class="lang-name">English</span>
+              <span class="lang-check">✓</span>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -55,32 +71,32 @@
     <div class="hero-background">
       <canvas id="hero-particle-canvas"></canvas>
     </div>
-    
+
     <div class="container">
-      <h1 class="fade-in">Private AI Solutions</h1>
-      <p class="fade-in">Keep your critical and confidential data secure while harnessing the power of AI.<br>No compromises on privacy. No compromises on performance.</p>
+      <h1 class="fade-in" data-i18n="privateAi.hero.title">Private AI Solutions</h1>
+      <p class="fade-in" data-i18n="privateAi.hero.subtitle">Keep your critical and confidential data secure while harnessing the power of AI.<br>No compromises on privacy. No compromises on performance.</p>
     </div>
-    
+
     <!-- Scroll Indicator -->
     <div class="scroll-indicator" onclick="document.getElementById('why-private-ai').scrollIntoView({behavior: 'smooth'});">
-      <div class="scroll-text">Scroll</div>
+      <div class="scroll-text" data-i18n="common.scroll">Scroll</div>
       <div class="scroll-arrow"></div>
     </div>
   </section>
-  
+
   <!-- Why Private AI Section -->
   <section id="why-private-ai" class="solutions">
     <div class="container">
-      <h2 class="fade-in">Why Private AI?</h2>
-      <p class="solutions-intro fade-in">
+      <h2 class="fade-in" data-i18n="privateAi.why.title">Why Private AI?</h2>
+      <p class="solutions-intro fade-in" data-i18n="privateAi.why.intro">
         Modern AI models like ChatGPT have hundreds of billions of parameters and require highly specialized hardware to run at useful speeds. That's why most companies rely on cloud providers. But when you use AI online, a key question always comes up:
       </p>
-      
+
       <div class="fade-in" style="text-align: center; margin: 2rem 0;">
-        <h3 style="color: var(--primary-color); font-size: 1.5rem; font-weight: 600;">What happens to your data?</h3>
+        <h3 style="color: var(--primary-color); font-size: 1.5rem; font-weight: 600;" data-i18n="privateAi.why.question">What happens to your data?</h3>
       </div>
-      
-      <p class="solutions-intro fade-in">
+
+      <p class="solutions-intro fade-in" data-i18n="privateAi.why.answer">
         Most business processes involve sensitive or even regulated data. Simply putting that into a public AI service is rarely an option. That's where our Private AI Solutions come in: secure, tailored setups that let you use AI with full confidence.
       </p>
     </div>
@@ -96,28 +112,28 @@
               <path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
             </svg>
           </div>
-          <h3>1. Cloud Solution – Scalable & Always Up to Date</h3>
+          <h3 data-i18n="privateAi.cloud.title">1. Cloud Solution – Scalable & Always Up to Date</h3>
         </div>
-        
+
         <div class="service-description">
-          <p>Our cloud solution is the best choice if you want scalability and the very latest AI capabilities.</p>
-          
+          <p data-i18n="privateAi.cloud.desc">Our cloud solution is the best choice if you want scalability and the very latest AI capabilities.</p>
+
           <div class="service-details">
             <div class="detail-item">
-              <h4>EU & Swiss Compliance</h4>
-              <p>Runs on EU or Swiss servers, ensuring local data residency and compliance.</p>
+              <h4 data-i18n="privateAi.cloud.item1.title">EU & Swiss Compliance</h4>
+              <p data-i18n="privateAi.cloud.item1.desc">Runs on EU or Swiss servers, ensuring local data residency and compliance.</p>
             </div>
             <div class="detail-item">
-              <h4>Logically Private Instance</h4>
-              <p>Your data is isolated from other users. Microsoft guarantees: data is used only to deliver the service, never stored or reused.</p>
+              <h4 data-i18n="privateAi.cloud.item2.title">Logically Private Instance</h4>
+              <p data-i18n="privateAi.cloud.item2.desc">Your data is isolated from other users. Microsoft guarantees: data is used only to deliver the service, never stored or reused.</p>
             </div>
             <div class="detail-item">
-              <h4>Latest AI Models</h4>
-              <p>Always access the latest models, with no hardware limitations. Perfect for teams with many users, heavy workloads, or fast-changing AI needs.</p>
+              <h4 data-i18n="privateAi.cloud.item3.title">Latest AI Models</h4>
+              <p data-i18n="privateAi.cloud.item3.desc">Always access the latest models, with no hardware limitations. Perfect for teams with many users, heavy workloads, or fast-changing AI needs.</p>
             </div>
           </div>
-          
-          <p style="margin-top: 2rem; font-size: 1.1rem; color: var(--text-primary); font-weight: 500;">
+
+          <p style="margin-top: 2rem; font-size: 1.1rem; color: var(--text-primary); font-weight: 500;" data-i18n="privateAi.cloud.bestFor">
             <strong>Best for:</strong> Companies that want maximum performance, scalability, and regulatory compliance with strong guarantees on privacy.
           </p>
         </div>
@@ -135,28 +151,28 @@
               <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10.5V11.5C15.4,11.5 16,12.4 16,13V16C16,16.6 15.6,17 15,17H9C8.4,17 8,16.6 8,16V13C8,12.4 8.4,11.5 9,11.5V10.5C9,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.2,8.7 10.2,10.5V11.5H13.8V10.5C13.8,8.7 12.8,8.2 12,8.2Z"/>
             </svg>
           </div>
-          <h3>2. Local Solution – Ultimate Control</h3>
+          <h3 data-i18n="privateAi.local.title">2. Local Solution – Ultimate Control</h3>
         </div>
-        
+
         <div class="service-description">
-          <p>If your top concern is absolute control of your data, we also provide a fully local setup.</p>
-          
+          <p data-i18n="privateAi.local.desc">If your top concern is absolute control of your data, we also provide a fully local setup.</p>
+
           <div class="service-details">
             <div class="detail-item">
-              <h4>Specialized Hardware</h4>
-              <p>Delivered with a specialized rack system we designed to optimize for cost and AI performance.</p>
+              <h4 data-i18n="privateAi.local.item1.title">Specialized Hardware</h4>
+              <p data-i18n="privateAi.local.item1.desc">Delivered with a specialized rack system we designed to optimize for cost and AI performance.</p>
             </div>
             <div class="detail-item">
-              <h4>Open-Source Models</h4>
-              <p>Runs powerful open-source AI models at usable speeds without requiring million-dollar hardware.</p>
+              <h4 data-i18n="privateAi.local.item2.title">Open-Source Models</h4>
+              <p data-i18n="privateAi.local.item2.desc">Runs powerful open-source AI models at usable speeds without requiring million-dollar hardware.</p>
             </div>
             <div class="detail-item">
-              <h4>Complete Control</h4>
-              <p>Tailored to your business needs: we adjust model size and hardware configuration depending on your output requirements. Your data never leaves your premises, so you're in full control.</p>
+              <h4 data-i18n="privateAi.local.item3.title">Complete Control</h4>
+              <p data-i18n="privateAi.local.item3.desc">Tailored to your business needs: we adjust model size and hardware configuration depending on your output requirements. Your data never leaves your premises, so you're in full control.</p>
             </div>
           </div>
-          
-          <p style="margin-top: 2rem; font-size: 1.1rem; color: var(--text-primary); font-weight: 500;">
+
+          <p style="margin-top: 2rem; font-size: 1.1rem; color: var(--text-primary); font-weight: 500;" data-i18n="privateAi.local.bestFor">
             <strong>Best for:</strong> Organizations with highly confidential data or strict regulatory environments that do not allow cloud usage.
           </p>
         </div>
@@ -167,25 +183,25 @@
   <!-- Beyond Solutions Section -->
   <section id="beyond-solutions" class="philosophy">
     <div class="container">
-      <h2 class="fade-in">More Than Just AI Access</h2>
-      <p class="philosophy-intro fade-in">
+      <h2 class="fade-in" data-i18n="privateAi.beyond.title">More Than Just AI Access</h2>
+      <p class="philosophy-intro fade-in" data-i18n="privateAi.beyond.intro">
         Setting up Private AI is more than just getting secure access to an AI model. It's a foundation for future innovation.
       </p>
-      
+
       <div class="philosophy-principles">
         <div class="principle-item fade-in">
           <div class="principle-number">1</div>
           <div class="principle-content">
-            <h3>Secure Experimentation</h3>
-            <p>Your private AI environment provides the perfect foundation for secure experimentation with AI technologies, allowing you to explore possibilities without compromising sensitive data.</p>
+            <h3 data-i18n="privateAi.beyond.item1.title">Secure Experimentation</h3>
+            <p data-i18n="privateAi.beyond.item1.desc">Your private AI environment provides the perfect foundation for secure experimentation with AI technologies, allowing you to explore possibilities without compromising sensitive data.</p>
           </div>
         </div>
-        
+
         <div class="principle-item fade-in">
           <div class="principle-number">2</div>
           <div class="principle-content">
-            <h3>Foundation for Automation</h3>
-            <p>Once established, your private AI becomes the foundation for any following automation projects, from document processing to comprehensive AI-driven business workflows.</p>
+            <h3 data-i18n="privateAi.beyond.item2.title">Foundation for Automation</h3>
+            <p data-i18n="privateAi.beyond.item2.desc">Once established, your private AI becomes the foundation for any following automation projects, from document processing to comprehensive AI-driven business workflows.</p>
           </div>
         </div>
       </div>
@@ -195,38 +211,38 @@
   <!-- Call to Action Section -->
   <section id="cta" class="cta">
     <div class="container">
-      <h2 class="fade-in">Ready to Secure Your AI Journey?</h2>
-      <p class="fade-in">We'll help you find the setup that's right for your business.</p>
+      <h2 class="fade-in" data-i18n="privateAi.cta.title">Ready to Secure Your AI Journey?</h2>
+      <p class="fade-in" data-i18n="privateAi.cta.subtitle">We'll help you find the setup that's right for your business.</p>
       <div class="cta-buttons fade-in">
-        <a href="contact.html" class="btn btn-primary">
+        <a href="contact.html" class="btn btn-primary" data-i18n="privateAi.cta.button">
           Get Free Consultation
         </a>
       </div>
     </div>
   </section>
-  
+
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p>&copy; 2025 LLMify. All Rights Reserved.</p>
+      <p data-i18n="footer.copyright">&copy; 2025 LLMify. All Rights Reserved.</p>
       <div class="footer-links">
-        <a href="#" onclick="showPrivacyModal()">Privacy Policy</a>
-        <a href="#" onclick="showImpressumModal()">Impressum</a>
-        <a href="#" onclick="showCookieSettings()">Cookie Settings</a>
+        <a href="#" onclick="showPrivacyModal()" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="#" onclick="showImpressumModal()" data-i18n="footer.impressum">Impressum</a>
+        <a href="#" onclick="showCookieSettings()" data-i18n="footer.cookies">Cookie Settings</a>
       </div>
     </div>
   </footer>
-  
+
   <!-- Cookie Banner -->
   <div class="cookie-banner" id="cookie-banner">
     <div class="cookie-content">
       <div class="cookie-text">
-        This website uses cookies to ensure you get the best experience on our website.
-        <a href="#" onclick="showPrivacyModal()">Learn more</a>
+        <span data-i18n="cookie.text">This website uses cookies to ensure you get the best experience on our website.</span>
+        <a href="#" onclick="showPrivacyModal()" data-i18n="common.learnMore">Learn more</a>
       </div>
       <div class="cookie-buttons">
-        <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
-        <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
+        <button class="cookie-btn decline" onclick="declineCookies()" data-i18n="cookie.decline">Decline</button>
+        <button class="cookie-btn accept" onclick="acceptCookies()" data-i18n="cookie.accept">Accept</button>
       </div>
     </div>
   </div>

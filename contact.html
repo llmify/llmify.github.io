@@ -35,17 +35,33 @@
         <span></span><span></span><span></span>
       </div>
       <ul class="nav-links">
-        <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+        <li><a href="index.html" onclick="toggleMenu()" data-i18n="nav.home">Home</a></li>
         <li class="dropdown">
-          <a href="#" onclick="toggleDropdown(event); return false;">Services <span class="dropdown-arrow">▼</span></a>
+          <a href="#" onclick="toggleDropdown(event); return false;"><span data-i18n="nav.services">Services</span> <span class="dropdown-arrow">▼</span></a>
           <ul class="dropdown-menu">
-            <li><a href="workshop.html" onclick="toggleMenu()">Workshop</a></li>
-            <li><a href="private-ai.html" onclick="toggleMenu()">Private AI</a></li>
-            <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+            <li><a href="workshop.html" onclick="toggleMenu()" data-i18n="nav.workshop">Workshop</a></li>
+            <li><a href="private-ai.html" onclick="toggleMenu()" data-i18n="nav.privateAi">Private AI</a></li>
+            <li><a href="agents.html" onclick="toggleMenu()" data-i18n="nav.agents">Agents</a></li>
           </ul>
         </li>
-        <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
-        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn active">Contact Us</a></li>
+        <li><a href="team.html" onclick="toggleMenu()" data-i18n="nav.team">Team</a></li>
+        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn active" data-i18n="nav.contact">Contact Us</a></li>
+        <li class="language-selector">
+          <button class="language-btn" onclick="toggleLanguageDropdown(event)">
+            <span class="lang-code">DE</span>
+            <span class="lang-arrow">▼</span>
+          </button>
+          <div class="language-dropdown">
+            <div class="language-option" data-lang="de" onclick="switchLanguage('de')">
+              <span class="lang-name">Deutsch</span>
+              <span class="lang-check">✓</span>
+            </div>
+            <div class="language-option" data-lang="en" onclick="switchLanguage('en')">
+              <span class="lang-name">English</span>
+              <span class="lang-check">✓</span>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -55,61 +71,61 @@
     <div class="hero-background">
       <canvas id="contact-particle-canvas"></canvas>
     </div>
-    
+
     <div class="container">
-      <h1 class="fade-in">Contact Us</h1>
-      <p class="fade-in">Have questions or want to learn more? Get in touch with our team.</p>
+      <h1 class="fade-in" data-i18n="contact.hero.title">Contact Us</h1>
+      <p class="fade-in" data-i18n="contact.hero.subtitle">Have questions or want to learn more? Get in touch with our team.</p>
     </div>
-    
+
     <!-- Scroll Indicator -->
     <div class="scroll-indicator" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'});">
-      <div class="scroll-text">Scroll</div>
+      <div class="scroll-text" data-i18n="common.scroll">Scroll</div>
       <div class="scroll-arrow"></div>
     </div>
   </section>
-  
+
   <!-- Contact Form Section -->
   <section id="contact" class="contact">
     <div class="container">
-      <h2 class="fade-in">Send Us a Message</h2>
-      <p class="fade-in">Prefer to use a contact form? Fill out the details below and we'll get back to you.</p>
-      
+      <h2 class="fade-in" data-i18n="contact.form.title">Send Us a Message</h2>
+      <p class="fade-in" data-i18n="contact.form.subtitle">Prefer to use a contact form? Fill out the details below and we'll get back to you.</p>
+
       <form id="contactForm" action="https://formspree.io/f/mjkybyeb" method="POST" class="scale-in">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required placeholder="Your Name">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="_replyto" required placeholder="Your Email">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required placeholder="How can we help you with AI integration?"></textarea>
-        <button type="submit">Send Message</button>
+        <label for="name" data-i18n="contact.form.name">Name</label>
+        <input type="text" id="name" name="name" required data-i18n="contact.form.namePlaceholder" placeholder="Your Name">
+        <label for="email" data-i18n="contact.form.email">Email</label>
+        <input type="email" id="email" name="_replyto" required data-i18n="contact.form.emailPlaceholder" placeholder="Your Email">
+        <label for="message" data-i18n="contact.form.message">Message</label>
+        <textarea id="message" name="message" rows="5" required data-i18n="contact.form.messagePlaceholder" placeholder="How can we help you with AI integration?"></textarea>
+        <button type="submit" data-i18n="contact.form.submit">Send Message</button>
       </form>
       <div id="form-message"></div>
     </div>
   </section>
-  
+
 
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p>&copy; 2025 LLMify. All Rights Reserved.</p>
+      <p data-i18n="footer.copyright">&copy; 2025 LLMify. All Rights Reserved.</p>
       <div class="footer-links">
-        <a href="#" onclick="showPrivacyModal()">Privacy Policy</a>
-        <a href="#" onclick="showImpressumModal()">Impressum</a>
-        <a href="#" onclick="showCookieSettings()">Cookie Settings</a>
+        <a href="#" onclick="showPrivacyModal()" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="#" onclick="showImpressumModal()" data-i18n="footer.impressum">Impressum</a>
+        <a href="#" onclick="showCookieSettings()" data-i18n="footer.cookies">Cookie Settings</a>
       </div>
     </div>
   </footer>
-  
+
   <!-- Cookie Banner -->
   <div class="cookie-banner" id="cookie-banner">
     <div class="cookie-content">
       <div class="cookie-text">
-        This website uses cookies to ensure you get the best experience on our website.
-        <a href="#" onclick="showPrivacyModal()">Learn more</a>
+        <span data-i18n="cookie.text">This website uses cookies to ensure you get the best experience on our website.</span>
+        <a href="#" onclick="showPrivacyModal()" data-i18n="common.learnMore">Learn more</a>
       </div>
       <div class="cookie-buttons">
-        <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
-        <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
+        <button class="cookie-btn decline" onclick="declineCookies()" data-i18n="cookie.decline">Decline</button>
+        <button class="cookie-btn accept" onclick="acceptCookies()" data-i18n="cookie.accept">Accept</button>
       </div>
     </div>
   </div>

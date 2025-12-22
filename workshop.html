@@ -35,17 +35,33 @@
         <span></span><span></span><span></span>
       </div>
       <ul class="nav-links">
-        <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+        <li><a href="index.html" onclick="toggleMenu()" data-i18n="nav.home">Home</a></li>
         <li class="dropdown">
-          <a href="#" onclick="toggleDropdown(event); return false;">Services <span class="dropdown-arrow">▼</span></a>
+          <a href="#" onclick="toggleDropdown(event); return false;"><span data-i18n="nav.services">Services</span> <span class="dropdown-arrow">▼</span></a>
           <ul class="dropdown-menu">
-            <li><a href="workshop.html" onclick="toggleMenu()" class="active">Workshop</a></li>
-            <li><a href="private-ai.html" onclick="toggleMenu()">Private AI</a></li>
-            <li><a href="agents.html" onclick="toggleMenu()">Agents</a></li>
+            <li><a href="workshop.html" onclick="toggleMenu()" class="active" data-i18n="nav.workshop">Workshop</a></li>
+            <li><a href="private-ai.html" onclick="toggleMenu()" data-i18n="nav.privateAi">Private AI</a></li>
+            <li><a href="agents.html" onclick="toggleMenu()" data-i18n="nav.agents">Agents</a></li>
           </ul>
         </li>
-        <li><a href="team.html" onclick="toggleMenu()">Team</a></li>
-        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn">Contact Us</a></li>
+        <li><a href="team.html" onclick="toggleMenu()" data-i18n="nav.team">Team</a></li>
+        <li><a href="contact.html" onclick="toggleMenu();" class="demo-nav-btn" data-i18n="nav.contact">Contact Us</a></li>
+        <li class="language-selector">
+          <button class="language-btn" onclick="toggleLanguageDropdown(event)">
+            <span class="lang-code">DE</span>
+            <span class="lang-arrow">▼</span>
+          </button>
+          <div class="language-dropdown">
+            <div class="language-option" data-lang="de" onclick="switchLanguage('de')">
+              <span class="lang-name">Deutsch</span>
+              <span class="lang-check">✓</span>
+            </div>
+            <div class="language-option" data-lang="en" onclick="switchLanguage('en')">
+              <span class="lang-name">English</span>
+              <span class="lang-check">✓</span>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -55,50 +71,50 @@
     <div class="hero-background">
       <canvas id="agents-particle-canvas"></canvas>
     </div>
-    
+
     <div class="container">
-      <h1 class="fade-in">AI Strategy Workshop</h1>
-      <p class="fade-in">Discover your best AI opportunities and build a clear roadmap for implementation.</p>
-      
+      <h1 class="fade-in" data-i18n="workshop.hero.title">AI Strategy Workshop</h1>
+      <p class="fade-in" data-i18n="workshop.hero.subtitle">Discover your best AI opportunities and build a clear roadmap for implementation.</p>
+
     </div>
-    
+
     <!-- Scroll Indicator -->
     <div class="scroll-indicator" onclick="document.getElementById('workshop-intro').scrollIntoView({behavior: 'smooth'});">
-      <div class="scroll-text">Scroll</div>
+      <div class="scroll-text" data-i18n="common.scroll">Scroll</div>
       <div class="scroll-arrow"></div>
     </div>
   </section>
-  
+
   <!-- Workshop Introduction Section -->
   <section id="workshop-intro" class="philosophy">
     <div class="container">
-      <h2 class="fade-in">From AI Confusion to Clear Strategy</h2>
-      <p class="philosophy-intro fade-in">
+      <h2 class="fade-in" data-i18n="workshop.intro.title">From AI Confusion to Clear Strategy</h2>
+      <p class="philosophy-intro fade-in" data-i18n="workshop.intro.desc">
         Navigate the AI landscape with confidence. Our workshop cuts through the hype to identify real opportunities that drive measurable business value for your organization.
       </p>
-      
+
       <div class="philosophy-principles">
         <div class="principle-item fade-in">
           <div class="principle-number">1</div>
           <div class="principle-content">
-            <h3>Technology Landscape Overview</h3>
-            <p>Understand the current AI ecosystem, available models, and tools. We provide insights into the rapid development process and help you separate genuine opportunities from marketing hype.</p>
+            <h3 data-i18n="workshop.intro.item1.title">Technology Landscape Overview</h3>
+            <p data-i18n="workshop.intro.item1.desc">Understand the current AI ecosystem, available models, and tools. We provide insights into the rapid development process and help you separate genuine opportunities from marketing hype.</p>
           </div>
         </div>
-        
+
         <div class="principle-item fade-in">
           <div class="principle-number">2</div>
           <div class="principle-content">
-            <h3>Security & Validation Insights</h3>
-            <p>Learn critical data security aspects and result validation techniques. Discover what data you can safely use with public AI tools and what requires private solutions.</p>
+            <h3 data-i18n="workshop.intro.item2.title">Security & Validation Insights</h3>
+            <p data-i18n="workshop.intro.item2.desc">Learn critical data security aspects and result validation techniques. Discover what data you can safely use with public AI tools and what requires private solutions.</p>
           </div>
         </div>
-        
+
         <div class="principle-item fade-in">
           <div class="principle-number">3</div>
           <div class="principle-content">
-            <h3>Strategic Opportunity Mapping</h3>
-            <p>Identify and prioritize your highest-value AI applications using proven decision frameworks. Leave with a ranked list of opportunities based on complexity and strategic importance.</p>
+            <h3 data-i18n="workshop.intro.item3.title">Strategic Opportunity Mapping</h3>
+            <p data-i18n="workshop.intro.item3.desc">Identify and prioritize your highest-value AI applications using proven decision frameworks. Leave with a ranked list of opportunities based on complexity and strategic importance.</p>
           </div>
         </div>
       </div>
@@ -108,11 +124,11 @@
   <!-- Workshop Outcomes Section -->
   <section id="workshop-outcomes" class="custom-solutions">
     <div class="container">
-      <h2 class="fade-in">What You'll Achieve</h2>
-      <p class="custom-solutions-intro fade-in">
+      <h2 class="fade-in" data-i18n="workshop.outcomes.title">What You'll Achieve</h2>
+      <p class="custom-solutions-intro fade-in" data-i18n="workshop.outcomes.intro">
         Leave with a clear AI strategy, ranked opportunities, and the foundation for successful implementation. Our structured approach ensures you identify the highest-value applications for your specific business context.
       </p>
-      
+
       <div class="workshop-grid-2x2">
         <!-- Top Row -->
         <div class="format-card format-card-4 fade-in">
@@ -121,9 +137,9 @@
               <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
             </svg>
           </div>
-          <h3>Practical AI Knowledge</h3>
-          <p>Deep understanding of the AI landscape, available tools, and emerging technologies. Cut through the hype and focus on solutions that deliver real business value.</p>
-          <div class="format-duration">Technology Insights</div>
+          <h3 data-i18n="workshop.outcomes.item1.title">Practical AI Knowledge</h3>
+          <p data-i18n="workshop.outcomes.item1.desc">Deep understanding of the AI landscape, available tools, and emerging technologies. Cut through the hype and focus on solutions that deliver real business value.</p>
+          <div class="format-duration" data-i18n="workshop.outcomes.item1.tag">Technology Insights</div>
         </div>
 
         <div class="format-card format-card-3 fade-in">
@@ -132,9 +148,9 @@
               <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20a3 3 0 01-3-3v-2a3 3 0 013-3h10a3 3 0 013 3v2a3 3 0 01-3 3M7 20v-2c0-.656.126-1.283.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
           </div>
-          <h3>Team Confidence & Buy-in</h3>
-          <p>Your team gains hands-on AI experience, reduced anxiety about adoption, and shared understanding for the transformation journey ahead. Foundation for successful implementation.</p>
-          <div class="format-duration">Change Management</div>
+          <h3 data-i18n="workshop.outcomes.item2.title">Team Confidence & Buy-in</h3>
+          <p data-i18n="workshop.outcomes.item2.desc">Your team gains hands-on AI experience, reduced anxiety about adoption, and shared understanding for the transformation journey ahead. Foundation for successful implementation.</p>
+          <div class="format-duration" data-i18n="workshop.outcomes.item2.tag">Change Management</div>
         </div>
 
         <!-- Bottom Row -->
@@ -144,9 +160,9 @@
               <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
             </svg>
           </div>
-          <h3>Security & Risk Framework</h3>
-          <p>Clear guidelines on data handling, security requirements, and validation processes. Understand what can be processed with public tools versus what requires private AI solutions.</p>
-          <div class="format-duration">Risk Management</div>
+          <h3 data-i18n="workshop.outcomes.item3.title">Security & Risk Framework</h3>
+          <p data-i18n="workshop.outcomes.item3.desc">Clear guidelines on data handling, security requirements, and validation processes. Understand what can be processed with public tools versus what requires private AI solutions.</p>
+          <div class="format-duration" data-i18n="workshop.outcomes.item3.tag">Risk Management</div>
         </div>
 
         <div class="format-card format-card-1 fade-in">
@@ -155,49 +171,49 @@
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
           </div>
-          <h3>Prioritized AI Roadmap</h3>
-          <p>Receive a comprehensive analysis of your AI opportunities ranked by implementation complexity, robustness, and strategic value. Know exactly where to focus your efforts first.</p>
-          <div class="format-duration">Strategic Planning</div>
+          <h3 data-i18n="workshop.outcomes.item4.title">Prioritized AI Roadmap</h3>
+          <p data-i18n="workshop.outcomes.item4.desc">Receive a comprehensive analysis of your AI opportunities ranked by implementation complexity, robustness, and strategic value. Know exactly where to focus your efforts first.</p>
+          <div class="format-duration" data-i18n="workshop.outcomes.item4.tag">Strategic Planning</div>
         </div>
       </div>
     </div>
   </section>
-  
+
   <!-- Call to Action Section -->
   <section id="cta" class="cta">
     <div class="container">
-      <h2 class="fade-in">Ready to turn AI confusion into competitive advantage?</h2>
-      <p class="fade-in">Start your AI journey with our comprehensive education workshop.</p>
+      <h2 class="fade-in" data-i18n="workshop.cta.title">Ready to turn AI confusion into competitive advantage?</h2>
+      <p class="fade-in" data-i18n="workshop.cta.subtitle">Start your AI journey with our comprehensive education workshop.</p>
       <div class="cta-buttons fade-in">
-        <button class="btn btn-primary" onclick="showDemoModal();">
+        <button class="btn btn-primary" onclick="showDemoModal();" data-i18n="workshop.cta.button">
           Book a Workshop
         </button>
       </div>
     </div>
   </section>
-  
+
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p>&copy; 2025 LLMify. All Rights Reserved.</p>
+      <p data-i18n="footer.copyright">&copy; 2025 LLMify. All Rights Reserved.</p>
       <div class="footer-links">
-        <a href="#" onclick="showPrivacyModal()">Privacy Policy</a>
-        <a href="#" onclick="showImpressumModal()">Impressum</a>
-        <a href="#" onclick="showCookieSettings()">Cookie Settings</a>
+        <a href="#" onclick="showPrivacyModal()" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="#" onclick="showImpressumModal()" data-i18n="footer.impressum">Impressum</a>
+        <a href="#" onclick="showCookieSettings()" data-i18n="footer.cookies">Cookie Settings</a>
       </div>
     </div>
   </footer>
-  
+
   <!-- Cookie Banner -->
   <div class="cookie-banner" id="cookie-banner">
     <div class="cookie-content">
       <div class="cookie-text">
-        This website uses cookies to ensure you get the best experience on our website.
-        <a href="#" onclick="showPrivacyModal()">Learn more</a>
+        <span data-i18n="cookie.text">This website uses cookies to ensure you get the best experience on our website.</span>
+        <a href="#" onclick="showPrivacyModal()" data-i18n="common.learnMore">Learn more</a>
       </div>
       <div class="cookie-buttons">
-        <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
-        <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
+        <button class="cookie-btn decline" onclick="declineCookies()" data-i18n="cookie.decline">Decline</button>
+        <button class="cookie-btn accept" onclick="acceptCookies()" data-i18n="cookie.accept">Accept</button>
       </div>
     </div>
   </div>
