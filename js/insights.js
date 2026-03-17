@@ -94,17 +94,17 @@ function renderArticleNav(lang) {
   var prevLabel = insightsI18n.prev[lang] || insightsI18n.prev.de;
   var nextLabel = insightsI18n.next[lang] || insightsI18n.next.de;
 
-  var html = '<div class="flex flex-col sm:flex-row gap-4">';
+  var html = '<div class="grid grid-cols-2 gap-4">';
   if (prev) {
-    html += '<a href="/insights/' + prev.slug + '/" class="flex-1 group block p-4 rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all">' +
+    html += '<a href="/insights/' + prev.slug + '/" class="group block p-4 rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all">' +
       '<span class="text-xs text-gray-400">&larr; ' + prevLabel + '</span>' +
       '<p class="font-medium text-sm mt-1 group-hover:text-brand transition-colors">' + (prev.title[lang] || prev.title.de) + '</p>' +
     '</a>';
   } else {
-    html += '<div class="flex-1"></div>';
+    html += '<div></div>';
   }
   if (next) {
-    html += '<a href="/insights/' + next.slug + '/" class="flex-1 group block p-4 rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all text-right">' +
+    html += '<a href="/insights/' + next.slug + '/" class="group block p-4 rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all text-right">' +
       '<span class="text-xs text-gray-400">' + nextLabel + ' &rarr;</span>' +
       '<p class="font-medium text-sm mt-1 group-hover:text-brand transition-colors">' + (next.title[lang] || next.title.de) + '</p>' +
     '</a>';
