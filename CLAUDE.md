@@ -11,15 +11,18 @@ Static website hosted on GitHub Pages at llmify.ch.
 
 ## Build
 
-Tailwind CSS is compiled locally. The built CSS is committed to git.
+The build (`node build.js`) does two things:
+
+1. **HTML includes** — expands `<!-- INCLUDE:name -->` markers with content from `_partials/{name}.html`. Idempotent (uses paired open/close markers, safe to re-run).
+2. **Tailwind CSS** — compiles `css/src.css` → `css/styles.css` (minified).
 
 ```bash
-npm run build    # Compiles css/src.css → css/styles.css (minified)
+npm run build    # Includes + Tailwind in one step
 ```
 
-**You must run `npm run build` after changing any Tailwind classes** (in HTML or JS files), before committing. The build scans all HTML and JS files for used classes and outputs only those.
+**You must run `npm run build` after changing any Tailwind classes** (in HTML, JS, or `_partials/` files), or after editing a partial. The build scans all HTML and JS files for used classes and outputs only those.
 
-If a new HTML file is added outside the current glob patterns, update `tailwind.config.js` content paths.
+Shared HTML lives in `_partials/` (e.g. `footer.html`). To use a partial, add `<!-- INCLUDE:footer -->` in your HTML. If a new HTML file is added outside the current glob patterns, update `tailwind.config.js` content paths.
 
 ## Adding Articles
 

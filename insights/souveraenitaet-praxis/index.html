@@ -109,12 +109,13 @@
     </div>
   </article>
 
+  <!-- INCLUDE:footer -->
   <!-- Footer -->
-  <footer class="py-12 md:py-16 border-t border-gray-100">
+  <footer id="kontakt" class="py-12 md:py-16 bg-gray-50">
     <div class="max-w-6xl mx-auto px-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
         <div>
-          <img src="../../assets/full_logo_black.png" alt="LLMify" class="h-7 mb-4">
+          <img src="/assets/full_logo_black.png" alt="LLMify" class="h-7 mb-4">
           <p class="text-sm text-gray-400" data-i18n-html="footer_tagline">Souveräne KI-Infrastruktur<br>für Schweizer Unternehmen.</p>
         </div>
         <div class="text-sm text-gray-500 leading-relaxed">
@@ -122,12 +123,20 @@
           <p>LLMify AG</p>
           <p>Alte Steinhauserstrasse 19</p>
           <p>6330 Cham</p>
-          <p class="mt-2"><a href="mailto:axel@llmify.ch" class="text-brand hover:text-brand-dark transition-colors">axel@llmify.ch</a></p>
+          <p class="mt-2">
+            <a href="mailto:axel@llmify.ch" class="text-brand hover:text-brand-dark transition-colors">axel@llmify.ch</a>
+          </p>
         </div>
         <div class="text-sm text-gray-500">
           <p class="font-medium text-[#1A1A1A] mb-2">Links</p>
           <div class="flex flex-col gap-1.5">
-            <a href="https://www.linkedin.com/company/llmify" target="_blank" rel="noopener noreferrer" class="text-brand hover:text-brand-dark transition-colors">LinkedIn</a>
+            <a href="https://www.linkedin.com/company/llmify" target="_blank" rel="noopener noreferrer"
+               class="text-brand hover:text-brand-dark transition-colors">
+              LinkedIn
+            </a>
+            <a href="#" onclick="openModal('privacy-modal'); return false;" class="text-brand hover:text-brand-dark transition-colors" data-i18n="footer_privacy">Datenschutz</a>
+            <a href="#" onclick="openModal('impressum-modal'); return false;" class="text-brand hover:text-brand-dark transition-colors" data-i18n="footer_impressum">Impressum</a>
+            <a href="#" onclick="showCookieBanner(); return false;" class="text-brand hover:text-brand-dark transition-colors" data-i18n="footer_cookie_settings">Cookie-Einstellungen</a>
           </div>
         </div>
       </div>
@@ -137,6 +146,74 @@
       </div>
     </div>
   </footer>
+
+  <!-- Cookie Banner -->
+  <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-[90] bg-white border-t border-gray-200 shadow-lg" style="display:none;">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-gray-600" data-i18n="cookie_text">Diese Website verwendet Cookies.</p>
+      <div class="flex gap-3 flex-shrink-0">
+        <button onclick="acceptCookies()" class="px-5 py-2 bg-brand hover:bg-brand-dark text-white text-sm font-medium rounded-lg transition-colors" data-i18n="cookie_accept">Akzeptieren</button>
+        <button onclick="declineCookies()" class="px-5 py-2 bg-white hover:bg-gray-50 text-gray-600 text-sm font-medium rounded-lg border border-gray-300 transition-colors" data-i18n="cookie_decline">Ablehnen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy Policy Modal -->
+  <div id="privacy-modal" class="modal-overlay" onclick="if(event.target===this)closeModal('privacy-modal')">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('privacy-modal')">&times;</button>
+      <h2 data-i18n="privacy_title">Datenschutzerkl&auml;rung</h2>
+      <p class="text-xs text-gray-400 mb-4" data-i18n="privacy_updated">Letzte Aktualisierung: Januar 2025</p>
+
+      <h3 data-i18n="privacy_h_collection">Datenerhebung</h3>
+      <p data-i18n="privacy_collection">Wenn Sie uns über das Kontaktformular oder per E-Mail kontaktieren, erheben wir die von Ihnen angegebenen Daten wie Name und E-Mail-Adresse. Diese Daten werden ausschliesslich zur Bearbeitung Ihrer Anfrage verwendet.</p>
+
+      <h3 data-i18n="privacy_h_usage">Verwendung</h3>
+      <p data-i18n="privacy_usage">Wir verwenden Ihre Daten, um auf Ihre Anfragen zu antworten, unsere Dienstleistungen zu verbessern und gesetzlichen Anforderungen nachzukommen.</p>
+
+      <h3 data-i18n="privacy_h_security">Sicherheit</h3>
+      <p data-i18n="privacy_security">Der Schutz Ihrer Daten ist uns wichtig. Wir halten uns an das Schweizer Datenschutzgesetz (DSG) und setzen angemessene technische und organisatorische Massnahmen ein, um Ihre Daten zu schützen.</p>
+
+      <h3 data-i18n="privacy_h_rights">Ihre Rechte</h3>
+      <p data-i18n="privacy_rights_intro">Sie haben folgende Rechte in Bezug auf Ihre personenbezogenen Daten:</p>
+      <ul>
+        <li data-i18n="privacy_right_access">Recht auf Auskunft über Ihre gespeicherten Daten</li>
+        <li data-i18n="privacy_right_correct">Recht auf Berichtigung unrichtiger Daten</li>
+        <li data-i18n="privacy_right_delete">Recht auf Löschung Ihrer Daten</li>
+        <li data-i18n="privacy_right_object">Recht auf Widerspruch gegen die Verarbeitung</li>
+        <li data-i18n="privacy_right_port">Recht auf Datenübertragbarkeit</li>
+      </ul>
+
+      <h3 data-i18n="privacy_h_contact">Verantwortliche Stelle</h3>
+      <p>LLMify AG<br>Alte Steinhauserstrasse 19<br>6330 Cham<br><a href="mailto:axel@llmify.ch" class="text-brand hover:text-brand-dark">axel@llmify.ch</a></p>
+
+      <h3 data-i18n="privacy_h_jurisdiction">Anwendbares Recht</h3>
+      <p data-i18n="privacy_jurisdiction">Es gilt Schweizer Recht. Gerichtsstand ist Zug.</p>
+    </div>
+  </div>
+
+  <!-- Impressum Modal -->
+  <div id="impressum-modal" class="modal-overlay" onclick="if(event.target===this)closeModal('impressum-modal')">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('impressum-modal')">&times;</button>
+      <h2 data-i18n="impressum_title">Impressum</h2>
+
+      <h3 data-i18n="impressum_h_company">Unternehmen</h3>
+      <p>LLMify AG<br>Alte Steinhauserstrasse 19<br>6330 Cham, <span data-i18n="impressum_country">Schweiz</span></p>
+
+      <h3 data-i18n="impressum_h_register">Handelsregister</h3>
+      <p><span data-i18n="impressum_uid">UID:</span> CHE-345.228.221<br>
+         <span data-i18n="impressum_type">Rechtsform:</span> <span data-i18n="impressum_type_val">Aktiengesellschaft</span><br>
+         <span data-i18n="impressum_register">Handelsregister:</span> <span data-i18n="impressum_register_val">Zug</span></p>
+
+      <h3 data-i18n="impressum_h_contact">Kontakt</h3>
+      <p>E-Mail: <a href="mailto:axel@llmify.ch" class="text-brand hover:text-brand-dark">axel@llmify.ch</a></p>
+
+      <h3 data-i18n="impressum_h_jurisdiction">Anwendbares Recht</h3>
+      <p data-i18n="impressum_jurisdiction">Es gilt Schweizer Recht. Gerichtsstand ist Zug.</p>
+    </div>
+  </div>
+<!-- /INCLUDE:footer -->
 
   <script src="../../js/translations.js"></script>
   <script src="../../js/articles.js"></script>
