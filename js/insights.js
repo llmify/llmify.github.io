@@ -25,7 +25,7 @@ function getCategoryLabel(category, lang) {
 }
 
 function getCategoryColor(category) {
-  return category === 'open-source' ? 'bg-emerald-50 text-emerald-700' : 'bg-blue-50 text-brand-dark';
+  return category === 'open-source' ? 'bg-gray-100 text-gray-600' : 'bg-blue-50 text-brand-dark';
 }
 
 function renderArticleCard(article, lang, basePath) {
@@ -36,13 +36,13 @@ function renderArticleCard(article, lang, basePath) {
   var catColor = getCategoryColor(article.category);
   var readMore = insightsI18n.read_more[lang] || insightsI18n.read_more.de;
 
-  return '<a href="' + basePath + article.slug + '/" class="article-card block bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all duration-200">' +
+  return '<a href="' + basePath + article.slug + '/" class="article-card flex flex-col bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all duration-200">' +
     '<div class="flex items-center gap-3 mb-3">' +
       '<time class="text-xs text-gray-400" datetime="' + article.date + '">' + formatDate(article.date, lang) + '</time>' +
       '<span class="text-xs font-medium px-2 py-0.5 rounded-full ' + catColor + '">' + catLabel + '</span>' +
     '</div>' +
     '<h3 class="font-semibold text-[#1A1A1A] mb-2 leading-snug">' + title + '</h3>' +
-    '<p class="text-sm text-gray-500 leading-relaxed mb-3">' + summary + '</p>' +
+    '<p class="text-sm text-gray-500 leading-relaxed mb-3 flex-1">' + summary + '</p>' +
     '<span class="text-sm font-medium text-brand">' + readMore + ' &rarr;</span>' +
   '</a>';
 }

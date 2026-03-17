@@ -13,44 +13,20 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://llmify.ch/insights/nemotron-3-super/</loc>
+    <loc>https://llmify.ch/insights/open-source-modelle/</loc>
     <lastmod>2026-03-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://llmify.ch/insights/us-exportkontrollen-ki/</loc>
+    <loc>https://llmify.ch/insights/us-recht-ki-daten/</loc>
     <lastmod>2026-03-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://llmify.ch/insights/qwen-35-release/</loc>
-    <lastmod>2026-03-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://llmify.ch/insights/benchmarks-schweizer-kmu/</loc>
-    <lastmod>2026-03-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://llmify.ch/insights/eu-parlament-ki/</loc>
+    <loc>https://llmify.ch/insights/souveraenitaet-praxis/</loc>
     <lastmod>2026-02-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://llmify.ch/insights/icc-vorfall/</loc>
-    <lastmod>2026-02-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://llmify.ch/insights/cloud-act/</loc>
-    <lastmod>2026-02-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -2,7 +2,7 @@
 
 > Sovereign AI infrastructure for Swiss companies. Open-source models on own infrastructure, without dependency on US cloud providers.
 
-LLMify builds AI solutions where data never leaves the company. From strategy to custom AI applications — on Swiss infrastructure, on-premise or sovereign cloud.
+LLMify builds AI solutions where data never leaves the company. From strategy to custom AI applications, on Swiss infrastructure, on-premise or sovereign cloud.
 
 ## Services
 
@@ -12,13 +12,9 @@ LLMify builds AI solutions where data never leaves the company. From strategy to
 
 ## Insights
 
-- [Nemotron 3 Super](https://llmify.ch/insights/nemotron-3-super/): NVIDIA releases an open-weight model competing with Qwen 3.5 at 7.5x higher throughput. The on-premise choice becomes strategic.
-- [US Export Controls on AI](https://llmify.ch/insights/us-exportkontrollen-ki/): The US "Remote Access Security Act" could regulate cloud access to AI. Models on own infrastructure are unaffected.
-- [Qwen 3.5 Release](https://llmify.ch/insights/qwen-35-release/): Qwen 3.5 brings native vision and stronger reasoning on the same hardware. Open source is closing the gap faster than expected.
-- [Which Benchmarks Matter for Swiss SMEs](https://llmify.ch/insights/benchmarks-schweizer-kmu/): GPT-5.2 leads in PhD math, but in general knowledge across 14 languages the lead is just 2.5%. For SME work, the difference is negligible.
-- [EU Parliament Shuts Down AI](https://llmify.ch/insights/eu-parlament-ki/): The EU Parliament disables AI on all devices — IT cannot guarantee where data flows. The answer is AI on infrastructure you control.
-- [The ICC Incident](https://llmify.ch/insights/icc-vorfall/): The International Criminal Court loses access to its Microsoft email and switches to open source. Digital dependency is operational risk.
-- [CLOUD Act](https://llmify.ch/insights/cloud-act/): The US CLOUD Act requires American companies to hand over data — even from servers in Switzerland. Data location is not data sovereignty.
+- [Open-Source Models Are Competitive](https://llmify.ch/insights/open-source-modelle/): Qwen 3.5 and Nemotron 3 Super show that open-source models compete with proprietary providers. Both run on own infrastructure, without API dependency.
+- [AI Under US Jurisdiction](https://llmify.ch/insights/us-recht-ki-daten/): The CLOUD Act allows US authorities to access data in Switzerland. The Remote Access Security Act could soon regulate cloud AI too.
+- [Sovereignty in Practice](https://llmify.ch/insights/souveraenitaet-praxis/): The ICC loses access to Microsoft services, the EU Parliament disables AI on all devices. Two cases showing that digital sovereignty is not theoretical.
 
 ## Contact
 
