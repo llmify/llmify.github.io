@@ -32,6 +32,7 @@ function setLanguage(lang) {
   });
 
   document.getElementById('lang-dropdown').classList.remove('open');
+  document.dispatchEvent(new Event('langchange'));
 }
 
 // ========== COOKIE BANNER ==========
@@ -108,6 +109,7 @@ document.addEventListener('click', function() {
 (function() {
   var section = document.getElementById('leistungen');
   var container = document.getElementById('stack-container');
+  if (!section || !container) return;
   var rows = document.querySelectorAll('.stack-row');
   var minWidth = 448;  // max-w-md (28rem)
   var maxWidth = 576;  // max-w-xl (36rem)
@@ -172,7 +174,7 @@ window.addEventListener('resize', drawArrow);
 
 // ========== NAV SCROLL HIGHLIGHT ==========
 var navLinks = document.querySelectorAll('.nav-link');
-var navSections = document.querySelectorAll('#start, #leistungen, #ansatz, #kontakt');
+var navSections = document.querySelectorAll('#start, #leistungen, #ansatz, #insights, #kontakt');
 window.addEventListener('scroll', function() {
   var current = '';
   var atBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50;

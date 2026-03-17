@@ -77,6 +77,20 @@ html { scroll-behavior: smooth; }
 .stack-bubble {
   border-radius: 1.75rem;
 }
+/* Article cards */
+.article-card { text-decoration: none; }
+
+/* Filter buttons */
+.insights-filter { border-color: #e5e7eb; color: #9ca3af; background: white; }
+.insights-filter:hover { border-color: #6BA5F2; color: #6BA5F2; }
+.insights-filter.active { border-color: #6BA5F2; background: #6BA5F2; color: white; }
+
+/* Article body */
+.article-body p { font-size: 0.9375rem; color: #555; line-height: 1.85; margin-bottom: 1rem; }
+.article-body p:last-child { margin-bottom: 0; }
+.article-body a { color: #4A8CE8; text-decoration: underline; }
+.article-body a:hover { color: #6BA5F2; }
+
 .stack-detail {
   max-height: 0;
   opacity: 0;

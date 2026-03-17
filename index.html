@@ -107,11 +107,12 @@
   {
     "@context": "https://schema.org",
     "@type": "SiteNavigationElement",
-    "name": ["Leistungen", "Ansatz", "Souveränität", "Kontakt"],
+    "name": ["Leistungen", "Ansatz", "Souveränität", "Insights", "Kontakt"],
     "url": [
       "https://llmify.ch/#leistungen",
       "https://llmify.ch/#ansatz",
       "https://llmify.ch/#souveraenitaet",
+      "https://llmify.ch/#insights",
       "https://llmify.ch/#kontakt"
     ]
   }
@@ -150,6 +151,7 @@
         <a href="#start" class="nav-link text-sm font-medium text-gray-400 hover:text-[#1A1A1A] transition-colors" data-i18n="nav_start">Start</a>
         <a href="#leistungen" class="nav-link text-sm font-medium text-gray-400 hover:text-[#1A1A1A] transition-colors" data-i18n="nav_services">Leistungen</a>
         <a href="#ansatz" class="nav-link text-sm font-medium text-gray-400 hover:text-[#1A1A1A] transition-colors" data-i18n="nav_approach">Ansatz</a>
+        <a href="#insights" class="nav-link text-sm font-medium text-gray-400 hover:text-[#1A1A1A] transition-colors" data-i18n="nav_insights">Insights</a>
         <a href="#kontakt" class="nav-link text-sm font-medium text-gray-400 hover:text-[#1A1A1A] transition-colors" data-i18n="nav_contact">Kontakt</a>
       </div>
       <div class="relative flex-shrink-0">
@@ -383,6 +385,19 @@
     </div>
   </section>
 
+  <!-- Insights Teaser -->
+  <section id="insights" class="py-20 md:py-28 bg-brand-light">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4" data-i18n="insights_title">Insights</h2>
+      <p class="text-center text-gray-500 mb-14" data-i18n="insights_subtitle">Aktuelle Einordnungen zu KI, Souveränität und Open Source.</p>
+      <div id="insights-teaser-cards" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      </div>
+      <div class="text-center mt-10">
+        <a href="/insights/" class="inline-block border-2 border-brand text-brand hover:bg-brand hover:text-white font-medium px-8 py-3 rounded-full transition-colors text-base" data-i18n="insights_all">Alle Insights &rarr;</a>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer id="kontakt" class="py-12 md:py-16 border-t border-gray-100">
     <div class="max-w-6xl mx-auto px-6">
@@ -488,6 +503,8 @@
   </div>
 
   <script src="js/translations.js"></script>
+  <script src="js/articles.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/insights.js"></script>
 </body>
 </html>
