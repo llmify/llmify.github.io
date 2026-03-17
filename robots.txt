@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://llmify.ch/website-clean/sitemap.xml
+Sitemap: https://llmify.ch/sitemap.xml
