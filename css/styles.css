@@ -91,6 +91,17 @@ html { scroll-behavior: smooth; }
 .article-body a { color: #4A8CE8; text-decoration: underline; }
 .article-body a:hover { color: #6BA5F2; }
 
+/* Scroll reveal */
+.reveal-up {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal-up.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
 .stack-detail {
   max-height: 0;
   opacity: 0;

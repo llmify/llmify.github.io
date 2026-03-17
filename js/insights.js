@@ -53,6 +53,17 @@ function renderInsightsTeaser(lang) {
   if (!container) return;
   var latest = articles.slice(0, 3);
   container.innerHTML = latest.map(function(a) { return renderArticleCard(a, lang); }).join('');
+  // Staggered reveal — only if section is below the fold
+  var rect = container.getBoundingClientRect();
+  if (rect.top > window.innerHeight * 0.5) {
+    var isMobile = window.innerWidth < 768;
+    var cards = container.querySelectorAll('.article-card');
+    cards.forEach(function(card, i) {
+      if (!isMobile) card.style.transitionDelay = (i * 500) + 'ms';
+      card.classList.add('reveal-up');
+    });
+    requestAnimationFrame(function() { observeReveals(); });
+  }
 }
 
 // Full index page with filtering
