@@ -74,6 +74,16 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+// ========== HASH → MODAL ==========
+var hashModals = { '#datenschutz': 'privacy-modal', '#impressum': 'impressum-modal' };
+
+function checkHash() {
+  var modal = hashModals[location.hash];
+  if (modal) openModal(modal);
+}
+window.addEventListener('hashchange', checkHash);
+checkHash();
+
 // ========== LANGUAGE DROPDOWN ==========
 document.getElementById('lang-toggle').addEventListener('click', function(e) {
   e.stopPropagation();
