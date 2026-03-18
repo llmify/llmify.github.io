@@ -28,14 +28,28 @@ function getCategoryColor(category) {
   return category === 'open-source' ? 'bg-gray-100 text-gray-600' : 'bg-blue-50 text-brand-dark';
 }
 
-function renderArticleCard(article, lang, basePath) {
+function renderArticleCard(article, lang, basePath, variant) {
   basePath = basePath || '/insights/';
+  variant = variant || 'light';
   var title = article.title[lang] || article.title.de;
   var summary = article.summary[lang] || article.summary.de;
   var catLabel = getCategoryLabel(article.category, lang);
-  var catColor = getCategoryColor(article.category);
   var readMore = insightsI18n.read_more[lang] || insightsI18n.read_more.de;
 
+  if (variant === 'dark') {
+    var catColor = article.category === 'open-source' ? 'bg-white/10 text-gray-300' : 'bg-white/10 text-brand';
+    return '<a href="' + basePath + article.slug + '/" class="article-card flex flex-col rounded-xl p-6 border border-white/10 hover:border-white/25 bg-white/[0.02] hover:bg-white/5 backdrop-blur-sm transition-all duration-200">' +
+      '<div class="flex items-center gap-3 mb-3">' +
+        '<time class="text-xs text-gray-500" datetime="' + article.date + '">' + formatDate(article.date, lang) + '</time>' +
+        '<span class="text-xs font-medium px-2 py-0.5 rounded-full ' + catColor + '">' + catLabel + '</span>' +
+      '</div>' +
+      '<h3 class="font-semibold text-white mb-2 leading-snug">' + title + '</h3>' +
+      '<p class="text-sm text-gray-400 leading-relaxed mb-3 flex-1">' + summary + '</p>' +
+      '<span class="text-sm font-medium text-brand">' + readMore + ' &rarr;</span>' +
+    '</a>';
+  }
+
+  var catColor = getCategoryColor(article.category);
   return '<a href="' + basePath + article.slug + '/" class="article-card flex flex-col bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all duration-200">' +
     '<div class="flex items-center gap-3 mb-3">' +
       '<time class="text-xs text-gray-400" datetime="' + article.date + '">' + formatDate(article.date, lang) + '</time>' +
@@ -52,7 +66,7 @@ function renderInsightsTeaser(lang) {
   var container = document.getElementById('insights-teaser-cards');
   if (!container) return;
   var latest = articles.slice(0, 3);
-  container.innerHTML = latest.map(function(a) { return renderArticleCard(a, lang); }).join('');
+  container.innerHTML = latest.map(function(a) { return renderArticleCard(a, lang, '/insights/', 'dark'); }).join('');
   // Staggered reveal — only if section is below the fold
   var rect = container.getBoundingClientRect();
   if (rect.top > window.innerHeight * 0.5) {

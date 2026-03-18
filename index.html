@@ -352,14 +352,16 @@
   </section>
 
   <!-- Insights -->
-  <section id="insights" class="py-16 md:py-20" style="background: radial-gradient(ellipse 70% 80% at 0% 50%, rgba(107,165,242,0.14) 0%, transparent 60%);">
-    <div class="max-w-5xl mx-auto px-6">
-      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4" data-i18n="insights_title">Aktuelle Einordnungen</h2>
-      <p class="text-center text-gray-500 mb-12" data-i18n="insights_subtitle">Was sich gerade verändert.</p>
+  <section id="insights" class="relative py-16 md:py-20 bg-[#1A1A1A] overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 40px 40px;"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 50% at 20% 50%, rgba(107,165,242,0.12) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 80% 50%, rgba(74,140,232,0.08) 0%, transparent 60%);"></div>
+    <div class="relative max-w-5xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 text-white" data-i18n="insights_title">Aktuelle Einordnungen</h2>
+      <p class="text-center text-gray-400 mb-12" data-i18n="insights_subtitle">Was sich gerade verändert.</p>
       <div id="insights-teaser-cards" class="grid grid-cols-1 md:grid-cols-3 gap-6">
       </div>
       <div class="text-center mt-10">
-        <a href="/insights/" class="inline-block border-2 border-brand text-brand hover:bg-brand hover:text-white font-medium px-8 py-3 rounded-full transition-colors text-base" data-i18n="insights_all">Alle Insights &rarr;</a>
+        <a href="/insights/" class="inline-block bg-white text-[#1A1A1A] hover:bg-brand hover:text-white font-medium px-8 py-3 rounded-full transition-colors text-base" data-i18n="insights_all">Alle Insights &rarr;</a>
       </div>
     </div>
   </section>
