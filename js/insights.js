@@ -2,13 +2,14 @@
 
 var categoryLabels = {
   'ai-sovereignty': { de: 'KI-Souveränität', fr: 'Souveraineté IA', it: 'Sovranità IA', en: 'AI Sovereignty' },
-  'open-source': { de: 'Open Source', fr: 'Open Source', it: 'Open Source', en: 'Open Source' }
+  'open-source': { de: 'Open Source', fr: 'Open Source', it: 'Open Source', en: 'Open Source' },
+  'use-case': { de: 'Use Case', fr: 'Use Case', it: 'Use Case', en: 'Use Case' }
 };
 
 var insightsI18n = {
   read_more: { de: 'Weiterlesen', fr: 'Lire la suite', it: 'Leggi di più', en: 'Read more' },
-  all_insights: { de: 'Alle Insights', fr: 'Tous les insights', it: 'Tutti gli insights', en: 'All insights' },
-  back: { de: 'Alle Insights', fr: 'Tous les insights', it: 'Tutti gli insights', en: 'All insights' },
+  all_insights: { de: 'Alle Beiträge', fr: 'Tous les articles', it: 'Tutti gli articoli', en: 'All articles' },
+  back: { de: 'Alle Beiträge', fr: 'Tous les articles', it: 'Tutti gli articoli', en: 'All articles' },
   prev: { de: 'Vorheriger Artikel', fr: 'Article précédent', it: 'Articolo precedente', en: 'Previous article' },
   next: { de: 'Nächster Artikel', fr: 'Article suivant', it: 'Prossimo articolo', en: 'Next article' }
 };
@@ -25,7 +26,8 @@ function getCategoryLabel(category, lang) {
 }
 
 function getCategoryColor(category) {
-  return category === 'open-source' ? 'bg-gray-100 text-gray-600' : 'bg-blue-50 text-brand-dark';
+  if (category === 'use-case') return 'bg-amber-50 text-amber-700';
+  return 'bg-blue-50 text-brand-dark';
 }
 
 function renderArticleCard(article, lang, basePath, variant) {
@@ -37,7 +39,7 @@ function renderArticleCard(article, lang, basePath, variant) {
   var readMore = insightsI18n.read_more[lang] || insightsI18n.read_more.de;
 
   if (variant === 'dark') {
-    var catColor = article.category === 'open-source' ? 'bg-white/10 text-gray-300' : 'bg-white/10 text-brand';
+    var catColor = article.category === 'use-case' ? 'bg-amber-500/15 text-amber-300' : 'bg-white/10 text-brand';
     return '<a href="' + basePath + article.slug + '/" class="article-card flex flex-col rounded-xl p-6 border border-white/10 hover:border-white/25 bg-white/[0.02] hover:bg-white/5 backdrop-blur-sm transition-all duration-200">' +
       '<div class="flex items-center gap-3 mb-3">' +
         '<time class="text-xs text-gray-500" datetime="' + article.date + '">' + formatDate(article.date, lang) + '</time>' +

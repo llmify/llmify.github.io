@@ -10,6 +10,10 @@ LLMify builds AI solutions where data never leaves the company. From strategy to
 - **AI Infrastructure**: Open-source models on Swiss infrastructure (on-premise or sovereign Swiss cloud)
 - **AI Applications**: Custom applications with intelligent document search and agent workflows
 
+## Use Cases
+
+- [AI Learning Coach for Entlastungsdienst Bern](https://llmify.ch/insights/ki-lerncoach-entlastungsdienst/): Competency assessment and personalised learning paths for 100+ care workers. Seven specialised AI agents, 14 weeks development, live since February 2026.
+
 ## Insights
 
 - [Open-Source Models Are Competitive](https://llmify.ch/insights/open-source-modelle/): Qwen 3.5 and Nemotron 3 Super show that open-source models compete with proprietary providers. Both run on own infrastructure, without API dependency.

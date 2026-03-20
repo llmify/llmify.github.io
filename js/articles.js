@@ -1,5 +1,22 @@
 var articles = [
   {
+    slug: 'ki-lerncoach-entlastungsdienst',
+    date: '2026-03-20',
+    category: 'use-case',
+    title: {
+      de: 'KI-Lerncoach für den Entlastungsdienst Bern',
+      fr: 'Coach IA pour le service de relève de Berne',
+      it: 'Coach IA per il servizio di sollievo di Berna',
+      en: 'AI Learning Coach for Entlastungsdienst Bern'
+    },
+    summary: {
+      de: 'Kompetenz-Assessment und personalisierte Lernpfade für über 100 Betreuungspersonen. Sieben spezialisierte KI-Agenten, 14 Wochen Entwicklungszeit, produktiv seit Februar 2026.',
+      fr: 'Évaluation des compétences et parcours d\u2019apprentissage personnalisés pour plus de 100 accompagnants. Sept agents IA spécialisés, 14 semaines de développement.',
+      it: 'Valutazione delle competenze e percorsi di apprendimento personalizzati per oltre 100 operatori. Sette agenti IA specializzati, 14 settimane di sviluppo.',
+      en: 'Competency assessment and personalised learning paths for 100+ care workers. Seven specialised AI agents, 14 weeks development, live since February 2026.'
+    }
+  },
+  {
     slug: 'open-source-modelle',
     date: '2026-03-18',
     category: 'open-source',
