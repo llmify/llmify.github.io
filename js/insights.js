@@ -63,11 +63,11 @@ function renderArticleCard(article, lang, basePath, variant) {
   '</a>';
 }
 
-// Teaser on landing page (3 latest)
+// Teaser on landing page (2 insights + 1 use case)
 function renderInsightsTeaser(lang) {
   var container = document.getElementById('insights-teaser-cards');
   if (!container) return;
-  var latest = articles.slice(0, 3);
+  var latest = articles.filter(function(a) { return a.homepage !== false; }).slice(0, 3);
   container.innerHTML = latest.map(function(a) { return renderArticleCard(a, lang, '/insights/', 'dark'); }).join('');
   // Staggered reveal — only if section is below the fold
   var rect = container.getBoundingClientRect();

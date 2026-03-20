@@ -3,6 +3,7 @@ var articles = [
     slug: 'ki-lerncoach-entlastungsdienst',
     date: '2026-03-20',
     category: 'use-case',
+    homepage: false,
     title: {
       de: 'KI-Lerncoach für den Entlastungsdienst Bern',
       fr: 'Coach IA pour le service de relève de Berne',
@@ -48,6 +49,23 @@ var articles = [
       fr: 'Le CLOUD Act permet aux autorités américaines d\u2019accéder aux données en Suisse. Le Remote Access Security Act pourrait bientôt réguler l\u2019IA cloud.',
       it: 'Il CLOUD Act consente alle autorità USA di accedere ai dati in Svizzera. Il Remote Access Security Act potrebbe presto regolamentare l\u2019IA cloud.',
       en: 'The CLOUD Act allows US authorities to access data in Switzerland. The Remote Access Security Act could soon regulate cloud AI too.'
+    }
+  },
+  {
+    slug: 'on-premise-ki-treuhand',
+    date: '2026-02-27',
+    category: 'use-case',
+    title: {
+      de: 'On-Premise-KI für eine Schweizer Treuhandfirma',
+      fr: 'IA on-premise pour une fiduciaire suisse',
+      it: 'IA on-premise per una fiduciaria svizzera',
+      en: 'On-Premise AI for a Swiss Fiduciary Firm'
+    },
+    summary: {
+      de: 'Vom Workshop bis zur eigenen Hardware: Eine Treuhandfirma setzt KI auf eigener Infrastruktur ein. Open-Source-Modell, keine Cloud-Abhängigkeit.',
+      fr: 'De l\u2019atelier au matériel propre : une fiduciaire utilise l\u2019IA sur sa propre infrastructure. Modèle open source, sans dépendance cloud.',
+      it: 'Dal workshop all\u2019hardware proprio: una fiduciaria utilizza l\u2019IA sulla propria infrastruttura. Modello open source, senza dipendenza dal cloud.',
+      en: 'From workshop to own hardware: a fiduciary firm runs AI on its own infrastructure. Open-source model, no cloud dependency.'
     }
   },
   {

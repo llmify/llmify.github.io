@@ -12,6 +12,7 @@ LLMify builds AI solutions where data never leaves the company. From strategy to
 
 ## Use Cases
 
+- [On-Premise AI for a Swiss Fiduciary Firm](https://llmify.ch/insights/on-premise-ki-treuhand/): From workshop to own hardware: a fiduciary firm runs AI on its own infrastructure. Open-source model, no cloud dependency.
 - [AI Learning Coach for Entlastungsdienst Bern](https://llmify.ch/insights/ki-lerncoach-entlastungsdienst/): Competency assessment and personalised learning paths for 100+ care workers. Seven specialised AI agents, 14 weeks development, live since February 2026.
 
 ## Insights
