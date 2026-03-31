@@ -11,10 +11,10 @@ var articles = [
       en: 'AI Learning Coach for Entlastungsdienst Bern'
     },
     summary: {
-      de: 'Kompetenz-Assessment und personalisierte Lernpfade für über 100 Betreuungspersonen. Sieben spezialisierte KI-Agenten, 14 Wochen Entwicklungszeit, produktiv seit Februar 2026.',
-      fr: 'Évaluation des compétences et parcours d\u2019apprentissage personnalisés pour plus de 100 accompagnants. Sept agents IA spécialisés, 14 semaines de développement.',
-      it: 'Valutazione delle competenze e percorsi di apprendimento personalizzati per oltre 100 operatori. Sette agenti IA specializzati, 14 settimane di sviluppo.',
-      en: 'Competency assessment and personalised learning paths for 100+ care workers. Seven specialised AI agents, 14 weeks development, live since February 2026.'
+      de: 'Kompetenz-Assessment und personalisierte Lernpfade für über 100 Betreuungspersonen. Fünf spezialisierte KI-Agenten, 14 Wochen Entwicklungszeit, produktiv seit Februar 2026.',
+      fr: 'Évaluation des compétences et parcours d\u2019apprentissage personnalisés pour plus de 100 accompagnants. Cinq agents IA spécialisés, 14 semaines de développement.',
+      it: 'Valutazione delle competenze e percorsi di apprendimento personalizzati per oltre 100 operatori. Cinque agenti IA specializzati, 14 settimane di sviluppo.',
+      en: 'Competency assessment and personalised learning paths for 100+ care workers. Five specialised AI agents, 14 weeks development, live since February 2026.'
     }
   },
   {
