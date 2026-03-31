@@ -3,7 +3,7 @@
 var categoryLabels = {
   'ai-sovereignty': { de: 'KI-Souveränität', fr: 'Souveraineté IA', it: 'Sovranità IA', en: 'AI Sovereignty' },
   'open-source': { de: 'Open Source', fr: 'Open Source', it: 'Open Source', en: 'Open Source' },
-  'use-case': { de: 'Use Case', fr: 'Use Case', it: 'Use Case', en: 'Use Case' }
+  'use-case': { de: 'Case Study', fr: 'Case Study', it: 'Case Study', en: 'Case Study' }
 };
 
 var insightsI18n = {
