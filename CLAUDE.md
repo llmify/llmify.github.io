@@ -27,6 +27,11 @@ tools/check_i18n.py  Meldet deutschen Text auf den übersetzten Seiten.
 python3 -m http.server 8000    # → http://localhost:8000
 ```
 
+Was lokal liegt, wird auch ausgeliefert: die leere Datei `.nojekyll` im Wurzel-
+verzeichnis schaltet die Jekyll-Verarbeitung von GitHub Pages ab. Die Seite
+benutzt keine einzige Jekyll-Funktion, und ohne die Datei verwirft Jekyll
+stillschweigend alles, was mit `_` oder `.` beginnt. Nicht löschen.
+
 ## Sprachen
 
 Deutsch ist die Quelle. Die drei anderen Fassungen werden erzeugt:
