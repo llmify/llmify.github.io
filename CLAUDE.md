@@ -32,6 +32,25 @@ verzeichnis schaltet die Jekyll-Verarbeitung von GitHub Pages ab. Die Seite
 benutzt keine einzige Jekyll-Funktion, und ohne die Datei verwirft Jekyll
 stillschweigend alles, was mit `_` oder `.` beginnt. Nicht löschen.
 
+## Deployment
+
+`.github/workflows/pages.yml` lädt das Wurzelverzeichnis bei jedem Push auf
+`main` als Artefakt hoch und veröffentlicht es. Kein Build, die Seite liegt
+fertig im Repo.
+
+Der Workflow ersetzt den von GitHub automatisch erzeugten. Zwei Gründe, beide
+am 06.08.2026 teuer gelernt:
+
+- Dessen Zeitlimit von zehn Minuten war nicht änderbar. Als die Auslieferung
+  bei GitHub langsam war, hat die Action laufende Deployments selbst
+  abgebrochen. Hier steht `timeout: 1800000`, also dreissig Minuten.
+- Es gab keine Möglichkeit, ein Deployment ohne neuen Commit zu wiederholen.
+  Dieser Workflow hat `workflow_dispatch`: in der Actions-Ansicht auf
+  «Run workflow», fertig. Oder `gh workflow run pages.yml`.
+
+Die Pages-Quelle muss dafür in den Einstellungen auf **GitHub Actions** stehen,
+nicht auf «Deploy from a branch».
+
 ## Sprachen
 
 Deutsch ist die Quelle. Die drei anderen Fassungen werden erzeugt:

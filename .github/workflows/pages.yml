@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages
+
+# Ersetzt den von GitHub erzeugten Workflow «pages-build-deployment».
+# Der Grund steht in zwei Zeilen weiter unten: dessen Zeitlimit von zehn
+# Minuten liess sich nicht ändern, und genau daran ist am 06.08.2026 jedes
+# Deployment gescheitert — nicht am Inhalt, sondern weil die Action ein noch
+# laufendes Deployment nach zehn Minuten selbst abgebrochen hat.
+
+on:
+  push:
+    branches: [main]
+  # Manuell auslösbar. Das ist der zweite Grund für diese Datei: der erzeugte
+  # Workflow bot keinen Knopf, ein Deployment ohne neuen Commit zu wiederholen.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Ein Deployment zur Zeit. cancel-in-progress bleibt aus: ein laufendes
+# Deployment abzuräumen, weil ein neues kommt, war die andere Hälfte des
+# Problems.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pages konfigurieren
+        uses: actions/configure-pages@v5
+
+      # Die Seite ist fertig gebaut im Repo — kein Jekyll, kein Build-Schritt.
+      # Das Wurzelverzeichnis wird unverändert hochgeladen; .git und .github
+      # schliesst die Action selbst aus.
+      - name: Artefakt hochladen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deployment
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          # Millisekunden. Voreinstellung ist 600000, also zehn Minuten —
+          # zu knapp, wenn die Auslieferung bei GitHub langsam ist.
+          timeout: 1800000
