@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320" role="img" aria-label="Fedlex">
+  <desc>Swiss flag — Swiss federal legislation</desc>
+  <!-- Square field. The flag is the square form; the cross in a SHIELD is the coat
+       of arms, reserved to the Confederation — see ATTRIBUTION.md before changing this. -->
+  <rect width="320" height="320" fill="#D52B1E"/>
+  <!-- Greek cross on the official 32-unit grid, scaled ×10: arms of equal length,
+       each one sixth longer than wide (60 wide, 70 long), so the cross spans 200
+       and leaves 60 of red on every side. -->
+  <path d="M130 60 H190 V130 H260 V190 H190 V260 H130 V190 H60 V130 H130 Z" fill="#fff"/>
+</svg>

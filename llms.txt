@@ -1,24 +1,49 @@
 # LLMify AG
 
-> Sovereign AI infrastructure for Swiss companies. Open-source models on own infrastructure, without dependency on US cloud providers.
+> Sovereign AI for Switzerland. LLMify AG builds and operates Kontexus, a self-hosted AI workspace: an agent that works inside a company's own documents and applications, running on the company's infrastructure or in a Swiss cloud, with no dependency on US cloud providers.
 
-LLMify builds AI solutions where data never leaves the company. From strategy to custom AI applications, on Swiss infrastructure, on-premise or sovereign cloud.
+LLMify AG is based in Cham, Zug, Switzerland, and is a spin-off of ETH Zurich. The product is Kontexus (https://kontexus.ch).
 
-## Services
+## Product: Kontexus
 
-- **AI Strategy**: Use case analysis, prioritisation, and roadmap development
-- **AI Infrastructure**: Open-source models on Swiss infrastructure (on-premise or sovereign Swiss cloud)
-- **AI Applications**: Custom applications with intelligent document search and agent workflows
+Kontexus is an AI agent with its own computer. It does not answer questions about documents from a distance; it opens them, edits them, files them and books the result into the systems a Swiss SME already runs.
 
-## Insights
+- **The agent**: works on real files in a workspace, shows every step it takes, and asks instead of guessing when a document is ambiguous.
+- **Connections**: Microsoft 365 (Outlook, Teams, OneDrive, Outlook Calendar), bexio, Abacus, plus Swiss legal sources (Fedlex, Entscheidsuche). Approvals are granted per operation, not per application.
+- **Where it runs**: Swiss cloud operated by LLMify, a dedicated private cloud instance, or fully on-premise behind the customer's own firewall.
 
-- [Open-Source Models Are Competitive](https://llmify.ch/insights/open-source-modelle/): Qwen 3.5 and Nemotron 3 Super show that open-source models compete with proprietary providers. Both run on own infrastructure, without API dependency.
-- [AI Under US Jurisdiction](https://llmify.ch/insights/us-recht-ki-daten/): The CLOUD Act allows US authorities to access data in Switzerland. The Remote Access Security Act could soon regulate cloud AI too.
-- [Sovereignty in Practice](https://llmify.ch/insights/souveraenitaet-praxis/): The ICC loses access to Microsoft services, the EU Parliament disables AI on all devices. Two cases showing that digital sovereignty is not theoretical.
+## Pricing
+
+Per user and month, including a monthly credit balance that covers tokens, storage and paid connections. Credits are pooled across the team.
+
+- Start: CHF 60 per user per month, 2'000 credits
+- Team: CHF 120 per user per month, 4'500 credits
+- Pro: CHF 200 per user per month, 8'000 credits
+- Enterprise: dedicated cloud instance or on-premise, unlimited users, own models on request. By arrangement.
+
+Indicative prices, excluding VAT.
+
+## Use cases shown on the site
+
+- **Fiduciary**: pulling Q3 creditor invoices out of Outlook, filing them, assigning VAT rates and accounts, booking them in bexio, and flagging a wrong VAT rate rather than copying it.
+- **Law firm**: checking the citations in a legal brief against the actual sources and reporting which ones do not hold.
+- **Sales**: answering a question raised in a Teams channel from the company's own documents, in the channel.
+
+## Insights (German)
+
+- [Open-Source-Modelle sind konkurrenzfähig](https://llmify.ch/insights/open-source-modelle/): Qwen 3.5 and Nemotron 3 Super both reach the 120B class and run on own infrastructure without API dependency.
+- [KI unter US-Jurisdiktion](https://llmify.ch/insights/us-recht-ki-daten/): The CLOUD Act reaches data held in Switzerland by US providers. The proposed Remote Access Security Act could extend export controls to cloud AI.
+- [Souveränität in der Praxis](https://llmify.ch/insights/souveraenitaet-praxis/): The ICC lost access to Microsoft services and moved to open source; the EU Parliament disabled AI features on all devices. Two cases where digital dependency became concrete.
+
+## Languages
+
+The site is published in German (https://llmify.ch/), French (https://llmify.ch/fr/index.html), Italian (https://llmify.ch/it/index.html) and English (https://llmify.ch/en/index.html). The Insights articles are German only.
 
 ## Contact
 
 - Website: https://llmify.ch
+- Product: https://kontexus.ch
 - Email: axel@llmify.ch
 - LinkedIn: https://www.linkedin.com/company/llmify
-- Location: Cham, Switzerland
+- Address: LLMify AG, Alte Steinhauserstrasse 19, 6330 Cham, Switzerland
+- UID: CHE-479.856.227

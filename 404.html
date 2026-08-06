@@ -4,21 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Seite nicht gefunden — LLMify</title>
-  <meta name="robots" content="noindex, nofollow">
-  <meta http-equiv="refresh" content="3;url=https://llmify.ch/">
-  <link rel="canonical" href="https://llmify.ch/">
+  <meta name="robots" content="noindex, follow">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/styles.css">
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f9fafb; color: #1f2937; text-align: center; }
-    a { color: #6BA5F2; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    /* Die 404 ist die einzige Seite ohne eigenen Abschnittsaufbau: ein
+       zentrierter Block, sonst nichts. Kein Meta-Refresh mehr — eine
+       erzwungene Weiterleitung nach drei Sekunden nimmt der Leserin die
+       Entscheidung ab und verwischt für Suchmaschinen, dass hier wirklich
+       nichts liegt. */
+    .nf {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 22px;
+      padding: 40px 28px;
+    }
+    .nf__code {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .nf h1 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    .nf p { color: var(--muted); max-width: 460px; }
+    .nf__links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .nf__links a { color: var(--accent); }
+    .nf__links a:hover { text-decoration: underline; }
+    .nf__logo { height: 26px; width: auto; margin-bottom: 8px; }
   </style>
 </head>
 <body>
-  <div>
-    <h1>Diese Seite existiert nicht mehr.</h1>
-    <p>Sie werden in 3 Sekunden zur <a href="https://llmify.ch/">Startseite</a> weitergeleitet.</p>
-  </div>
+  <main class="nf">
+    <a href="/" aria-label="LLMify — Startseite">
+      <img class="nf__logo" src="/assets/full_logo_black.png" alt="LLMify" width="120" height="26">
+    </a>
+    <p class="nf__code">Fehler 404</p>
+    <h1>Diese Seite gibt es nicht.</h1>
+    <p>Möglicherweise wurde sie verschoben oder die Adresse enthält einen Tippfehler.</p>
+    <div class="nf__links">
+      <a href="/">Zur Startseite</a>
+      <a href="/insights/">Insights</a>
+      <a href="mailto:axel@llmify.ch">Kontakt</a>
+    </div>
+  </main>
 </body>
 </html>
