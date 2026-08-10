@@ -1,16 +1,18 @@
 # LLMify AG
 
-> Sovereign AI for Switzerland. LLMify AG builds and operates Kontexus, a self-hosted AI workspace: an agent that works inside a company's own documents and applications, running on the company's infrastructure or in a Swiss cloud, with no dependency on US cloud providers.
+> Sovereign AI for Switzerland. LLMify AG builds and operates Kontexus, an AI workspace hosted in Switzerland: an agent that does real work inside a company's own documents and applications, connected to the Swiss software an SME already runs, with no dependency on US cloud providers.
 
-LLMify AG is based in Cham, Zug, Switzerland, and is a spin-off of ETH Zurich. The product is Kontexus (https://kontexus.ch).
+LLMify AG is based in Cham, Zug, Switzerland, and is recognised by ETH Zurich as *A Start-up Company of ETH Zurich* (since 20 May 2026). The product is Kontexus (https://kontexus.ch).
+
+Last updated: 10 August 2026.
 
 ## Product: Kontexus
 
 Kontexus is an AI agent with its own computer. It does not answer questions about documents from a distance; it opens them, edits them, files them and books the result into the systems a Swiss SME already runs.
 
 - **The agent**: works on real files in a workspace, shows every step it takes, and asks instead of guessing when a document is ambiguous.
-- **Connections**: Microsoft 365 (Outlook, Teams, OneDrive, Outlook Calendar), bexio, Abacus, plus Swiss legal sources (Fedlex, Entscheidsuche). Approvals are granted per operation, not per application.
-- **Where it runs**: Swiss cloud operated by LLMify, a dedicated private cloud instance, or fully on-premise behind the customer's own firewall.
+- **Connections**: Microsoft 365 (Outlook, Teams, OneDrive, SharePoint, Outlook Calendar), bexio, Abacus, plus Swiss legal sources (Fedlex, Entscheidsuche). Approvals are granted per operation, not per application.
+- **Where it runs**: primarily as SaaS operated by LLMify with a Swiss provider. On request as a dedicated private cloud instance or fully on-premise behind the customer's own firewall.
 
 ## Pricing
 
@@ -25,9 +27,11 @@ Indicative prices, excluding VAT.
 
 ## Use cases shown on the site
 
-- **Fiduciary**: pulling Q3 creditor invoices out of Outlook, filing them, assigning VAT rates and accounts, booking them in bexio, and flagging a wrong VAT rate rather than copying it.
-- **Law firm**: checking the citations in a legal brief against the actual sources and reporting which ones do not hold.
-- **Sales**: answering a question raised in a Teams channel from the company's own documents, in the channel.
+- **Fiduciary**: pulling Q3 creditor invoices out of Outlook, filing them, assigning the three Swiss VAT rates (8.1% standard, 3.8% accommodation, 2.6% reduced) and SME chart-of-accounts codes, booking them in bexio, and flagging a wrong VAT rate rather than copying it.
+- **Law firm**: checking the citations in a legal brief against Entscheidsuche and Fedlex and reporting which ones do not hold.
+- **Sales**: answering a question raised in a Teams channel from the mail history, the quote in SharePoint and the open items in bexio, replying in the same thread.
+
+These are demonstrations. Company names, invoice numbers and amounts are invented.
 
 ## Insights (German)
 
@@ -39,11 +43,18 @@ Indicative prices, excluding VAT.
 
 The site is published in German (https://llmify.ch/), French (https://llmify.ch/fr/index.html), Italian (https://llmify.ch/it/index.html) and English (https://llmify.ch/en/index.html). The Insights articles are German only.
 
+## Company details
+
+- Legal name: LLMify AG, a Swiss stock corporation (Aktiengesellschaft)
+- UID: CHE-479.856.227 (https://www.uid.admin.ch/Detail.aspx?uid_id=CHE479856227)
+- Entered in the commercial register of the canton of Zug on 19 March 2025
+- Address: Alte Steinhauserstrasse 19, 6330 Cham, Switzerland
+- Applicable law: Swiss law, place of jurisdiction Zug
+
 ## Contact
 
 - Website: https://llmify.ch
 - Product: https://kontexus.ch
 - Email: axel@llmify.ch
 - LinkedIn: https://www.linkedin.com/company/llmify
-- Address: LLMify AG, Alte Steinhauserstrasse 19, 6330 Cham, Switzerland
-- UID: CHE-479.856.227
+- GitHub: https://github.com/llmify

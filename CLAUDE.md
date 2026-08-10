@@ -1,7 +1,12 @@
 # LLMify Website
 
 Statische Website für llmify.ch, gehostet auf GitHub Pages. Verkauft wird das
-Produkt **Kontexus** (selbst gehosteter KI-Arbeitsplatz, kontexus.ch).
+Produkt **Kontexus** (kontexus.ch): der KI-Arbeitsplatz aus der Schweiz.
+
+Die Botschaft ist nicht «selbst gehostet». Kontexus läuft primär als SaaS bei
+einem Schweizer Provider, ist an Schweizer Anwendungen angebunden und arbeitet
+produktiv auf den Dateien des Kunden. Eine private Instanz oder On-Premise gibt
+es auf Wunsch (Enterprise), das ist die Ausnahme und nicht die Überschrift.
 
 ## Stack
 
@@ -73,6 +78,12 @@ Bearbeiten nicht kaputtmachen darf:
 - `canonical` und `og:url` werden pro Sprache auf die eigene Adresse gesetzt.
   Ohne das würden die drei Übersetzungen als Duplikate der deutschen Seite
   gelten und aus dem Index fallen.
+- Die Tabelle läuft auch über den JSON-LD-Block im Kopf. Jeder deutsche Satz
+  dort braucht einen Eintrag als **ganzer Satz**, sonst greifen nur die kurzen
+  Einträge und es entsteht ein Mischsatz. Bis August 2026 stand in der
+  französischen Fassung «in der Cloud suisse», weil dieser Eintrag fehlte.
+  `insights/` wird in Links auf `../insights/` umgeschrieben, damit der
+  Fusslink aus `fr/` nicht ins Leere zeigt.
 
 `check_i18n.py` meldet weiterhin deutschen Text aus dem Kanzlei- und dem
 Vertriebsfall im Demo-Fenster. Das ist bekannt: nur der Treuhand-Fall ist
@@ -94,6 +105,26 @@ Tonalität: Stilrichtlinie unter
 `/Users/flaessig/Documents/repos/post-scheduler/scripts/style-guide.md`.
 «Sie», keine Gedankenstriche als Trenner, keine LinkedIn-Fragmente, konkret
 und mit Quellen.
+
+## Strukturierte Daten
+
+Der `@graph` im Kopf von `index.html` hat drei Knoten: `WebSite`,
+`Organization` (`#organization`) und die `SoftwareApplication` Kontexus
+(`#kontexus`). Die Unterseiten hängen sich per `@id` daran, statt eine eigene
+Firma zu behaupten.
+
+Die Firmenangaben sind belegt und sollen es bleiben:
+
+- Handelsregistereintrag **19.03.2025**, Statuten vom 12.03.2025, publiziert im
+  SHAB am 24.03.2025 (HR01-1006289592).
+- UID **CHE-479.856.227**, aktiv im UID-Register. Sie steht als `identifier`
+  und nicht mehr als `vatID`: das UID-Register weist keine MWST-Nummer aus, die
+  UID ist keine Mehrwertsteuernummer.
+- ETH: seit 20.05.2026 *A Start-up Company of ETH Zurich*. Die Erwähnung steht
+  nur am `Organization`-Knoten, nie am Produkt. Die Nutzungsregeln verbieten
+  den Namen ETH in Verbindung mit Produkten, Services und Werbung; die
+  wahrheitsgemässe Aussage über die Firma ist erlaubt. Details in
+  `company-context/branded-assets/eth-startup-logo/README.md`.
 
 ## Rechtstexte
 

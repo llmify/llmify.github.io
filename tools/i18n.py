@@ -314,15 +314,62 @@ T = [
      "Crédits mutualisés dans l'équipe, l'avoir non utilisé n'expire pas par personne. Un compte pour les tokens, le stockage et les raccordements payants. Changement de palier à tout moment. Prix indicatifs sans engagement, hors TVA.",
      "Crediti condivisi nel team, il credito non utilizzato non scade pro capite. Un unico conto per token, memoria e collegamenti a pagamento. Livello modificabile in qualsiasi momento. Prezzi indicativi non vincolanti, IVA esclusa.",
      "Credits pooled across the team, unused balance does not expire per head. One account for tokens, storage and paid connectors. Switch tier at any time. Indicative prices, excl. VAT."),
+    # ---- strukturierte Daten (JSON-LD im Kopf) ----
+    # Die Übersetzung läuft über dieselbe Tabelle wie der sichtbare Text, also
+    # auch über den <script type="application/ld+json">-Block. Jeder deutsche
+    # Satz, der dort steht, braucht hier einen Eintrag als GANZER Satz. Fehlt
+    # er, greifen nur die kurzen Einträge und es entsteht ein Mischsatz —
+    # genau so stand bis August 2026 "in der Cloud suisse" in der
+    # französischen Fassung. Neue Felder im Graph: Eintrag hier ergänzen.
+    ("LLMify AG baut und betreibt Kontexus, den KI-Arbeitsplatz für Schweizer Unternehmen. Sitz in Cham (Zug), Start-up der ETH Zürich.",
+     "LLMify AG développe et exploite Kontexus, le poste de travail IA pour les entreprises suisses. Siège à Cham (Zoug), start-up de l'ETH Zurich.",
+     "LLMify AG sviluppa e gestisce Kontexus, la postazione di lavoro IA per le imprese svizzere. Sede a Cham (Zugo), start-up del PF di Zurigo.",
+     "LLMify AG builds and operates Kontexus, the AI workspace for Swiss companies. Based in Cham (Zug), a start-up of ETH Zurich."),
+    ("KI-Arbeitsplatz, betrieben in der Schweiz: ein Agent, der produktiv auf Ihren Dateien arbeitet und an Ihre Schweizer Anwendungen angebunden ist.",
+     "Poste de travail IA exploité en Suisse : un agent qui travaille concrètement sur vos fichiers et se connecte à vos applications suisses.",
+     "Postazione di lavoro IA gestita in Svizzera: un agente che lavora concretamente sui vostri file ed è collegato alle vostre applicazioni svizzere.",
+     "AI workspace operated in Switzerland: an agent that does real work on your files and connects to your Swiss applications."),
+    ("Agent mit eigenem Arbeitsbereich, der Dateien liest, ändert und ablegt",
+     "Agent doté de son propre espace de travail, qui lit, modifie et classe des fichiers",
+     "Agente con un proprio spazio di lavoro, che legge, modifica e archivia file",
+     "Agent with its own workspace that reads, edits and files documents"),
+    ("Anschluss an Microsoft 365, bexio und Abacus",
+     "Connexion à Microsoft 365, bexio et Abacus",
+     "Collegamento a Microsoft 365, bexio e Abacus",
+     "Connects to Microsoft 365, bexio and Abacus"),
+    ("Zugriff auf Fedlex und Entscheidsuche",
+     "Accès à Fedlex et Entscheidsuche",
+     "Accesso a Fedlex ed Entscheidsuche",
+     "Access to Fedlex and Entscheidsuche"),
+    ("Freigabe pro Vorgang statt pro Anwendung",
+     "Autorisation par opération plutôt que par application",
+     "Autorizzazione per operazione anziché per applicazione",
+     "Approval per operation rather than per application"),
+    ("Betrieben als SaaS bei einem Schweizer Provider, auf Wunsch als private Instanz oder On-Premise",
+     "Exploité en SaaS chez un fournisseur suisse, sur demande en instance privée ou on-premise",
+     "Gestito in SaaS presso un fornitore svizzero, su richiesta come istanza privata o on-premise",
+     "Operated as SaaS with a Swiss provider, on request as a private instance or on-premise"),
+    ("Souveräne KI", "IA souveraine", "IA sovrana", "Sovereign AI"),
+    ("On-Premise-KI", "IA on-premise", "IA on-premise", "On-premise AI"),
+    ("KI-Agenten", "agents IA", "agenti IA", "AI agents"),
+    ("Open-Source-Sprachmodelle", "modèles de langage open source",
+     "modelli linguistici open source", "open-source language models"),
+    ("Schweizer Datenschutzgesetz (DSG)", "loi suisse sur la protection des données (LPD)",
+     "legge svizzera sulla protezione dei dati (LPD)", "Swiss Data Protection Act (DSG)"),
+
     # ---- head / meta ----
-    ("LLMify — Souveräne KI für die Schweiz",
-     "LLMify — L'IA souveraine pour la Suisse",
-     "LLMify — IA sovrana per la Svizzera",
-     "LLMify — Sovereign AI for Switzerland"),
-    ("Kontexus von LLMify: der selbst gehostete KI-Arbeitsplatz. Ein Agent, der mit Ihren Dokumenten arbeitet — auf Ihrer Infrastruktur oder in der Schweizer Cloud.",
-     "Kontexus de LLMify : le poste de travail IA auto-hébergé. Un agent qui travaille avec vos documents — sur votre infrastructure ou dans le cloud suisse.",
-     "Kontexus di LLMify: la postazione di lavoro IA self-hosted. Un agente che lavora con i vostri documenti — sulla vostra infrastruttura o nel cloud svizzero.",
-     "Kontexus by LLMify: the self-hosted AI workspace. An agent that works with your documents — on your infrastructure or in the Swiss cloud."),
+    ("LLMify: Souveräne KI für die Schweiz",
+     "LLMify : L'IA souveraine pour la Suisse",
+     "LLMify: IA sovrana per la Svizzera",
+     "LLMify: Sovereign AI for Switzerland"),
+    ("Kontexus von LLMify: der KI-Arbeitsplatz aus der Schweiz. Ein Agent, der auf Ihren Dateien arbeitet und an Ihre Schweizer Anwendungen angebunden ist.",
+     "Kontexus de LLMify : le poste de travail IA hébergé en Suisse. Un agent qui travaille sur vos fichiers et se connecte à vos applications suisses.",
+     "Kontexus di LLMify: la postazione di lavoro IA ospitata in Svizzera. Un agente che lavora sui vostri file e si collega alle vostre applicazioni svizzere.",
+     "Kontexus by LLMify: the AI workspace hosted in Switzerland. An agent that works on your files and connects to your Swiss applications."),
+    ("Kontexus von LLMify: der KI-Arbeitsplatz aus der Schweiz.",
+     "Kontexus de LLMify : le poste de travail IA hébergé en Suisse.",
+     "Kontexus di LLMify: la postazione di lavoro IA ospitata in Svizzera.",
+     "Kontexus by LLMify: the AI workspace hosted in Switzerland."),
     ("Preise — LLMify", "Tarifs — LLMify", "Prezzi — LLMify", "Pricing — LLMify"),
     # The pricing page's meta description; the old key still named Starter /
     # Business / Premium and therefore matched nothing — the tag stayed half
@@ -840,7 +887,10 @@ def main():
             # 1) html lang
             html = html.replace('<html lang="de-CH">', '<html lang="' + cfg['html_lang'] + '">', 1)
             # 2) asset paths -> ../
-            html = re.sub(r'(href|src)="(css/|js/|assets/)', r'\1="../\2', html)
+            # insights/ liegt nur auf Deutsch im Wurzelverzeichnis. Ohne den
+            # Eintrag hier würde der Fusslink aus fr/index.html auf
+            # /fr/insights/ zeigen und ins Leere laufen.
+            html = re.sub(r'(href|src)="(css/|js/|assets/|insights/)', r'\1="../\2', html)
             # 3) language switchers (replace the German blocks wholesale)
             html = re.sub(r'<div class="langsw"[^>]*>.*?</div>', lang_switcher(lang, page), html, flags=re.S)
             html = re.sub(r'<span class="langsw langsw--footer"[^>]*>.*?</span>', lang_switcher(lang, page, footer=True), html, flags=re.S)
@@ -856,6 +906,10 @@ def main():
                                 '<meta property="og:url" content="' + page_url + '">', 1)
             html = html.replace('<meta property="og:locale" content="de_CH">',
                                 '<meta property="og:locale" content="' + cfg['og_locale'] + '">', 1)
+            # inLanguage im JSON-LD (WebSite und SoftwareApplication). Steht dort
+            # als Sprach-Tag, nicht als Text, und wird deshalb nicht von T erfasst.
+            html = html.replace('"inLanguage": "de-CH"',
+                                '"inLanguage": "' + cfg['html_lang'] + '"')
 
             # 4) translate
             html = translate(html, idx_map[lang])

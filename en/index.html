@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LLMify — Sovereign AI for Switzerland</title>
+  <title>LLMify: Sovereign AI for Switzerland</title>
   <style>:root{--msg-ph:"Message..."}</style>
-  <meta name="description" content="Kontexus by LLMify: the self-hosted AI workspace. An agent that works with your documents — on your infrastructure or in the Swiss cloud.">
+  <meta name="description" content="Kontexus by LLMify: the AI workspace hosted in Switzerland. An agent that works on your files and connects to your Swiss applications.">
   <link rel="canonical" href="https://llmify.ch/en/index.html">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="LLMify — Sovereign AI for Switzerland">
-  <meta property="og:description" content="Kontexus by LLMify: the self-hosted AI workspace. An agent that works with your documents — on your infrastructure or in the Swiss cloud.">
+  <meta property="og:title" content="LLMify: Sovereign AI for Switzerland">
+  <meta property="og:description" content="Kontexus by LLMify: the AI workspace hosted in Switzerland. An agent that works on your files and connects to your Swiss applications.">
   <meta property="og:url" content="https://llmify.ch/en/index.html">
   <meta property="og:image" content="https://llmify.ch/assets/og-image.png">
+  <meta property="og:image:alt" content="Kontexus by LLMify: the AI workspace hosted in Switzerland.">
   <meta property="og:site_name" content="LLMify">
   <meta property="og:locale" content="en">
   <meta name="twitter:card" content="summary_large_image">
@@ -35,34 +36,110 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        "@type": "WebSite",
+        "@id": "https://llmify.ch/#website",
+        "url": "https://llmify.ch/",
+        "name": "LLMify",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://llmify.ch/#organization" }
+      },
+      {
+        "@type": ["Organization", "Corporation"],
         "@id": "https://llmify.ch/#organization",
         "name": "LLMify AG",
+        "legalName": "LLMify AG",
         "url": "https://llmify.ch/",
         "logo": "https://llmify.ch/assets/full_logo_black.png",
+        "image": "https://llmify.ch/assets/og-image.png",
         "email": "axel@llmify.ch",
-        "vatID": "CHE-479.856.227",
-        "sameAs": ["https://www.linkedin.com/company/llmify"],
+        "description": "LLMify AG builds and operates Kontexus, the AI workspace for Swiss companies. Based in Cham (Zug), a start-up of ETH Zurich.",
+        "foundingDate": "2025-03-19",
+        "identifier": {
+          "@type": "PropertyValue",
+          "propertyID": "UID",
+          "value": "CHE-479.856.227"
+        },
+        "areaServed": { "@type": "Country", "name": "CH" },
+        "knowsAbout": [
+          "Sovereign AI",
+          "On-premise AI",
+          "AI agents",
+          "open-source language models",
+          "Swiss Data Protection Act (DSG)"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/company/llmify",
+          "https://github.com/llmify",
+          "https://www.uid.admin.ch/Detail.aspx?uid_id=CHE479856227"
+        ],
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Alte Steinhauserstrasse 19",
           "postalCode": "6330",
           "addressLocality": "Cham",
+          "addressRegion": "ZG",
           "addressCountry": "CH"
-        }
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "email": "axel@llmify.ch",
+          "availableLanguage": ["de", "fr", "it", "en"]
+        },
+        "brand": { "@id": "https://llmify.ch/#kontexus" }
       },
       {
         "@type": "SoftwareApplication",
+        "@id": "https://llmify.ch/#kontexus",
         "name": "Kontexus",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web",
         "url": "https://kontexus.ch",
-        "description": "Selbst gehosteter KI-Arbeitsplatz: ein Agent, der mit Ihren Dokumenten und Anwendungen arbeitet — auf Ihrer Infrastruktur oder in der Swiss cloud.",
+        "inLanguage": "en",
+        "description": "AI workspace operated in Switzerland: an agent that does real work on your files and connects to your Swiss applications.",
         "publisher": { "@id": "https://llmify.ch/#organization" },
+        "provider": { "@id": "https://llmify.ch/#organization" },
+        "featureList": [
+          "Agent with its own workspace that reads, edits and files documents",
+          "Connects to Microsoft 365, bexio and Abacus",
+          "Access to Fedlex and Entscheidsuche",
+          "Approval per operation rather than per application",
+          "Operated as SaaS with a Swiss provider, on request as a private instance or on-premise"
+        ],
         "offers": [
-          { "@type": "Offer", "name": "Start", "price": "60", "priceCurrency": "CHF", "url": "https://kontexus.ch/register?plan=starter" },
-          { "@type": "Offer", "name": "Team", "price": "120", "priceCurrency": "CHF", "url": "https://kontexus.ch/register?plan=team" },
-          { "@type": "Offer", "name": "Pro", "price": "200", "priceCurrency": "CHF", "url": "https://kontexus.ch/register?plan=pro" }
+          {
+            "@type": "Offer", "name": "Start", "price": "60", "priceCurrency": "CHF",
+            "availability": "https://schema.org/InStock",
+            "url": "https://kontexus.ch/register?plan=starter",
+            "eligibleQuantity": { "@type": "QuantitativeValue", "value": 1, "unitText": "user" },
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification", "price": "60", "priceCurrency": "CHF",
+              "valueAddedTaxIncluded": false,
+              "referenceQuantity": { "@type": "QuantitativeValue", "value": 1, "unitCode": "MON" }
+            }
+          },
+          {
+            "@type": "Offer", "name": "Team", "price": "120", "priceCurrency": "CHF",
+            "availability": "https://schema.org/InStock",
+            "url": "https://kontexus.ch/register?plan=team",
+            "eligibleQuantity": { "@type": "QuantitativeValue", "value": 1, "unitText": "user" },
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification", "price": "120", "priceCurrency": "CHF",
+              "valueAddedTaxIncluded": false,
+              "referenceQuantity": { "@type": "QuantitativeValue", "value": 1, "unitCode": "MON" }
+            }
+          },
+          {
+            "@type": "Offer", "name": "Pro", "price": "200", "priceCurrency": "CHF",
+            "availability": "https://schema.org/InStock",
+            "url": "https://kontexus.ch/register?plan=pro",
+            "eligibleQuantity": { "@type": "QuantitativeValue", "value": 1, "unitText": "user" },
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification", "price": "200", "priceCurrency": "CHF",
+              "valueAddedTaxIncluded": false,
+              "referenceQuantity": { "@type": "QuantitativeValue", "value": 1, "unitCode": "MON" }
+            }
+          }
         ]
       }
     ]
@@ -1157,6 +1234,10 @@
     <div class="container footer__legal">
       <span>© <span id="year">2026</span> LLMify AG</span>
       <span class="footer__legallinks">
+        <!-- Die Insights liegen nur auf Deutsch; hreflang sagt das dem Crawler,
+             ohne die Beschriftung anzufassen. Ohne diesen Link wäre der ganze
+             Ordner von der Startseite aus nicht erreichbar. -->
+        <a href="../insights/index.html" hreflang="de">Insights</a>
         <a href="#impressum" data-legal="impressum">Legal notice</a>
         <a href="#datenschutz" data-legal="datenschutz">Privacy</a>
       </span>

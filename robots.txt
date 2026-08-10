@@ -1,4 +1,46 @@
+# llmify.ch — alles ist öffentlich, es gibt nichts zu verstecken.
+#
+# Die KI-Crawler stehen einzeln da, obwohl die Sternchen-Gruppe unten sie
+# ohnehin erlaubt. Zwei Gründe: ein Crawler wertet nur die spezifischste auf
+# ihn passende Gruppe aus, und eine ausdrückliche Zeile ist eine Aussage.
+# Wer in Antwortmaschinen vorkommen will, muss sie hereinlassen.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google-Extended steuert nicht die Suche, sondern ob Gemini und Vertex die
+# Seite verwenden dürfen. Ein Ausschluss hier kostet Sichtbarkeit in den
+# Antworten, ohne der Suche zu nützen.
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 User-agent: *
 Allow: /
 
 Sitemap: https://llmify.ch/sitemap.xml
+
+# Zusammenfassung der Seite in Textform für Sprachmodelle: /llms.txt

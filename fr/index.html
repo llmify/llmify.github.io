@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LLMify — L'IA souveraine pour la Suisse</title>
+  <title>LLMify : L'IA souveraine pour la Suisse</title>
   <style>:root{--msg-ph:"Message..."}</style>
-  <meta name="description" content="Kontexus de LLMify : le poste de travail IA auto-hébergé. Un agent qui travaille avec vos documents — sur votre infrastructure ou dans le cloud suisse.">
+  <meta name="description" content="Kontexus de LLMify : le poste de travail IA hébergé en Suisse. Un agent qui travaille sur vos fichiers et se connecte à vos applications suisses.">
   <link rel="canonical" href="https://llmify.ch/fr/index.html">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="LLMify — L'IA souveraine pour la Suisse">
-  <meta property="og:description" content="Kontexus de LLMify : le poste de travail IA auto-hébergé. Un agent qui travaille avec vos documents — sur votre infrastructure ou dans le cloud suisse.">
+  <meta property="og:title" content="LLMify : L'IA souveraine pour la Suisse">
+  <meta property="og:description" content="Kontexus de LLMify : le poste de travail IA hébergé en Suisse. Un agent qui travaille sur vos fichiers et se connecte à vos applications suisses.">
   <meta property="og:url" content="https://llmify.ch/fr/index.html">
   <meta property="og:image" content="https://llmify.ch/assets/og-image.png">
+  <meta property="og:image:alt" content="Kontexus de LLMify : le poste de travail IA hébergé en Suisse.">
   <meta property="og:site_name" content="LLMify">
   <meta property="og:locale" content="fr_CH">
   <meta name="twitter:card" content="summary_large_image">
@@ -35,34 +36,110 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        "@type": "WebSite",
+        "@id": "https://llmify.ch/#website",
+        "url": "https://llmify.ch/",
+        "name": "LLMify",
+        "inLanguage": "fr-CH",
+        "publisher": { "@id": "https://llmify.ch/#organization" }
+      },
+      {
+        "@type": ["Organization", "Corporation"],
         "@id": "https://llmify.ch/#organization",
         "name": "LLMify AG",
+        "legalName": "LLMify AG",
         "url": "https://llmify.ch/",
         "logo": "https://llmify.ch/assets/full_logo_black.png",
+        "image": "https://llmify.ch/assets/og-image.png",
         "email": "axel@llmify.ch",
-        "vatID": "CHE-479.856.227",
-        "sameAs": ["https://www.linkedin.com/company/llmify"],
+        "description": "LLMify AG développe et exploite Kontexus, le poste de travail IA pour les entreprises suisses. Siège à Cham (Zoug), start-up de l'ETH Zurich.",
+        "foundingDate": "2025-03-19",
+        "identifier": {
+          "@type": "PropertyValue",
+          "propertyID": "UID",
+          "value": "CHE-479.856.227"
+        },
+        "areaServed": { "@type": "Country", "name": "CH" },
+        "knowsAbout": [
+          "IA souveraine",
+          "IA on-premise",
+          "agents IA",
+          "modèles de langage open source",
+          "loi suisse sur la protection des données (LPD)"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/company/llmify",
+          "https://github.com/llmify",
+          "https://www.uid.admin.ch/Detail.aspx?uid_id=CHE479856227"
+        ],
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Alte Steinhauserstrasse 19",
           "postalCode": "6330",
           "addressLocality": "Cham",
+          "addressRegion": "ZG",
           "addressCountry": "CH"
-        }
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "email": "axel@llmify.ch",
+          "availableLanguage": ["de", "fr", "it", "en"]
+        },
+        "brand": { "@id": "https://llmify.ch/#kontexus" }
       },
       {
         "@type": "SoftwareApplication",
+        "@id": "https://llmify.ch/#kontexus",
         "name": "Kontexus",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web",
         "url": "https://kontexus.ch",
-        "description": "Selbst gehosteter KI-Arbeitsplatz: ein Agent, der mit Ihren Dokumenten und Anwendungen arbeitet — auf Ihrer Infrastruktur oder in der Cloud suisse.",
+        "inLanguage": "fr-CH",
+        "description": "Poste de travail IA exploité en Suisse : un agent qui travaille concrètement sur vos fichiers et se connecte à vos applications suisses.",
         "publisher": { "@id": "https://llmify.ch/#organization" },
+        "provider": { "@id": "https://llmify.ch/#organization" },
+        "featureList": [
+          "Agent doté de son propre espace de travail, qui lit, modifie et classe des fichiers",
+          "Connexion à Microsoft 365, bexio et Abacus",
+          "Accès à Fedlex et Entscheidsuche",
+          "Autorisation par opération plutôt que par application",
+          "Exploité en SaaS chez un fournisseur suisse, sur demande en instance privée ou on-premise"
+        ],
         "offers": [
-          { "@type": "Offer", "name": "Start", "price": "60", "priceCurrency": "CHF", "url": "https://kontexus.ch/register?plan=starter" },
-          { "@type": "Offer", "name": "Team", "price": "120", "priceCurrency": "CHF", "url": "https://kontexus.ch/register?plan=team" },
-          { "@type": "Offer", "name": "Pro", "price": "200", "priceCurrency": "CHF", "url": "https://kontexus.ch/register?plan=pro" }
+          {
+            "@type": "Offer", "name": "Start", "price": "60", "priceCurrency": "CHF",
+            "availability": "https://schema.org/InStock",
+            "url": "https://kontexus.ch/register?plan=starter",
+            "eligibleQuantity": { "@type": "QuantitativeValue", "value": 1, "unitText": "user" },
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification", "price": "60", "priceCurrency": "CHF",
+              "valueAddedTaxIncluded": false,
+              "referenceQuantity": { "@type": "QuantitativeValue", "value": 1, "unitCode": "MON" }
+            }
+          },
+          {
+            "@type": "Offer", "name": "Team", "price": "120", "priceCurrency": "CHF",
+            "availability": "https://schema.org/InStock",
+            "url": "https://kontexus.ch/register?plan=team",
+            "eligibleQuantity": { "@type": "QuantitativeValue", "value": 1, "unitText": "user" },
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification", "price": "120", "priceCurrency": "CHF",
+              "valueAddedTaxIncluded": false,
+              "referenceQuantity": { "@type": "QuantitativeValue", "value": 1, "unitCode": "MON" }
+            }
+          },
+          {
+            "@type": "Offer", "name": "Pro", "price": "200", "priceCurrency": "CHF",
+            "availability": "https://schema.org/InStock",
+            "url": "https://kontexus.ch/register?plan=pro",
+            "eligibleQuantity": { "@type": "QuantitativeValue", "value": 1, "unitText": "user" },
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification", "price": "200", "priceCurrency": "CHF",
+              "valueAddedTaxIncluded": false,
+              "referenceQuantity": { "@type": "QuantitativeValue", "value": 1, "unitCode": "MON" }
+            }
+          }
         ]
       }
     ]
@@ -1157,6 +1234,10 @@
     <div class="container footer__legal">
       <span>© <span id="year">2026</span> LLMify AG</span>
       <span class="footer__legallinks">
+        <!-- Die Insights liegen nur auf Deutsch; hreflang sagt das dem Crawler,
+             ohne die Beschriftung anzufassen. Ohne diesen Link wäre der ganze
+             Ordner von der Startseite aus nicht erreichbar. -->
+        <a href="../insights/index.html" hreflang="de">Insights</a>
         <a href="#impressum" data-legal="impressum">Mentions légales</a>
         <a href="#datenschutz" data-legal="datenschutz">Protection des données</a>
       </span>

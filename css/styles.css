@@ -2676,6 +2676,12 @@ li.is-done span.t { color: var(--a-mut); text-decoration: line-through; }
 .legal {
   width: min(680px, calc(100vw - 32px));
   max-height: min(80vh, 900px);
+  /* margin: auto ist hier die ganze Zentrierung. Der Browser stellt ein
+     modales <dialog> auf inset: 0 und überlässt die Mitte dem margin: auto
+     aus seinem eigenen Stylesheet — und genau das nimmt ihm der Reset
+     `* { margin: 0 }` ganz oben wieder weg. Ohne diese Zeile klebt der
+     Dialog oben links in der Ecke. */
+  margin: auto;
   padding: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -3106,10 +3112,14 @@ li.is-done span.t { color: var(--a-mut); text-decoration: line-through; }
 
 /* ---------- Kopf beider Seiten ---------- */
 .ihead { padding: 120px 0 0; }
+/* Kicker und Titel tragen dieselben Werte wie .overline und .section__title
+   auf der Startseite. Sie waren um Kleinigkeiten verschoben (0.72 statt 0.75,
+   0.14em statt 0.16em Laufweite), was einzeln niemand sieht, im Wechsel
+   zwischen den Seiten aber als «anderer Satz» ankommt. */
 .ihead__kicker {
   font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 18px;
@@ -3117,9 +3127,9 @@ li.is-done span.t { color: var(--a-mut); text-decoration: line-through; }
 .ihead h1 {
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(2rem, 4.4vw, 3rem);
+  font-size: clamp(1.9375rem, 4.4vw, 3rem);
   line-height: 1.1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
 }
 .ihead__lead { margin-top: 20px; font-size: 1.0625rem; color: var(--muted); }
 
@@ -3145,7 +3155,7 @@ li.is-done span.t { color: var(--a-mut); text-decoration: line-through; }
 .postlist__meta {
   font-family: var(--mono);
   font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--faint);
   margin-bottom: 8px;
@@ -3174,7 +3184,7 @@ a:hover .postlist__title { color: var(--accent); }
 .post__meta {
   font-family: var(--mono);
   font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--faint);
   display: flex;
@@ -3184,6 +3194,12 @@ a:hover .postlist__title { color: var(--accent); }
 }
 .post__hero {
   width: 100%;
+  /* height: auto ist hier nicht optional. Die width/height-Attribute am <img>
+     wirken als Presentational Hints; setzt das CSS nur die Breite, bleibt die
+     Höhe auf dem Attributwert stehen. Das Bild lag dann 664 Pixel breit und
+     675 Pixel hoch im Text statt 664 x 373 — jedes Artikelbild vertikal
+     gestreckt. Wer width setzt, muss height mitsetzen. */
+  height: auto;
   margin: 40px 0;
   border-radius: 12px;
   border: 1px solid var(--line-soft);
@@ -3241,8 +3257,22 @@ a:hover .postlist__title { color: var(--accent); }
   justify-content: space-between;
   gap: 20px;
 }
-.inav__logo img { height: 26px; width: auto; }
-.inav__links { display: flex; gap: 22px; font-size: 0.9375rem; color: var(--muted); }
+/* Kopfzeile wie auf der Startseite: gleiche Logohöhe, und die Links in der
+   Mono-Versalie von .nav__links statt in schlichtem Inter. Vorher las sich
+   «Kontexus» oben rechts wie ein Fliesstextlink und nicht wie Navigation,
+   was beim Wechsel von der Startseite auffiel. */
+.inav__logo img { height: 24px; width: auto; display: block; }
+.inav__links {
+  display: flex;
+  gap: 22px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.inav__links a { transition: color .15s ease; }
 .inav__links a:hover { color: var(--text); }
 .ifoot {
   border-top: 1px solid var(--line-soft);
