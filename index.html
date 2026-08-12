@@ -29,7 +29,13 @@
   <!-- Strukturierte Daten. Zwei Knoten: die Firma und das Produkt, das sie
        verkauft. Die Preise spiegeln den Abschnitt #preise — wer sie dort
        ändert, muss sie hier nachziehen, sonst widerspricht die Seite sich
-       selbst und Google wertet das ab. -->
+       selbst und Google wertet das ab.
+
+       Das "url" der SoftwareApplication zeigt auf #produkt, weil unter
+       kontexus.ch die Anmeldemaske der Anwendung liegt und keine
+       Beschreibung. Sobald es dort eine Produktseite gibt, gehört es zurück.
+
+       Keine Kommentare im Block selbst: JSON-LD ist striktes JSON. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -93,7 +99,9 @@
         "name": "Kontexus",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web",
-        "url": "https://kontexus.ch",
+        "url": "https://llmify.ch/#produkt",
+        "installUrl": "https://kontexus.ch",
+        "sameAs": ["https://kontexus.ch"],
         "inLanguage": "de-CH",
         "description": "KI-Arbeitsplatz, betrieben in der Schweiz: ein Agent, der produktiv auf Ihren Dateien arbeitet und an Ihre Schweizer Anwendungen angebunden ist.",
         "publisher": { "@id": "https://llmify.ch/#organization" },
