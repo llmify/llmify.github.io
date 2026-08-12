@@ -106,12 +106,49 @@ Tonalität: Stilrichtlinie unter
 «Sie», keine Gedankenstriche als Trenner, keine LinkedIn-Fragmente, konkret
 und mit Quellen.
 
+## Weiterleitungen
+
+Zwölf Dateien im Wurzelverzeichnis und unter `insights/` sind keine Seiten,
+sondern Weiterleitungen: `agents.html`, `private-ai.html`, `security.html`,
+`contact.html`, `demo/index.html` und sieben alte Artikeladressen. Sie
+bestehen aus `<link rel="canonical">` auf das heutige Ziel und einem
+Meta-Refresh. Wer eine davon für eine echte Seite hält und sie ausbaut, hat
+die Weiterleitung zerstört.
+
+GitHub Pages kann keine 301 senden, deshalb diese Kombination. Bewusst ohne
+`noindex`: das würde die Zusammenführung auf die neue Adresse verhindern,
+und genau die ist der Zweck. Die `404.html` bleibt davon unberührt, dort
+fehlt der Inhalt wirklich, und sie hat aus gutem Grund keinen Refresh.
+
+Die Dateien gehören **nicht** in `sitemap.xml`.
+
+Sieben davon zeigen auf Artikel, deren Inhalt beim Merge von sieben auf drei
+Beiträge tatsächlich umgezogen ist; die bleiben dauerhaft. Die übrigen fünf
+sind nur thematisch nächste Treffer und können weg, sobald die Search
+Console für die alten Adressen keinen Verkehr mehr zeigt. `team.html` und
+`workshop.html` gab es auch einmal, sie laufen absichtlich wieder in die
+404: für eine Teamseite und den Workshop gibt es heute keine Entsprechung,
+und eine Weiterleitung auf die Startseite wertet Google ohnehin als
+soft 404.
+
 ## Strukturierte Daten
 
 Der `@graph` im Kopf von `index.html` hat drei Knoten: `WebSite`,
 `Organization` (`#organization`) und die `SoftwareApplication` Kontexus
 (`#kontexus`). Die Unterseiten hängen sich per `@id` daran, statt eine eigene
 Firma zu behaupten.
+
+Das `url` der `SoftwareApplication` zeigt auf `https://llmify.ch/#produkt`
+und nicht auf kontexus.ch. Unter kontexus.ch liegt die Anwendung, deren
+Startseite die Anmeldemaske ist: Google hat dort ein Anmeldeformular als
+Suchergebnis für das Produkt ausgeliefert. `installUrl` und `sameAs` zeigen
+weiterhin dorthin, denn als Einstieg in die Anwendung stimmt die Adresse.
+Sobald kontexus.ch eine eigene, servergerenderte Produktseite hat, gehört
+das `url` zurück. `llms.txt` sagt dasselbe in Worten und muss mit.
+
+Kommentare gehören **ausserhalb** des `<script>`-Blocks. JSON-LD ist
+striktes JSON, ein `//` darin macht die gesamten strukturierten Daten
+ungültig.
 
 Die Firmenangaben sind belegt und sollen es bleiben:
 
