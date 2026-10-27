@@ -48,7 +48,7 @@ The site is published in German (https://llmify.ch/), French (https://llmify.ch/
 - Legal name: LLMify AG, a Swiss stock corporation (Aktiengesellschaft)
 - UID: CHE-479.856.227 (https://www.uid.admin.ch/Detail.aspx?uid_id=CHE479856227)
 - Entered in the commercial register of the canton of Zug on 19 March 2025
-- Address: Alte Steinhauserstrasse 19, 6330 Cham, Switzerland
+- Address: Sinserstrasse 67, 6330 Cham, Switzerland
 - Applicable law: Swiss law, place of jurisdiction Zug
 
 ## Contact
