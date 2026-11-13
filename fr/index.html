@@ -109,7 +109,7 @@
         "provider": { "@id": "https://llmify.ch/#organization" },
         "featureList": [
           "Agent doté de son propre espace de travail, qui lit, modifie et classe des fichiers",
-          "Connexion à Microsoft 365, bexio et Abacus",
+          "Connexion à Microsoft 365, bexio et au registre du commerce",
           "Accès à Fedlex et Entscheidsuche",
           "Autorisation par opération plutôt que par application",
           "Exploité en SaaS chez un fournisseur suisse, sur demande en instance privée ou on-premise"
@@ -491,7 +491,7 @@
               <p>Ce n'est pas le modèle qui limite, c'est l'accès. Kontexus branche l'IA sur Outlook, l'agenda, Teams, SharePoint et votre comptabilité : lire, et écrire si vous le souhaitez. Si votre application a une API, nous construisons le raccordement.</p>
             </div>
 <span class="hub__tag" aria-hidden="true">FIG 02 — La couche de liaison</span>
-            <div class="hub" role="img" aria-label="Kontexus au centre, relié à bexio, Outlook, Teams, Agenda et Fedlex via MCP ; Abacus est en cours.">
+            <div class="hub" role="img" aria-label="Kontexus au centre, relié à bexio, Outlook, Teams, Agenda, Registre du commerce et Fedlex via MCP.">
               <svg class="hub__lines" viewBox="0 0 900 420" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
                 <path id="mcp-p1" d="M450 210 C 330 210 260 90 150 80" />
                 <path id="mcp-p2" d="M450 210 C 320 210 230 210 110 210" />
@@ -526,12 +526,12 @@
                 <path id="mcp-m2" class="hub__motion" d="M180 210 C 180 150 180 90 180 28" />
                 <path id="mcp-m3" class="hub__motion" d="M180 210 C 218 210 248 286 284 320" />
                 <path id="mcp-m4" class="hub__motion" d="M180 210 C 218 210 248 134 284 100" />
-                <path id="mcp-m5" class="hub__motion" d="M180 210 C 142 210 112 286 76 320" />
-                <path id="mcp-m6" class="hub__motion" d="M180 210 C 180 270 180 330 180 392" />
+                <path id="mcp-m5" class="hub__motion" d="M180 210 C 180 270 180 330 180 392" />
+                <path id="mcp-m6" class="hub__motion" d="M180 210 C 142 210 112 286 76 320" />
                 <!-- Same three connectors flow inward as on the desktop figure:
                      Outlook (m2), Agenda (m4) and Fedlex (m6). Paths follow DOM
                      order — m1 bexio, m2 Outlook, m3 Teams, m4 Agenda,
-                     m5 Abacus, m6 Fedlex. -->
+                     m5 Registre du commerce, m6 Fedlex. -->
                 <circle class="hub__dot" r="3"><animateMotion dur="3.2s" begin="0s" repeatCount="indefinite"><mpath href="#mcp-m1"/></animateMotion></circle>
                 <circle class="hub__dot" r="3"><animateMotion dur="3.6s" begin="-1.4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#mcp-m2"/></animateMotion></circle>
                 <circle class="hub__dot" r="3"><animateMotion dur="3s" begin="-2.2s" repeatCount="indefinite"><mpath href="#mcp-m3"/></animateMotion></circle>
@@ -563,7 +563,7 @@
               <span class="hub__chip" style="left:12%;top:50%"><i class="hchip hchip--img"><img src="../assets/integrations/outlook.svg" alt="" width="1041" height="743" loading="lazy"></i>Outlook</span>
               <span class="hub__chip" style="left:16.5%;top:81%"><i class="hchip hchip--img"><img src="../assets/integrations/teams.svg" alt="" width="2229" height="2073" loading="lazy"></i>Teams</span>
               <span class="hub__chip" style="left:83.5%;top:19%"><i class="hchip hchip--img"><img src="../assets/integrations/outlook-calendar.svg" alt="" width="32" height="32" loading="lazy"></i>Agenda</span>
-              <span class="hub__chip hub__chip--wip" style="left:88%;top:50%"><i class="hchip hchip--abacus"><img src="../assets/integrations/abacus.svg" alt="" width="43" height="45" loading="lazy"></i>Abacus<b>en cours</b></span>
+              <span class="hub__chip" style="left:88%;top:50%"><i class="hchip hchip--img hchip--tile"><img src="../assets/integrations/handelsregister.png" alt="" width="128" height="128" loading="lazy"></i>Registre du commerce</span>
               <span class="hub__chip" style="left:83.5%;top:81%"><i class="hchip hchip--swiss"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="4.5" fill="#D52B1E"/><path d="M10 6h4v4h4v4h-4v4h-4v-4H6v-4h4z" fill="#fff"/></svg></i>Fedlex</span>
             </div>
           </article>

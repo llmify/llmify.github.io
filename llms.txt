@@ -4,14 +4,14 @@
 
 LLMify AG is based in Cham, Zug, Switzerland, and is recognised by ETH Zurich as *A Start-up Company of ETH Zurich* (since 20 May 2026). The product is Kontexus, described at https://llmify.ch/#produkt. The application itself runs at https://kontexus.ch, where the entry page is a sign-in form rather than a description.
 
-Last updated: 12 August 2026.
+Last updated: 13 November 2026.
 
 ## Product: Kontexus
 
 Kontexus is an AI agent with its own computer. It does not answer questions about documents from a distance; it opens them, edits them, files them and books the result into the systems a Swiss SME already runs.
 
 - **The agent**: works on real files in a workspace, shows every step it takes, and asks instead of guessing when a document is ambiguous.
-- **Connections**: Microsoft 365 (Outlook, Teams, OneDrive, SharePoint, Outlook Calendar), bexio, Abacus, plus Swiss legal sources (Fedlex, Entscheidsuche). Approvals are granted per operation, not per application.
+- **Connections**: Microsoft 365 (Outlook, Teams, OneDrive, SharePoint, Outlook Calendar), bexio, the Swiss commercial register (Zefix), plus Swiss legal sources (Fedlex, Entscheidsuche). Approvals are granted per operation, not per application.
 - **Where it runs**: primarily as SaaS operated by LLMify with a Swiss provider. On request as a dedicated private cloud instance or fully on-premise behind the customer's own firewall.
 
 ## Pricing

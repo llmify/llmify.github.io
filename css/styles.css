@@ -1207,24 +1207,14 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0;
 }
 .hchip--img img { width: 24px; height: 24px; display: block; object-fit: contain; }
-.hchip--abacus { background: #fff; }
-.hchip--abacus img { width: 16px; height: 16px; display: block; }
+/* a square icon that fills its tile edge to edge (the Handelsregister card's,
+   as the app shows it) takes the rounding the drawn marks beside it have */
+.hchip--tile img { border-radius: 22%; }
 .hub__chip:hover {
   border-color: rgba(20, 24, 34, .32);
   color: var(--text);
 }
 
-/* not built yet — dashed chip */
-.hub__chip--wip { border-style: dashed; color: var(--muted); }
-.hub__chip--wip b {
-  font-family: var(--mono);
-  font-size: 0.56rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-left: 2px;
-}
 .hchip--swiss svg { width: 24px; height: 24px; display: block; }
 
 .demo {
@@ -2820,27 +2810,18 @@ li.is-done span.t { color: var(--a-mut); text-decoration: line-through; }
   .hub__chip .hchip svg { width: 22px; height: 22px; }
   /* left/top are the chip CENTRE (translate(-50%,-50%)), so these are the exact
      points the SVG curves end on: rows y 28 / 100 / 320 / 392 and columns
-     x 76 / 180 / 284 of 360x420. Abacus takes an outer slot because it is the
-     one two-line chip. !important overrides the desktop inline positions. */
+     x 76 / 180 / 284 of 360x420. The Handelsregister takes the bottom middle
+     slot: its French and Italian names make it ~180px wide, and only the
+     middle column has that room on both sides; in an outer slot it reached
+     the edge of a 360px screen. Each motion path in the figure (mcp-m1…m6)
+     ends at the slot of its chip. !important overrides the desktop inline
+     positions. */
   .hub__chip:nth-of-type(1) { left: 21.1% !important; top: 23.8% !important; } /* bexio    */
   .hub__chip:nth-of-type(2) { left: 50% !important; top:  6.7% !important; } /* Outlook  */
   .hub__chip:nth-of-type(3) { left: 78.9% !important; top: 76.2% !important; } /* Teams    */
   .hub__chip:nth-of-type(4) { left: 78.9% !important; top: 23.8% !important; } /* Kalender */
-  .hub__chip:nth-of-type(5) { left: 21.1% !important; top: 76.2% !important; } /* Abacus   */
-  .hub__chip:nth-of-type(6) { left: 50% !important; top: 93.3% !important; } /* Fedlex   */
-  /* The "in Arbeit" badge made this chip 166px wide where the others are
-     ~95–110px. On the fixed two-column centres it ran into Outlook opposite
-     (they overlapped by 5px at 360px) and covered the whole rung between them.
-     Stacking the badge under the name brings it back to the others' width, so
-     the connecting line shows through the gap again. */
-  .hub__chip--wip {
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 38%;
-    padding: 7px 10px;
-    row-gap: 1px;
-  }
-  .hub__chip--wip b { flex-basis: 100%; margin-left: 0; text-align: center; }
+  .hub__chip:nth-of-type(5) { left: 50% !important; top: 93.3% !important; } /* Handelsregister */
+  .hub__chip:nth-of-type(6) { left: 21.1% !important; top: 76.2% !important; } /* Fedlex   */
   .app__body { grid-template-columns: 200px 1fr; }
   .app__work { display: none; }
   /* the visual used to sit almost against the copy — give it real air */
