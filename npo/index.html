@@ -104,7 +104,7 @@
     .chflag { width: 15px; height: 15px; flex: none; }
 
     /* Einstieg */
-    .hero { padding: clamp(24px, 2.6vw, 34px) 0 0; }
+    .hero { padding: clamp(44px, 7vw, 88px) 0 0; }
     .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: clamp(36px, 6vw, 72px); align-items: center; }
     .hero__top { display: flex; align-items: center; gap: 6px 18px; flex-wrap: wrap; margin-bottom: 22px; }
     .hero__brand { height: 58px; width: auto; margin: 0 0 0 -18px; }
@@ -151,22 +151,12 @@
     .js-demo .tool.done svg { margin-left: auto; }
     @keyframes pulse { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
 
-    .js-demo [data-case] { transition: border-color .3s ease, box-shadow .3s ease, background .3s ease; }
-    .js-demo [data-case].is-live { border-color: rgba(179, 89, 104, .45); background: radial-gradient(120% 100% at 50% 0%, rgba(201, 107, 126, .07), transparent 55%), var(--panel); box-shadow: 0 12px 36px -18px rgba(179, 89, 104, .35); }
 
     /* Abschnitte */
     .section { padding: var(--section-gap) 0 0; }
     .section__head { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 24px; flex-wrap: wrap; margin-bottom: 22px; }
     .section__head .overline { margin-bottom: 0; }
     .section__head p { font-size: .9rem; color: var(--muted); }
-    /* Die Beispiele gehören zum Fenster darüber und sollen mit ihm auf einen
-       Bildschirm passen: wenig Abstand nach oben, flachere Karten. */
-    .section--tight { padding-top: clamp(22px, 2.4vw, 30px); }
-    .section--tight .section__head { margin-bottom: 14px; }
-    .section--tight .card { padding: 18px 22px 20px; }
-    .section--tight .ic { margin-bottom: 12px; }
-    .section--tight .card h2 { font-size: 1.125rem; margin-bottom: 4px; }
-    .section--tight .card p { font-size: .9rem; line-height: 1.45; }
     .grid { display: grid; gap: 18px; }
     .grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .card { background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 30px; box-shadow: 0 1px 2px rgba(20, 24, 34, .04); }
@@ -290,21 +280,21 @@
     </div>
   </section>
 
-  <section class="section section--tight">
+  <section class="section">
     <div class="container">
       <div class="section__head"><div class="overline">Beispiele aus dem Alltag</div></div>
       <div class="grid grid--3">
-        <article class="card" data-case="0">
+        <article class="card">
           <div class="ic"><span class="tl f"><img src="img/bexio.png" alt="Bexio"></span><span class="op">+</span><span class="tl"><img src="img/microsoft_mail.png" alt="Outlook"></span></div>
           <h2>Spenden verdanken</h2>
           <p>Eingänge abgleichen, Dankesbriefe vorbereiten.</p>
         </article>
-        <article class="card" data-case="1">
+        <article class="card">
           <div class="ic"><span class="tl"><img src="img/microsoft_calendar.png" alt="Kalender"></span><span class="op">+</span><span class="tl"><img src="img/microsoft_teams.png" alt="Teams"></span></div>
           <h2>Sitzungen vorbereiten</h2>
           <p>Termin finden, Einladung und Traktanden vorbereiten.</p>
         </article>
-        <article class="card" data-case="2">
+        <article class="card">
           <div class="ic"><span class="tl f"><img src="img/zefix.png" alt="Zefix"></span><span class="op">+</span><span class="tl"><img src="img/microsoft_files.png" alt="OneDrive"></span></div>
           <h2>Gesuche entwerfen</h2>
           <p>Stiftungszweck nachschlagen, aus früheren Gesuchen entwerfen.</p>
@@ -401,13 +391,11 @@
     return h;
   }
   var i = 0, timers = [];
-  var cards = document.querySelectorAll('[data-case]');
   function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
   function play() {
     timers.forEach(clearTimeout); timers = [];
     body.innerHTML = build(cases[i]);
     body.classList.remove('is-out');
-    cards.forEach(function (c, k) { c.classList.toggle('is-live', k === i); });
     var st = body.querySelectorAll('.st'), t = 350;
     at(t, function () { st[0].classList.add('on'); }); t += 1300;
     [1, 2].forEach(function (k) {
