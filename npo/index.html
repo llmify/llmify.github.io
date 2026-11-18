@@ -216,19 +216,16 @@
     .start__cta p { font-size: .9375rem; color: var(--muted); max-width: 34em; }
     .start__cta p a { color: var(--accent); font-weight: 600; white-space: nowrap; }
 
-    /* Auszeichnung: eine Zeile zwischen zwei Haarlinien, keine Karte */
-    .award { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px 14px; max-width: 720px; margin: 0 auto clamp(56px, 8vw, 88px); font-size: .9375rem; color: var(--muted); text-align: center; }
-    .award::before, .award::after { content: ""; flex: 1 1 24px; height: 1px; background: var(--line); }
-    .award .overline { margin: 0; }
-    .award a { color: var(--text); font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent-soft); text-underline-offset: 4px; margin-right: -9px; }
-
-    /* Gespräch */
-    .talk { text-align: center; max-width: 720px; margin: 0 auto; padding-bottom: var(--section-gap); }
-    .talk h2 { font-family: var(--display); font-weight: 700; font-size: clamp(1.9375rem, 4.4vw, 3rem); line-height: 1.1; letter-spacing: -.025em; margin-bottom: 18px; text-wrap: balance; }
-    .talk__lead { font-size: 1.0625rem; color: var(--muted); }
-    .talk__who { margin-top: 18px; font-weight: 600; }
-    .talk__who span { color: var(--accent); user-select: all; }
-    .talk__acts { margin-top: 30px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 14px 44px; }
+    /* Abschluss: eine Karte, links worum es geht, rechts wer und wie. Darunter
+       die Auszeichnung als ruhige Zeile. */
+    .talk { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px 56px; align-items: center; padding: clamp(28px, 4vw, 44px); }
+    .talk h2 { font-family: var(--display); font-weight: 700; font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1.1; letter-spacing: -.025em; margin-bottom: 12px; }
+    .talk__lead { font-size: 1.0625rem; color: var(--muted); max-width: 26em; }
+    .talk__side { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding-left: 40px; border-left: 1px solid var(--line-soft); }
+    .talk__who { font-weight: 600; margin-bottom: 4px; }
+    .talk__who span { display: block; font-weight: 400; color: var(--muted); user-select: all; }
+    .award { margin-top: 22px; padding-bottom: var(--section-gap); font-size: .9375rem; color: var(--muted); text-align: center; }
+    .award a { color: var(--text); font-weight: 600; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
 
     .footer { border-top: 1px solid var(--line-soft); background: rgba(20, 24, 34, .02); padding: 28px 0; font-size: .8125rem; color: var(--faint); }
     .footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
@@ -244,6 +241,8 @@
       .cell--hot { grid-column: 1 / 4; border-left: 0; border-top: 1px solid rgba(179, 89, 104, .35); }
     }
     @media (max-width: 720px) {
+      .talk { grid-template-columns: minmax(0, 1fr); }
+      .talk__side { padding-left: 0; border-left: 0; padding-top: 22px; border-top: 1px solid var(--line-soft); }
       .container { padding: 0 20px; }
       .grid--3 { grid-template-columns: minmax(0, 1fr); }
       .nodes__lab--next { margin-left: 0; flex-basis: 100%; }
@@ -254,7 +253,6 @@
       .cell--own { border-top-style: dashed; border-top-color: var(--line); }
       .cell--hot { grid-column: 1; }
       .nav__tag { font-size: .68rem; }
-      .award::before, .award::after { display: none; }
     }
   </style>
 </head>
@@ -345,16 +343,18 @@
 
   <section class="section">
     <div class="container">
-      <p class="award"><span class="overline">Ausgezeichnet</span><a href="https://www.ost.ch/de/forschung-und-dienstleistungen/interdisziplinaere-themen/iaf-institut-fuer-altersforschung/age-innovation-prize/age-innovation-prize-2026" rel="noopener">Age Innovation Prize 2026</a> für technologische Innovation.</p>
-      <div class="talk">
-        <h2>30 Minuten <span class="grad">Büro-Check</span></h2>
-        <p class="talk__lead">Ihr erzählt von eurem Büroalltag, wir zeigen, was Kontexus übernehmen könnte.</p>
-        <p class="talk__who">Francesco Lässig · <span>francesco@llmify.ch</span></p>
-        <div class="talk__acts">
+      <div class="card talk">
+        <div>
+          <h2>30 Minuten <span class="grad">Büro-Check</span></h2>
+          <p class="talk__lead">Ihr erzählt von eurem Büroalltag, wir zeigen, was Kontexus übernehmen könnte.</p>
+        </div>
+        <div class="talk__side">
+          <p class="talk__who">Francesco Lässig<span>francesco@llmify.ch</span></p>
           <a class="btn btn--primary btn--lg" href="mailto:francesco@llmify.ch?subject=B%C3%BCro-Check%20Kontexus">Büro-Check anfragen<i><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i></a>
           <a class="btn btn--ghost btn--lg btn--down" href="Kontexus-fuer-NPOs.pdf">One-Pager als PDF<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13M5 11l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
+      <p class="award">LLMify wurde mit dem <a href="https://www.ost.ch/de/forschung-und-dienstleistungen/interdisziplinaere-themen/iaf-institut-fuer-altersforschung/age-innovation-prize/age-innovation-prize-2026" rel="noopener">Age Innovation Prize 2026</a> für technologische Innovation ausgezeichnet.</p>
     </div>
   </section>
 </main>
