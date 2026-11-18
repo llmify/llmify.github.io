@@ -33,6 +33,10 @@ Indicative prices, excluding VAT.
 
 These are demonstrations. Company names, invoice numbers and amounts are invented.
 
+## For Swiss non-profits (German)
+
+https://llmify.ch/npo/ presents Kontexus for Swiss non-profit organisations: three everyday examples (thanking donors, preparing meetings, drafting grant applications), the Start plan at CHF 60 per user per month, and a 30-minute consultation by e-mail. The same content is available as a one-page PDF at https://llmify.ch/npo/Kontexus-fuer-NPOs.pdf.
+
 ## Insights (German)
 
 - [Open-Source-Modelle sind konkurrenzfähig](https://llmify.ch/insights/open-source-modelle/): Qwen 3.5 and Nemotron 3 Super both reach the 120B class and run on own infrastructure without API dependency.
