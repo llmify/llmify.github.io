@@ -16,6 +16,9 @@
   <meta property="og:title" content="Kontexus für Schweizer NPOs">
   <meta property="og:description" content="Mehr Zeit für Menschen. Weniger für Administration.">
   <meta property="og:image" content="https://llmify.ch/assets/og-image.png">
+  <meta property="og:image:alt" content="Kontexus von LLMify: der KI-Arbeitsplatz aus der Schweiz.">
+  <meta property="og:site_name" content="LLMify">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
   <!-- Die Seite ist der NPO-One-Pager als Webseite. Quelle des Textes:
@@ -24,16 +27,108 @@
        Das Design folgt css/styles.css (Flächen, Schriften, Karten, Knöpfe),
        mit Rosé statt Blau als Akzent. Die Regeln stehen hier in der Seite,
        damit sie von Änderungen an der Startseite unabhängig bleibt. -->
+  <!-- Strukturierte Daten. Preis und Texte spiegeln die Seite: wer sie dort
+       ändert, zieht sie hier nach. Firma und Produkt sind auf der Startseite
+       beschrieben und werden hier über ihre @id genannt. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": "https://llmify.ch/npo/#webpage",
-    "url": "https://llmify.ch/npo/",
-    "name": "Kontexus für Schweizer NPOs",
-    "inLanguage": "de-CH",
-    "about": { "@id": "https://llmify.ch/#kontexus" },
-    "publisher": { "@id": "https://llmify.ch/#organization" }
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://llmify.ch/npo/#webpage",
+        "url": "https://llmify.ch/npo/",
+        "name": "Kontexus für Schweizer NPOs",
+        "headline": "Mehr Zeit für Menschen. Weniger für Administration.",
+        "description": "Kontexus erledigt wiederkehrende Büroarbeit in Schweizer Software wie Bexio und Zefix. Eure Daten und das KI-Modell bleiben in der Schweiz, und bevor etwas rausgeht, fragt Kontexus nach.",
+        "inLanguage": "de-CH",
+        "isPartOf": {
+          "@id": "https://llmify.ch/#website"
+        },
+        "about": {
+          "@id": "https://llmify.ch/#kontexus"
+        },
+        "mainEntity": {
+          "@id": "https://llmify.ch/npo/#angebot"
+        },
+        "publisher": {
+          "@id": "https://llmify.ch/#organization"
+        },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Non-Profit-Organisationen",
+          "geographicArea": {
+            "@type": "Country",
+            "name": "CH"
+          }
+        },
+        "breadcrumb": {
+          "@id": "https://llmify.ch/npo/#breadcrumb"
+        },
+        "hasPart": {
+          "@type": "DigitalDocument",
+          "name": "Kontexus für NPOs (One-Pager)",
+          "url": "https://llmify.ch/npo/Kontexus-fuer-NPOs.pdf",
+          "encodingFormat": "application/pdf",
+          "inLanguage": "de-CH"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://llmify.ch/npo/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "LLMify",
+            "item": "https://llmify.ch/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Kontexus für Schweizer NPOs",
+            "item": "https://llmify.ch/npo/"
+          }
+        ]
+      },
+      {
+        "@type": "Offer",
+        "@id": "https://llmify.ch/npo/#angebot",
+        "name": "Kontexus, Abo Start",
+        "description": "Alle verfügbaren Anbindungen inklusive, Einführung ohne Aufpreis.",
+        "price": "60",
+        "priceCurrency": "CHF",
+        "availability": "https://schema.org/InStock",
+        "url": "https://kontexus.ch/register?plan=starter",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "60",
+          "priceCurrency": "CHF",
+          "valueAddedTaxIncluded": false,
+          "unitText": "pro Person und Monat",
+          "referenceQuantity": {
+            "@type": "QuantitativeValue",
+            "value": 1,
+            "unitCode": "MON"
+          }
+        },
+        "itemOffered": {
+          "@type": "SoftwareApplication",
+          "@id": "https://llmify.ch/#kontexus",
+          "name": "Kontexus",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://llmify.ch/#produkt"
+        },
+        "seller": {
+          "@id": "https://llmify.ch/#organization"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "CH"
+        }
+      }
+    ]
   }
   </script>
   <style>
