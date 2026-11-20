@@ -1145,10 +1145,7 @@ def main():
             # 1) html lang
             html = html.replace('<html lang="de-CH">', '<html lang="' + cfg['html_lang'] + '">', 1)
             # 2) asset paths -> ../
-            # insights/ liegt nur auf Deutsch im Wurzelverzeichnis. Ohne den
-            # Eintrag hier würde der Fusslink aus fr/index.html auf
-            # /fr/insights/ zeigen und ins Leere laufen.
-            html = re.sub(r'(href|src)="(css/|js/|assets/|insights/)', r'\1="../\2', html)
+            html = re.sub(r'(href|src)="(css/|js/|assets/)', r'\1="../\2', html)
             # 3) language switchers (replace the German blocks wholesale)
             html = re.sub(r'<div class="langsw"[^>]*>.*?</div>', lang_switcher(lang, page), html, flags=re.S)
             html = re.sub(r'<span class="langsw langsw--footer"[^>]*>.*?</span>', lang_switcher(lang, page, footer=True), html, flags=re.S)

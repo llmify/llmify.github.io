@@ -17,7 +17,6 @@ Frameworks, keine Abhängigkeiten.** Es gibt kein `npm install` und kein
 ```
 index.html         Einseitige Landingpage, Deutsch. Quelle der Wahrheit.
 en/ fr/ it/        Aus index.html erzeugt, NIE von Hand bearbeiten.
-insights/          Artikel, nur auf Deutsch. Übersicht + ein Ordner pro Beitrag.
 css/styles.css     Das gesamte Design-System.
 js/main.js         Seiten-Chrome: Scroll-Reveal, Nav, Rechner, Rechtstext-Dialoge.
 js/demo/           Das Use-Case-Fenster. engine.js plus eine Datei pro Fall.
@@ -82,38 +81,19 @@ Bearbeiten nicht kaputtmachen darf:
   dort braucht einen Eintrag als **ganzer Satz**, sonst greifen nur die kurzen
   Einträge und es entsteht ein Mischsatz. Bis August 2026 stand in der
   französischen Fassung «in der Cloud suisse», weil dieser Eintrag fehlte.
-  `insights/` wird in Links auf `../insights/` umgeschrieben, damit der
-  Fusslink aus `fr/` nicht ins Leere zeigt.
 
 `check_i18n.py` meldet weiterhin deutschen Text aus dem Kanzlei- und dem
 Vertriebsfall im Demo-Fenster. Das ist bekannt: nur der Treuhand-Fall ist
 inhaltlich übersetzt, die beiden anderen fallen im Fensterinneren auf Deutsch
 zurück.
 
-## Artikel hinzufügen
-
-1. `insights/{slug}/index.html` anlegen, eine bestehende Artikelseite als
-   Vorlage nehmen. Kopf, Fuss und Rechtstext-Links sind dort bewusst
-   dupliziert — es gibt kein Include-System mehr.
-2. Eintrag in `insights/index.html` ergänzen, neueste Beiträge zuoberst.
-3. `sitemap.xml` und `llms.txt` ergänzen.
-4. JSON-LD im Artikelkopf anpassen (Titel, Datum, Bild, Adresse).
-
-Die Artikel gibt es nur auf Deutsch; sie laufen nicht durch `i18n.py`.
-
-Tonalität: Stilrichtlinie unter
-`/Users/flaessig/Documents/repos/post-scheduler/scripts/style-guide.md`.
-«Sie», keine Gedankenstriche als Trenner, keine LinkedIn-Fragmente, konkret
-und mit Quellen.
-
 ## Weiterleitungen
 
-Zwölf Dateien im Wurzelverzeichnis und unter `insights/` sind keine Seiten,
-sondern Weiterleitungen: `agents.html`, `private-ai.html`, `security.html`,
-`contact.html`, `demo/index.html` und sieben alte Artikeladressen. Sie
-bestehen aus `<link rel="canonical">` auf das heutige Ziel und einem
-Meta-Refresh. Wer eine davon für eine echte Seite hält und sie ausbaut, hat
-die Weiterleitung zerstört.
+Sechzehn Dateien sind keine Seiten, sondern Weiterleitungen: `agents.html`,
+`private-ai.html`, `security.html`, `contact.html`, `demo/index.html` und die
+elf Dateien unter `insights/`. Sie bestehen aus `<link rel="canonical">` auf
+das Ziel und einem Meta-Refresh. Wer eine davon für eine echte Seite hält und
+sie ausbaut, hat die Weiterleitung zerstört.
 
 GitHub Pages kann keine 301 senden, deshalb diese Kombination. Bewusst ohne
 `noindex`: das würde die Zusammenführung auf die neue Adresse verhindern,
@@ -122,14 +102,13 @@ fehlt der Inhalt wirklich, und sie hat aus gutem Grund keinen Refresh.
 
 Die Dateien gehören **nicht** in `sitemap.xml`.
 
-Sieben davon zeigen auf Artikel, deren Inhalt beim Merge von sieben auf drei
-Beiträge tatsächlich umgezogen ist; die bleiben dauerhaft. Die übrigen fünf
-sind nur thematisch nächste Treffer und können weg, sobald die Search
-Console für die alten Adressen keinen Verkehr mehr zeigt. `team.html` und
-`workshop.html` gab es auch einmal, sie laufen absichtlich wieder in die
-404: für eine Teamseite und den Workshop gibt es heute keine Entsprechung,
-und eine Weiterleitung auf die Startseite wertet Google ohnehin als
-soft 404.
+Die fünf ausserhalb von `insights/` zeigen auf den thematisch nächsten
+Abschnitt der Startseite. Die elf unter `insights/` führen auf die
+Startseite: zu diesen Adressen gibt es keinen Inhalt, verlinkt sind sie von
+aussen. Alle sechzehn können weg, sobald die Search Console für die alten
+Adressen keinen Verkehr mehr zeigt. `team.html` und `workshop.html` laufen absichtlich in die
+404: für eine Teamseite und den Workshop gibt es keine Entsprechung, und eine
+Weiterleitung auf die Startseite wertet Google ohnehin als soft 404.
 
 ## Strukturierte Daten
 
@@ -168,9 +147,7 @@ Die Firmenangaben sind belegt und sollen es bleiben:
 Impressum und Datenschutzerklärung stehen als `<dialog class="legal">` am Ende
 von `index.html` und werden mitübersetzt. Der Browser liefert Fokusfalle,
 Escape und Backdrop; `js/main.js` öffnet sie nur. Ohne JavaScript zeigt die
-Regel `.legal:target:not([open])` sie als normalen Block. Die Insights-Seiten
-verlinken deshalb nach `../../index.html#impressum` statt die Texte zu
-duplizieren.
+Regel `.legal:target:not([open])` sie als normalen Block.
 
 Die Datenschutzerklärung behauptet, dass die Seite keine Cookies setzt, keine
 Analyse einbindet und alle Schriften selbst ausliefert. **Alle drei Aussagen
