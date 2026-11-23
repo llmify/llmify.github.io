@@ -4,7 +4,7 @@
 
 LLMify AG is based in Cham, Zug, Switzerland, and is recognised by ETH Zurich as *A Start-up Company of ETH Zurich* (since 20 May 2026). The product is Kontexus, described at https://llmify.ch/#produkt. The application itself runs at https://kontexus.ch, where the entry page is a sign-in form rather than a description.
 
-Last updated: 20 November 2026.
+Last updated: 23 November 2026.
 
 ## Product: Kontexus
 
@@ -35,7 +35,7 @@ These are demonstrations. Company names, invoice numbers and amounts are invente
 
 ## For Swiss non-profits (German)
 
-https://llmify.ch/npo/ presents Kontexus for Swiss non-profit organisations: three everyday examples (thanking donors, preparing meetings, drafting grant applications), the Start plan at CHF 60 per user per month, and a 30-minute consultation by e-mail. The same content is available as a one-page PDF at https://llmify.ch/npo/Kontexus-fuer-NPOs.pdf.
+https://llmify.ch/npo/ presents Kontexus as Swiss AI for the office work of Swiss non-profit organisations (NPOs), associations (Vereine) and foundations (Stiftungen): three everyday examples (drafting grant applications with the Fundraiso foundation database, preparing newsletters in Mailchimp, sending payment reminders from Bexio), frequently asked questions, the Start plan at CHF 60 per user per month, and a 30-minute consultation by e-mail. The same content is available as a one-page PDF at https://llmify.ch/npo/Kontexus-fuer-NPOs.pdf.
 
 ## Languages
 
