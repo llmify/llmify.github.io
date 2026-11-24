@@ -1260,10 +1260,9 @@
     <div class="container footer__legal">
       <span>© <span id="year">2026</span> LLMify AG</span>
       <span class="footer__legallinks">
-        <!-- Die NPO-Seite liegt nur auf Deutsch; hreflang sagt das dem
-             Crawler, ohne die Beschriftung anzufassen. Absoluter Pfad, damit
-             er in den Sprachfassungen unverändert stimmt. -->
-        <a href="/npo/" hreflang="de">Für NPOs</a>
+        <!-- Absoluter Pfad: tools/i18n.py setzt in den Sprachfassungen
+             /fr/npo/, /it/npo/ und /en/npo/ ein. -->
+        <a href="/npo/">Für NPOs</a>
         <a href="#impressum" data-legal="impressum">Impressum</a>
         <a href="#datenschutz" data-legal="datenschutz">Datenschutz</a>
       </span>

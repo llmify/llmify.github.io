@@ -23,6 +23,8 @@ js/demo/           Das Use-Case-Fenster. engine.js plus eine Datei pro Fall.
 assets/fonts/      Inter und Space Grotesk, selbst gehostet.
 tools/i18n.py      Erzeugt en/ fr/ it/ aus index.html.
 tools/check_i18n.py  Meldet deutschen Text auf den übersetzten Seiten.
+npo/index.html     Seite für NPOs, Deutsch, in sich geschlossen (CSS und Skript in der Seite).
+tools/i18n_npo.py  Erzeugt fr/npo/, it/npo/ und en/npo/ aus npo/index.html.
 ```
 
 ## Lokal ansehen
@@ -67,6 +69,13 @@ python3 tools/check_i18n.py  # zeigt, was noch deutsch geblieben ist
 **Nach jeder Änderung an `index.html` muss `python3 tools/i18n.py` laufen**,
 sonst driften die Sprachfassungen auseinander. Neuer sichtbarer Text braucht
 einen Eintrag in der Tabelle `T` in `tools/i18n.py` (Tupel aus de, fr, it, en).
+
+Die NPO-Seite hat ihr eigenes Skript: `python3 tools/i18n_npo.py` nach jeder
+Änderung an `npo/index.html`. Es ersetzt ganze, wörtliche Textstücke aus seiner
+Tabelle `T` und bricht ab, wenn ein deutscher Schlüssel nicht mehr in der
+Quelle steht oder deutscher Text stehen bleibt. Bilder und das PDF (nur
+Deutsch) bleiben unter `/npo/`. Der Footer-Link «Für NPOs» der Startseite
+führt in jeder Sprache auf die passende Fassung; das setzt `tools/i18n.py`.
 
 Zwei Dinge, die das Skript stillschweigend richtig macht und die man beim
 Bearbeiten nicht kaputtmachen darf:

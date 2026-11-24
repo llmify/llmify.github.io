@@ -879,6 +879,7 @@ T = [
      "Le droit suisse est applicable. Le for juridique est Zoug.",
      "È applicabile il diritto svizzero. Il foro competente è Zugo.",
      "Swiss law applies. The place of jurisdiction is Zug."),
+    ("Für NPOs", "Pour les OBNL", "Per il non profit", "For non-profits"),
     ("Impressum", "Mentions légales", "Impressum", "Legal notice"),
     ("Datenschutz", "Protection des données", "Privacy", "Privacy"),
     ("Schliessen", "Fermer", "Chiudi", "Close"),
@@ -1165,6 +1166,9 @@ def main():
             # als Sprach-Tag, nicht als Text, und wird deshalb nicht von T erfasst.
             html = html.replace('"inLanguage": "de-CH"',
                                 '"inLanguage": "' + cfg['html_lang'] + '"')
+
+            # Die NPO-Seite hat eigene Sprachfassungen (tools/i18n_npo.py).
+            html = html.replace('<a href="/npo/">', '<a href="/' + lang + '/npo/">')
 
             # 4) translate
             html = translate(html, idx_map[lang])
