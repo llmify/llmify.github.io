@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontexus – Hero Variante C</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("../assets/fonts/Inter-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("../assets/fonts/Inter-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Space Grotesk"; font-style: normal; font-weight: 300 700; font-display: swap;
+  src: url("../assets/fonts/SpaceGrotesk-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Space Grotesk"; font-style: normal; font-weight: 300 700; font-display: swap;
+  src: url("../assets/fonts/SpaceGrotesk-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "InterKx"; src: url("../assets/inter-logo.woff2") format("woff2");
+  font-weight: 100 900; font-display: swap;
+}
+
+:root {
+  --bg:#fbfbfa; --panel:#ffffff; --panel-2:rgba(20,24,34,.045);
+  --line:rgba(20,24,34,.13); --line-soft:rgba(20,24,34,.08);
+  --text:#1c1e24; --muted:#5b6270; --faint:#9096a1;
+  --accent:#3674d9; --accent-2:#7454e0; --green:#0f9d8a;
+  --font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --display:"Space Grotesk",var(--font);
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --app:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --radius:18px;
+  --a-input:#f4f4f4; --a-line:#e5e5e5; --a-ink:#0d0d0d; --a-mut:#6e6e6e; --a-accent:#6b9fff;
+  --t:76px; --gap:12px;
+}
+*,*::before,*::after { box-sizing: border-box; }
+html,body { margin: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+::selection { background: var(--accent); color: #fff; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Hero frame ---------- */
+.hero { position: relative; overflow: hidden; min-height: 680px; height: 100vh; max-height: 980px; isolation: isolate; }
+
+/* ---------- Wall ---------- */
+.wall { position: absolute; inset: 0; perspective: 1500px; perspective-origin: 60% 40%; z-index: 0; }
+.wall__grid {
+  position: absolute; display: grid; gap: var(--gap);
+  grid-auto-rows: var(--t);
+  transform-style: preserve-3d;
+  transform: rotateX(5deg) rotateY(-3deg);
+  transform-origin: 50% 50%;
+}
+.cell { width: var(--t); height: var(--t); position: relative; transform-style: preserve-3d; }
+/* the rotated grid and the cells lie in the tiles' plane and would win some hit tests; only tiles take the pointer */
+.wall__grid, .cell { pointer-events: none; }
+.cell--empty { border-radius: 22%; border: 1px solid rgba(20,24,34,.055); background: rgba(255,255,255,.35); overflow: hidden; }
+
+.tile {
+  all: unset; box-sizing: border-box; display: block; cursor: pointer; pointer-events: auto;
+  width: var(--t); height: var(--t); position: relative; border-radius: 22%;
+  transform: translate3d(0,0,calc(var(--z,0px) + 1px)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--s,1));
+  transition: transform .55s cubic-bezier(.2,.7,.2,1);
+  will-change: transform;
+}
+.tile.is-tracking { transition: transform .16s ease-out; }
+.tile__face {
+  position: absolute; inset: 0; border-radius: inherit; overflow: hidden;
+  background: linear-gradient(160deg, #ffffff 0%, #f7f8fa 100%);
+  border: 1px solid rgba(20,24,34,.1);
+  box-shadow: 0 1px 2px rgba(20,24,34,.05), 0 10px 22px -16px rgba(20,24,34,.35);
+  display: grid; place-items: center;
+  transition: opacity .6s ease;
+}
+.tile__face img, .tile__face svg.flag { width: 46%; height: 46%; object-fit: contain; display: block; }
+.tile__face img.sq { border-radius: 22%; }
+.tile__face svg.flag { width: 50%; height: 50%; border-radius: 12%; }
+/* the lit state: a ring and soft glow on a separate layer, faded via opacity */
+.tile::before {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  border: 1.5px solid rgba(54,116,217,.55);
+  box-shadow: 0 0 0 4px rgba(54,116,217,.1), 0 18px 36px -14px rgba(54,116,217,.55), 0 0 40px -6px rgba(116,84,224,.35);
+  opacity: 0; transition: opacity .5s ease;
+}
+.tile:hover, .tile:focus-visible { --z: 10px; }
+.tile:hover::before, .tile:focus-visible::before { opacity: .45; }
+.tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* idle shimmer: one diagonal sweep across the wall every 10 s */
+.gloss {
+  position: absolute; top: -20%; bottom: -20%; left: 0; width: 55%; pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(120,160,235,.10) 40%, rgba(255,255,255,.95) 50%, rgba(120,160,235,.10) 60%, rgba(255,255,255,0) 100%);
+  transform: translateX(-160%) skewX(-18deg);
+  animation: gloss 10s cubic-bezier(.45,.05,.35,1) infinite;
+  animation-delay: calc(var(--d, 0) * 1ms + 1500ms);
+}
+.cell--empty .gloss { background: linear-gradient(90deg, rgba(54,116,217,0) 0%, rgba(54,116,217,.07) 50%, rgba(54,116,217,0) 100%); }
+@keyframes gloss {
+  0%  { transform: translateX(-160%) skewX(-18deg); }
+  9%  { transform: translateX(260%) skewX(-18deg); }
+  100%{ transform: translateX(260%) skewX(-18deg); }
+}
+
+/* running case: lit tiles rise, the rest dims a little */
+.wall.is-running .tile:not(.is-case) .tile__face { opacity: .62; }
+.wall.is-running .cell--empty { opacity: .8; }
+.cell--empty { transition: opacity .6s ease; }
+.tile.is-case { --z: 22px; }
+.tile.is-case::before { opacity: .6; }
+.tile.is-active { --z: 44px; --s: 1.06; }
+.tile.is-active::before { opacity: 1; }
+.tile.is-case .tile__face, .tile.is-active .tile__face { opacity: 1; }
+
+/* veils over the wall: legibility behind the text, fade at the bottom edge */
+.veil { position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background:
+    radial-gradient(ellipse var(--vw, 30%) var(--vh, 42%) at var(--vx, 22%) var(--vy, 50%), rgba(251,251,250,.96) 0%, rgba(251,251,250,.88) 60%, rgba(251,251,250,0) 100%),
+    linear-gradient(to bottom, rgba(251,251,250,0) calc(100% - 36px), var(--bg) 100%);
+}
+
+/* ---------- Content layer ---------- */
+.hero__inner {
+  position: relative; z-index: 2; height: 100%; max-width: 1320px; margin: 0 auto;
+  padding: 72px 56px; display: grid; grid-template-columns: minmax(340px, 1fr) minmax(480px, 580px);
+  gap: 96px; align-items: center; pointer-events: none;
+}
+.copy, .screen { pointer-events: auto; }
+.copy { max-width: 470px; }
+.copy h1 { margin: 0; font-weight: inherit; }
+.logo { width: min(330px, 100%); height: auto; display: block; margin: 0 0 30px -4px; }
+.kx-word { font-family: "InterKx", Inter, system-ui, sans-serif; font-size: 100px; letter-spacing: -1.5px; font-variation-settings: 'wght' 695, 'opsz' 14; fill: #2A2A2A; }
+.kx-arm  { stroke-dasharray: 18; stroke-dashoffset: 0; }
+.kx-dot  { transform-box: fill-box; transform-origin: center; }
+.kx-glow { opacity: 0; transform-box: fill-box; transform-origin: center; }
+.kx-spark { opacity: 0; }
+.tagline { font-family: var(--display); font-weight: 700; font-size: clamp(2rem, 3.4vw, 2.9rem); line-height: 1.07; letter-spacing: -0.03em; margin: 0 0 18px; text-wrap: balance; }
+.grad { background: linear-gradient(92deg, var(--accent) 0%, var(--accent-2) 45%, var(--accent) 90%); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sub { font-size: 1.125rem; line-height: 1.55; color: var(--muted); margin: 0 0 32px; max-width: 440px; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 8px; border-radius: 13px; padding: 14px 28px; font: 600 1rem/1 var(--font); text-decoration: none; transition: background-color .2s ease, border-color .2s ease, transform .2s ease; }
+.btn--primary { background: var(--accent); color: #fff; box-shadow: 0 1px 2px rgba(20,24,34,.1), 0 8px 24px -12px rgba(54,116,217,.5); }
+.btn--primary:hover { background: #2d66c6; }
+.btn--primary::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.35), rgba(255,255,255,0)); transform: translateX(-150%) skewX(-20deg); transition: transform .7s ease; }
+.btn--primary:hover::after { transform: translateX(320%) skewX(-20deg); }
+.btn--ghost { background: var(--panel); color: var(--text); border: 1px solid var(--line); }
+.btn--ghost:hover { border-color: rgba(54,116,217,.45); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.btn svg { width: 16px; height: 16px; }
+
+/* ---------- Screen ---------- */
+.screen { position: relative; }
+.screen__glow { position: absolute; inset: -12% -8%; z-index: -1; pointer-events: none; filter: blur(30px);
+  background: radial-gradient(closest-side at 50% 30%, rgba(54,116,217,.1), transparent), radial-gradient(closest-side at 70% 60%, rgba(116,84,224,.06), transparent); }
+.frame { background: #fff; border: 1px solid rgba(20,24,34,.12); border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 30px 80px -32px rgba(20,24,34,.28), 0 12px 36px -18px rgba(54,116,217,.14); }
+.chrome { display: flex; align-items: center; gap: 7px; padding: 13px 18px; background: rgba(20,24,34,.03); border-bottom: 1px solid var(--line-soft); }
+.chrome i { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+.chrome i:nth-child(1) { background: #f26b6b; } .chrome i:nth-child(2) { background: #f2c94c; } .chrome i:nth-child(3) { background: #6bd08b; }
+.chrome .url { margin: 0 auto; transform: translateX(-20px); font-family: var(--mono); font-size: .78rem; color: var(--muted); background: rgba(20,24,34,.04); border: 1px solid var(--line-soft); border-radius: 8px; padding: 4px 44px; }
+
+.stagebody { position: relative; height: 460px; font-family: var(--app); color: var(--a-ink); }
+.layer { position: absolute; inset: 0; padding: 16px 20px 18px; display: flex; flex-direction: column; gap: 10px; opacity: 0; transition: opacity .5s ease; }
+.layer.is-in { opacity: 1; }
+.layer.is-probe { visibility: hidden; bottom: auto; opacity: 1; transition: none; }
+.layer__top { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--a-mut); }
+.casetag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: rgba(54,116,217,.08); border-radius: 6px; padding: 3px 8px; }
+.prompt { align-self: flex-end; max-width: 84%; background: rgba(20,24,34,.045); border-radius: 14px 14px 4px 14px; padding: 10px 14px; font-size: 14px; line-height: 1.5; }
+.agent { display: flex; gap: 10px; align-items: flex-start; }
+.av { width: 26px; height: 26px; border-radius: 50%; background: var(--a-input); display: grid; place-items: center; flex: none; }
+.av svg { width: 14px; height: 14px; }
+.agent__body { flex: 1; min-width: 0; }
+.agent__name { font-size: 12px; font-weight: 600; margin: 5px 0 7px; }
+.steps { position: relative; display: flex; flex-direction: column; gap: 6px; margin: 0 0 10px; padding: 0; list-style: none; }
+.step { display: flex; align-items: flex-start; gap: 10px; border: 1px solid var(--line-soft); border-radius: 10px; padding: 7px 10px; background: #fff;
+  opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease, border-color .35s ease; }
+.step.on { opacity: 1; transform: none; }
+.step.running { border-color: rgba(54,116,217,.35); }
+.step img { width: 20px; height: 20px; object-fit: contain; border-radius: 5px; flex: none; margin-top: 1px; }
+.step__txt { flex: 1; min-width: 0; font-size: 13px; line-height: 1.4; }
+.step__txt b { display: block; font-weight: 600; color: var(--a-ink); }
+.step__txt span { color: var(--a-mut); font-size: 12.5px; }
+.st { width: 16px; height: 16px; flex: none; margin-top: 2px; position: relative; }
+.st__spin { position: absolute; inset: 2px; border: 1.6px solid rgba(54,116,217,.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; transition: opacity .2s ease; }
+.st__ok { position: absolute; inset: 0; opacity: 0; transform: scale(.6); transition: opacity .3s ease, transform .3s cubic-bezier(.2,.8,.3,1.3); }
+.step.done .st__spin { opacity: 0; animation: none; }
+.step.done .st__ok { opacity: 1; transform: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.result { font-size: 13.5px; line-height: 1.55; margin: 0; opacity: 0; transform: translateY(6px); transition: opacity .4s ease, transform .4s ease; }
+.result b { font-weight: 650; }
+.ask { margin-top: 8px; display: flex; align-items: center; gap: 8px; opacity: 0; transform: translateY(6px); transition: opacity .4s ease, transform .4s ease; }
+.ask__label { margin-right: auto; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--a-mut); }
+.pill { border-radius: 8px; padding: 6px 13px; font-size: 12.5px; font-weight: 600; border: 1px solid var(--line); color: var(--a-ink); background: #fff; }
+.pill--go { background: var(--accent); border-color: var(--accent); color: #fff; }
+.done-row { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--green); font-weight: 600; }
+.done-row svg { width: 14px; height: 14px; }
+.layer.show-result .result, .layer.show-result .ask { opacity: 1; transform: none; }
+.layer.show-result .ask { transition-delay: .25s; }
+
+/* case picker under the screen */
+.picker { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 16px auto 0; padding: 6px; width: fit-content; max-width: 100%;
+  background: rgba(255,255,255,.82); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid var(--line-soft); border-radius: 14px; }
+.picker button { all: unset; cursor: pointer; position: relative; font-size: 12.5px; font-weight: 500; color: var(--muted); padding: 6px 11px; border-radius: 9px; transition: color .2s ease, background-color .2s ease; }
+.picker button:hover { color: var(--text); background: rgba(20,24,34,.045); }
+.picker button[aria-current="true"] { color: var(--accent); background: rgba(54,116,217,.09); }
+.picker button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ---------- Info card ---------- */
+.tip { position: fixed; left: 0; top: 0; z-index: 50; width: 270px; pointer-events: none;
+  background: rgba(255,255,255,.94); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid var(--line-soft); border-radius: 12px; padding: 12px 14px;
+  box-shadow: 0 14px 36px -14px rgba(20,24,34,.28);
+  opacity: 0; transform: translate3d(var(--tx,0), calc(var(--ty,0) + 6px), 0); transition: opacity .2s ease, transform .25s cubic-bezier(.2,.7,.2,1); }
+.tip.is-on { opacity: 1; transform: translate3d(var(--tx,0), var(--ty,0), 0); }
+.tip__title { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.tip__title img, .tip__title svg { width: 18px; height: 18px; object-fit: contain; border-radius: 4px; }
+.tip__text { font-size: 13px; line-height: 1.5; color: var(--muted); }
+.tip__hint { margin-top: 8px; font-size: 12px; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 5px; }
+.tip__hint:empty { display: none; }
+
+/* ---------- Narrower desktops ---------- */
+@media (max-width: 1180px) {
+  .hero__inner { gap: 56px; padding: 64px 40px; grid-template-columns: minmax(300px, 1fr) minmax(460px, 540px); }
+}
+@media (max-width: 960px) and (min-width: 761px) {
+  .hero__inner { grid-template-columns: 1fr 1fr; gap: 36px; padding: 56px 28px; }
+  .stagebody { height: 520px; }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 760px) {
+  :root { --t: 54px; --gap: 10px; }
+  .hero { height: auto; max-height: none; min-height: 0; }
+  .hero__inner { display: block; height: auto; padding: 140px 16px 150px; }
+  .copy { max-width: none; }
+  .logo { width: 220px; margin-bottom: 22px; }
+  .tagline { font-size: 2rem; }
+  .sub { font-size: 1.02rem; margin-bottom: 24px; }
+  .screen { margin-top: 76px; }
+  .layer { padding: 14px 14px 16px; }
+  .prompt { font-size: 13.5px; max-width: 92%; }
+  .chrome .url { padding: 4px 26px; }
+  .veil { background:
+    linear-gradient(to bottom, rgba(251,251,250,0) 0, rgba(251,251,250,0) 120px, rgba(251,251,250,.9) 150px, rgba(251,251,250,.9) calc(100% - 180px), rgba(251,251,250,0) calc(100% - 150px)),
+    linear-gradient(to bottom, rgba(251,251,250,0) calc(100% - 40px), var(--bg) 100%); }
+  .wall__grid { transform: none; }
+}
+
+/* ---------- Reduced motion: no movement, fades only ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .gloss { animation: none; display: none; }
+  .tile, .tile.is-tracking { transition: none; transform: none !important; }
+  .wall__grid { transform: none; }
+  .step, .result, .ask { transform: none !important; transition: opacity .3s ease; }
+  .st__spin { animation: none; }
+  .tip { transition: opacity .15s ease; transform: translate3d(var(--tx,0), var(--ty,0), 0); }
+  .btn--primary::after { display: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero" id="hero" aria-labelledby="hero-title">
+  <div class="wall" id="wall" aria-label="Anbindungen von Kontexus">
+    <div class="wall__grid" id="grid"></div>
+  </div>
+  <div class="veil" aria-hidden="true"></div>
+
+  <div class="hero__inner">
+    <div class="copy" id="copy">
+      <h1 id="hero-title">
+        <svg class="logo kx-anim" viewBox="-319.657 -139.35 574.002 205.7" role="img" aria-label="Kontexus" style="overflow:visible;display:block">
+          <defs>
+            <linearGradient id="kxgrad-hero" gradientUnits="userSpaceOnUse" x1="-36" y1="-36" x2="36" y2="36">
+              <stop offset="0" stop-color="#6B9FFF"/><stop offset="1" stop-color="#6BA5F2"/>
+            </linearGradient>
+            <radialGradient id="kxglow-hero"><stop offset="0" stop-color="#6B9FFF" stop-opacity="0.45"/><stop offset="1" stop-color="#6B9FFF" stop-opacity="0"/></radialGradient>
+          </defs>
+          <g transform="translate(44.77,-30.45) scale(1.28)">
+            <circle class="kx-glow" cx="0" cy="0" r="26" fill="url(#kxglow-hero)"/>
+          </g>
+          <text class="kx-word kx-w1" x="-277.307" y="0">konte</text>
+          <text class="kx-word kx-w2" x="96.8" y="0">us</text>
+          <g transform="translate(44.77,-30.45) scale(1.28)">
+            <g stroke="url(#kxgrad-hero)" stroke-width="9.67" stroke-linecap="round" fill="none">
+              <line class="kx-arm" x1="15.322" y1="-15.322" x2="27.542" y2="-27.542"/>
+              <line class="kx-arm" x1="15.322" y1="15.322" x2="27.542" y2="27.542"/>
+              <line class="kx-arm" x1="-15.322" y1="15.322" x2="-27.542" y2="27.542"/>
+              <line class="kx-arm" x1="-15.322" y1="-15.322" x2="-27.542" y2="-27.542"/>
+            </g>
+            <circle class="kx-dot" cx="0" cy="0" r="8.954" fill="url(#kxgrad-hero)"/>
+          </g>
+          <g transform="translate(44.77,-30.45) scale(1.28)">
+            <circle class="kx-spark" data-sx="36" data-sy="-36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+            <circle class="kx-spark" data-sx="36" data-sy="36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+            <circle class="kx-spark" data-sx="-36" data-sy="36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+            <circle class="kx-spark" data-sx="-36" data-sy="-36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+          </g>
+        </svg>
+        <span class="tagline" style="display:block">Der KI-Arbeitsplatz <span class="grad">aus der Schweiz.</span></span>
+      </h1>
+      <p class="sub">Kontexus arbeitet in Ihren Anwendungen und mit Ihren Dateien und läuft bei einem Schweizer Anbieter.</p>
+      <div class="ctas">
+        <a class="btn btn--primary" href="https://kontexus.ch">Kontexus testen
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <a class="btn btn--ghost" href="../#produkt">So arbeitet Kontexus</a>
+      </div>
+    </div>
+
+    <div class="screen" id="screen">
+      <div class="screen__glow" aria-hidden="true"></div>
+      <div class="frame" role="region" aria-label="Beispiel: Kontexus erledigt einen Auftrag" aria-roledescription="Beispielablauf">
+        <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="url">kontexus.ch</span></div>
+        <div class="stagebody" id="stagebody"></div>
+      </div>
+      <div class="picker" id="picker" role="group" aria-label="Beispiel wählen"></div>
+    </div>
+  </div>
+</section>
+
+<div class="tip" id="tip" role="tooltip" aria-hidden="true">
+  <div class="tip__title" id="tipTitle"></div>
+  <div class="tip__text" id="tipText"></div>
+  <div class="tip__hint" id="tipHint"></div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------------- Content ---------------- */
+  var CASES = [
+    { id:'treuhand-kreditoren', title:'Treuhand', featured:true,
+      prompt:'Erfassen Sie die Lieferantenrechnungen aus dem Posteingang in bexio.',
+      connectors:['microsoft_mail','mwst','bexio'],
+      steps:[
+        ['microsoft_mail','Rechnungen in Outlook gefunden','Posteingang seit 1. November: 14 Mails mit Rechnung als PDF-Anhang'],
+        ['mwst','MWST-Nummern und Kurse geprüft','14 Lieferanten im UID-Register gültig, 2 Rechnungen in EUR zum ESTV-Monatsmittelkurs umgerechnet'],
+        ['bexio','Lieferantenrechnungen in bexio vorbereitet','14 Rechnungen bereit zum Erfassen, wartet auf Freigabe']],
+      result:"14 Rechnungen über total CHF 18'420.35 sind vorbereitet, 2 davon aus EUR umgerechnet. Alle Lieferanten haben eine gültige MWST-Nummer. Soll ich sie in bexio erfassen?" },
+    { id:'kanzlei-zitate', title:'Kanzlei', featured:true,
+      prompt:'Prüfen Sie die Gesetzeszitate in unserem Memo zur Überschuldung.',
+      connectors:['microsoft_files','fedlex','docx'],
+      steps:[
+        ['microsoft_files','Memo in SharePoint gelesen','Memo_Ueberschuldung.docx, 9 Seiten, 6 Gesetzeszitate'],
+        ['fedlex','Zitate in Fedlex geprüft','Art. 725 OR: die Überschuldung steht seit 1.1.2023 in Art. 725b OR'],
+        ['docx','Korrektur im Memo eingetragen','1 Änderung als Änderungsverfolgung, Memo_Ueberschuldung_v2.docx']],
+      result:'5 von 6 Zitaten stimmen. Die Überschuldung regelt seit 1. Januar 2023 Art. 725b OR und nicht mehr Art. 725. Die Korrektur steht als Änderung in der neuen Fassung des Memos.' },
+    { id:'termin-projektteam', title:'Büro', featured:true,
+      prompt:'Finden Sie nächste Woche einen Termin mit dem Projektteam Meier AG.',
+      connectors:['microsoft_directory','microsoft_calendar'],
+      steps:[
+        ['microsoft_directory','Gruppe im Verzeichnis nachgeschlagen','Gruppe «Projekt Meier AG»: 5 Mitglieder'],
+        ['microsoft_calendar','Freie Zeiten in Outlook gesucht','Gemeinsam frei: Dienstag, 1. Dezember, 14:00–15:00'],
+        ['microsoft_calendar','Termin in Outlook vorbereitet','Einladung an 5 Personen, wartet auf Freigabe']],
+      result:'Alle 5 Mitglieder sind am Dienstag, 1. Dezember, von 14:00 bis 15:00 frei. Der Termin ist vorbereitet. Soll ich die Einladung senden?' },
+    { id:'handelsregister-neukunde', title:'KMU', featured:true,
+      prompt:'Prüfen Sie die Meier AG im Handelsregister, bevor wir den Vertrag senden.',
+      connectors:['zefix','mwst','microsoft_mail'],
+      steps:[
+        ['zefix','Eintrag im Handelsregister gelesen',"Meier AG: aktiv, Aktienkapital CHF 100'000, 2 Personen mit Kollektivunterschrift zu zweien"],
+        ['mwst','MWST-Nummer im UID-Register geprüft','CHE-Nummer mit MWST-Zusatz gültig'],
+        ['microsoft_mail','Mail in Outlook vorbereitet','Vertrag an beide Zeichnungsberechtigten, Entwurf wartet auf Freigabe']],
+      result:'Die Meier AG ist aktiv, und ihre MWST-Nummer ist gültig. Unterschreiben müssen zwei Personen gemeinsam, deshalb geht der Vertrag an beide. Soll ich die Mail senden?' },
+    { id:'npo-stiftungen', title:'NPO', featured:true,
+      prompt:'Finden Sie Stiftungen für unser Jugendprojekt im Kanton Bern.',
+      connectors:['fundraiso','notion'],
+      steps:[
+        ['fundraiso','Stiftungen in Fundraiso gesucht','Zweck Jugend, Region Bern: 18 Stiftungen'],
+        ['fundraiso','Vergabungen verglichen','6 Stiftungen haben in den letzten 3 Jahren ähnliche Organisationen finanziert'],
+        ['notion','Einträge in Notion vorbereitet','6 Stiftungen für die Datenbank «Gesuche», wartet auf Freigabe']],
+      result:"18 Stiftungen passen zu Zweck und Region, 6 davon haben bereits ähnliche Projekte unterstützt, mit Vergabungen zwischen CHF 5'000 und CHF 40'000. Soll ich die 6 in Ihrer Notion-Datenbank «Gesuche» anlegen?" },
+    { id:'npo-newsletter', title:'Verein', featured:true,
+      prompt:'Nehmen Sie die neuen Mitglieder in den Newsletter auf.',
+      connectors:['webling','mailchimp'],
+      steps:[
+        ['webling','Neue Mitglieder in Webling gelesen','37 Eintritte seit 1. Oktober, 34 mit E-Mail-Adresse'],
+        ['mailchimp','Liste in Mailchimp abgeglichen','Liste «Newsletter»: 5 der 34 sind bereits eingetragen'],
+        ['mailchimp','Kontakte in Mailchimp vorbereitet','29 neue Kontakte als «pending» mit Bestätigungsmail, wartet auf Freigabe']],
+      result:'29 neue Mitglieder fehlen noch im Newsletter, 3 haben keine E-Mail-Adresse in Webling. Die 29 erhalten eine Bestätigungsmail, bevor sie eingetragen sind. Soll ich sie hinzufügen?' },
+    { id:'vertrieb-teams', title:'Vertrieb', featured:false,
+      prompt:'Sandra fragt in Teams nach dem Stand bei der Meier AG. Antworten Sie ihr.',
+      connectors:['microsoft_teams','salesforce'],
+      steps:[
+        ['microsoft_teams','Frage in Teams gelesen','Kanal «Vertrieb», Nachricht von Sandra'],
+        ['salesforce','Opportunity in Salesforce gelesen',"«Meier AG – Ausbau»: Phase Verhandlung, CHF 48'000, Abschluss geplant 15. Dezember"],
+        ['microsoft_teams','Antwort in Teams vorbereitet','Antwort an Sandra, wartet auf Freigabe']],
+      result:"Die Opportunity steht in der Verhandlung, Volumen CHF 48'000, geplanter Abschluss am 15. Dezember. Die Antwort an Sandra ist geschrieben. Soll ich sie im Kanal posten?" },
+    { id:'vertrieb-leads', title:'Marketing', featured:false,
+      prompt:'Ergänzen Sie die neuen Leads in HubSpot mit Branche und Website.',
+      connectors:['hubspot','websearch'],
+      steps:[
+        ['hubspot','Neue Firmen in HubSpot gelesen','12 Firmen seit Montag, bei 9 fehlt die Branche'],
+        ['websearch','Websites im Web gesucht','9 Websites gefunden und gelesen, jede Branche mit Quelle belegt'],
+        ['hubspot','Firmen in HubSpot aktualisieren','9 Firmen mit Branche und Website, wartet auf Freigabe']],
+      result:'Für 9 der 12 neuen Firmen habe ich Branche und Website gefunden, jeweils mit Quelle. 3 Firmen haben keine auffindbare Website. Soll ich die 9 Einträge in HubSpot ergänzen?' },
+    { id:'finanzen-vr', title:'Finanzen', featured:false,
+      prompt:'Bereiten Sie die Zahlen Q3 für die Verwaltungsratssitzung vor.',
+      connectors:['bexio','charts','pptx'],
+      steps:[
+        ['bexio','Saldenliste aus bexio berechnet','Q3 2026 mit Vorjahr Q3 2025, aus dem Journal'],
+        ['charts','Diagramme erstellt','Wasserfall Betriebsergebnis, Umsatz nach Monat'],
+        ['pptx','Präsentation erstellt','VR_Q3_2026.pptx, 6 Folien in der Firmenvorlage']],
+      result:"Der Umsatz Q3 liegt bei CHF 2.41 Mio., 6 % über Vorjahr, das Betriebsergebnis bei CHF 312'000, beides aus dem Journal in bexio berechnet. Die Präsentation hat 6 Folien mit Wasserfall und Monatsverlauf." },
+    { id:'architektur-grundriss', title:'Architektur', featured:false,
+      prompt:'Erstellen Sie den Grundriss für das 2. OG nach dem Raumprogramm.',
+      connectors:['xlsx','cad'],
+      steps:[
+        ['xlsx','Raumprogramm gelesen','Raumprogramm.xlsx: 14 Räume, total 612 m²'],
+        ['cad','Grundriss und Modell erstellt','Grundriss als DXF, Gebäudemodell als IFC'],
+        ['cad','Plan geprüft','Erschliessung in Ordnung, keine Kollisionen, 1 Büro 3 m² unter Vorgabe']],
+      result:'Der Grundriss enthält alle 14 Räume mit 612 m². Ein Büro ist 3 m² kleiner als im Raumprogramm verlangt. DXF und IFC lassen sich in Archicad und Revit öffnen.' },
+    { id:'kommunikation-audio', title:'Kommunikation', featured:false,
+      prompt:'Vertonen Sie unsere Medienmitteilung und laden Sie sie als Podcast-Folge hoch.',
+      connectors:['elevenlabs','zapier'],
+      steps:[
+        ['elevenlabs','Stimme in ElevenLabs gewählt','Stimme «Deutsch, ruhig» aus Ihrer Bibliothek'],
+        ['elevenlabs','Text vertont','Medienmitteilung, 2:40 Minuten'],
+        ['zapier','Aktion in Zapier vorbereitet','«Podcast-Folge hochladen», wartet auf Freigabe']],
+      result:'Die Audiofassung ist 2 Minuten 40 lang. Das Hochladen läuft über die Aktion, die Sie in Zapier freigegeben haben. Soll ich sie ausführen?' },
+    /* DRAFT, not from the approved content: needs the user's approval (gives the Airtable tile a case) */
+    { id:'anlass-gaeste', title:'Anlass', featured:false,
+      prompt:'Tragen Sie die Anmeldungen zum Kundenanlass in Airtable ein.',
+      connectors:['microsoft_mail','airtable'],
+      steps:[
+        ['microsoft_mail','Anmeldungen in Outlook gelesen','22 Antworten auf die Einladung, 19 Zusagen'],
+        ['airtable','Basis «Anlässe» in Airtable durchsucht','Tabelle «Gäste»: 4 der 19 sind bereits eingetragen'],
+        ['airtable','Einträge in Airtable vorbereitet','15 neue Gäste, wartet auf Freigabe']],
+      result:'19 Personen haben zugesagt, 4 davon stehen bereits in der Tabelle «Gäste». Soll ich die 15 neuen Einträge in Airtable anlegen?' },
+    /* DRAFT, not from the approved content: needs the user's approval (gives the PDF tile a case) */
+    { id:'formular-lieferant', title:'Administration', featured:false,
+      prompt:'Füllen Sie das Formular zur Lieferantenregistrierung mit unseren Firmendaten aus.',
+      connectors:['zefix','pdf'],
+      steps:[
+        ['zefix','Eigenen Eintrag im Handelsregister gelesen','UID, Sitz und zeichnungsberechtigte Personen'],
+        ['pdf','Formular gelesen','Lieferantenregistrierung.pdf, 18 Felder'],
+        ['pdf','Formular ausgefüllt','Lieferantenregistrierung_ausgefuellt.pdf, 18 von 18 Feldern']],
+      result:'Das Formular ist vollständig ausgefüllt, die Firmendaten stammen aus dem Handelsregister. Unterschreiben muss noch eine zeichnungsberechtigte Person.' }
+  ];
+
+  /* third-party services: the provider runs them, not Kontexus in Switzerland */
+  var US = 'Dienst eines Drittanbieters mit Sitz in den USA.';
+  var TIPS = {
+    airtable:['Airtable','Kontexus durchsucht und liest mit Ihrem Airtable-Konto Basen und Tabellen und legt Einträge an oder ändert sie. ' + US], /* DRAFT text, needs approval */
+    bexio:['bexio','Kontexus erfasst Lieferantenrechnungen und Spesen, erstellt Offerten und Rechnungen und wertet die Buchhaltung aus.'],
+    cad:['CAD','Kontexus erstellt Grundrisse als DXF und Gebäudemodelle als IFC und prüft sie.'],
+    charts:['Diagramme','Kontexus erstellt Balken-, Wasserfall- und Gantt-Diagramme sowie Organigramme im Firmendesign.'],
+    docx:['Word','Kontexus erstellt und bearbeitet Briefe, Berichte und Verträge im Firmendesign.'],
+    elevenlabs:['ElevenLabs','Kontexus vertont mit Ihrem ElevenLabs-Konto Texte. ' + US],
+    fedlex:['Fedlex','Kontexus beantwortet Rechtsfragen mit belegten Normen aus dem Bundesrecht und prüft Gesetzeszitate.'],
+    fundraiso:['Fundraiso','Kontexus sucht Stiftungen nach Zweck, Region und Grösse und zeigt, wen sie finanzieren.'],
+    hubspot:['HubSpot','Kontexus liest und bearbeitet mit Ihrem HubSpot-Konto Kontakte, Firmen, Deals und Tickets. ' + US],
+    mailchimp:['Mailchimp','Kontexus pflegt Ihre Kontakte und legt Newsletter als Entwurf an.'],
+    microsoft_calendar:['Outlook Kalender','Kontexus sucht freie Zeiten und legt Termine an.'],
+    microsoft_directory:['Microsoft Verzeichnis','Kontexus schlägt Personen, Gruppen und Kontakte in Ihrem Microsoft 365 nach.'],
+    microsoft_files:['OneDrive & SharePoint','Kontexus durchsucht und liest Dateien in OneDrive und auf SharePoint.'],
+    microsoft_mail:['Outlook Mail','Kontexus liest Ihre Mails und Anhänge und legt Antworten als Entwurf an.'],
+    microsoft_teams:['Microsoft Teams','Kontexus liest Kanal- und Chatnachrichten und beantwortet sie.'],
+    mwst:['MWST','Kontexus prüft MWST-Nummern im UID-Register und rechnet Fremdwährungen zum ESTV-Kurs um.'],
+    notion:['Notion','Kontexus liest mit Ihrem Notion-Konto Seiten und Datenbanken und legt neue an. ' + US],
+    pdf:['PDF','Kontexus erstellt gestaltete PDF-Dokumente und füllt PDF-Formulare aus.'],
+    pptx:['PowerPoint','Kontexus erstellt Präsentationen aus Inhalten oder Daten in Ihrer Firmenvorlage.'],
+    salesforce:['Salesforce','Kontexus liest mit Ihrem Salesforce-Konto Accounts, Kontakte und Opportunities, ohne sie zu ändern. ' + US],
+    webling:['Webling','Kontexus liest Mitglieder, Rechnungen und Buchungen Ihres Vereins und pflegt Mitglieder.'],
+    websearch:['Websuche','Kontexus durchsucht das Web und belegt jede Aussage mit der Quelle.'],
+    xlsx:['Excel','Kontexus erstellt Arbeitsmappen mit Formeln und rechnet mit den Zahlen Ihrer Tabellen.'],
+    zapier:['Zapier','Kontexus führt die Aktionen aus, die Sie in Zapier für KI-Assistenten freigegeben haben. ' + US],
+    zefix:['Handelsregister','Kontexus liest Status, Kapital und eingetragene Personen von Schweizer Firmen.']
+  };
+  var SWISS = ['Betrieben in der Schweiz','Kontexus läuft bei Infomaniak, einem Schweizer Cloud-Anbieter, auf Servern in der Schweiz. Dort liegen auch die Dateien Ihres Arbeitsbereichs.'];
+
+  var FLAG = '<svg class="flag" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#DA291C"/><path fill="#fff" d="M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z"/></svg>';
+  var MARK = '<svg viewBox="-36 -36 72 72" aria-hidden="true"><g stroke="#6b9fff" stroke-width="12" stroke-linecap="round"><line x1="15" y1="-15" x2="27" y2="-27"/><line x1="15" y1="15" x2="27" y2="27"/><line x1="-15" y1="15" x2="-27" y2="27"/><line x1="-15" y1="-15" x2="-27" y2="-27"/></g><circle r="10" fill="#6b9fff"/></svg>';
+  var OK = '<svg class="st__ok" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.2" fill="#0f9d8a"/><path d="M4.8 8.2l2.1 2.1 4.3-4.5" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  var ICONS = Object.keys(TIPS);
+  /* these PNGs are opaque squares with sharp corners; they get the same rounding as the app icons */
+  var SQUARE = ['airtable','elevenlabs','hubspot','mailchimp','notion','salesforce','webling','zapier'];
+  var FEATURED = CASES.filter(function (c) { return c.featured; });
+  /* fill order: featured connectors first, so the loop's tiles get the visible places */
+  var ORDER = [];
+  FEATURED.concat(CASES).forEach(function (c) { c.connectors.forEach(function (k) { if (ORDER.indexOf(k) < 0) ORDER.push(k); }); });
+  ICONS.forEach(function (k) { if (ORDER.indexOf(k) < 0) ORDER.push(k); });
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var hero = $('hero'), wall = $('wall'), grid = $('grid'), copy = $('copy'), screen = $('screen');
+  var body = $('stagebody'), picker = $('picker'), tip = $('tip');
+  function src(icon) { return 'icons/' + icon + '.png'; }
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function bold(s) { return esc(s).replace(/CHF [\d'.]+(?: Mio\.)?/g, function (m) { return '<b>' + m.replace(/\.$/, '') + '</b>' + (/\.$/.test(m) && !/Mio\.$/.test(m) ? '.' : ''); }); }
+  function casesFor(icon) { return CASES.filter(function (c) { return c.connectors.indexOf(icon) >= 0; }); }
+
+  /* ---------------- Wall ---------------- */
+  var tilesByIcon = {};
+  var lastW = 0;
+
+  function rng(seed) { return function () { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }; }
+  function hit(r, o, pad) { return !(r.right < o.left - pad || r.left > o.right + pad || r.bottom < o.top - pad || r.top > o.bottom + pad); }
+
+  function buildWall() {
+    var W = hero.clientWidth, H = hero.clientHeight, mobile = W <= 760;
+    /* tile size follows the viewport; shrink it until every tile fits outside text and screen */
+    var pitch = mobile ? 64 : Math.round(Math.max(70, Math.min(96, W / 17, H / 10.4)));
+    /* below `nice` the tiles get small: accept tiles that touch at a corner rather than shrink further */
+    var nice = mobile ? 56 : 66, floor = mobile ? 52 : 48;
+    window.__probe = []; for (var pp = pitch; pp >= 46; pp -= 2) { var PP = layCells(W, H, mobile, pp), SS = scatter(PP, mobile); window.__probe.push(pp + ':' + PP.open.length + ':L' + SS.level); }
+    var P = layCells(W, H, mobile, pitch), S = scatter(P, mobile);
+    while (pitch - 4 >= floor && (S.level > 2 || (S.level === 2 && pitch - 4 >= nice))) {
+      pitch -= 4; P = layCells(W, H, mobile, pitch); S = scatter(P, mobile);
+    }
+    afterLay(W, H, P, S);
+  }
+
+  /* Choose cells for the Swiss tile and all connector tiles. level 1: no two tiles touch,
+     not even at a corner; 2: some touch at a corner, none share an edge; 3: tiles share
+     edges or sit under text or screen. Random order, so the gaps vary. */
+  function scatter(P, mobile) {
+    var cells = P.cells, rects = P.rects, open = P.open, cols = P.cols, hr = P.hr, cr = P.cr, sr = P.sr;
+    /* Swiss tile: near the text, between text and screen (desktop) or top right (mobile) */
+    var target = mobile ? { x: hr.right - 64, y: hr.top + 64 } : { x: (cr.right + sr.left) / 2, y: cr.top + 20 };
+    var swissIdx = -1, best = 1e9;
+    open.forEach(function (i) {
+      var rc = rects[i], dx = (rc.left + rc.right) / 2 - target.x, dy = (rc.top + rc.bottom) / 2 - target.y, dd = dx * dx + dy * dy;
+      if (dd < best) { best = dd; swissIdx = i; }
+    });
+    var rand = rng(7), pool = open.filter(function (i) { return i !== swissIdx; });
+    for (var k = pool.length - 1; k > 0; k--) { var j = Math.floor(rand() * (k + 1)), tmp = pool[k]; pool[k] = pool[j]; pool[j] = tmp; }
+    var taken = {}, chosen = [], level = 1;
+    if (swissIdx >= 0) taken[swissIdx] = 1;
+    function near(i, diag) {
+      var r0 = cells[i]._r, c0 = cells[i]._c;
+      for (var dr = -1; dr <= 1; dr++) for (var dc = -1; dc <= 1; dc++) {
+        if (!(dr || dc) || (!diag && dr && dc)) continue;
+        var c1 = c0 + dc; if (c1 < 0 || c1 >= cols) continue;
+        if (taken[(r0 + dr) * cols + c1]) return true;
+      }
+      return false;
+    }
+    function take(test) { pool.forEach(function (i) { if (chosen.length < ORDER.length && !taken[i] && test(i)) { taken[i] = 1; chosen.push(i); } }); }
+    take(function (i) { return !near(i, true); });
+    if (chosen.length < ORDER.length) { level = 2; take(function (i) { return !near(i, false); }); }
+    if (chosen.length < ORDER.length) { level = 3; take(function () { return true; }); }
+    /* not enough visible cells: fall back to covered cells */
+    if (chosen.length < ORDER.length) {
+      var rest = cells.map(function (_, i) { return i; }).filter(function (i) { return !taken[i] && i !== swissIdx; });
+      for (var k2 = rest.length - 1; k2 > 0; k2--) { var j2 = Math.floor(rand() * (k2 + 1)), t2 = rest[k2]; rest[k2] = rest[j2]; rest[j2] = t2; }
+      while (chosen.length < ORDER.length && rest.length) chosen.push(rest.shift());
+    }
+    if (swissIdx < 0) level = 3;
+    return { swissIdx: swissIdx, chosen: chosen, level: level };
+  }
+
+  function layCells(W, H, mobile, pitch) {
+    var g = mobile ? 10 : Math.round(pitch * 0.14), t = pitch - g;
+    hero.style.setProperty('--t', t + 'px');
+    hero.style.setProperty('--gap', g + 'px');
+    var cols = Math.ceil(W / pitch) + 2, rows = Math.ceil(H / pitch) + 2;
+    var gw = cols * pitch - g, gh = rows * pitch - g;
+    grid.style.gridTemplateColumns = 'repeat(' + cols + ',' + t + 'px)';
+    grid.style.left = Math.round((W - gw) / 2) + 'px';
+    grid.style.top = (mobile ? 14 : 16) - pitch + 'px';
+
+    var frag = document.createDocumentFragment(), cells = [];
+    for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) {
+      var d = document.createElement('div');
+      d.className = 'cell cell--empty';
+      d.setAttribute('aria-hidden', 'true');
+      d.style.setProperty('--d', (r + c) * 55);
+      d.innerHTML = '<span class="gloss"></span>';
+      d._r = r; d._c = c;
+      frag.appendChild(d); cells.push(d);
+    }
+    grid.textContent = '';
+    grid.appendChild(frag);
+
+    /* one read pass: where does each cell land after the 3D transform? */
+    var hr = hero.getBoundingClientRect(), cr = copy.getBoundingClientRect(), sr = screen.getBoundingClientRect();
+    var rects = cells.map(function (el) { return el.getBoundingClientRect(); });
+    var open = [];
+    cells.forEach(function (el, i) {
+      var rc = rects[i];
+      var inside = rc.left >= hr.left + 6 && rc.right <= hr.right - 6 && rc.top >= hr.top + 6 && rc.bottom <= hr.bottom - (mobile ? 12 : 14);
+      if (!inside) return;
+      if (hit(rc, sr, 10)) return;
+      if (hit(rc, cr, mobile ? 12 : 24)) return;
+      open.push(i);
+    });
+    return { cells: cells, rects: rects, open: open, cols: cols, hr: hr, cr: cr, sr: sr };
+  }
+
+  function afterLay(W, H, P, S) {
+    var cells = P.cells, hr = P.hr, cr = P.cr, swissIdx = S.swissIdx, chosen = S.chosen;
+    tilesByIcon = {};
+    function fill(i, icon) {
+      var cell = cells[i];
+      cell.className = 'cell';
+      cell.removeAttribute('aria-hidden');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'tile';
+      b.style.setProperty('--d', (cell._r + cell._c) * 55);
+      if (icon === 'swiss') {
+        b.setAttribute('aria-label', SWISS[0] + ': ' + SWISS[1]);
+        b.innerHTML = '<span class="tile__face">' + FLAG + '<span class="gloss"></span></span>';
+      } else {
+        var hasCase = casesFor(icon).length > 0;
+        b.setAttribute('aria-label', TIPS[icon][0] + (hasCase ? ': Beispiel zeigen' : ''));
+        var sq = SQUARE.indexOf(icon) >= 0 ? ' class="sq"' : '';
+        b.innerHTML = '<span class="tile__face"><img src="' + src(icon) + '" alt="" draggable="false"' + sq + '><span class="gloss"></span></span>';
+      }
+      b.dataset.icon = icon;
+      cell.textContent = '';
+      cell.appendChild(b);
+      (tilesByIcon[icon] = tilesByIcon[icon] || []).push(b);
+    }
+    if (swissIdx >= 0) fill(swissIdx, 'swiss');
+    ORDER.forEach(function (icon, n) { if (chosen[n] != null) fill(chosen[n], icon); });
+    grid.dataset.level = S.level;
+
+    /* veil follows the text block */
+    var vx = ((cr.left + cr.width * 0.42 - hr.left) / W * 100).toFixed(1) + '%';
+    hero.style.setProperty('--vx', vx);
+    hero.style.setProperty('--vy', ((cr.top + cr.height / 2 - hr.top) / H * 100).toFixed(1) + '%');
+    hero.style.setProperty('--vw', Math.round(cr.width * 0.78 + 60) + 'px');
+    hero.style.setProperty('--vh', Math.round(cr.height * 0.72 + 50) + 'px');
+    applyLit();
+  }
+
+  /* ---------------- Lit state ---------------- */
+  var litCase = null, litActive = null;
+  function applyLit() {
+    wall.classList.toggle('is-running', !!litCase);
+    Object.keys(tilesByIcon).forEach(function (icon) {
+      var inCase = !!litCase && litCase.connectors.indexOf(icon) >= 0;
+      tilesByIcon[icon].forEach(function (b) {
+        b.classList.toggle('is-case', inCase);
+        b.classList.toggle('is-active', inCase && icon === litActive);
+      });
+    });
+  }
+  function light(c, active) { litCase = c; litActive = active || null; applyLit(); }
+
+  /* ---------------- Clock (pausable) ---------------- */
+  var clock = { ev: [], i: 0, el: 0, t0: 0, timer: 0, hidden: false };
+  function clockRun(ev) {
+    clearTimeout(clock.timer);
+    clock.ev = ev.sort(function (a, b) { return a.at - b.at; });
+    clock.i = 0; clock.el = 0; clock.t0 = performance.now();
+    clockNext();
+  }
+  function now() { return clock.el + (clock.hidden ? 0 : performance.now() - clock.t0); }
+  function clockNext() {
+    clearTimeout(clock.timer);
+    if (clock.hidden || clock.i >= clock.ev.length) return;
+    clock.timer = setTimeout(clockTick, Math.max(0, clock.ev[clock.i].at - now()));
+  }
+  function clockTick() {
+    var e = now(), list = clock.ev;
+    while (clock.i < list.length && list[clock.i].at <= e + 4) {
+      list[clock.i++].fn();
+      /* an event (advance, or a click handler) started a new clock: stop here, the new run schedules itself */
+      if (clock.ev !== list) return;
+    }
+    clockNext();
+  }
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden && !clock.hidden) { clock.el = now(); clock.hidden = true; clearTimeout(clock.timer); }
+    else if (!document.hidden && clock.hidden) { clock.hidden = false; clock.t0 = performance.now(); clockNext(); }
+  });
+
+  /* ---------------- Screen ---------------- */
+  function layerHTML(c) {
+    var question = /\?$/.test(c.result);
+    var steps = c.steps.map(function (s) {
+      return '<li class="step"><img src="' + src(s[0]) + '" alt=""><div class="step__txt"><b>' + esc(s[1]) + '</b><span>' + esc(s[2]) + '</span></div>' +
+        '<span class="st" aria-hidden="true"><span class="st__spin"></span>' + OK + '</span></li>';
+    }).join('');
+    var tail = question
+      ? '<div class="ask"><span class="ask__label">Wartet auf Freigabe</span><span class="pill">Ablehnen</span><span class="pill pill--go">Zulassen</span></div>'
+      : '<div class="ask"><span class="done-row"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.2" fill="#0f9d8a"/><path d="M4.8 8.2l2.1 2.1 4.3-4.5" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Fertig</span></div>';
+    return '<div class="layer__top"><span class="casetag">' + esc(c.title) + '</span><span>Beispiel</span></div>' +
+      '<div class="prompt">' + esc(c.prompt) + '</div>' +
+      '<div class="agent"><span class="av">' + MARK + '</span><div class="agent__body"><div class="agent__name">Kontexus</div>' +
+      '<ol class="steps">' + steps + '</ol><p class="result">' + bold(c.result) + '</p>' + tail + '</div></div>';
+  }
+
+  function sizeBody() {
+    var probes = CASES.map(function (c) {
+      var p = document.createElement('div'); p.className = 'layer is-probe show-result'; p.setAttribute('aria-hidden', 'true');
+      p.innerHTML = layerHTML(c); p.querySelectorAll('.step').forEach(function (s) { s.classList.add('on', 'done'); });
+      body.appendChild(p); return p;
+    });
+    var h = 0; probes.forEach(function (p) { h = Math.max(h, p.offsetHeight); });
+    probes.forEach(function (p) { p.remove(); });
+    body.style.height = Math.ceil(h + 4) + 'px';
+  }
+
+  var current = null, featIdx = -1, hoverScreen = false, waitingNext = false;
+  var STEP_GAP = 680, STEP_DONE = 520, FIRST = 520, HOLD = 3200;
+
+  function play(c) {
+    current = c;
+    var fi = FEATURED.indexOf(c); if (fi >= 0) featIdx = fi;
+    picker.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-current', String(b.dataset.id === c.id)); });
+
+    var old = body.querySelectorAll('.layer:not(.is-probe)');
+    old.forEach(function (o) { o.classList.remove('is-in'); setTimeout(function () { o.remove(); }, 520); });
+    var L = document.createElement('div'); L.className = 'layer'; L.innerHTML = layerHTML(c);
+    body.appendChild(L);
+    var steps = L.querySelectorAll('.step');
+    requestAnimationFrame(function () { requestAnimationFrame(function () { L.classList.add('is-in'); }); });
+
+    var ev = [];
+    if (reduced) {
+      steps.forEach(function (s) { s.classList.add('on', 'done'); });
+      L.classList.add('show-result');
+      light(c, null);
+      ev.push({ at: 7000, fn: advance });
+    } else {
+      light(c, null);
+      var at = FIRST;
+      c.steps.forEach(function (s, i) {
+        var a = at;
+        ev.push({ at: a, fn: function () { steps[i].classList.add('on', 'running'); light(c, s[0]); } });
+        ev.push({ at: a + STEP_DONE, fn: function () { steps[i].classList.remove('running'); steps[i].classList.add('done'); } });
+        at += STEP_GAP;
+      });
+      var tr = at - STEP_GAP + STEP_DONE + 320;
+      ev.push({ at: tr, fn: function () { L.classList.add('show-result'); light(c, null); } });
+      ev.push({ at: tr + HOLD, fn: advance });
+    }
+    clockRun(ev);
+  }
+
+  function advance() {
+    if (hoverScreen) { waitingNext = true; return; }
+    waitingNext = false;
+    play(FEATURED[(featIdx + 1) % FEATURED.length]);
+  }
+
+  screen.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hoverScreen = true; });
+  screen.addEventListener('pointerleave', function () {
+    hoverScreen = false;
+    if (waitingNext) { waitingNext = false; clockRun([{ at: 900, fn: advance }]); }
+  });
+
+  FEATURED.forEach(function (c) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = c.title; b.dataset.id = c.id;
+    b.addEventListener('click', function () { waitingNext = false; play(c); });
+    picker.appendChild(b);
+  });
+
+  /* ---------------- Tile interaction ---------------- */
+  function pickCase(icon) {
+    var list = casesFor(icon); if (!list.length) return null;
+    var at = current ? list.indexOf(current) : -1;
+    return at >= 0 ? list[(at + 1) % list.length] : list[0];
+  }
+  grid.addEventListener('click', function (e) {
+    var b = e.target.closest('.tile'); if (!b) return;
+    var icon = b.dataset.icon; if (icon === 'swiss') return;
+    var c = pickCase(icon); if (!c) return;
+    waitingNext = false;
+    play(c);
+  });
+
+  var tipFor = null;
+  function showTip(b) {
+    tipFor = b;
+    var icon = b.dataset.icon, t = icon === 'swiss' ? SWISS : TIPS[icon];
+    $('tipTitle').innerHTML = (icon === 'swiss' ? FLAG : '<img src="' + src(icon) + '" alt="">') + '<span>' + esc(t[0]) + '</span>';
+    $('tipText').textContent = t[1];
+    $('tipText').style.display = t[1] ? '' : 'none';
+    $('tipHint').textContent = icon !== 'swiss' && casesFor(icon).length ? 'Klicken für ein Beispiel →' : '';
+    var r = b.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight, vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    var x = Math.min(Math.max(12, r.left + r.width / 2 - tw / 2), vw - tw - 12);
+    var y = r.top - th - 12;
+    if (y < 12) y = r.bottom + 12;
+    if (y + th > vh - 12) y = Math.max(12, vh - th - 12);
+    tip.style.setProperty('--tx', Math.round(x) + 'px');
+    tip.style.setProperty('--ty', Math.round(y) + 'px');
+    tip.classList.add('is-on');
+  }
+  function hideTip(b) { if (b && b !== tipFor) return; tipFor = null; tip.classList.remove('is-on'); }
+
+  grid.addEventListener('pointerover', function (e) { var b = e.target.closest('.tile'); if (b && b !== tipFor) showTip(b); });
+  grid.addEventListener('pointerout', function (e) {
+    var b = e.target.closest('.tile'); if (!b || b.contains(e.relatedTarget)) return;
+    hideTip(b); b.classList.remove('is-tracking'); b.style.removeProperty('--rx'); b.style.removeProperty('--ry');
+  });
+  grid.addEventListener('focusin', function (e) { var b = e.target.closest('.tile'); if (b) showTip(b); });
+  grid.addEventListener('focusout', function (e) { var b = e.target.closest('.tile'); if (b) hideTip(b); });
+  window.addEventListener('scroll', function () { hideTip(); }, { passive: true });
+
+  /* gentle tilt toward the cursor, one write per frame */
+  if (!reduced) {
+    var pend = null, raf = 0;
+    grid.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      var b = e.target.closest('.tile'); if (!b) return;
+      pend = { b: b, x: e.clientX, y: e.clientY };
+      if (!raf) raf = requestAnimationFrame(function () {
+        raf = 0; if (!pend) return;
+        var r = pend.b.getBoundingClientRect();
+        var px = (pend.x - r.left) / r.width - 0.5, py = (pend.y - r.top) / r.height - 0.5;
+        pend.b.classList.add('is-tracking');
+        pend.b.style.setProperty('--ry', (px * 18).toFixed(2) + 'deg');
+        pend.b.style.setProperty('--rx', (-py * 18).toFixed(2) + 'deg');
+        pend = null;
+      });
+    });
+  }
+
+  /* ---------------- Init ---------------- */
+  function layout() { sizeBody(); buildWall(); }
+  var rt = 0;
+  var lastH = 0;
+  function sizeChanged() { return hero.clientWidth !== lastW || Math.abs(hero.clientHeight - lastH) > 2; }
+  function onResize() {
+    clearTimeout(rt); rt = setTimeout(function () {
+      if (!sizeChanged()) return;
+      lastW = hero.clientWidth; lastH = hero.clientHeight; hideTip(); layout();
+    }, 120);
+  }
+  window.addEventListener('resize', onResize);
+  if ('ResizeObserver' in window) new ResizeObserver(onResize).observe(hero);
+
+  /* test hook for headless screenshots: #vh=900 pins the hero height */
+  var vhm = /vh=(\d+)/.exec(location.hash);
+  if (vhm) { hero.style.height = vhm[1] + 'px'; hero.style.minHeight = '0'; hero.style.maxHeight = 'none'; }
+  lastW = hero.clientWidth; lastH = hero.clientHeight;
+  sizeBody();
+  play(FEATURED[0]);
+  buildWall();
+  var fontsReady = (document.fonts && document.fonts.ready) || Promise.resolve();
+  fontsReady.then(function () { lastW = hero.clientWidth; lastH = hero.clientHeight; layout(); });
+})();
+
+// Kontexus animated lockup — the "Flow" reveal (port of AnimatedLogo.tsx).
+// Arms draw from the outside in, a spark glides along each into the core, the
+// dot blooms, then the wordmark settles in. Plays once when it scrolls in.
+(function () {
+  var svg = document.querySelector('.kx-anim');
+  if (!svg || typeof svg.animate !== 'function') return; // no WAAPI -> CSS shows final frame
+  var arms = [].slice.call(svg.querySelectorAll('.kx-arm'));
+  var sparks = [].slice.call(svg.querySelectorAll('.kx-spark'));
+  var dot = svg.querySelector('.kx-dot');
+  var glow = svg.querySelector('.kx-glow');
+  var words = [].slice.call(svg.querySelectorAll('.kx-word'));
+  var ARM_DELAYS = [120, 260, 200, 330];
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var running = [];
+
+  function A(el, frames, opts) {
+    opts.fill = 'both';
+    if (!opts.easing) opts.easing = 'cubic-bezier(.4,0,.2,1)';
+    var a = el.animate(frames, opts);
+    running.push(a);
+    return a;
+  }
+
+  function play() {
+    running.splice(0).forEach(function (a) { a.cancel(); });
+    if (reduced) return; // CSS default already is the final frame
+
+    arms.forEach(function (el, i) {
+      A(el, [
+        { strokeDashoffset: '-18px', opacity: 0 },
+        { strokeDashoffset: '-18px', opacity: 1, offset: 0.06 },
+        { strokeDashoffset: '0px', opacity: 1 }
+      ], { duration: 640, delay: ARM_DELAYS[i], easing: 'cubic-bezier(.3,.6,.15,1)' });
+    });
+
+    sparks.forEach(function (el, i) {
+      var sx = el.getAttribute('data-sx'), sy = el.getAttribute('data-sy');
+      A(el, [
+        { transform: 'translate(' + sx + 'px,' + sy + 'px)', opacity: 0 },
+        { opacity: 1, offset: 0.14 },
+        { opacity: 0.95, offset: 0.8 },
+        { transform: 'translate(0px,0px)', opacity: 0 }
+      ], { duration: 740, delay: ARM_DELAYS[i], easing: 'cubic-bezier(.5,.05,.3,1)' });
+    });
+
+    if (glow) A(glow, [
+      { opacity: 0, transform: 'scale(.5)' },
+      { opacity: 0.85, offset: 0.35 },
+      { opacity: 0, transform: 'scale(1.5)' }
+    ], { duration: 700, delay: 1030, easing: 'cubic-bezier(.25,.6,.3,1)' });
+
+    if (dot) A(dot, [
+      { opacity: 0, transform: 'scale(.25)' },
+      { opacity: 1, offset: 0.45 },
+      { transform: 'scale(1.12)', offset: 0.62 },
+      { transform: 'scale(1)', opacity: 1 }
+    ], { duration: 540, delay: 1030, easing: 'cubic-bezier(.2,.7,.25,1)' });
+
+    if (words[0]) A(words[0], [
+      { opacity: 0, transform: 'translateX(9px)' },
+      { opacity: 1, transform: 'translateX(0px)' }
+    ], { duration: 620, delay: 1160, easing: 'cubic-bezier(.2,.7,.2,1)' });
+
+    if (words[1]) A(words[1], [
+      { opacity: 0, transform: 'translateX(-9px)' },
+      { opacity: 1, transform: 'translateX(0px)' }
+    ], { duration: 620, delay: 1160, easing: 'cubic-bezier(.2,.7,.2,1)' });
+  }
+
+  var played = false;
+  function start() {
+    if (played) return;
+    played = true;
+    Promise.race([
+      (document.fonts && document.fonts.ready) || Promise.resolve(),
+      new Promise(function (r) { setTimeout(r, 700); })
+    ]).then(function () { requestAnimationFrame(play); });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { start(); io.disconnect(); }
+      });
+    }, { threshold: 0.4 });
+    io.observe(svg);
+  } else {
+    start();
+  }
+})();
+</script>
+</body>
+</html>

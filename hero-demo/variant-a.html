@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontexus – der KI-Arbeitsplatz aus der Schweiz (Hero, Variante A)</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("../assets/fonts/Inter-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("../assets/fonts/Inter-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Space Grotesk"; font-style: normal; font-weight: 300 700; font-display: swap;
+  src: url("../assets/fonts/SpaceGrotesk-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Space Grotesk"; font-style: normal; font-weight: 300 700; font-display: swap;
+  src: url("../assets/fonts/SpaceGrotesk-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "InterKx"; src: url("../assets/inter-logo.woff2") format("woff2");
+  font-weight: 100 900; font-display: swap;
+}
+
+:root {
+  --bg: #fbfbfa; --panel: #ffffff;
+  --line: rgba(20,24,34,.13); --line-soft: rgba(20,24,34,.08);
+  --text: #1c1e24; --muted: #5b6270; --faint: #9096a1;
+  --accent: #3674d9; --accent-2: #7454e0; --green: #0f9d8a;
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --display: "Space Grotesk", var(--font);
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --app: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --wall: #f0f6ff;
+  --tile: clamp(50px, 4.3vw, 66px);
+  --gap: calc(var(--tile) * .3);
+  --pitch: calc(var(--tile) * 1.3);
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 400 16px/1.55 var(--font);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+::selection { background: var(--accent); color: #fff; }
+a { color: inherit; text-decoration: none; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  background: var(--wall);
+  border-bottom: 1px solid var(--line-soft);
+}
+.wall { position: absolute; inset: 0; z-index: 0; }
+.wall::after { /* very soft light from top-left, keeps the wall from looking flat */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 70% at 18% 40%, rgba(255,255,255,.55), transparent 70%),
+    radial-gradient(50% 60% at 80% 50%, rgba(54,116,217,.05), transparent 70%);
+}
+.wall__measure { position: absolute; width: var(--tile); height: 0; visibility: hidden; }
+
+.tile {
+  position: absolute; left: 0; top: 0;
+  width: var(--tile); height: var(--tile);
+  border-radius: 28%;
+  display: grid; place-items: center;
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(20,24,34,.05);
+  transition: transform .45s var(--ease), opacity .45s ease;
+}
+.tile--on {
+  background: #fff;
+  border-color: rgba(20,24,34,.08);
+  box-shadow: 0 1px 1.5px rgba(20,24,34,.04), 0 6px 14px -8px rgba(20,24,34,.12);
+  padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 1;
+}
+.tile--on img, .tile--on svg.flag {
+  width: 54%; height: 54%; object-fit: contain; display: block;
+  border-radius: 22%;
+  position: relative; z-index: 2;
+  transition: transform .45s var(--ease);
+  user-select: none; -webkit-user-drag: none;
+}
+/* glow and ring live in pseudo-elements so only opacity animates */
+.tile--on::before, .tile--on::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit;
+  opacity: 0; pointer-events: none;
+  transition: opacity .45s ease;
+}
+.tile--on::before {
+  box-shadow: 0 14px 32px -10px rgba(54,116,217,.5), 0 0 0 6px rgba(54,116,217,.08);
+}
+.tile--on::after { border: 1.5px solid var(--accent); }
+
+.tile--on:hover, .tile--on:focus-visible { transform: translateY(-3px); }
+.tile--on:hover::before, .tile--on:focus-visible::before { opacity: .45; }
+.tile--on:focus-visible { outline: none; }
+.tile--on:focus-visible::after { opacity: 1; border-style: dashed; }
+
+.tile.is-part::after { opacity: .35; }
+.tile.is-active { transform: translateY(-5px) scale(1.06); }
+.tile.is-active::before { opacity: 1; }
+.tile.is-active::after { opacity: 1; border-style: solid; }
+.tile.is-active img { transform: scale(1.04); }
+.tile .pulse {
+  position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  border: 1.5px solid var(--accent); opacity: 0;
+}
+.tile.is-active .pulse { animation: pulse 1.1s var(--ease) 1; }
+@keyframes pulse {
+  0% { opacity: .7; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.45); }
+}
+.tile--swiss img, .tile--swiss svg.flag { border-radius: 14%; }
+
+/* ---------- layout ---------- */
+.hero__inner {
+  position: relative; z-index: 2;
+  max-width: 1360px; margin: 0 auto;
+  padding: calc(var(--pitch) * 2) 48px calc(var(--pitch) * 2);
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 56px; align-items: center;
+  pointer-events: none; /* lets hover reach the wall in the gaps */
+}
+.hero__inner > * { pointer-events: auto; }
+.copy { position: relative; max-width: 500px; }
+.copy::before { /* quiet the wall behind the text */
+  content: ""; position: absolute; inset: -56px -72px; z-index: -1; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(240,246,255,.97) 55%, rgba(240,246,255,.85) 75%, rgba(240,246,255,0));
+}
+.logo { margin: 0 0 22px; line-height: 0; }
+.logo { --lw: clamp(210px, 21vw, 290px); }
+.logo svg { width: var(--lw); height: auto; margin: calc(var(--lw) * -.1) 0 0 calc(var(--lw) * -.072); }
+.kx-word {
+  font-family: "InterKx", Inter, system-ui, sans-serif;
+  font-size: 100px; letter-spacing: -1.5px;
+  font-variation-settings: 'wght' 695, 'opsz' 14;
+  fill: #2A2A2A;
+}
+.kx-arm  { stroke-dasharray: 18; stroke-dashoffset: 0; }
+.kx-dot  { transform-box: fill-box; transform-origin: center; }
+.kx-glow { opacity: 0; transform-box: fill-box; transform-origin: center; }
+.kx-spark { opacity: 0; }
+
+.title {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(2.125rem, 3.5vw, 3.25rem); line-height: 1.06; letter-spacing: -0.03em;
+  margin: 0 0 18px; text-wrap: balance;
+}
+.grad {
+  background: linear-gradient(92deg, var(--accent) 0%, var(--accent-2) 45%, var(--accent) 90%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.sub { font-size: 1.125rem; color: var(--muted); margin: 0 0 30px; max-width: 460px; text-wrap: pretty; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-weight: 600; font-size: 0.9375rem; padding: 14px 28px; border-radius: 13px;
+  border: 1px solid transparent; white-space: nowrap;
+  transition: transform .15s ease, box-shadow .2s ease, background .15s ease, border-color .15s ease;
+}
+.btn--primary {
+  position: relative; overflow: hidden; background: var(--accent); color: #fff;
+  box-shadow: 0 1px 2px rgba(20,24,34,.1), 0 8px 24px -12px rgba(54,116,217,.5);
+}
+.btn--primary::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -70%; width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.6), transparent);
+  transform: skewX(-18deg); transition: left .45s ease;
+}
+.btn--primary:hover { transform: translateY(-1px); background: #2d66c6; box-shadow: 0 2px 4px rgba(20,24,34,.12), 0 12px 32px -12px rgba(54,116,217,.55); }
+.btn--primary:hover::after { left: 125%; }
+.btn--ghost { background: var(--panel); border-color: var(--line); color: var(--text); }
+.btn--ghost:hover { background: #f6f7f9; border-color: rgba(20,24,34,.24); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.hint { margin: 22px 0 0; font-size: .8125rem; color: var(--faint); display: flex; align-items: center; gap: 8px; }
+
+/* ---------- screen ---------- */
+.screen-wrap { position: relative; justify-self: end; width: 100%; max-width: 660px; }
+.scr {
+  position: relative; border-radius: 18px; overflow: hidden; background: #fff;
+  border: 1px solid rgba(20,24,34,.12);
+  box-shadow: 0 30px 80px -32px rgba(20,24,34,.28), 0 12px 36px -18px rgba(54,116,217,.14);
+  font-family: var(--app); color: #0d0d0d;
+}
+.scr__bar {
+  display: flex; align-items: center; gap: 7px; padding: 13px 18px;
+  background: rgba(20,24,34,.03); border-bottom: 1px solid var(--line-soft);
+}
+.scr__bar .d { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+.scr__url {
+  margin: 0 auto; font: 0.78rem var(--mono); color: var(--muted);
+  background: rgba(20,24,34,.04); border: 1px solid var(--line-soft); border-radius: 8px; padding: 4px 44px;
+}
+.scr__case {
+  font: 600 .6875rem var(--font); letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
+  min-width: 46px; text-align: right; transition: opacity .3s ease;
+}
+.scr__body {
+  position: relative; padding: 22px 24px 18px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: opacity .38s ease;
+}
+.scr__body.is-out { opacity: 0; }
+.prompt {
+  align-self: flex-end; max-width: 84%;
+  background: #f4f4f4; border-radius: 16px 16px 4px 16px; padding: 10px 14px;
+  font-size: 14px; line-height: 1.5;
+}
+.agent { display: flex; gap: 10px; align-items: center; font-size: 12px; font-weight: 600; color: #0d0d0d; }
+.agent .av { width: 26px; height: 26px; border-radius: 50%; background: #f4f4f4; display: grid; place-items: center; flex: none; }
+.agent .av svg { width: 15px; height: 15px; }
+.steps { list-style: none; margin: 0 0 0 0; padding: 0 0 0 36px; position: relative; display: flex; flex-direction: column; gap: 10px; }
+.st {
+  display: grid; grid-template-columns: 22px 1fr 16px; gap: 10px; align-items: start;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .35s ease, transform .35s var(--ease);
+}
+.st.is-on { opacity: 1; transform: none; }
+.st__ic { width: 22px; height: 22px; border-radius: 6px; overflow: hidden; margin-top: 1px; }
+.st__ic img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.st__tx { font-size: 13px; line-height: 1.4; color: #0d0d0d; min-width: 0; }
+.st__tx b { font-weight: 600; display: block; }
+.st__tx span { color: #6e6e6e; display: block; }
+.st__state { position: relative; width: 16px; height: 16px; margin-top: 3px; }
+.spin {
+  position: absolute; inset: 2px; border-radius: 50%;
+  border: 1.6px solid #e5e5e5; border-top-color: var(--accent);
+  animation: spin 1s linear infinite; transition: opacity .2s ease;
+}
+.ok { position: absolute; inset: 0; color: var(--green); opacity: 0; transform: scale(.6); transition: opacity .25s ease, transform .3s var(--ease); }
+.st.is-done .spin { opacity: 0; animation: none; }
+.st.is-done .ok { opacity: 1; transform: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.ans {
+  margin: 2px 0 0 36px; font-size: 14px; line-height: 1.6; color: #0d0d0d;
+  opacity: 0; transform: translateY(6px); transition: opacity .4s ease, transform .4s var(--ease);
+}
+.ans b { font-weight: 600; }
+.ask {
+  margin-left: 36px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  opacity: 0; transform: translateY(6px); transition: opacity .4s ease, transform .4s var(--ease);
+}
+.ask .lbl { font-size: 12px; color: #6e6e6e; margin-right: auto; display: flex; align-items: center; gap: 6px; }
+.ask .lbl::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #f2b33d; }
+.ask.is-fin .lbl::before { background: var(--green); }
+.pill { font-size: 12.5px; font-weight: 500; padding: 6px 14px; border-radius: 999px; border: 1px solid #e5e5e5; color: #0d0d0d; background: #fff; }
+.pill--go { background: var(--accent); border-color: var(--accent); color: #fff; }
+.ans.is-on, .ask.is-on { opacity: 1; transform: none; }
+
+.scr__foot {
+  display: flex; flex-wrap: wrap; gap: 2px; padding: 8px 12px 10px; border-top: 1px solid #f0f0f0;
+  font-family: var(--font);
+}
+.tab {
+  position: relative; flex: none; background: none; border: 0; cursor: pointer;
+  font: 500 .75rem var(--font); color: var(--faint); padding: 6px 9px 8px; border-radius: 8px;
+  transition: color .2s ease, background .2s ease;
+}
+.tab::after {
+  content: ""; position: absolute; left: 9px; right: 9px; bottom: 3px; height: 2px; border-radius: 2px;
+  background: var(--accent); opacity: 0; transform: scaleX(.4); transition: opacity .3s ease, transform .35s var(--ease);
+}
+.tab:hover { color: var(--text); background: #f6f6f6; }
+.tab[aria-current="true"] { color: var(--text); }
+.tab[aria-current="true"]::after { opacity: 1; transform: none; }
+.tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* ---------- info card ---------- */
+.tip {
+  position: fixed; left: 0; top: 0; z-index: 20; width: 264px; pointer-events: none;
+  background: rgba(255,255,255,.96); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid rgba(20,24,34,.09); border-radius: 14px; padding: 12px 14px 12px;
+  box-shadow: 0 1px 2px rgba(20,24,34,.05), 0 18px 40px -16px rgba(20,24,34,.28);
+  opacity: 0; transition: opacity .18s ease;
+  font-size: .8125rem; line-height: 1.45; color: var(--muted);
+}
+.tip.is-on { opacity: 1; }
+.tip__h { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--text); font-size: .875rem; margin-bottom: 4px; }
+.tip__h img, .tip__h svg { width: 18px; height: 18px; border-radius: 5px; object-fit: contain; }
+.tip p { margin: 0; }
+.tip__go { margin-top: 8px; font-size: .75rem; font-weight: 600; color: var(--accent); }
+.tip__go[hidden] { display: none; }
+
+/* ---------- mobile ---------- */
+@media (max-width: 760px) {
+  :root { --tile: 40px; --gap: 12px; --pitch: 52px; }
+  .hero__inner {
+    /* rows of free tiles above, between and below: room for 26 tiles that do not touch */
+    grid-template-columns: minmax(0, 1fr); gap: calc(var(--pitch) * 4.9);
+    padding: calc(var(--pitch) * 2.4) 16px calc(var(--pitch) * 3.6);
+  }
+  .copy { max-width: none; }
+  .copy::before { inset: -28px -24px; }
+  .sub { font-size: 1.0625rem; }
+  .screen-wrap { justify-self: stretch; max-width: none; }
+  .scr__body { padding: 18px 16px 14px; }
+  .scr__url { padding: 4px 18px; }
+  .prompt { max-width: 92%; }
+  .st__tx { font-size: 12.5px; }
+  .ans { font-size: 13.5px; }
+  .steps, .ans, .ask { margin-left: 0; padding-left: 0; }
+  .tip { width: min(264px, calc(100vw - 24px)); }
+  .ask .lbl { flex-basis: 100%; margin-bottom: 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile, .tile--on img, .st, .ans, .ask, .ok { transition: opacity .3s ease !important; transform: none !important; }
+  .tile.is-active .pulse { animation: none; }
+  .spin { animation: none; border-color: #e5e5e5; }
+  .btn, .btn--primary::after { transition: none; }
+  .btn--primary:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero" aria-labelledby="hero-title">
+
+  <div class="hero__inner">
+    <div class="copy" id="copy">
+      <h1 class="logo" id="hero-title">
+        <span class="sr">Kontexus – der KI-Arbeitsplatz aus der Schweiz</span>
+        <svg class="app__logo kx-anim" viewBox="-319.657 -139.35 574.002 205.7" aria-hidden="true" focusable="false" style="overflow:visible;display:block">
+          <defs>
+            <linearGradient id="kxgrad" gradientUnits="userSpaceOnUse" x1="-36" y1="-36" x2="36" y2="36">
+              <stop offset="0" stop-color="#6B9FFF"/><stop offset="1" stop-color="#6BA5F2"/>
+            </linearGradient>
+            <radialGradient id="kxglow"><stop offset="0" stop-color="#6B9FFF" stop-opacity="0.45"/><stop offset="1" stop-color="#6B9FFF" stop-opacity="0"/></radialGradient>
+          </defs>
+          <g transform="translate(44.77,-30.45) scale(1.28)">
+            <circle class="kx-glow" cx="0" cy="0" r="26" fill="url(#kxglow)"/>
+          </g>
+          <text class="kx-word kx-w1" x="-277.307" y="0">konte</text>
+          <text class="kx-word kx-w2" x="96.8" y="0">us</text>
+          <g transform="translate(44.77,-30.45) scale(1.28)">
+            <g stroke="url(#kxgrad)" stroke-width="9.67" stroke-linecap="round" fill="none">
+              <line class="kx-arm" x1="15.322" y1="-15.322" x2="27.542" y2="-27.542"/>
+              <line class="kx-arm" x1="15.322" y1="15.322" x2="27.542" y2="27.542"/>
+              <line class="kx-arm" x1="-15.322" y1="15.322" x2="-27.542" y2="27.542"/>
+              <line class="kx-arm" x1="-15.322" y1="-15.322" x2="-27.542" y2="-27.542"/>
+            </g>
+            <circle class="kx-dot" cx="0" cy="0" r="8.954" fill="url(#kxgrad)"/>
+          </g>
+          <g transform="translate(44.77,-30.45) scale(1.28)">
+            <circle class="kx-spark" data-sx="36" data-sy="-36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+            <circle class="kx-spark" data-sx="36" data-sy="36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+            <circle class="kx-spark" data-sx="-36" data-sy="36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+            <circle class="kx-spark" data-sx="-36" data-sy="-36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+          </g>
+        </svg>
+      </h1>
+      <p class="title" aria-hidden="true">Der KI-Arbeitsplatz <span class="grad">aus der Schweiz.</span></p>
+      <p class="sub">Kontexus arbeitet in Ihren Anwendungen und mit Ihren Dateien und läuft bei einem Schweizer Anbieter.</p>
+      <div class="ctas">
+        <a class="btn btn--primary" href="https://kontexus.ch">Kontexus testen</a>
+        <a class="btn btn--ghost" href="../#produkt">So funktioniert es</a>
+      </div>
+      <p class="hint" id="hint">Klicken Sie auf eine Anwendung, um ein Beispiel zu sehen.</p>
+    </div>
+
+    <div class="screen-wrap">
+      <div class="scr" id="scr" role="region" aria-label="Kontexus bei der Arbeit, Beispiel">
+        <div class="scr__bar" aria-hidden="true">
+          <span class="d" style="background:#f26b6b"></span><span class="d" style="background:#f2c94c"></span><span class="d" style="background:#6bd08b"></span>
+          <span class="scr__url">kontexus.ch</span>
+          <span class="scr__case" id="caseLabel">Treuhand</span>
+        </div>
+        <div class="scr__body" id="body">
+          <!-- static fallback (no JS): the first case, finished -->
+          <div class="prompt">Erfassen Sie die Lieferantenrechnungen aus dem Posteingang in bexio.</div>
+          <div class="agent"><span class="av"><svg viewBox="-36 -36 72 72"><g stroke="#6b9fff" stroke-width="9.67" stroke-linecap="round"><line x1="15.3" y1="-15.3" x2="27.5" y2="-27.5"/><line x1="15.3" y1="15.3" x2="27.5" y2="27.5"/><line x1="-15.3" y1="15.3" x2="-27.5" y2="27.5"/><line x1="-15.3" y1="-15.3" x2="-27.5" y2="-27.5"/></g><circle r="9" fill="#6b9fff"/></svg></span>Kontexus</div>
+          <ol class="steps">
+            <li class="st is-on is-done"><span class="st__ic"><img src="icons/microsoft_mail.png" alt=""></span><span class="st__tx"><b>Rechnungen in Outlook gefunden</b><span>Posteingang seit 1. November: 14 Mails mit Rechnung als PDF-Anhang</span></span><span class="st__state"></span></li>
+            <li class="st is-on is-done"><span class="st__ic"><img src="icons/mwst.png" alt=""></span><span class="st__tx"><b>MWST-Nummern und Kurse geprüft</b><span>14 Lieferanten im UID-Register gültig, 2 Rechnungen in EUR zum ESTV-Monatsmittelkurs umgerechnet</span></span><span class="st__state"></span></li>
+            <li class="st is-on is-done"><span class="st__ic"><img src="icons/bexio.png" alt=""></span><span class="st__tx"><b>Lieferantenrechnungen in bexio vorbereitet</b><span>14 Rechnungen bereit zum Erfassen, wartet auf Freigabe</span></span><span class="st__state"></span></li>
+          </ol>
+          <p class="ans is-on">14 Rechnungen über total <b>CHF 18'420.35</b> sind vorbereitet, 2 davon aus EUR umgerechnet. Alle Lieferanten haben eine gültige MWST-Nummer. Soll ich sie in bexio erfassen?</p>
+        </div>
+        <div class="scr__foot" id="tabs" role="group" aria-label="Beispiele"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- after the copy in the DOM so Tab reaches the H1 and CTA first; positioned absolutely behind it -->
+  <div class="wall" id="wall" role="group" aria-label="Anbindungen von Kontexus">
+    <div class="wall__measure" id="measure" aria-hidden="true"></div>
+  </div>
+</section>
+
+<div class="tip" id="tip" role="tooltip" aria-hidden="true">
+  <div class="tip__h" id="tipH"></div>
+  <p id="tipT"></p>
+  <div class="tip__go" id="tipGo">Klicken für ein Beispiel</div>
+</div>
+
+<script>
+// Kontexus animated lockup — the "Flow" reveal (port of AnimatedLogo.tsx).
+// Arms draw from the outside in, a spark glides along each into the core, the
+// dot blooms, then the wordmark settles in. Plays once when it scrolls in.
+(function () {
+  var svg = document.querySelector('.kx-anim');
+  if (!svg || typeof svg.animate !== 'function') return; // no WAAPI -> CSS shows final frame
+  var arms = [].slice.call(svg.querySelectorAll('.kx-arm'));
+  var sparks = [].slice.call(svg.querySelectorAll('.kx-spark'));
+  var dot = svg.querySelector('.kx-dot');
+  var glow = svg.querySelector('.kx-glow');
+  var words = [].slice.call(svg.querySelectorAll('.kx-word'));
+  var ARM_DELAYS = [120, 260, 200, 330];
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var running = [];
+
+  function A(el, frames, opts) {
+    opts.fill = 'both';
+    if (!opts.easing) opts.easing = 'cubic-bezier(.4,0,.2,1)';
+    var a = el.animate(frames, opts);
+    running.push(a);
+    return a;
+  }
+
+  function play() {
+    running.splice(0).forEach(function (a) { a.cancel(); });
+    if (reduced) return; // CSS default already is the final frame
+
+    arms.forEach(function (el, i) {
+      A(el, [
+        { strokeDashoffset: '-18px', opacity: 0 },
+        { strokeDashoffset: '-18px', opacity: 1, offset: 0.06 },
+        { strokeDashoffset: '0px', opacity: 1 }
+      ], { duration: 640, delay: ARM_DELAYS[i], easing: 'cubic-bezier(.3,.6,.15,1)' });
+    });
+
+    sparks.forEach(function (el, i) {
+      var sx = el.getAttribute('data-sx'), sy = el.getAttribute('data-sy');
+      A(el, [
+        { transform: 'translate(' + sx + 'px,' + sy + 'px)', opacity: 0 },
+        { opacity: 1, offset: 0.14 },
+        { opacity: 0.95, offset: 0.8 },
+        { transform: 'translate(0px,0px)', opacity: 0 }
+      ], { duration: 740, delay: ARM_DELAYS[i], easing: 'cubic-bezier(.5,.05,.3,1)' });
+    });
+
+    if (glow) A(glow, [
+      { opacity: 0, transform: 'scale(.5)' },
+      { opacity: 0.85, offset: 0.35 },
+      { opacity: 0, transform: 'scale(1.5)' }
+    ], { duration: 700, delay: 1030, easing: 'cubic-bezier(.25,.6,.3,1)' });
+
+    if (dot) A(dot, [
+      { opacity: 0, transform: 'scale(.25)' },
+      { opacity: 1, offset: 0.45 },
+      { transform: 'scale(1.12)', offset: 0.62 },
+      { transform: 'scale(1)', opacity: 1 }
+    ], { duration: 540, delay: 1030, easing: 'cubic-bezier(.2,.7,.25,1)' });
+
+    if (words[0]) A(words[0], [
+      { opacity: 0, transform: 'translateX(9px)' },
+      { opacity: 1, transform: 'translateX(0px)' }
+    ], { duration: 620, delay: 1160, easing: 'cubic-bezier(.2,.7,.2,1)' });
+
+    if (words[1]) A(words[1], [
+      { opacity: 0, transform: 'translateX(-9px)' },
+      { opacity: 1, transform: 'translateX(0px)' }
+    ], { duration: 620, delay: 1160, easing: 'cubic-bezier(.2,.7,.2,1)' });
+  }
+
+  var played = false;
+  function start() {
+    if (played) return;
+    played = true;
+    Promise.race([
+      (document.fonts && document.fonts.ready) || Promise.resolve(),
+      new Promise(function (r) { setTimeout(r, 700); })
+    ]).then(function () { requestAnimationFrame(play); });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { start(); io.disconnect(); }
+      });
+    }, { threshold: 0.4 });
+    io.observe(svg);
+  } else {
+    start();
+  }
+})();
+
+// ---------------------------------------------------------------------------
+// Tile wall + use-case screen
+(function () {
+  'use strict';
+  var ICONS = 'icons/';
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // [id, label, prompt, [ [icon, label, detail], ... ], result, featured]
+  var CASES = [
+    ['treuhand-kreditoren', 'Treuhand', 'Erfassen Sie die Lieferantenrechnungen aus dem Posteingang in bexio.', [
+      ['microsoft_mail.png', 'Rechnungen in Outlook gefunden', 'Posteingang seit 1. November: 14 Mails mit Rechnung als PDF-Anhang'],
+      ['mwst.png', 'MWST-Nummern und Kurse geprüft', '14 Lieferanten im UID-Register gültig, 2 Rechnungen in EUR zum ESTV-Monatsmittelkurs umgerechnet'],
+      ['bexio.png', 'Lieferantenrechnungen in bexio vorbereitet', '14 Rechnungen bereit zum Erfassen, wartet auf Freigabe']],
+      "14 Rechnungen über total CHF 18'420.35 sind vorbereitet, 2 davon aus EUR umgerechnet. Alle Lieferanten haben eine gültige MWST-Nummer. Soll ich sie in bexio erfassen?", true],
+    ['kanzlei-zitate', 'Kanzlei', 'Prüfen Sie die Gesetzeszitate in unserem Memo zur Überschuldung.', [
+      ['microsoft_files.png', 'Memo in SharePoint gelesen', 'Memo_Ueberschuldung.docx, 9 Seiten, 6 Gesetzeszitate'],
+      ['fedlex.png', 'Zitate in Fedlex geprüft', 'Art. 725 OR: die Überschuldung steht seit 1.1.2023 in Art. 725b OR'],
+      ['docx.png', 'Korrektur im Memo eingetragen', 'Art. 725 durch Art. 725b ersetzt, Memo_Ueberschuldung_v2.docx']],
+      '5 von 6 Zitaten stimmen. Die Überschuldung regelt seit 1. Januar 2023 Art. 725b OR und nicht mehr Art. 725. Die Korrektur steht in der neuen Fassung des Memos.', true],
+    ['termin-projektteam', 'Büro', 'Finden Sie nächste Woche einen Termin mit dem Projektteam Meier AG.', [
+      ['microsoft_directory.png', 'Gruppe im Verzeichnis nachgeschlagen', 'Gruppe «Projekt Meier AG»: 5 Mitglieder'],
+      ['microsoft_calendar.png', 'Freie Zeiten in Outlook gesucht', 'Gemeinsam frei: Dienstag, 1. Dezember, 14:00–15:00'],
+      ['microsoft_calendar.png', 'Termin in Outlook vorbereitet', 'Einladung an 5 Personen, wartet auf Freigabe']],
+      'Alle 5 Mitglieder sind am Dienstag, 1. Dezember, von 14:00 bis 15:00 frei. Der Termin ist vorbereitet. Soll ich die Einladung senden?', true],
+    ['handelsregister-neukunde', 'KMU', 'Prüfen Sie die Meier AG im Handelsregister, bevor wir den Vertrag senden.', [
+      ['zefix.png', 'Eintrag im Handelsregister gelesen', "Meier AG: aktiv, Aktienkapital CHF 100'000, 2 Personen mit Kollektivunterschrift zu zweien"],
+      ['mwst.png', 'MWST-Nummer im UID-Register geprüft', 'CHE-Nummer mit MWST-Zusatz gültig'],
+      ['microsoft_mail.png', 'Mail in Outlook vorbereitet', 'Vertrag an beide Zeichnungsberechtigten, Entwurf wartet auf Freigabe']],
+      'Die Meier AG ist aktiv, und ihre MWST-Nummer ist gültig. Unterschreiben müssen zwei Personen gemeinsam, deshalb geht der Vertrag an beide. Soll ich die Mail senden?', true],
+    ['npo-stiftungen', 'NPO', 'Finden Sie Stiftungen für unser Jugendprojekt im Kanton Bern.', [
+      ['fundraiso.png', 'Stiftungen in Fundraiso gesucht', 'Zweck Jugend, Region Bern: 18 Stiftungen'],
+      ['fundraiso.png', 'Vergabungen verglichen', '6 Stiftungen haben in den letzten 3 Jahren ähnliche Organisationen finanziert'],
+      ['notion.png', 'Einträge in Notion vorbereitet', '6 Stiftungen für die Datenbank «Gesuche», wartet auf Freigabe']],
+      "18 Stiftungen passen zu Zweck und Region, 6 davon haben bereits ähnliche Projekte unterstützt, mit Vergabungen zwischen CHF 5'000 und CHF 40'000. Soll ich die 6 in Ihrer Notion-Datenbank «Gesuche» anlegen?", true],
+    ['npo-newsletter', 'Verein', 'Nehmen Sie die neuen Mitglieder in den Newsletter auf.', [
+      ['webling.png', 'Neue Mitglieder in Webling gelesen', '37 Eintritte seit 1. Oktober, 34 mit E-Mail-Adresse'],
+      ['mailchimp.png', 'Liste in Mailchimp abgeglichen', 'Liste «Newsletter»: 5 der 34 sind bereits eingetragen'],
+      ['mailchimp.png', 'Kontakte in Mailchimp vorbereitet', '29 neue Kontakte als «pending» mit Bestätigungsmail, wartet auf Freigabe']],
+      '29 neue Mitglieder fehlen noch im Newsletter, 3 haben keine E-Mail-Adresse in Webling. Die 29 erhalten eine Bestätigungsmail, bevor sie eingetragen sind. Soll ich sie hinzufügen?', true],
+    ['vertrieb-teams', 'Vertrieb', 'Sandra fragt in Teams nach dem Stand bei der Meier AG. Antworten Sie ihr.', [
+      ['microsoft_teams.png', 'Frage in Teams gelesen', 'Kanal «Vertrieb», Nachricht von Sandra'],
+      ['salesforce.png', 'Opportunity in Salesforce gelesen', "«Meier AG – Ausbau»: Phase Verhandlung, CHF 48'000, Abschluss geplant 15. Dezember"],
+      ['microsoft_teams.png', 'Antwort in Teams vorbereitet', 'Antwort an Sandra, wartet auf Freigabe']],
+      "Die Opportunity steht in der Verhandlung, Volumen CHF 48'000, geplanter Abschluss am 15. Dezember. Die Antwort an Sandra ist geschrieben. Soll ich sie im Kanal posten?", true],
+    ['vertrieb-leads', 'Marketing', 'Ergänzen Sie die neuen Leads in HubSpot mit Branche und Website.', [
+      ['hubspot.png', 'Neue Firmen in HubSpot gelesen', '12 Firmen seit Montag, bei 9 fehlen Branche und Website'],
+      ['websearch.png', 'Websites im Web gesucht', '7 Websites gefunden und gelesen, jede Branche mit Quelle belegt'],
+      ['hubspot.png', 'Firmen in HubSpot ergänzen', '7 Firmen mit Branche und Website, wartet auf Freigabe']],
+      'Für 7 der 9 Firmen ohne Angaben habe ich Website und Branche gefunden, jeweils mit Quelle. Für 2 Firmen gibt es keine auffindbare Website. Soll ich die 7 Einträge in HubSpot ergänzen?', false],
+    ['finanzen-vr', 'Finanzen', 'Bereiten Sie die Zahlen Q3 für die Verwaltungsratssitzung vor.', [
+      ['xlsx.png', 'Saldenliste gelesen', 'Saldenliste_Q3.xlsx: Q3 2026 und Q3 2025'],
+      ['charts.png', 'Diagramme erstellt', 'Wasserfall Betriebsergebnis, Umsatz nach Monat'],
+      ['pptx.png', 'Präsentation erstellt', 'VR_Q3_2026.pptx, 6 Folien in der Firmenvorlage']],
+      "Der Umsatz Q3 liegt bei CHF 2.41 Mio., 6 % über Vorjahr, das Betriebsergebnis bei CHF 312'000. Die Präsentation hat 6 Folien mit Wasserfall und Monatsverlauf.", false],
+    ['architektur-grundriss', 'Architektur', 'Erstellen Sie den Grundriss für das 2. OG nach dem Raumprogramm.', [
+      ['xlsx.png', 'Raumprogramm gelesen', 'Raumprogramm.xlsx: 14 Räume, total 612 m²'],
+      ['cad.png', 'Grundriss und Modell erstellt', 'Grundriss als DXF, Gebäudemodell als IFC'],
+      ['cad.png', 'Plan geprüft', 'Alle Räume erreichbar, keine Kollisionen, 1 Büro 3 m² unter Vorgabe']],
+      'Der Grundriss enthält alle 14 Räume mit total 609 m². Ein Büro ist 3 m² kleiner als im Raumprogramm verlangt. DXF und IFC lassen sich in Archicad und Revit öffnen.', false],
+    ['kommunikation-audio', 'Kommunikation', 'Vertonen Sie unsere Medienmitteilung und laden Sie sie als Podcast-Folge hoch.', [
+      ['elevenlabs.png', 'Stimme in ElevenLabs gewählt', 'Stimme «Deutsch, ruhig» aus Ihrer Bibliothek'],
+      ['elevenlabs.png', 'Text vertont', 'Medienmitteilung, 2:40 Minuten'],
+      ['zapier.png', 'Aktion in Zapier vorbereitet', '«Podcast-Folge hochladen», wartet auf Freigabe']],
+      'Die Audiofassung ist 2 Minuten 40 Sekunden lang. Das Hochladen läuft über die Aktion, die Sie in Zapier freigegeben haben. Soll ich sie ausführen?', false],
+    ['anlass-anmeldungen', 'Anlässe', 'Tragen Sie die Anmeldungen für den Kundenanlass in Airtable ein.', [
+      ['microsoft_mail.png', 'Anmeldungen in Outlook gelesen', '11 Antworten auf die Einladung zum Kundenanlass'],
+      ['airtable.png', 'Basis «Anlässe» in Airtable durchsucht', '3 der 11 Personen sind bereits eingetragen'],
+      ['airtable.png', 'Einträge in Airtable vorbereitet', '8 neue Anmeldungen, wartet auf Freigabe']],
+      '8 Anmeldungen fehlen noch in der Basis «Anlässe», 3 sind schon eingetragen. Soll ich die 8 Einträge in Airtable anlegen?', false],
+    ['factsheet-pdf', 'Bericht', 'Erstellen Sie aus unseren Kennzahlen ein Factsheet als PDF.', [
+      ['xlsx.png', 'Kennzahlen ausgewertet', 'Kennzahlen.xlsx: Umsatz, Mitarbeitende und Kunden 2022 bis 2026'],
+      ['charts.png', 'Diagramme erstellt', '3 Diagramme: Umsatz, Mitarbeitende und Kunden nach Jahr'],
+      ['pdf.png', 'PDF erstellt', 'Factsheet_2026.pdf, 2 Seiten im Firmendesign']],
+      'Das Factsheet hat 2 Seiten im Firmendesign, mit den Kennzahlen 2022 bis 2026 und 3 Diagrammen.', false]
+  ].map(function (c) {
+    return { id: c[0], label: c[1], prompt: c[2], steps: c[3].map(function (s) { return { icon: s[0], label: s[1], detail: s[2] }; }), result: c[4], featured: c[5] };
+  });
+
+  var TIPS = {
+    'airtable.png': ['Airtable', 'Kontexus durchsucht Ihre Airtable-Basen und liest, ergänzt und ändert Einträge. Dienst eines Anbieters mit Sitz in den USA, Anmeldung mit Ihrem eigenen Konto.'],
+    'bexio.png': ['bexio', 'Kontexus erfasst Lieferantenrechnungen und Spesen und erstellt Offerten und Rechnungen.'],
+    'cad.png': ['CAD', 'Kontexus erstellt Grundrisse als DXF und Gebäudemodelle als IFC und prüft sie.'],
+    'charts.png': ['Diagramme', 'Kontexus erstellt Balken-, Wasserfall- und Gantt-Diagramme sowie Organigramme im Firmendesign.'],
+    'docx.png': ['Word', 'Kontexus erstellt und bearbeitet Briefe, Berichte und Verträge im Firmendesign.'],
+    'elevenlabs.png': ['ElevenLabs', 'Kontexus vertont Texte mit Stimmen aus Ihrer ElevenLabs-Bibliothek. Dienst eines Anbieters mit Sitz in den USA, Anmeldung mit Ihrem eigenen Konto.'],
+    'fedlex.png': ['Fedlex', 'Kontexus beantwortet Rechtsfragen mit belegten Normen aus dem Bundesrecht und prüft Gesetzeszitate.'],
+    'fundraiso.png': ['Fundraiso', 'Kontexus sucht Stiftungen nach Zweck, Region und Grösse und zeigt, wen sie finanzieren.'],
+    'hubspot.png': ['HubSpot', 'Kontexus liest und bearbeitet Kontakte, Firmen, Deals und Tickets. Dienst eines Anbieters mit Sitz in den USA, Anmeldung mit Ihrem eigenen Konto.'],
+    'mailchimp.png': ['Mailchimp', 'Kontexus pflegt Ihre Kontakte und legt Newsletter als Entwurf an.'],
+    'microsoft_calendar.png': ['Outlook Kalender', 'Kontexus sucht freie Zeiten und legt Termine an.'],
+    'microsoft_directory.png': ['Microsoft Verzeichnis', 'Kontexus schlägt Personen, Gruppen und Kontakte in Ihrem Microsoft 365 nach.'],
+    'microsoft_files.png': ['OneDrive & SharePoint', 'Kontexus durchsucht und liest Dateien in OneDrive und auf SharePoint.'],
+    'microsoft_mail.png': ['Outlook Mail', 'Kontexus liest Ihre Mails und Anhänge und legt Antworten als Entwurf an.'],
+    'microsoft_teams.png': ['Microsoft Teams', 'Kontexus liest Kanal- und Chatnachrichten und beantwortet sie.'],
+    'mwst.png': ['MWST', 'Kontexus prüft MWST-Nummern im UID-Register und rechnet Fremdwährungen zum ESTV-Kurs um.'],
+    'notion.png': ['Notion', 'Kontexus liest Seiten und Datenbanken in Notion und legt neue an. Dienst eines Anbieters mit Sitz in den USA, Anmeldung mit Ihrem eigenen Konto.'],
+    'pdf.png': ['PDF', 'Kontexus erstellt gestaltete PDF-Dokumente und füllt PDF-Formulare aus.'],
+    'pptx.png': ['PowerPoint', 'Kontexus erstellt Präsentationen aus Inhalten oder Daten in Ihrer Firmenvorlage.'],
+    'salesforce.png': ['Salesforce', 'Kontexus liest Accounts, Kontakte und Opportunities, ohne sie zu ändern. Dienst eines Anbieters mit Sitz in den USA, Anmeldung mit Ihrem eigenen Konto.'],
+    'webling.png': ['Webling', 'Kontexus liest Mitglieder, Rechnungen und Buchungen Ihres Vereins und pflegt Mitglieder.'],
+    'websearch.png': ['Websuche', 'Kontexus durchsucht das Web und belegt jede Aussage mit der Quelle.'],
+    'xlsx.png': ['Excel', 'Kontexus erstellt Arbeitsmappen mit Formeln und rechnet mit den Zahlen Ihrer Tabellen.'],
+    'zapier.png': ['Zapier', 'Kontexus führt die Aktionen aus, die Sie in Zapier für KI-Assistenten freigegeben haben. Dienst eines Anbieters mit Sitz in den USA, Anmeldung mit Ihrem eigenen Konto.'],
+    'zefix.png': ['Handelsregister', 'Kontexus liest Status, Kapital und eingetragene Personen von Schweizer Firmen.']
+  };
+  var SWISS = ['Betrieben in der Schweiz', 'Kontexus läuft bei Infomaniak, einem Schweizer Cloud-Anbieter, auf Servern in der Schweiz. Dort liegen auch die Dateien Ihres Arbeitsbereichs.'];
+  var FLAG = '<svg class="flag" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" fill="#DA291C"/><rect x="13" y="6" width="6" height="20" fill="#fff"/><rect x="6" y="13" width="20" height="6" fill="#fff"/></svg>';
+  var MARK = '<svg viewBox="-36 -36 72 72" aria-hidden="true"><g stroke="#6b9fff" stroke-width="9.67" stroke-linecap="round"><line x1="15.3" y1="-15.3" x2="27.5" y2="-27.5"/><line x1="15.3" y1="15.3" x2="27.5" y2="27.5"/><line x1="-15.3" y1="15.3" x2="-27.5" y2="27.5"/><line x1="-15.3" y1="-15.3" x2="-27.5" y2="-27.5"/></g><circle r="9" fill="#6b9fff"/></svg>';
+  var CHECK = '<svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 8.2l2 2 4-4.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  var ALL_ICONS = Object.keys(TIPS);
+  var FEATURED = CASES.map(function (c, i) { return c.featured ? i : -1; }).filter(function (i) { return i >= 0; });
+
+  var $ = function (id) { return document.getElementById(id); };
+  var wall = $('wall'), measureEl = $('measure'), copy = $('copy'), scr = $('scr'), body = $('body');
+  var caseLabel = $('caseLabel'), tabsEl = $('tabs'), tip = $('tip');
+
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function casesFor(icon) {
+    var r = [];
+    CASES.forEach(function (c, i) { if (c.steps.some(function (s) { return s.icon === icon; })) r.push(i); });
+    return r;
+  }
+
+  // ---------------- wall ----------------
+  var tilesByIcon = {};
+  function rng(seed) { return function () { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }; }
+
+  function buildWall() {
+    hideTip();
+    [].slice.call(wall.querySelectorAll('.tile')).forEach(function (t) { t.remove(); });
+    tilesByIcon = {};
+    var wr = wall.getBoundingClientRect();
+    var W = wr.width, H = wr.height;
+    var tile = measureEl.offsetWidth || 56;
+    var gap = Math.round(tile * 0.3), p = tile + gap;
+    var cols = Math.ceil((W + gap) / p) + 1, rows = Math.ceil((H + gap) / p) + 1;
+    function rel(el, padX, padY) {
+      var r = el.getBoundingClientRect();
+      return { l: r.left - wr.left - padX, t: r.top - wr.top - padY, r: r.right - wr.left + padX, b: r.bottom - wr.top + padY };
+    }
+    var covers = [rel(copy, gap, gap * 0.6), rel(scr, gap * 0.6, gap * 0.6)];
+    function grid(ox, oy) {
+      var out = [], nFree = 0;
+      for (var y = -1; y < rows; y++) for (var x = -1; x < cols; x++) {
+        var cx = ox + x * p, cy = oy + y * p;
+        if (cx + tile < 0 || cy + tile < 0 || cx > W || cy > H) continue;
+        var inside = cx >= 4 && cy >= 2 && cx + tile <= W - 4 && cy + tile <= H - 6;
+        var covered = covers.some(function (c) { return cx < c.r && cx + tile > c.l && cy < c.b && cy + tile > c.t; });
+        var underScreen = cx + tile > covers[1].l + tile && cx < covers[1].r - tile && cy + tile > covers[1].t + tile && cy < covers[1].b - tile;
+        var f = inside && !covered;
+        if (f) nFree++;
+        out.push({ x: cx, y: cy, free: f, hidden: underScreen });
+      }
+      return { cells: out, n: nFree };
+    }
+    // shift the grid to the offset that leaves the most free cells around the text and
+    // the screen; on equal counts the centred grid wins
+    var ox0 = Math.round((W - (cols * p - gap)) / 2), oy0 = Math.round(gap / 2);
+    var g = grid(ox0, oy0);
+    for (var sx = -2; sx <= 2; sx++) for (var sy = 2; sy < p + 2; sy += 3) {
+      var cand = grid(ox0 + Math.round(sx * p / 5), sy);
+      if (cand.n > g.n) g = cand;
+    }
+    var cells = g.cells;
+    var free = cells.filter(function (c) { return c.free; });
+
+    // bottom edge of the first viewport, in wall coordinates (desktop only)
+    var foldY = window.innerWidth > 760 ? window.innerHeight - (wr.top + window.scrollY) - 8 : Infinity;
+
+    // Swiss flag: the free cell nearest to the spot just below the text block, inside the first viewport
+    var cr = covers[0];
+    var tx = cr.l + gap + tile / 2, ty = cr.b + tile / 2;
+    var swiss = null, best = 1e12;
+    free.forEach(function (c) {
+      var d = Math.pow(c.x + tile / 2 - tx, 2) + Math.pow(c.y + tile / 2 - ty, 2) * 1.3 + (c.y + tile > foldY ? 1e9 : 0);
+      if (d < best) { best = d; swiss = c; }
+    });
+    if (swiss) swiss.kind = 'swiss';
+
+    // icons: featured connectors first, so they survive on narrow screens
+    var order = [];
+    FEATURED.concat(CASES.map(function (_, i) { return i; })).forEach(function (i) {
+      CASES[i].steps.forEach(function (s) { if (order.indexOf(s.icon) < 0) order.push(s.icon); });
+    });
+    ALL_ICONS.forEach(function (ic) { if (order.indexOf(ic) < 0) order.push(ic); });
+
+    // spread: greedy farthest-point picking with seeded jitter, tried several times; the
+    // try with the fewest filled tiles that share an edge wins, then the one with the
+    // fewest diagonal neighbours (so the gaps vary instead of forming a checkerboard)
+    // and the most tiles inside the first viewport.
+    var base = free.filter(function (c) { return !c.kind; });
+    var n = Math.min(order.length, base.length);
+    var p2 = p * p * 1.05, d2 = p * p * 2.1;
+    function attempt(seed) {
+      var r = rng(seed), used = [], picked = swiss ? [swiss] : [], out = [];
+      var touchSum = 0, diagSum = 0, low = 0;
+      for (var k = 0; k < n; k++) {
+        var bi = -1, bd = -1, bt = 1e9, bg = 0;
+        for (var j = 0; j < base.length; j++) {
+          if (used[j]) continue;
+          var c = base[j], md = 1e12, touch = 0, diag = 0;
+          for (var q = 0; q < picked.length; q++) {
+            var dx = c.x - picked[q].x, dy = c.y - picked[q].y, dd = dx * dx + dy * dy;
+            if (dd < md) md = dd;
+            if (dd < p2) touch++; else if (dd < d2) diag++;
+          }
+          md = md * (0.5 + r() * 1.0) * (diag ? 0.6 : 1);
+          if (c.y + tile > foldY) md *= 0.2; // desktop: prefer the first viewport
+          if (touch < bt || (touch === bt && md > bd)) { bt = touch; bd = md; bi = j; bg = diag; }
+        }
+        if (bi < 0) break;
+        used[bi] = 1; picked.push(base[bi]); out.push(base[bi]);
+        touchSum += bt; diagSum += bg; if (base[bi].y + tile > foldY) low++;
+      }
+      return { cells: out, score: touchSum * 1e6 + low * 1e3 + diagSum };
+    }
+    var best = null;
+    for (var tr = 0; tr < 48; tr++) {
+      var a = attempt(7 + tr * 7919);
+      if (!best || a.score < best.score) best = a;
+    }
+    var chosen = best ? best.cells : [];
+    window.__free = free.map(function (c) { return [Math.round(c.x / p), Math.round(c.y / p), c.kind === 'swiss' ? 2 : 0]; }); // DEBUG
+    chosen.forEach(function (c) { c.kind = 'icon'; });
+    var rand = rng(7);
+    // shuffle which icon lands where (seeded, stable across reloads)
+    function shuffle(a) { for (var s = a.length - 1; s > 0; s--) { var r2 = Math.floor(rand() * (s + 1)); var tmp = a[s]; a[s] = a[r2]; a[r2] = tmp; } return a; }
+    var icons = order.slice(0, chosen.length);
+    // on desktop, icons of the featured (auto-played) cases go into cells that are
+    // inside the first viewport, so they can be seen when they light up
+    var featIcons = {};
+    FEATURED.forEach(function (i) { CASES[i].steps.forEach(function (s) { featIcons[s.icon] = 1; }); });
+    var vis = shuffle(chosen.filter(function (c) { return c.y + tile <= foldY; }));
+    var low = shuffle(chosen.filter(function (c) { return c.y + tile > foldY; }));
+    var fi = shuffle(icons.filter(function (ic) { return featIcons[ic]; }));
+    var oi = shuffle(icons.filter(function (ic) { return !featIcons[ic]; }));
+    fi.concat(oi).forEach(function (ic, k) {
+      var c = k < fi.length ? (vis.shift() || low.shift()) : (low.shift() || vis.shift());
+      if (c) c.icon = ic;
+    });
+
+    var frag = document.createDocumentFragment();
+    cells.forEach(function (c) {
+      if (c.hidden && !c.kind) return; // fully under the screen: nothing to draw
+      var el;
+      if (c.kind === 'icon' || c.kind === 'swiss') {
+        el = document.createElement('button');
+        el.type = 'button';
+        el.className = 'tile tile--on' + (c.kind === 'swiss' ? ' tile--swiss' : '');
+        if (c.kind === 'swiss') {
+          el.innerHTML = FLAG;
+          el.setAttribute('aria-label', SWISS[0]);
+          el.dataset.swiss = '1';
+        } else {
+          var t = TIPS[c.icon];
+          var has = casesFor(c.icon).length > 0;
+          el.innerHTML = '<img src="' + ICONS + c.icon + '" alt="" draggable="false">';
+          el.setAttribute('aria-label', t[0] + (has ? ': Beispiel zeigen' : ''));
+          el.dataset.icon = c.icon;
+          (tilesByIcon[c.icon] = tilesByIcon[c.icon] || []).push(el);
+        }
+        el.insertAdjacentHTML('beforeend', '<span class="pulse" aria-hidden="true"></span>');
+        el.setAttribute('aria-describedby', 'tip');
+      } else {
+        el = document.createElement('div');
+        el.className = 'tile';
+        el.setAttribute('aria-hidden', 'true');
+      }
+      el.style.left = c.x + 'px'; el.style.top = c.y + 'px';
+      frag.appendChild(el);
+    });
+    wall.appendChild(frag);
+    paintLit();
+  }
+
+  // ---------------- info card ----------------
+  var tipFor = null;
+  function showTip(el) {
+    tipFor = el;
+    var head, text, go;
+    if (el.dataset.swiss) { head = FLAG + esc(SWISS[0]); text = SWISS[1]; go = false; }
+    else {
+      var t = TIPS[el.dataset.icon];
+      head = '<img src="' + ICONS + el.dataset.icon + '" alt="">' + esc(t[0]);
+      text = t[1]; go = casesFor(el.dataset.icon).length > 0;
+    }
+    $('tipH').innerHTML = head;
+    $('tipT').textContent = text; $('tipT').hidden = !text;
+    $('tipGo').hidden = !go;
+    var r = el.getBoundingClientRect();
+    var tw = tip.offsetWidth, th = tip.offsetHeight, vw = document.documentElement.clientWidth, vh = window.innerHeight, m = 12;
+    var left = Math.min(Math.max(m, r.left + r.width / 2 - tw / 2), vw - tw - m);
+    var top = r.top - th - 12;
+    if (top < m) top = r.bottom + 12;
+    if (top + th > vh - m) top = Math.max(m, vh - th - m);
+    tip.style.transform = 'translate(' + Math.round(left) + 'px,' + Math.round(top) + 'px)';
+    tip.classList.add('is-on'); tip.setAttribute('aria-hidden', 'false');
+  }
+  function hideTip() { tipFor = null; tip.classList.remove('is-on'); tip.setAttribute('aria-hidden', 'true'); }
+
+  wall.addEventListener('pointerover', function (e) { var t = e.target.closest('.tile--on'); if (t && t !== tipFor) showTip(t); });
+  wall.addEventListener('pointerout', function (e) {
+    var t = e.target.closest('.tile--on');
+    if (t && !(e.relatedTarget && t.contains(e.relatedTarget))) hideTip();
+  });
+  wall.addEventListener('focusin', function (e) { var t = e.target.closest('.tile--on'); if (t) showTip(t); });
+  wall.addEventListener('focusout', hideTip);
+  window.addEventListener('scroll', hideTip, { passive: true });
+  wall.addEventListener('click', function (e) {
+    var t = e.target.closest('.tile--on');
+    if (!t || t.dataset.swiss) return;
+    var list = casesFor(t.dataset.icon);
+    if (!list.length) return;
+    var pos = list.indexOf(cur);
+    playCase(pos >= 0 ? list[(pos + 1) % list.length] : list[0]);
+  });
+
+  // ---------------- pausable sequencer ----------------
+  var timer = null, pending = null, remain = 0, due = 0, pendingHold = false;
+  var reasons = {};
+  function paused() { return reasons.hidden || (reasons.hover && pendingHold); }
+  function arm() {
+    due = performance.now() + remain;
+    timer = setTimeout(function () { timer = null; var cb = pending; pending = null; cb && cb(); }, remain);
+  }
+  function wait(ms, cb, hold) {
+    pending = cb; remain = ms; pendingHold = !!hold;
+    if (!paused()) arm();
+  }
+  function cancel() { clearTimeout(timer); timer = null; pending = null; }
+  function setReason(k, on) {
+    var was = paused();
+    reasons[k] = on;
+    var now = paused();
+    if (!was && now && timer) { clearTimeout(timer); timer = null; remain = Math.max(0, due - performance.now()); }
+    if (was && !now && pending && !timer) arm();
+  }
+  function seq(list) {
+    var i = 0;
+    (function next() {
+      if (i >= list.length) return;
+      var s = list[i++];
+      wait(s[0], function () { s[1](); next(); }, s[2]);
+    })();
+  }
+
+  // ---------------- screen ----------------
+  var cur = -1, featPos = -1, lit = {};
+  function setLit(icon, state) { lit[icon] = state; paintIcon(icon); }
+  function paintIcon(icon) {
+    (tilesByIcon[icon] || []).forEach(function (el) {
+      el.classList.toggle('is-part', lit[icon] === 'part');
+      el.classList.toggle('is-active', lit[icon] === 'active');
+    });
+  }
+  function paintLit() { Object.keys(tilesByIcon).forEach(paintIcon); }
+  function clearLit() { var o = lit; lit = {}; Object.keys(o).forEach(paintIcon); }
+
+  function stepHTML(s) {
+    return '<li class="st"><span class="st__ic"><img src="' + ICONS + s.icon + '" alt=""></span>' +
+      '<span class="st__tx"><b>' + esc(s.label) + '</b><span>' + esc(s.detail) + '</span></span>' +
+      '<span class="st__state"><i class="spin"></i>' + CHECK + '</span></li>';
+  }
+  function caseHTML(c) {
+    var asks = /\?\s*$/.test(c.result);
+    var ans = esc(c.result).replace(/CHF \d[\d'.]*\d(?:\s?Mio\.)?/g, '<b>$&</b>');
+    return '<div class="prompt">' + esc(c.prompt) + '</div>' +
+      '<div class="agent"><span class="av">' + MARK + '</span>Kontexus</div>' +
+      '<ol class="steps">' + c.steps.map(stepHTML).join('') + '</ol>' +
+      '<p class="ans">' + ans + '</p>' +
+      (asks
+        ? '<div class="ask"><span class="lbl">Wartet auf Ihre Freigabe</span><span class="pill">Ablehnen</span><span class="pill pill--go">Zulassen</span></div>'
+        : '<div class="ask is-fin"><span class="lbl">Fertig</span></div>');
+  }
+
+  function render(i) {
+    var c = CASES[i];
+    cur = i;
+    clearLit();
+    body.innerHTML = caseHTML(c);
+    caseLabel.textContent = c.label;
+    [].forEach.call(tabsEl.children, function (b) { b.setAttribute('aria-current', String(+b.dataset.i === i)); });
+    c.steps.forEach(function (s) { setLit(s.icon, 'part'); });
+  }
+
+  function playCase(i) {
+    cancel();
+    if (CASES[i].featured) featPos = FEATURED.indexOf(i);
+    var c = CASES[i], list = [];
+    var rows, extra;
+    list.push([0, function () { body.classList.add('is-out'); }]);
+    list.push([cur < 0 ? 0 : 380, function () {
+      render(i);
+      rows = body.querySelectorAll('.st');
+      extra = body.querySelectorAll('.ans, .ask');
+      body.classList.remove('is-out');
+    }]);
+    c.steps.forEach(function (s, k) {
+      list.push([k === 0 ? 650 : 160, function () {
+        rows[k].classList.add('is-on');
+        if (k > 0) setLit(c.steps[k - 1].icon, 'part');
+        setLit(s.icon, 'active');
+      }]);
+      list.push([560, function () { rows[k].classList.add('is-done'); }]);
+    });
+    list.push([380, function () { extra[0].classList.add('is-on'); setLit(c.steps[c.steps.length - 1].icon, 'part'); }]);
+    list.push([450, function () { extra[1].classList.add('is-on'); }]);
+    list.push([3000, function () { playCase(FEATURED[(featPos + 1) % FEATURED.length]); }, true]);
+    seq(list);
+  }
+
+  // tabs
+  FEATURED.forEach(function (i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'tab'; b.dataset.i = i; b.textContent = CASES[i].label;
+    b.setAttribute('aria-current', 'false');
+    b.addEventListener('click', function () { playCase(i); });
+    tabsEl.appendChild(b);
+  });
+
+  // keep the window as tall as the longest case
+  function sizeBody() {
+    var probe = body.cloneNode(false);
+    probe.removeAttribute('id');
+    probe.style.cssText = 'position:absolute;left:0;top:0;visibility:hidden;width:' + body.clientWidth + 'px;height:auto;transition:none';
+    probe.setAttribute('aria-hidden', 'true');
+    scr.appendChild(probe);
+    var max = 0;
+    CASES.forEach(function (c) {
+      probe.innerHTML = caseHTML(c);
+      [].forEach.call(probe.querySelectorAll('.st,.ans,.ask'), function (el) { el.classList.add('is-on', 'is-done'); });
+      max = Math.max(max, probe.offsetHeight);
+    });
+    probe.remove();
+    body.style.height = max + 'px';
+  }
+
+  scr.addEventListener('pointerenter', function () { setReason('hover', true); });
+  scr.addEventListener('pointerleave', function () { setReason('hover', false); });
+  document.addEventListener('visibilitychange', function () { setReason('hidden', document.hidden); });
+
+  var rt = null, lastW = 0;
+  function relayout() { sizeBody(); buildWall(); lastW = window.innerWidth; }
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      if (window.innerWidth === lastW && window.matchMedia('(pointer: coarse)').matches) return; // mobile URL bar
+      relayout();
+    }, 150);
+  });
+
+  relayout();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { relayout(); });
+  playCase(FEATURED[0]);
+})();
+</script>
+</body>
+</html>
