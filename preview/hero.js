@@ -302,6 +302,8 @@
   var OTHER_ICONS = ORDER.filter(function (k) { return MOBILE_ICONS.indexOf(k) < 0; });
 
   function buildBands() {
+    /* phones: the sections keep their own default grid */
+    ['--wall-p', '--wall-x'].forEach(function (v) { document.documentElement.style.removeProperty(v); });
     var land = window.matchMedia(LAND).matches;
     grid.style.left = grid.style.top = grid.style.gridTemplateColumns = '';
     grid.textContent = '';
@@ -670,6 +672,27 @@
     grid.querySelectorAll('.h-tile').forEach(function (b) { var r = b.getBoundingClientRect(), s = r.top * 3 + r.left; if (s < fs) { fs = s; first = b; } });
     if (first) first.tabIndex = 0;
     applyLit();
+    shareGrid(P);
+  }
+
+  /* hand the wall's grid to the page, so the faint grid behind the sections continues it:
+     same pitch, same columns, rows counted on from the hero (page.css reads --wall-*) */
+  function shareGrid(P) {
+    var root = document.documentElement, pitch = P.pitch;
+    var gr = grid.getBoundingClientRect(), x = ((gr.left % pitch) + pitch) % pitch;
+    var gridTop = gr.top + window.scrollY;
+    root.style.setProperty('--wall-p', pitch + 'px');
+    root.style.setProperty('--wall-x', x.toFixed(1) + 'px');
+    function rows() {
+      document.querySelectorAll('[data-wall]').forEach(function (sec) {
+        var top = sec.getBoundingClientRect().top + window.scrollY;
+        sec.style.setProperty('--wall-y', ((((gridTop - top) % pitch) + pitch) % pitch).toFixed(1) + 'px');
+      });
+    }
+    rows();
+    /* sections below can still move once fonts and images settle */
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(rows);
+    window.addEventListener('load', rows, { once: true });
   }
 
   /* ---------------- Lit state: all tiles of the running example, for the whole example ---------------- */

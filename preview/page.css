@@ -313,8 +313,10 @@ main > .section:last-child { padding-bottom: var(--section); }
 #produkt, #preise, #faq { position: relative; isolation: isolate; }
 #produkt::before, #preise::before, #faq::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><rect x='7' y='7' width='66' height='66' rx='14.5' fill='%23141822' fill-opacity='.018' stroke='%23141822' stroke-opacity='.05'/></svg>");
-  background-size: 80px 80px; background-position: center top;
+  /* the same grid as the hero's wall: pitch, columns and rows come from hero.js
+     (--wall-p, --wall-x, --wall-y); tile 80 % of the pitch, corners 22 % */
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><rect x='0.5' y='0.5' width='79' height='79' rx='17.6' fill='%23141822' fill-opacity='.018' stroke='%23141822' stroke-opacity='.05' vector-effect='non-scaling-stroke'/></svg>");
+  background-size: var(--wall-p, 80px) var(--wall-p, 80px); background-position: var(--wall-x, 0px) var(--wall-y, 0px);
 }
 #produkt::before { -webkit-mask-image: radial-gradient(ellipse 30% 45% at 6% 18%, #000 0%, transparent 100%); mask-image: radial-gradient(ellipse 30% 45% at 6% 18%, #000 0%, transparent 100%); }
 #preise::before { -webkit-mask-image: radial-gradient(ellipse 28% 40% at 96% 30%, #000 0%, transparent 100%); mask-image: radial-gradient(ellipse 28% 40% at 96% 30%, #000 0%, transparent 100%); }
