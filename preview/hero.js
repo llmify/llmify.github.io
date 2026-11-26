@@ -345,12 +345,13 @@
     /* six columns, so the tiles can be larger; the 15 tiles under the card go into three
        rows of six, with the three free cells spread evenly */
     var n = 6, L = 3, slots = n * L;
-    var list = MOBILE_ICONS.slice(); list.splice(Math.min(5, list.length), 0, 'swiss'); list.push('plus');
-    var gaps = Math.max(0, slots - list.length), skip = {};
-    /* one free cell per row, shifted from row to row so they do not form a column */
-    for (var q = 0; q < gaps; q++) skip[(q % L) * n + ((3 + q * 2) % n)] = 1;
+    /* no «+» tile on phones; the Swiss tile sits at the right end of the first row; the
+       free cells are spread so they form neither a row nor a column */
+    var list = MOBILE_ICONS.slice(), skip = {}, fixed = {};
+    fixed[n - 1] = 'swiss';
+    [2, n + 4, 2 * n + 1, 2 * n + 5].forEach(function (i) { skip[i] = 1; });
     var lower = [], li = 0;
-    for (var rr = 0; rr < L; rr++) { lower.push([]); for (var cc = 0; cc < n; cc++) { var si = rr * n + cc; lower[rr].push(skip[si] || li >= list.length ? null : list[li++]); } }
+    for (var rr = 0; rr < L; rr++) { lower.push([]); for (var cc = 0; cc < n; cc++) { var si = rr * n + cc; lower[rr].push(fixed[si] || (skip[si] || li >= list.length ? null : list[li++])); } }
     var cs = getComputedStyle(inner);
     var avail = inner.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     /* the gap about a quarter of a tile; columns spread to the full width (space-between) */
