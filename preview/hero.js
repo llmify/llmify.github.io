@@ -16,6 +16,14 @@
         ['mwst','MWST-Nummern und Kurse geprüft','14 Lieferanten im UID-Register gültig, 2 Rechnungen in EUR zum ESTV-Monatsmittelkurs umgerechnet'],
         ['bexio','Lieferantenrechnungen in bexio vorbereitet','14 Rechnungen bereit zum Erfassen, wartet auf Freigabe']],
       result:"14 Rechnungen über total CHF 18'420.35 sind vorbereitet, 2 davon aus EUR umgerechnet. Alle Lieferanten haben eine gültige MWST-Nummer. Soll ich sie in bexio erfassen?" },
+    { id:'vertrieb-teams', title:'Vertrieb', featured:true,
+      prompt:'Sandra fragt in Teams nach dem Stand bei der Meier AG. Antworten Sie ihr mit den Angaben aus Salesforce.',
+      connectors:['microsoft_teams','salesforce'],
+      steps:[
+        ['microsoft_teams','Frage in Teams gelesen','Kanal «Vertrieb», Nachricht von Sandra'],
+        ['salesforce','Opportunity in Salesforce gelesen',"«Meier AG – Ausbau»: Phase Verhandlung, CHF 48'000, Abschluss geplant 15. Dezember"],
+        ['microsoft_teams','Antwort in Teams vorbereitet','Antwort an Sandra, wartet auf Freigabe']],
+      result:"Die Opportunity steht in der Verhandlung, Volumen CHF 48'000, geplanter Abschluss am 15. Dezember. Die Antwort an Sandra ist geschrieben. Soll ich sie im Kanal posten?" },
     { id:'finanzen-vr', title:'Finanzen', featured:true,
       prompt:'Bereiten Sie die Zahlen Q3 für die Verwaltungsratssitzung vor.',
       connectors:['bexio','charts','pptx'],
@@ -24,22 +32,14 @@
         ['charts','Diagramme erstellt','Wasserfall Betriebsergebnis, Umsatz nach Monat'],
         ['pptx','Präsentation erstellt','VR_Q3_2026.pptx, 6 Folien in der Firmenvorlage']],
       result:"Der Umsatz Q3 liegt bei CHF 2.41 Mio., 6 % über Vorjahr, das Betriebsergebnis bei CHF 312'000, beides aus dem Journal in bexio berechnet. Die Präsentation hat 6 Folien mit Wasserfall und Monatsverlauf." },
-    { id:'handelsregister-neukunde', title:'KMU', featured:true,
-      prompt:'Prüfen Sie die Meier AG im Handelsregister, bevor wir den Vertrag senden.',
-      connectors:['zefix','mwst','microsoft_mail'],
+    { id:'termin-projektteam', title:'Büro', featured:true,
+      prompt:'Finden Sie nächste Woche einen Termin mit dem Projektteam Meier AG.',
+      connectors:['microsoft_directory','microsoft_calendar'],
       steps:[
-        ['zefix','Eintrag im Handelsregister gelesen',"Meier AG: aktiv, Aktienkapital CHF 100'000, 2 Personen mit Kollektivunterschrift zu zweien"],
-        ['mwst','MWST-Nummer im UID-Register geprüft','CHE-Nummer mit MWST-Zusatz gültig'],
-        ['microsoft_mail','Mail in Outlook vorbereitet','Vertrag an beide Zeichnungsberechtigten, Entwurf wartet auf Freigabe']],
-      result:'Die Meier AG ist aktiv, und ihre MWST-Nummer ist gültig. Unterschreiben müssen zwei Personen gemeinsam, deshalb geht der Vertrag an beide. Soll ich die Mail senden?' },
-    { id:'kanzlei-zitate', title:'Kanzlei', featured:true,
-      prompt:'Prüfen Sie die Gesetzeszitate in unserem Memo zur Überschuldung.',
-      connectors:['microsoft_files','fedlex','docx'],
-      steps:[
-        ['microsoft_files','Memo in SharePoint gelesen','Memo_Ueberschuldung.docx, 9 Seiten, 6 Gesetzeszitate'],
-        ['fedlex','Zitate in Fedlex geprüft','Art. 725 OR: die Überschuldung steht seit 1.1.2023 in Art. 725b OR'],
-        ['docx','Korrektur im Memo eingetragen','Neue Fassung Memo_Ueberschuldung_v2.docx']],
-      result:'5 von 6 Zitaten stimmen. Die Überschuldung regelt seit 1. Januar 2023 Art. 725b OR und nicht mehr Art. 725. Die Korrektur steht in der neuen Fassung des Memos.' },
+        ['microsoft_directory','Gruppe im Verzeichnis nachgeschlagen','Gruppe «Projekt Meier AG»: 5 Mitglieder'],
+        ['microsoft_calendar','Freie Zeiten in Outlook gesucht','Gemeinsam frei: Dienstag, 1. Dezember, 14:00–15:00'],
+        ['microsoft_calendar','Termin in Outlook vorbereitet','Einladung an das Team, wartet auf Freigabe']],
+      result:'Alle 5 Mitglieder sind am Dienstag, 1. Dezember, von 14:00 bis 15:00 frei. Der Termin ist vorbereitet. Soll ich die Einladung senden?' },
     { id:'npo-stiftungen', title:'NPO', featured:true,
       prompt:'Finden Sie Stiftungen für unser Jugendprojekt im Kanton Bern.',
       connectors:['fundraiso','notion'],
@@ -47,7 +47,7 @@
         ['fundraiso','Stiftungen in Fundraiso gesucht','Zweck Jugend, Region Bern: 18 Stiftungen'],
         ['fundraiso','Vergabungen verglichen','6 Stiftungen haben in den letzten 3 Jahren ähnliche Organisationen finanziert'],
         ['notion','Einträge in Notion vorbereitet','6 Stiftungen für die Datenbank «Gesuche», wartet auf Freigabe']],
-      result:"18 Stiftungen passen zu Zweck und Region, 6 davon haben bereits ähnliche Projekte unterstützt, mit Vergabungen zwischen CHF 5'000 und CHF 40'000. Soll ich die 6 in Ihrer Notion-Datenbank «Gesuche» anlegen?" },
+      result:"18 Stiftungen passen zu Zweck und Region, 6 davon haben bereits ähnliche Organisationen unterstützt, mit Vergabungen zwischen CHF 5'000 und CHF 40'000. Soll ich die 6 in Ihrer Notion-Datenbank «Gesuche» anlegen?" },
     { id:'npo-newsletter', title:'Verein', featured:true,
       prompt:'Nehmen Sie die neuen Mitglieder in den Newsletter auf.',
       connectors:['webling','mailchimp'],
@@ -56,22 +56,22 @@
         ['mailchimp','Liste in Mailchimp abgeglichen','Liste «Newsletter»: 5 der 34 sind bereits eingetragen'],
         ['mailchimp','Kontakte in Mailchimp vorbereitet','29 neue Kontakte als «pending» mit Bestätigungsmail, wartet auf Freigabe']],
       result:'29 neue Mitglieder fehlen noch im Newsletter, 3 haben keine E-Mail-Adresse in Webling. Die 29 erhalten eine Bestätigungsmail, bevor sie eingetragen sind. Soll ich sie hinzufügen?' },
-    { id:'termin-projektteam', title:'Büro', featured:false,
-      prompt:'Finden Sie nächste Woche einen Termin mit dem Projektteam Meier AG.',
-      connectors:['microsoft_directory','microsoft_calendar'],
+    { id:'handelsregister-neukunde', title:'KMU', featured:false,
+      prompt:'Prüfen Sie die Meier AG im Handelsregister, bevor wir den Vertrag senden.',
+      connectors:['zefix','mwst','microsoft_mail'],
       steps:[
-        ['microsoft_directory','Gruppe im Verzeichnis nachgeschlagen','Gruppe «Projekt Meier AG»: 5 Mitglieder'],
-        ['microsoft_calendar','Freie Zeiten in Outlook gesucht','Gemeinsam frei: Dienstag, 1. Dezember, 14:00–15:00'],
-        ['microsoft_calendar','Termin in Outlook vorbereitet','Einladung an 5 Personen, wartet auf Freigabe']],
-      result:'Alle 5 Mitglieder sind am Dienstag, 1. Dezember, von 14:00 bis 15:00 frei. Der Termin ist vorbereitet. Soll ich die Einladung senden?' },
-    { id:'vertrieb-teams', title:'Vertrieb', featured:false,
-      prompt:'Sandra fragt in Teams nach dem Stand bei der Meier AG. Antworten Sie ihr.',
-      connectors:['microsoft_teams','salesforce'],
+        ['zefix','Eintrag im Handelsregister gelesen',"Meier AG: aktiv, Aktienkapital CHF 100'000, 2 Personen mit Kollektivunterschrift zu zweien"],
+        ['mwst','MWST-Nummer im UID-Register geprüft','CHE-Nummer mit MWST-Zusatz gültig'],
+        ['microsoft_mail','Mail in Outlook vorbereitet','Vertrag an Ihren Kontakt bei der Meier AG, Entwurf wartet auf Freigabe']],
+      result:'Die Meier AG ist aktiv, und ihre MWST-Nummer ist gültig. Unterschreiben müssen zwei Personen gemeinsam, darauf weist die Mail hin. Soll ich sie senden?' },
+    { id:'kanzlei-zitate', title:'Kanzlei', featured:false,
+      prompt:'Prüfen Sie die Gesetzeszitate in unserem Memo zur Überschuldung.',
+      connectors:['microsoft_files','fedlex','docx'],
       steps:[
-        ['microsoft_teams','Frage in Teams gelesen','Kanal «Vertrieb», Nachricht von Sandra'],
-        ['salesforce','Opportunity in Salesforce gelesen',"«Meier AG – Ausbau»: Phase Verhandlung, CHF 48'000, Abschluss geplant 15. Dezember"],
-        ['microsoft_teams','Antwort in Teams vorbereitet','Antwort an Sandra, wartet auf Freigabe']],
-      result:"Die Opportunity steht in der Verhandlung, Volumen CHF 48'000, geplanter Abschluss am 15. Dezember. Die Antwort an Sandra ist geschrieben. Soll ich sie im Kanal posten?" },
+        ['microsoft_files','Memo in SharePoint gelesen','Memo_Ueberschuldung.docx, 9 Seiten, 6 Gesetzeszitate'],
+        ['fedlex','Zitate in Fedlex geprüft','Art. 725 OR: die Überschuldung steht seit 1.1.2023 in Art. 725b OR'],
+        ['docx','Korrektur im Memo eingetragen','Neue Fassung Memo_Ueberschuldung_v2.docx']],
+      result:'5 von 6 Zitaten stimmen. Die Überschuldung regelt seit 1. Januar 2023 Art. 725b OR und nicht mehr Art. 725. Die Korrektur steht in der neuen Fassung des Memos.' },
     { id:'vertrieb-leads', title:'Marketing', featured:false,
       prompt:'Ergänzen Sie die neuen Leads in HubSpot mit Branche und Website.',
       connectors:['hubspot','websearch'],
@@ -89,13 +89,13 @@
         ['cad','Plan geprüft','Erschliessung in Ordnung, keine Kollisionen, 1 Büro 3 m² unter Vorgabe']],
       result:'Der Grundriss enthält alle 14 Räume. Ein Büro ist 3 m² kleiner als im Raumprogramm verlangt. Das IFC-Modell lässt sich in Archicad und Revit öffnen.' },
     { id:'kommunikation-audio', title:'Kommunikation', featured:false,
-      prompt:'Vertonen Sie unsere Medienmitteilung und laden Sie sie als Podcast-Folge hoch.',
+      prompt:'Vertonen Sie unsere Medienmitteilung und planen Sie einen LinkedIn-Beitrag dazu.',
       connectors:['elevenlabs','zapier'],
       steps:[
         ['elevenlabs','Stimme in ElevenLabs gewählt','Stimme «Deutsch, ruhig» aus Ihrer Bibliothek'],
         ['elevenlabs','Text vertont','Medienmitteilung, 2:40 Minuten'],
-        ['zapier','Aktion in Zapier vorbereitet','«Podcast-Folge hochladen», wartet auf Freigabe']],
-      result:'Die Audiofassung ist 2 Minuten 40 Sekunden lang. Das Hochladen läuft über die Aktion, die Sie in Zapier freigegeben haben. Soll ich sie ausführen?' },
+        ['zapier','Aktion in Zapier vorbereitet','«LinkedIn-Beitrag planen», wartet auf Freigabe']],
+      result:'Die Audiofassung ist 2 Minuten 40 Sekunden lang. Den LinkedIn-Beitrag plane ich über die Aktion, die Sie in Zapier freigegeben haben. Soll ich sie ausführen?' },
     /* DRAFT, not from the approved content: needs the user's approval (gives the Airtable tile a case) */
     { id:'anlass-gaeste', title:'Anlass', featured:false,
       prompt:'Tragen Sie die Anmeldungen zum Kundenanlass in Airtable ein.',
@@ -157,13 +157,13 @@
      in place of its row, as in the app. Title and line under it per case. */
   var ASK = {
     'treuhand-kreditoren':['14 Lieferantenrechnungen in bexio erfassen','14 Rechnungen, total CHF 18\'420.35'],
-    'termin-projektteam':['Einladung in Outlook senden','Dienstag, 1. Dezember, 14:00–15:00, an 5 Personen'],
-    'handelsregister-neukunde':['Mail in Outlook senden','Vertrag an beide Zeichnungsberechtigten'],
+    'termin-projektteam':['Einladung in Outlook senden','Dienstag, 1. Dezember, 14:00–15:00, an das Team'],
+    'handelsregister-neukunde':['Mail in Outlook senden','Vertrag an Ihren Kontakt bei der Meier AG'],
     'npo-stiftungen':['6 Einträge in Notion anlegen','Datenbank «Gesuche»'],
     'npo-newsletter':['29 Kontakte in Mailchimp hinzufügen','Liste «Newsletter», mit Bestätigungsmail'],
     'vertrieb-teams':['Antwort in Teams posten','Kanal «Vertrieb», Antwort an Sandra'],
     'vertrieb-leads':['9 Firmen in HubSpot ergänzen','Branche und Website, je mit Quelle'],
-    'kommunikation-audio':['Aktion in Zapier ausführen','«Podcast-Folge hochladen»'],
+    'kommunikation-audio':['Aktion in Zapier ausführen','«LinkedIn-Beitrag planen»'],
     'anlass-gaeste':['15 Gäste in Airtable anlegen','Basis «Anlässe», Tabelle «Gäste»']
   };
 
@@ -265,7 +265,10 @@
      tile. The wall moves into the content column, after the card, so text, card and
      tiles stay one group. Portrait: two rows, the connectors alternately into the
      first and second, the Swiss tile at the end of the first. Landscape: one row. */
-  var MOBILE_ICONS = ORDER.filter(function (k) { return FEATURED.some(function (c) { return c.connectors.indexOf(k) >= 0; }); });
+  /* phones show the applications people recognise by their logo; generic tools (Word,
+     charts, PDF, CAD, MWST, Fedlex, the register, web search) appear only as steps in the card */
+  var MOBILE_ICONS = ['microsoft_mail', 'bexio', 'microsoft_teams', 'salesforce', 'microsoft_files', 'hubspot', 'microsoft_calendar',
+    'mailchimp', 'notion', 'fundraiso', 'airtable', 'webling', 'zapier'].filter(function (k) { return ORDER.indexOf(k) >= 0; });
   function isStacked() { return window.matchMedia(STACKED).matches; }
   /* face, label and modifier of a tile button: the Swiss tile, the «+» tile or a connector */
   function dressTile(b, icon) {
@@ -304,6 +307,7 @@
     grid.textContent = '';
     tilesByIcon = {};
     hero.classList.toggle('is-stack', !land);
+    sizeCard();   /* measure the card with the phone styles in place */
     if (land) buildLandBand(); else buildStackWall();
     var first = grid.querySelector('button.h-tile'); if (first) first.tabIndex = 0;
     applyLit();
@@ -338,14 +342,19 @@
      the lit tiles of the running case are always in view. The rows the card covers
      carry the other connectors, quiet, and are not buttons. */
   function buildStackWall() {
-    var lower = [[], []];
-    MOBILE_ICONS.forEach(function (k, i) { lower[i % 2 ? 0 : 1].push(k); });
-    lower[0].push('swiss', 'plus');
-    var n = Math.max(lower[0].length, lower[1].length);
+    /* six columns, so the tiles can be larger; the 15 tiles under the card go into three
+       rows of six, with the three free cells spread evenly */
+    var n = 6, L = 3, slots = n * L;
+    var list = MOBILE_ICONS.slice(); list.splice(Math.min(5, list.length), 0, 'swiss'); list.push('plus');
+    var gaps = Math.max(0, slots - list.length), skip = {};
+    /* one free cell per row, shifted from row to row so they do not form a column */
+    for (var q = 0; q < gaps; q++) skip[(q % L) * n + ((3 + q * 2) % n)] = 1;
+    var lower = [], li = 0;
+    for (var rr = 0; rr < L; rr++) { lower.push([]); for (var cc = 0; cc < n; cc++) { var si = rr * n + cc; lower[rr].push(skip[si] || li >= list.length ? null : list[li++]); } }
     var cs = getComputedStyle(inner);
     var avail = inner.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     /* the gap about a quarter of a tile; columns spread to the full width (space-between) */
-    var t = Math.max(30, Math.min(52, Math.floor(avail / (n + (n - 1) * 0.28))));
+    var t = Math.max(30, Math.min(56, Math.floor(avail / (n + (n - 1) * 0.28))));
     var g = Math.max(10, Math.min(14, Math.round(t * 0.28)));
     hero.style.setProperty('--t', t + 'px');
     hero.style.setProperty('--gap', g + 'px');
@@ -353,14 +362,18 @@
     grid.classList.add('is-stack');
     grid.style.gridTemplateColumns = 'repeat(' + n + ',' + t + 'px)';
     if (wall.parentNode !== screen) screen.insertBefore(wall, mcard);
-    /* the card ends one gap above the first free row and starts at least half a tile
-       below the top of the wall */
-    var p = t + g, cardH = mcard.offsetHeight, minPeek = Math.round(t * 0.5), v = 1;
-    while (v * p - g - cardH < minPeek) v++;
-    var top = v * p - g - cardH;
+    /* the card is embedded in the wall: it covers whole rows, from the second row on,
+       and its height is snapped to the grid, so its edges sit on the grid lines */
+    /* the card: as few whole rows as its content needs (two on most phones) */
+    var extra = Math.round(g * 1.5);   /* more room between the card and the first tile row */
+    var p = t + g, kc = Math.max(2, Math.ceil((mcard.offsetHeight + g + extra) / p));
+    /* all tiles under the card: no row above it */
+    var top = 0, v = kc;
     mcard.style.top = top + 'px';
+    /* the card stops a little short of its last row, so the gap to the tiles is about twice a tile gap */
+    mcard.style.height = (kc * p - g - extra) + 'px';
     var k = 0;
-    for (var r = 0; r < v + 2; r++) for (var c = 0; c < n; c++) {
+    for (var r = 0; r < v + L; r++) for (var c = 0; c < n; c++) {
       var cell = document.createElement('div'), d = (r + c) * 90;
       if (r >= v) {
         var icon = lower[r - v][c];
@@ -373,7 +386,7 @@
         sp.setAttribute('aria-hidden', 'true');
         sp.innerHTML = '<span class="h-tile__face"><img src="' + src(o) + '" alt="" draggable="false"></span>';
         cell.className = 'cell'; cell.appendChild(sp);
-      } else cell.className = 'cell cell--empty';
+      } else { cell.className = 'cell cell--empty'; if (r < v) cell.style.visibility = 'hidden'; }   /* under the card: not drawn */
       if (cell.classList.contains('cell--empty')) cell.setAttribute('aria-hidden', 'true');
       grid.appendChild(cell);
     }
@@ -736,14 +749,56 @@
     while ((m = re.exec(s))) { if (!/(^|\s)(\d{1,2}|Art|Nr)$/.test(s.slice(0, m.index))) return s.slice(0, m.index + 1); }
     return s;
   }
+  /* phones: a short version of each request, as the user would type it */
+  var TASK = {
+    'treuhand-kreditoren': 'Erfassen Sie die Rechnungen aus dem Posteingang in bexio.',
+    'finanzen-vr': 'Machen Sie aus den Q3-Zahlen in bexio eine Präsentation.',
+    'handelsregister-neukunde': 'Prüfen Sie die Meier AG, bevor wir den Vertrag mailen.',
+    'kanzlei-zitate': 'Prüfen Sie die Zitate in unserem Memo auf SharePoint.',
+    'npo-stiftungen': 'Suchen Sie Stiftungen und legen Sie sie in Notion an.',
+    'npo-newsletter': 'Nehmen Sie die neuen Webling-Mitglieder in den Newsletter auf.',
+    'termin-projektteam': 'Finden Sie einen Termin mit dem Projektteam Meier AG.',
+    'vertrieb-teams': 'Beantworten Sie Sandras Frage in Teams mit dem Stand aus Salesforce.',
+    'vertrieb-leads': 'Ergänzen Sie die neuen Leads in HubSpot aus dem Web.',
+    'architektur-grundriss': 'Erstellen Sie den Grundriss nach dem Raumprogramm in Excel.',
+    'kommunikation-audio': 'Vertonen Sie die Mitteilung und planen Sie einen LinkedIn-Beitrag.',
+    'anlass-gaeste': 'Tragen Sie die Anmeldungen aus der Mail in Airtable ein.',
+    'formular-lieferant': 'Füllen Sie das Formular mit unseren Registerdaten aus.'
+  };
+  /* phones: a short answer per case, from the figures of the full answer */
+  var ANSWER = {
+    'treuhand-kreditoren': "14 Rechnungen, total CHF 18'420.35.",
+    'finanzen-vr': '6 Folien, Umsatz Q3 CHF 2.41 Mio.',
+    'handelsregister-neukunde': 'Die Meier AG ist aktiv, die Mail ist bereit.',
+    'kanzlei-zitate': '5 von 6 Zitaten stimmen, eines korrigiert.',
+    'npo-stiftungen': '6 passende Stiftungen sind vorbereitet.',
+    'npo-newsletter': '29 Kontakte sind vorbereitet.',
+    'termin-projektteam': 'Dienstag, 14:00–15:00, passt allen 5.',
+    'vertrieb-teams': "Deal in Verhandlung, CHF 48'000. Antwort ist bereit.",
+    'vertrieb-leads': '9 von 12 Firmen sind vorbereitet.',
+    'architektur-grundriss': 'Grundriss mit allen 14 Räumen erstellt.',
+    'kommunikation-audio': 'Audio 2:40 Minuten, Beitrag ist vorbereitet.',
+    'anlass-gaeste': '15 neue Gäste sind vorbereitet.',
+    'formular-lieferant': '14 von 18 Feldern sind ausgefüllt.'
+  };
   function cardHTML(c) {
-    var steps = c.steps.map(function (st, i) {
+    /* each tool once per run: on the phone there are no details that would tell two
+       steps of the same tool apart */
+    /* keep each tool at its LAST step, so the order reads «look up, then act»
+       (Vertrieb: Salesforce, then the answer in Teams) */
+    var uniq = c.steps.filter(function (st, i) { return !c.steps.slice(i + 1).some(function (o) { return o[0] === st[0]; }); });
+    var steps = uniq.map(function (st, i) {
       var gl = st[0] !== 'websearch' && SQUARE.indexOf(st[0]) < 0 ? ' gl' : '';
       return (i ? '<span class="mc__link"></span>' : '') + '<span class="mc__step' + gl + '" title="' + esc(st[1]) + '">' + rowIcon(st[0]) + '<span class="mc__ok">' + CHECK + '</span></span>';
     }).join('');
-    return '<div class="mc__prompt">' + esc(c.prompt) + '</div>' +
-      '<div class="mc__steps">' + steps + '<span class="mc__top">Beispiel · ' + esc(c.title) + '</span></div>' +
-      '<p class="mc__result">' + bold(firstSentence(c.result)) + '</p>';
+    /* symbolic: which example, the request, and the steps checking off; no answer text,
+       the lit tiles around the card tell the rest */
+    /* as in the chat: the request as a bubble on the right; under it the Kontexus mark,
+       which works while the steps run and turns into a check, and the steps; a thin line
+       at the bottom fills with the steps */
+    return '<div class="mc__prompt">' + esc(TASK[c.id] || c.prompt) + '</div>' +
+      '<div class="mc__steps">' + steps + '</div>' +
+      '<p class="mc__result">' + bold(ANSWER[c.id] || firstSentence(c.result)) + '</p>';
   }
   /* fixed height: the largest featured case, so nothing jumps between cases */
   function sizeCard() {
@@ -767,19 +822,28 @@
     if (reduced) {
       steps.forEach(function (st) { st.classList.add('on', 'done'); });
       links.forEach(function (l) { l.classList.add('on'); });
-      L.classList.add('show-result');
+      L.classList.add('p-on', 's-on', 'show-result');
       ev.push({ at: 5000, fn: advance });
     } else {
-      var at = CARD_FIRST;
+      /* first the request, then the steps, then the answer streams in */
+      ev.push({ at: 150, fn: function () { L.classList.add('p-on'); } });
+      ev.push({ at: 750, fn: function () { L.classList.add('s-on'); } });
+      var at = 1000;
       steps.forEach(function (st, i) {
         var a = at;
         ev.push({ at: a, fn: function () { if (i) links[i - 1].classList.add('on'); st.classList.add('on'); } });
         ev.push({ at: a + CARD_CHECK, fn: function () { st.classList.add('done'); } });
         at += CARD_GAP;
       });
-      var tr = at - CARD_GAP + CARD_CHECK + 200;
+      var tr = at - CARD_GAP + CARD_CHECK + 250;
+      var words = streamify(L.querySelector('.mc__result')), t = tr, k = 0, n = 0;
       ev.push({ at: tr, fn: function () { L.classList.add('show-result'); } });
-      ev.push({ at: tr + CARD_HOLD, fn: advance });
+      while (k < words.length) {
+        var size = 2 + (n % 3 === 1 ? 1 : 0), group = words.slice(k, k + size);
+        ev.push({ at: t, fn: (function (g) { return function () { g.forEach(function (w) { w.classList.add('on'); }); }; })(group) });
+        k += size; n++; t += 55 + (n * 37 % 23);
+      }
+      ev.push({ at: t + CARD_HOLD, fn: advance });
     }
     clockRun(ev);
   }
@@ -872,7 +936,7 @@
   /* ---------------- Tile interaction ---------------- */
   function pickCase(icon) {
     var list = casesFor(icon);
-    if (isStacked()) list = list.filter(function (c) { return c.featured; });
+    /* phones: every case of the tapped application can play, not only the loop's */
     if (!list.length) return null;
     var at = current ? list.indexOf(current) : -1;
     return at >= 0 ? list[(at + 1) % list.length] : list[0];

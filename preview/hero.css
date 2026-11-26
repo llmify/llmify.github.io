@@ -44,9 +44,13 @@
 
 #usecases .h-tile {
   all: unset; box-sizing: border-box; display: block; cursor: pointer; pointer-events: auto;
-  width: var(--t); height: var(--t); position: relative; border-radius: 22%;
+  /* drawn 6 % larger than shown and scaled down at rest: the browser draws a tile once and
+     then scales that picture, so the lit state (scale 1.06) is shown at its drawn size and
+     stays sharp, and scaling down at rest stays sharp too. Seen from outside, size, motion
+     and ring are unchanged. */
+  width: calc(var(--t) * 1.06); height: calc(var(--t) * 1.06); margin: calc(var(--t) * -0.03); position: relative; border-radius: 22%;
   /* the wall is flat; only a single tile tilts, with its own perspective */
-  transform: perspective(520px) translate3d(0, var(--y, 0px), var(--z, 0px)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--s, 1));
+  transform: perspective(520px) translate3d(0, var(--y, 0px), var(--z, 0px)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(calc(var(--s, 1) / 1.06));
   transition: transform .55s cubic-bezier(.2,.7,.2,1);
 }
 #usecases .h-tile.is-tracking { transition: transform .16s ease-out; }
@@ -72,7 +76,7 @@
    the tile), so it hugs the logo with no gap between logo and ring */
 #usecases .h-tile::before {
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 1;
-  box-shadow: 0 0 0 2px var(--accent), 0 0 0 6px rgba(54,116,217,.13), 0 16px 30px -12px rgba(54,116,217,.5);
+  box-shadow: inset 0 0 0 1px var(--accent), 0 0 0 2px var(--accent), 0 0 0 6px rgba(54,116,217,.13), 0 16px 30px -12px rgba(54,116,217,.5);
   opacity: 0; transition: opacity .5s ease;
 }
 /* hover: the tile lifts toward the viewer and casts a deeper shadow */
@@ -284,7 +288,7 @@
   #usecases .band { display: flex; justify-content: center; gap: var(--gap); }
   /* a larger hit area than the tile itself, but no larger than half the gap */
   #usecases .band .h-tile::after { content: ""; position: absolute; inset: calc(var(--gap) / -2); }
-  #usecases .band .h-tile::before { box-shadow: 0 0 0 2px var(--accent), 0 0 0 5px rgba(54,116,217,.13), 0 10px 20px -10px rgba(54,116,217,.5); }
+  #usecases .band .h-tile::before { box-shadow: inset 0 0 0 1px var(--accent), 0 0 0 2px var(--accent), 0 0 0 5px rgba(54,116,217,.13), 0 10px 20px -10px rgba(54,116,217,.5); }
   #usecases .band .h-tile__face { box-shadow: 0 1px 2px rgba(20,24,34,.06), 0 5px 12px -8px rgba(20,24,34,.3); }
 
   /* the symbolic example: prompt, the step icons with a check each, the first sentence of the answer */
@@ -327,11 +331,54 @@
   #usecases .mc__link.on { opacity: 1; }
 
   #usecases .hero.is-stack .screen { position: relative; }
-  #usecases .hero.is-stack .mcard { position: absolute; left: 0; right: 0; z-index: 2; }
+  #usecases .hero.is-stack .mcard { position: absolute; left: 0; right: 0; z-index: 2; border-radius: 18px; box-shadow: 0 1px 2px rgba(20,24,34,.05), 0 10px 24px -18px rgba(20,24,34,.3); }
+  /* the symbolic card: label, the request as plain text, the steps */
+  #usecases .is-stack .mc { padding: 9px 14px 11px; gap: 8px; justify-content: center; }
+  #usecases .is-stack .mc__steps { height: 30px; }
+  #usecases .is-stack .mc__step { width: 30px; height: 30px; }
+  #usecases .is-stack .mc__link { flex-basis: 16px; margin: 0 7px; }
+  /* narrow phones: a tighter card, so two rows still hold it */
+  @media (max-width: 380px) {
+    #usecases .is-stack .mc { padding: 9px 12px 10px; gap: 10px; }
+    #usecases .is-stack .mc__steps { height: 30px; }
+    #usecases .is-stack .mc__step { width: 28px; height: 28px; }
+    #usecases .is-stack .mc__prompt { font-size: 15px; }
+  }
+  #usecases .is-stack .mc__top { margin-left: auto; padding-left: 10px; }
+  /* the request: a chat bubble on the right, as in the app */
+  #usecases .is-stack .mc__prompt { align-self: flex-end; max-width: 92%; background: var(--k-bubble); border-radius: 14px; padding: 6px 12px; font-size: 14.5px; font-weight: 500; line-height: 1.35;
+    display: block; }
+  /* the Kontexus mark: it beats while working, then becomes a check */
+  #usecases .mc__mark { position: relative; flex: none; width: 22px; height: 22px; margin-right: 12px; }
+  #usecases .mc__mark > svg { width: 22px; height: 22px; display: block; overflow: visible; transition: opacity .25s ease, transform .25s ease; }
+  #usecases .mc__done { position: absolute; inset: 0; border-radius: 50%; background: var(--accent); display: grid; place-items: center;
+    opacity: 0; transform: scale(.4); transition: opacity .3s ease, transform .3s cubic-bezier(.2,.7,.2,1); }
+  #usecases .mc__done svg { width: 12px; height: 12px; }
+  #usecases .mc.is-working .kxm__spin, #usecases .mc.is-working .kxm__arm, #usecases .mc.is-working .kxm__core {
+    animation-duration: .85s; animation-timing-function: cubic-bezier(.65,0,.35,1); animation-iteration-count: infinite; }
+  #usecases .mc.is-working .kxm__spin { animation-name: kxTurn; }
+  #usecases .mc.is-working .kxm__arm { animation-name: kxFlare; }
+  #usecases .mc.is-working .kxm__core { animation-name: kxCore; }
+  #usecases .mc.is-done .mc__mark > svg { opacity: 0; transform: scale(.6); }
+  #usecases .mc.is-done .mc__done { opacity: 1; transform: none; }
+  /* the progress line along the bottom edge */
+  #usecases .mc__bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgba(54,116,217,.1); }
+  #usecases .mc__fill { position: absolute; inset: 0; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+  @media (prefers-reduced-motion: reduce) {
+    #usecases .mc.is-working .kxm__spin, #usecases .mc.is-working .kxm__arm, #usecases .mc.is-working .kxm__core { animation: none; }
+    #usecases .mc__fill, #usecases .mc__done, #usecases .mc__mark > svg { transition: opacity .2s ease; }
+  }
+  /* the order on phones: logo and headline, the wall with the card, then the sentence,
+     so the text does not widen line by line like a pyramid */
+  #usecases .hero.is-stack .hero__inner { display: flex; flex-direction: column; }
+  #usecases .hero.is-stack .copy { display: contents; }
+  #usecases .hero.is-stack .copy h1 { order: 0; }
+  #usecases .hero.is-stack .screen { order: 1; margin-top: 6px; }
+  #usecases .hero.is-stack .sub { order: 2; margin-top: 22px; }
   #usecases .wall__grid.is-stack { position: static; display: grid; grid-auto-rows: var(--t);
     justify-content: space-between; row-gap: var(--gap); column-gap: 0; }
   #usecases .is-stack .h-tile::after { content: ""; position: absolute; inset: calc(var(--gap) / -2); }
-  #usecases .is-stack .h-tile::before { box-shadow: 0 0 0 2px var(--accent), 0 0 0 5px rgba(54,116,217,.13), 0 10px 20px -10px rgba(54,116,217,.5); }
+  #usecases .is-stack .h-tile::before { box-shadow: inset 0 0 0 1px var(--accent), 0 0 0 2px var(--accent), 0 0 0 5px rgba(54,116,217,.13), 0 10px 20px -10px rgba(54,116,217,.5); }
   #usecases .is-stack .h-tile__face { box-shadow: 0 1px 2px rgba(20,24,34,.06), 0 5px 12px -8px rgba(20,24,34,.3); }
   #usecases .h-tile--deco { pointer-events: none; cursor: default; }
   #usecases .h-tile--deco::after { content: none; }
@@ -371,4 +418,40 @@
   #usecases .spin svg, #usecases .step.running .step__t, #usecases .step.running .kxm__spin, #usecases .step.running .kxm__arm, #usecases .step.running .kxm__core { animation: none; }
   #usecases .tip { transition: opacity .15s ease; transform: translate3d(var(--tx,0), var(--ty,0), 0); }
   #usecases .mc__step, #usecases .mc__ok { transform: none !important; }
+}
+
+/* phones: the card looks like the app (its main background, the bubble, plain answer text),
+   and its texts are short enough that nothing is cut */
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  #usecases .hero.is-stack .mcard { background: var(--k-main); }
+  #usecases .is-stack .mc__result { -webkit-line-clamp: unset; line-clamp: none; display: block; font-size: 13.5px; }
+}
+@media (max-width: 380px) {
+  #usecases .is-stack .mc { padding: 8px 11px 9px; gap: 6px; }
+  #usecases .is-stack .mc__prompt { font-size: 13.5px; padding: 5px 11px; }
+  #usecases .is-stack .mc__steps { height: 26px; }
+  #usecases .is-stack .mc__step { width: 24px; height: 24px; }
+  #usecases .is-stack .mc__result { font-size: 13px; line-height: 1.4; }
+}
+
+/* phones: the request fades in first, then the steps, then the answer streams in word by
+   word; a little more room at the top of the card */
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  #usecases .is-stack .mc { padding-top: 13px; }
+  #usecases .is-stack .mc__prompt { opacity: 0; transform: translateY(4px); transition: opacity .35s ease, transform .35s cubic-bezier(.2,.7,.2,1); }
+  #usecases .is-stack .mc.p-on .mc__prompt { opacity: 1; transform: none; }
+  #usecases .is-stack .mc__steps { opacity: 0; transition: opacity .35s ease; }
+  #usecases .is-stack .mc.s-on .mc__steps { opacity: 1; }
+  #usecases .is-stack .mc__result .w { opacity: 0; transition: opacity .25s ease; }
+  #usecases .is-stack .mc__result .w.on { opacity: 1; }
+  #usecases .is-stack .mc.is-probe .mc__prompt, #usecases .is-stack .mc.is-probe .mc__steps, #usecases .is-stack .mc.is-probe .mc__result .w { opacity: 1; }
+}
+@media (max-width: 380px) { #usecases .is-stack .mc { padding-top: 11px; } }
+@media (prefers-reduced-motion: reduce) {
+  #usecases .is-stack .mc__prompt, #usecases .is-stack .mc__steps { transform: none; transition: opacity .2s ease; }
+}
+/* phones: the free height of the card is shared evenly above, between and below the
+   request, the steps and the answer, instead of collecting at the top and bottom */
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  #usecases .is-stack .mc { justify-content: space-evenly; gap: 4px; padding-top: 6px; padding-bottom: 6px; }
 }
