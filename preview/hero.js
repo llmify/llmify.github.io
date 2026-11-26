@@ -349,7 +349,9 @@
        free cells are spread so they form neither a row nor a column */
     var list = MOBILE_ICONS.slice(), skip = {}, fixed = {};
     fixed[n - 1] = 'swiss';
-    [2, n + 4, 2 * n + 1, 2 * n + 5].forEach(function (i) { skip[i] = 1; });
+    /* the free cells take the remaining tools of the loop's examples, so every step of
+       those examples lights a tile */
+    FEATURED.forEach(function (c) { c.connectors.forEach(function (k) { if (list.indexOf(k) < 0 && k !== 'swiss') list.push(k); }); });
     var lower = [], li = 0;
     for (var rr = 0; rr < L; rr++) { lower.push([]); for (var cc = 0; cc < n; cc++) { var si = rr * n + cc; lower[rr].push(fixed[si] || (skip[si] || li >= list.length ? null : list[li++])); } }
     var cs = getComputedStyle(inner);
