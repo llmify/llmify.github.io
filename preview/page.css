@@ -315,11 +315,38 @@ main > .section:last-child { padding-bottom: var(--section); }
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   /* the same grid as the hero's wall: pitch, columns and rows come from hero.js
      (--wall-p, --wall-x, --wall-y); tile 80 % of the pitch, corners 22 % */
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><rect x='0.5' y='0.5' width='79' height='79' rx='17.6' fill='%23141822' fill-opacity='.018' stroke='%23141822' stroke-opacity='.05' vector-effect='non-scaling-stroke'/></svg>");
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><rect x='0.5' y='0.5' width='79' height='79' rx='17.6' fill='%23ffffff' fill-opacity='.4' stroke='%23141822' stroke-opacity='.06' vector-effect='non-scaling-stroke'/></svg>");
   background-size: var(--wall-p, 80px) var(--wall-p, 80px); background-position: var(--wall-x, 0px) var(--wall-y, 0px);
+  /* only whole rows: start at the first row that begins inside the section (the row across
+     the hero's edge is drawn by the hero) */
+  top: var(--wall-y, 0px); background-position-y: 0;
 }
 #produkt::before { -webkit-mask-image: radial-gradient(ellipse 30% 45% at 6% 18%, #000 0%, transparent 100%); mask-image: radial-gradient(ellipse 30% 45% at 6% 18%, #000 0%, transparent 100%); }
 #preise::before { -webkit-mask-image: radial-gradient(ellipse 28% 40% at 96% 30%, #000 0%, transparent 100%); mask-image: radial-gradient(ellipse 28% 40% at 96% 30%, #000 0%, transparent 100%); }
 /* FAQ: only a small patch at its top right, so the grid is gone before the mountains */
 #faq::before { -webkit-mask-image: radial-gradient(ellipse 22% 28% at 97% 8%, #000 0%, transparent 100%); mask-image: radial-gradient(ellipse 22% 28% at 97% 8%, #000 0%, transparent 100%); }
 @media (max-width: 760px) { #produkt::before, #preise::before, #faq::before { background-size: 56px 56px; } }
+
+/* ---------- Über LLMify: three calm tiles, no hover (they are facts, not controls) ---------- */
+.about { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 760px; }
+.about__tile { background: var(--panel); border: 1px solid var(--tile-line); border-radius: var(--r-card); box-shadow: var(--card-shadow);
+  padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+.about__tile p { color: var(--muted); font-size: .975rem; line-height: 1.55; }
+.about__tile a { color: var(--accent); }
+.about__logo { height: 30px; width: auto; align-self: flex-start; }
+.about__eth { height: 52px; width: auto; align-self: flex-start; margin-left: -12px; }
+@media (max-width: 900px) { .about { grid-template-columns: 1fr; max-width: 560px; } }
+
+/* ---------- Nav: always there, the hero starts below it ----------
+   The bar is sticky in the page flow with its light background and the LLMify logo top
+   left; the hero fills the rest of the screen, so nothing lies over the tile wall. */
+.nav { position: sticky; top: 0; transform: none; visibility: visible; }
+/* body … : more specific than hero.css, which loads after this file */
+body #usecases .hero { height: calc(100vh - var(--nav-h)); }
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  body #usecases .hero { height: calc(100vh - var(--nav-h)); height: calc(100svh - var(--nav-h)); }
+}
+@media (max-width: 760px) {
+  /* the nav takes some height: slightly tighter gaps in the phone hero */
+  body #usecases .hero.is-stack .hero__inner { gap: clamp(8px, 2.2svh, 30px); }
+}

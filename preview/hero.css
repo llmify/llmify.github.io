@@ -27,7 +27,7 @@
 }
 
 /* ---------- Hero frame ---------- */
-#usecases .hero { position: relative; overflow: hidden; overflow: clip; min-height: 680px; height: 100vh; isolation: isolate; }
+#usecases .hero { position: relative; overflow: hidden; overflow-x: clip; overflow-y: visible;   /* the wall's last row may run over the bottom edge, the section grid continues it */ min-height: 680px; height: 100vh; isolation: isolate; }
 /* large screens: text and window grow in steps, so they do not sit small in the middle
    of a wide wall (zoom scales layout and text together; the tiles size themselves) */
 @media (min-width: 1800px) and (min-height: 820px) { #usecases .hero__inner { zoom: 1.12; } }
@@ -120,7 +120,7 @@
 #usecases .h-tile.is-case:hover .h-tile__face { box-shadow: 0 2px 4px rgba(20,24,34,.08), 0 22px 30px -14px rgba(20,24,34,.45); }
 
 /* bottom edge fade */
-#usecases .veil { position: absolute; inset: 0; pointer-events: none; z-index: 1;
+#usecases .veil { display: none; position: absolute; inset: 0; pointer-events: none; z-index: 1;
   background: linear-gradient(to bottom, rgba(251,251,250,0) calc(100% - 36px), var(--bg) 100%); }
 
 /* ---------- Content layer ---------- */
@@ -132,7 +132,7 @@
 #usecases .copy, #usecases .screen { pointer-events: auto; }
 #usecases .copy { max-width: 470px; margin-left: clamp(0px, 2.5vw, 48px); }   /* a little right of the column start, so tiles have room on its left */
 #usecases .copy h1 { margin: 0; font-weight: inherit; }
-#usecases .logo { width: min(290px, 100%); height: auto; display: block; margin: 0 0 34px; overflow: visible; }
+#usecases .logo { width: min(330px, 100%); height: auto; display: block; margin: 0 0 34px; overflow: visible; }
 #usecases .kx-arm { stroke-dasharray: 18; stroke-dashoffset: 0; }
 #usecases .kx-dot { transform-box: fill-box; transform-origin: center; }
 #usecases .kx-glow { opacity: 0; transform-box: fill-box; transform-origin: center; }
@@ -275,7 +275,7 @@
   #usecases .hero__inner { display: flex; flex-direction: column; justify-content: center; align-items: stretch; gap: clamp(14px, 3.4svh, 34px);
     height: 100%; max-width: 560px; padding: 16px; }
   #usecases .copy { max-width: none; margin-left: 0; }
-  #usecases .logo { width: 160px; margin-bottom: clamp(10px, 2.2svh, 20px); }
+  #usecases .logo { width: 180px; margin-bottom: clamp(10px, 2.2svh, 20px); }
   #usecases .tagline { font-size: 1.75rem; line-height: 1.1; margin-bottom: 10px; }
   #usecases .sub { font-size: .95rem; line-height: 1.5; margin-bottom: clamp(14px, 2.6svh, 24px); }
   #usecases .ctas { gap: 8px; }
