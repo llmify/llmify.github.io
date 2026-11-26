@@ -33,7 +33,7 @@
   --bg:#fbfbfa; --panel:#ffffff;
   --line:rgba(20,24,34,.13); --line-soft:rgba(20,24,34,.08);
   --text:#1c1e24; --muted:#5b6270; --faint:#9096a1;
-  --accent:#3674d9; --accent-2:#7454e0;
+  --accent:#3674d9; --accent-2:#6BA5F2;   /* light brand blue (style guide), no violet */
   --font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
   --display:"Space Grotesk",var(--font);
   --radius:18px;
