@@ -455,3 +455,5 @@
 @media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
   #usecases .is-stack .mc { justify-content: space-evenly; gap: 4px; padding-top: 6px; padding-bottom: 6px; }
 }
+/* the Salesforce cloud is wide and flat: give it more of the tile than the other glyphs */
+#usecases .h-tile[data-icon="salesforce"] .h-tile__face img { width: 78%; height: 78%; }
