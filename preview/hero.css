@@ -458,3 +458,12 @@
 }
 /* the Salesforce cloud is wide and flat: give it more of the tile than the other glyphs */
 #usecases .h-tile[data-icon="salesforce"] .h-tile__face img { width: 78%; height: 78%; }
+/* faded tiles with a coloured plate of their own (bexio, Zapier, PowerPoint …) turn into
+   grey squares, dark ones into dark grey: lift their grey and fade them a little more,
+   so they recede as far as the white tiles */
+#usecases .wall.is-running .h-tile--sq:not(.is-case):not(.h-tile--flag):not(.h-tile--plus) .h-tile__face { opacity: .15; filter: grayscale(1) contrast(.6) brightness(1.3); }
+#usecases .wall.is-running .h-tile--sq:not(.is-case):not(.h-tile--flag):not(.h-tile--plus):hover .h-tile__face,
+#usecases .wall.is-running .h-tile--sq:not(.is-case):not(.h-tile--flag):not(.h-tile--plus):focus-visible .h-tile__face { opacity: 1; filter: none; }
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  #usecases .wall.is-running .h-tile--sq:not(.is-case):not(.h-tile--flag):not(.h-tile--plus):hover:not(:focus-visible) .h-tile__face { opacity: .15; filter: grayscale(1) contrast(.6) brightness(1.3); }
+}
