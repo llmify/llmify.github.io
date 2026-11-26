@@ -341,12 +341,20 @@ main > .section:last-child { padding-bottom: var(--section); }
    The bar is sticky in the page flow with its light background and the LLMify logo top
    left; the hero fills the rest of the screen, so nothing lies over the tile wall. */
 .nav { position: sticky; top: 0; transform: none; visibility: visible; }
-/* body … : more specific than hero.css, which loads after this file */
-body #usecases .hero { height: calc(100vh - var(--nav-h)); }
+/* desktop: the hero keeps its full screen height and simply sits below the bar.
+   Phones: the hero fills the rest of the screen under the bar, so it still fits one screen
+   (body … : more specific than hero.css, which loads after this file) */
 @media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
   body #usecases .hero { height: calc(100vh - var(--nav-h)); height: calc(100svh - var(--nav-h)); }
 }
 @media (max-width: 760px) {
   /* the nav takes some height: slightly tighter gaps in the phone hero */
   body #usecases .hero.is-stack .hero__inner { gap: clamp(8px, 2.2svh, 30px); }
+}
+
+
+/* desktop: the hero is a full screen tall but starts below the bar, so its middle sits half a
+   bar lower than the middle of what is visible; lift text and window by that much */
+@media (min-width: 761px) and (min-height: 501px) {
+  body #usecases .hero__inner { padding-bottom: calc(64px + var(--nav-h)); }
 }
