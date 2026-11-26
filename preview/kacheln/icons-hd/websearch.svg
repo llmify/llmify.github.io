@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Web search">
+  <desc>Globe — live web research</desc>
+  <!-- A plain globe. The capability is named for what it does, not for the search
+       vendor behind it, so the mark carries no brand and no colour of its own: the
+       slate plate is the same one the other own-artwork marks use (see finance.svg),
+       which keeps the plugin list looking like one set.
+
+       This asset serves the CARD only. In the chat transcript a web-search step
+       draws the monochrome heroicons globe instead (Message.tsx, ToolIcon
+       `web_search`) — a glyph there takes the row's own colour on both themes and
+       can be spun while the call is in flight, neither of which an <img> can do.
+
+       Three strokes, nothing finer: at card size there is room, but keep it simple
+       enough that the same shape stays readable if it is ever reused small. -->
+  <rect width="48" height="48" rx="11" fill="#0F172A"/>
+  <g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="24" cy="24" r="13"/>
+    <path d="M11 24h26"/>
+    <!-- The meridian: a flattened ellipse read as the sphere turning away. -->
+    <path d="M24 11a19 19 0 0 0 0 26a19 19 0 0 0 0 -26"/>
+  </g>
+</svg>
