@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontexus – der KI-Arbeitsplatz aus der Schweiz (Prototyp)</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Prototyp der Startseite von llmify.ch in der Kachelsprache des neuen Hero.">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preload" href="fonts/Manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="page.css">
+<link rel="stylesheet" href="hero.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://llmify.ch/#faq",
+  "inLanguage": "de-CH",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Was ist Kontexus?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kontexus ist der KI-Arbeitsplatz der LLMify AG aus Cham. Er erledigt wiederkehrende Büroarbeit direkt in Ihren Anwendungen, zum Beispiel in bexio, Microsoft 365 oder Salesforce, und arbeitet mit Ihren Word-, Excel- und PDF-Dateien."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ist Kontexus eine Schweizer KI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kontexus wird von der LLMify AG in Cham entwickelt und in der Schweiz betrieben. Das Schweizer KI-Modell ist ein frei verfügbares Modell (Open Weight): Wir haben es nicht selbst trainiert, betreiben es aber selbst in der Schweiz. Für den Datenschutz ist das der entscheidende Punkt, denn Ihre Daten verlassen die Schweiz damit nicht."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was ist der Unterschied zu ChatGPT oder Microsoft Copilot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kontexus läuft in der Schweiz und arbeitet mit Ihren Daten und in Ihren Programmen. Solche Unterlagen, etwa Rechnungen, Verträge oder Adresslisten, lassen sich oft nicht einfach in ChatGPT eingeben. Kontexus liest sie dort, wo sie bei Ihnen liegen, über die Programme verschiedener Anbieter hinweg. Mit dem Schweizer KI-Modell bleiben sie in der Schweiz, und bevor etwas rausgeht, fragt Kontexus nach."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mit welcher Software arbeitet Kontexus?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mit Schweizer Software wie bexio, Zefix und den Abfragen zur MWST, mit Microsoft 365 (Outlook, Kalender, Teams, OneDrive und SharePoint), mit Salesforce, HubSpot, Mailchimp, Notion und weiteren Diensten sowie mit Word-, Excel-, PowerPoint- und PDF-Dateien. Nutzen Sie ein anderes System, besprechen wir die Anbindung gern."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wo liegen unsere Daten?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kontexus läuft in der Schweiz. Standard ist das Schweizer Modell: Es rechnet in der Schweiz, und Ihre Daten bleiben hier. Ein Frontier-Modell eines internationalen Anbieters ist optional und für Ihre Firma abschaltbar; die Regel «Nur Schweizer Modelle» sperrt Modelle im Ausland für alle Mitglieder. Binden Sie einen Dienst mit Servern im Ausland an, zum Beispiel Salesforce oder HubSpot, gehen die Daten, die Sie damit bearbeiten, an diesen Anbieter."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Verschickt Kontexus etwas, ohne zu fragen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nein. Bevor Kontexus in eine Anwendung schreibt oder etwas versendet, fragt es nach. Eine E-Mail zum Beispiel wartet auf Ihre Freigabe, und Sie lassen sie zu oder lehnen sie ab."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was kostet Kontexus?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start kostet CHF 60, Team CHF 120 und Pro CHF 200 pro Nutzer und Monat, exkl. MwSt. Enterprise mit eigener Cloud-Instanz oder On-Premise gibt es auf Anfrage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie fangen wir an?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sie registrieren sich auf kontexus.ch und wählen eine Stufe. Für Enterprise oder Fragen zur Einführung schreiben Sie uns."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- ======================= NAV ======================= -->
+<!-- Hidden while the hero is in view (page.js sets .is-shown once it has scrolled away). -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <!-- #top matches no element, so the browser scrolls to the top of the page -->
+    <a href="#top" class="nav__logo" aria-label="LLMify — Startseite">
+      <img src="../assets/full_logo_black.png" alt="LLMify" width="2487" height="584">
+    </a>
+    <nav class="nav__links" aria-label="Hauptnavigation">
+      <a href="#usecases">Use Cases</a>
+      <a href="#produkt">Produkt</a>
+      <a href="#preise">Preise</a>
+    </nav>
+    <div class="langsw" aria-label="Sprache"><a href="./" class="is-active" aria-current="true">DE</a><a href="../fr/" lang="fr">FR</a><a href="../it/" lang="it">IT</a><a href="../en/" lang="en">EN</a></div>
+  </div>
+</header>
+
+<main>
+  <!-- ======================= HERO ======================= -->
+  <!-- Taken from variant-c.html, then changed for this page (styles in hero.css, script in hero.js).
+       #usecases stays the hero's anchor; #integrationen is an old anchor. -->
+  <section class="hero-wrap" id="usecases" aria-labelledby="hero-title">
+    <span id="integrationen"></span>
+    <div class="hero" id="hero">
+      <div class="hero__inner">
+        <div class="copy" id="copy">
+          <h1 id="hero-title">
+            <!-- Lockup as in the app (public/images/logo.svg): outlined wordmark, no font needed -->
+            <svg class="logo" viewBox="-327.798 -86.53 504.823 112.16" role="img" aria-label="Kontexus">
+              <defs>
+                <linearGradient id="kxgrad-hero" gradientUnits="userSpaceOnUse" x1="-36" y1="-36" x2="36" y2="36">
+                  <stop offset="0" stop-color="#6B9FFF"/><stop offset="1" stop-color="#6BA5F2"/>
+                </linearGradient>
+                <radialGradient id="kxglow-hero"><stop offset="0" stop-color="#6B9FFF" stop-opacity="0.45"/><stop offset="1" stop-color="#6B9FFF" stop-opacity="0"/></radialGradient>
+              </defs>
+              <g transform="translate(0,-30.45) scale(1.28)">
+                <circle class="kx-glow" cx="0" cy="0" r="26" fill="url(#kxglow-hero)"/>
+              </g>
+              <g class="kx-word"><path fill="#2A2A2A" transform="translate(-322.06,0)" d="M19.467 -16.051V-33.551H21.675L39.622 -54.59H56.448L32.837 -27.236H29.423ZM6.263 0V-72.754H20.808V0ZM40.344 0 23.905 -23.987 33.629 -34.31 57.509 0ZM87.117 1.068Q78.917 1.068 72.924 -2.46Q66.931 -5.989 63.69 -12.324Q60.448 -18.658 60.448 -27.057Q60.448 -35.524 63.69 -41.87Q66.931 -48.216 72.924 -51.745Q78.917 -55.273 87.117 -55.273Q95.339 -55.273 101.317 -51.745Q107.296 -48.216 110.537 -41.87Q113.779 -35.524 113.779 -27.057Q113.779 -18.658 110.537 -12.324Q107.296 -5.989 101.317 -2.46Q95.339 1.068 87.117 1.068ZM87.117 -10.397Q91.053 -10.397 93.697 -12.581Q96.341 -14.765 97.661 -18.549Q98.981 -22.334 98.981 -27.109Q98.981 -31.932 97.661 -35.701Q96.341 -39.469 93.697 -41.639Q91.053 -43.808 87.117 -43.808Q83.178 -43.808 80.544 -41.639Q77.909 -39.469 76.589 -35.712Q75.269 -31.955 75.269 -27.109Q75.269 -22.334 76.589 -18.549Q77.909 -14.765 80.544 -12.581Q83.178 -10.397 87.117 -10.397ZM137.095 -31.626V0H122.55V-54.59H136.287L136.517 -40.969H135.633Q137.786 -47.811 142.167 -51.542Q146.548 -55.273 153.449 -55.273Q159.123 -55.273 163.338 -52.808Q167.553 -50.344 169.885 -45.739Q172.218 -41.135 172.218 -34.72V0H157.673V-32.198Q157.673 -37.305 155.038 -40.208Q152.403 -43.111 147.753 -43.111Q144.651 -43.111 142.239 -41.752Q139.827 -40.393 138.461 -37.835Q137.095 -35.276 137.095 -31.626ZM210.29 -54.59V-43.492H177.971V-54.59ZM185.5 -67.578H200.045V-15.949Q200.045 -13.324 201.21 -12.08Q202.375 -10.837 205.038 -10.837Q205.894 -10.837 207.396 -11.045Q208.897 -11.253 209.686 -11.448L211.778 -0.526Q209.347 0.195 206.953 0.478Q204.558 0.761 202.357 0.761Q194.162 0.761 189.831 -3.22Q185.5 -7.202 185.5 -14.669ZM242.99 1.068Q234.639 1.068 228.59 -2.357Q222.542 -5.782 219.299 -12.08Q216.056 -18.379 216.056 -27.011Q216.056 -35.435 219.277 -41.793Q222.499 -48.151 228.391 -51.712Q234.283 -55.273 242.25 -55.273Q247.581 -55.273 252.219 -53.574Q256.857 -51.874 260.365 -48.442Q263.872 -45.011 265.845 -39.812Q267.818 -34.613 267.818 -27.59V-23.487H222.064V-32.672H260.722L253.924 -30.197Q253.924 -34.479 252.615 -37.642Q251.307 -40.806 248.738 -42.552Q246.17 -44.298 242.353 -44.298Q238.537 -44.298 235.877 -42.529Q233.217 -40.76 231.828 -37.734Q230.439 -34.708 230.439 -30.861V-24.399Q230.439 -19.641 232.033 -16.403Q233.627 -13.164 236.517 -11.536Q239.406 -9.908 243.22 -9.908Q245.795 -9.908 247.9 -10.641Q250.005 -11.374 251.52 -12.813Q253.036 -14.252 253.828 -16.361L266.991 -13.914Q265.669 -9.398 262.409 -6.026Q259.148 -2.655 254.24 -0.793Q249.331 1.068 242.99 1.068Z"/></g>
+              <g class="kx-word"><path fill="#2A2A2A" transform="translate(52.03,0)" d="M25.054 0.684Q19.407 0.684 15.167 -1.781Q10.927 -4.246 8.595 -8.862Q6.263 -13.478 6.263 -19.87V-54.59H20.808V-22.391Q20.808 -17.285 23.454 -14.382Q26.1 -11.479 30.75 -11.479Q33.879 -11.479 36.266 -12.838Q38.654 -14.197 40.02 -16.78Q41.385 -19.362 41.385 -22.964V-54.59H55.953V0H42.194L41.987 -13.621H42.847Q40.671 -6.733 36.267 -3.025Q31.864 0.684 25.054 0.684ZM88.61 1.068Q82.035 1.068 76.965 -0.814Q71.895 -2.696 68.687 -6.269Q65.479 -9.841 64.528 -14.892L78.09 -17.231Q79.158 -13.413 81.847 -11.508Q84.537 -9.602 89.031 -9.602Q93.24 -9.602 95.687 -11.214Q98.134 -12.826 98.134 -15.288Q98.134 -17.445 96.403 -18.82Q94.672 -20.194 91.06 -20.94L81.667 -22.881Q73.778 -24.509 69.88 -28.377Q65.981 -32.245 65.981 -38.37Q65.981 -43.602 68.838 -47.386Q71.695 -51.169 76.831 -53.221Q81.967 -55.273 88.841 -55.273Q95.312 -55.273 100.033 -53.485Q104.755 -51.697 107.661 -48.445Q110.568 -45.192 111.581 -40.739L98.67 -38.454Q97.806 -41.254 95.44 -43.038Q93.074 -44.821 89.071 -44.821Q85.433 -44.821 82.977 -43.288Q80.52 -41.755 80.52 -39.244Q80.52 -37.176 82.108 -35.747Q83.696 -34.318 87.574 -33.506L97.356 -31.553Q105.27 -29.951 109.133 -26.303Q112.995 -22.655 112.995 -16.807Q112.995 -11.451 109.871 -7.431Q106.746 -3.41 101.252 -1.171Q95.758 1.068 88.61 1.068Z"/></g>
+              <g transform="translate(0,-30.45) scale(1.28)">
+                <g stroke="url(#kxgrad-hero)" stroke-width="9.67" stroke-linecap="round" fill="none">
+                  <line class="kx-arm" x1="15.322" y1="-15.322" x2="27.542" y2="-27.542"/>
+                  <line class="kx-arm" x1="15.322" y1="15.322" x2="27.542" y2="27.542"/>
+                  <line class="kx-arm" x1="-15.322" y1="15.322" x2="-27.542" y2="27.542"/>
+                  <line class="kx-arm" x1="-15.322" y1="-15.322" x2="-27.542" y2="-27.542"/>
+                </g>
+                <circle class="kx-dot" cx="0" cy="0" r="8.954" fill="url(#kxgrad-hero)"/>
+              </g>
+              <g transform="translate(0,-30.45) scale(1.28)">
+                <circle class="kx-spark" data-sx="36" data-sy="-36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+                <circle class="kx-spark" data-sx="36" data-sy="36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+                <circle class="kx-spark" data-sx="-36" data-sy="36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+                <circle class="kx-spark" data-sx="-36" data-sy="-36" cx="0" cy="0" r="3.1" fill="#6B9FFF"/>
+              </g>
+            </svg>
+            <span class="tagline" style="display:block">Souveräne KI,<br> <span class="h-grad">die mitarbeitet.</span></span>
+          </h1>
+          <p class="sub">Kontexus arbeitet direkt in Ihren Anwendungen und Dateien. Betrieben in der Schweiz.</p>
+          <div class="ctas">
+            <a class="h-btn h-btn--primary" href="#preise">Preise ansehen
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            <a class="h-btn h-btn--ghost" href="#produkt">So arbeitet Kontexus</a>
+          </div>
+        </div>
+
+        <div class="screen" id="screen">
+          <div class="frame" role="region" aria-label="Beispiel: Kontexus erledigt einen Auftrag" aria-roledescription="Beispielablauf">
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="url">kontexus.ch</span></div>
+            <div class="stagebody" id="stagebody"></div>
+            <div class="composer" aria-hidden="true">
+              <span class="composer__btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="composer__ph">Womit kann ich helfen?</span>
+              <span class="composer__btn composer__send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </div>
+          <div class="mcard" id="mcard" role="region" aria-label="Beispiel: Kontexus erledigt einen Auftrag" aria-roledescription="Beispielablauf"></div>
+          <div class="picker" id="picker" role="group" aria-label="Beispiel wählen"></div>
+        </div>
+      </div>
+
+      <!-- After the content in the DOM, so Tab reaches the buttons first. One tab stop;
+           the arrow keys move between the tiles. -->
+      <div class="wall" id="wall" role="group" aria-label="Anbindungen von Kontexus, mit den Pfeiltasten wählen">
+        <div class="wall__grid" id="grid"></div>
+      </div>
+      <div class="veil" aria-hidden="true"></div>
+    </div>
+
+    <div class="tip" id="tip" role="tooltip" aria-hidden="true">
+      <div class="tip__title" id="tipTitle"></div>
+      <div class="tip__text" id="tipText"></div>
+      <div class="tip__hint" id="tipHint"></div>
+    </div>
+  </section>
+
+  <!-- ======================= SO ARBEITET KONTEXUS ======================= -->
+  <section class="section" id="produkt">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="overline">Mehr als ein Chat</p>
+        <h2 class="section__title">Kontexus arbeitet dort, <span class="grad">wo gearbeitet wird.</span></h2>
+      </div>
+
+      <div class="cards">
+        <article class="ptile card--sq" id="agent" data-tilt>
+          <div class="card__vis" aria-hidden="true"><ul class="miniwall"><li class="tile tile--sq"><span class="tile__face"><img src="icons-hd/docx.svg" alt=""></span></li><li class="tile tile--empty"><span class="tile__face"></span></li><li class="tile tile--sq"><span class="tile__face"><img src="icons-hd/bexio.svg" alt=""></span></li><li class="tile"><span class="tile__face"><img src="icons-hd/microsoft_mail.svg" alt=""></span></li><li class="tile tile--empty"><span class="tile__face"></span></li><li class="tile tile--sq"><span class="tile__face"><img src="icons-hd/xlsx.svg" alt=""></span></li><li class="tile tile--empty"><span class="tile__face"></span></li><li class="tile tile--sq"><span class="tile__face"><img src="icons-hd/pdf.svg" alt=""></span></li></ul></div>
+          <div class="card__txt">
+            <h3>Dateien und Anbindungen</h3>
+            <p>Liest Ordner, erstellt Word, Excel und PDF. In Ihren Anwendungen wie bexio, Outlook oder Teams liest und schreibt Kontexus mit Ihrer Freigabe.</p>
+          </div>
+        </article>
+
+        <article class="ptile card--sq" id="freigabe" data-tilt>
+          <div class="card__vis" aria-hidden="true">
+            <div class="ask">
+              <div class="ask__head">
+                <span class="tile"><span class="tile__face"><img src="icons-hd/microsoft_calendar.svg" alt=""></span></span>
+                <div><div class="ask__q">Einladung in Outlook senden</div><div class="ask__h">Dienstag, 14:00–15:00, an 5 Personen</div></div>
+              </div>
+              <div class="ask__foot"><span class="pb pb--ghost">Ablehnen</span><span class="pb pb--dark">Zulassen</span></div>
+            </div>
+          </div>
+          <div class="card__txt">
+            <h3>Fragt, bevor er handelt</h3>
+            <p>Bevor Kontexus in eine Anwendung schreibt oder etwas versendet, fragt es nach, und erst Ihre Freigabe löst den Vorgang aus.</p>
+          </div>
+        </article>
+
+        <article class="ptile card--sq" id="souveraenitaet" data-tilt>
+          <div class="card__vis" aria-hidden="true"><ul class="miniwall"><li class="tile tile--empty"><span class="tile__face"></span></li><li class="tile tile--empty"><span class="tile__face"></span></li><li class="tile tile--empty"><span class="tile__face"></span></li><li class="tile tile--empty"><span class="tile__face"></span></li><li class="tile tile--empty"><span class="tile__face"></span></li><li class="tile tile--empty"><span class="tile__face"></span></li><li class="tile tile--flag is-active"><span class="tile__face"><svg class="flag" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#FF0000"/><path fill="#fff" d="M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z"/></svg></span></li><li class="tile tile--empty"><span class="tile__face"></span></li></ul></div>
+          <div class="card__txt">
+            <h3>Gespeichert und gerechnet in der Schweiz</h3>
+            <p>Plattform und Standard-Sprachmodell laufen in Schweizer Rechenzentren. Keine Inhalte im Modelltraining, jede Instanz technisch abgeschottet.</p>
+          </div>
+        </article>
+      </div>
+      <p class="cards__note">Angebundene Dienste wie Salesforce oder HubSpot laufen bei ihrem eigenen Anbieter.</p>
+    </div>
+  </section>
+
+  <!-- ======================= PREISE ======================= -->
+  <!-- old links to #wirkung (the dropped calculator) land on the prices -->
+  <span id="wirkung"></span>
+  <section class="section" id="preise">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="overline">Preise</p>
+        <h2 class="section__title">Ein Preis pro Nutzer,<br><span class="grad">ein Guthaben fürs Team.</span></h2>
+        <p class="section__lead">Pro Nutzer und Monat. Credits decken Tokens, Speicher und Anschlüsse ab: ein Guthaben, kein Kleingedrucktes.</p>
+      </div>
+
+      <div class="prices">
+        <article class="ptile" data-tilt>
+          <h3>Start</h3>
+          <p class="ptile__desc">Zum Einsteigen: der Agent im Alltag, Standard-Rezepte, Microsoft 365.</p>
+          <div class="ptile__amount">CHF 60<span>/ Nutzer / Monat</span></div>
+          <div class="ptile__credits"><b>2'000</b> Credits pro Monat</div>
+          <div class="ptile__spacer"></div>
+          <a href="https://kontexus.ch/register?plan=starter" class="btn btn--ghost">Registrieren</a>
+        </article>
+
+        <article class="ptile is-active" data-tilt>
+          <span class="ptile__clip" aria-hidden="true"><span class="gloss"></span></span>
+          <span class="ptile__badge">Beliebt</span>
+          <h3>Team</h3>
+          <p class="ptile__desc">Für tägliche Arbeit mit Dokumenten, mehr Anschlüsse, mehr Volumen.</p>
+          <div class="ptile__amount">CHF 120<span>/ Nutzer / Monat</span></div>
+          <div class="ptile__credits"><b>4'500</b> Credits pro Monat</div>
+          <div class="ptile__spacer"></div>
+          <a href="https://kontexus.ch/register?plan=team" class="btn btn--primary">Registrieren</a>
+        </article>
+
+        <article class="ptile" data-tilt>
+          <h3>Pro</h3>
+          <p class="ptile__desc">Für intensive Nutzung, eigene Rezepte und grössere Datenmengen.</p>
+          <div class="ptile__amount">CHF 200<span>/ Nutzer / Monat</span></div>
+          <div class="ptile__credits"><b>8'000</b> Credits pro Monat</div>
+          <div class="ptile__spacer"></div>
+          <a href="https://kontexus.ch/register?plan=pro" class="btn btn--ghost">Registrieren</a>
+        </article>
+
+        <article class="ptile ptile--ent" data-tilt>
+          <h3>Enterprise</h3>
+          <p class="ptile__text">Kontexus nach Ihren Vorgaben: dedizierte Cloud-Instanz oder komplett On-Premise auf Ihren eigenen Servern. Volle Kontrolle, unbegrenzte Nutzer, Einführung durch unser Team. Eigene Modelle auf Anfrage.</p>
+          <div class="ptile__spacer"></div>
+          <a href="mailto:axel@llmify.ch?subject=Enterprise%20Kontexus" class="btn btn--primary">Kontaktieren Sie uns</a>
+        </article>
+      </div>
+
+      <p class="pricing__note">Credits werden pro Organisation gepoolt: Was eine Person nicht braucht, nutzt eine andere. Ein Konto für Tokens, Speicher und kostenpflichtige Anschlüsse. Stufe jederzeit wechselbar. Unverbindliche Richtpreise, exkl. MwSt.</p>
+    </div>
+  </section>
+
+  <!-- ======================= FAQ ======================= -->
+  <section class="section" id="faq" aria-labelledby="faq-t">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="overline">Fragen</p>
+        <h2 class="section__title" id="faq-t">Häufige Fragen</h2>
+      </div>
+      <div class="ptile faq">
+        <details><summary><h3>Was ist Kontexus?</h3><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Kontexus ist der KI-Arbeitsplatz der LLMify AG aus Cham. Er erledigt wiederkehrende Büroarbeit direkt in Ihren Anwendungen, zum Beispiel in bexio, Microsoft 365 oder Salesforce, und arbeitet mit Ihren Word-, Excel- und PDF-Dateien.</p></details>
+        <details><summary><h3>Ist Kontexus eine Schweizer KI?</h3><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Kontexus wird von der LLMify AG in Cham entwickelt und in der Schweiz betrieben. Das Schweizer KI-Modell ist ein frei verfügbares Modell (Open Weight): Wir haben es nicht selbst trainiert, betreiben es aber selbst in der Schweiz. Für den Datenschutz ist das der entscheidende Punkt, denn Ihre Daten verlassen die Schweiz damit nicht.</p></details>
+        <details><summary><h3>Was ist der Unterschied zu ChatGPT oder Microsoft Copilot?</h3><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Kontexus läuft in der Schweiz und arbeitet mit Ihren Daten und in Ihren Programmen. Solche Unterlagen, etwa Rechnungen, Verträge oder Adresslisten, lassen sich oft nicht einfach in ChatGPT eingeben. Kontexus liest sie dort, wo sie bei Ihnen liegen, über die Programme verschiedener Anbieter hinweg. Mit dem Schweizer KI-Modell bleiben sie in der Schweiz, und bevor etwas rausgeht, fragt Kontexus nach.</p></details>
+        <details><summary><h3>Mit welcher Software arbeitet Kontexus?</h3><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Mit Schweizer Software wie bexio, Zefix und den Abfragen zur MWST, mit Microsoft 365 (Outlook, Kalender, Teams, OneDrive und SharePoint), mit Salesforce, HubSpot, Mailchimp, Notion und weiteren Diensten sowie mit Word-, Excel-, PowerPoint- und PDF-Dateien. Nutzen Sie ein anderes System, besprechen wir die Anbindung gern.</p></details>
+        <details><summary><h3>Wo liegen unsere Daten?</h3><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Kontexus läuft in der Schweiz. Standard ist das Schweizer Modell: Es rechnet in der Schweiz, und Ihre Daten bleiben hier. Ein Frontier-Modell eines internationalen Anbieters ist optional und für Ihre Firma abschaltbar; die Regel «Nur Schweizer Modelle» sperrt Modelle im Ausland für alle Mitglieder. Binden Sie einen Dienst mit Servern im Ausland an, zum Beispiel Salesforce oder HubSpot, gehen die Daten, die Sie damit bearbeiten, an diesen Anbieter.</p></details>
+        <details><summary><h3>Verschickt Kontexus etwas, ohne zu fragen?</h3><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Nein. Bevor Kontexus in eine Anwendung schreibt oder etwas versendet, fragt es nach. Eine E-Mail zum Beispiel wartet auf Ihre Freigabe, und Sie lassen sie zu oder lehnen sie ab.</p></details>
+        <details><summary><h3>Was kostet Kontexus?</h3><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Start kostet CHF 60, Team CHF 120 und Pro CHF 200 pro Nutzer und Monat, exkl. MwSt. Enterprise mit eigener Cloud-Instanz oder On-Premise gibt es auf Anfrage.</p></details>
+        <details><summary><h3>Wie fangen wir an?</h3><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Sie registrieren sich auf kontexus.ch und wählen eine Stufe. Für Enterprise oder Fragen zur Einführung schreiben Sie uns.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ======================= FOOTER ======================= -->
+
+<div class="alps" aria-hidden="true"><div class="alps__far"></div><div class="alps__near"></div></div>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img class="footer__logo" src="../assets/full_logo_black.png" alt="LLMify" width="2487" height="584" loading="lazy">
+        <p>Souveräne KI für die Schweiz.</p>
+        <img class="footer__eth" src="../assets/eth-startup-horizontal.png" alt="Start-up der ETH Zürich" width="195" height="52" loading="lazy">
+      </div>
+      <div class="footer__col">
+        <h4>Adresse</h4>
+        <p>LLMify AG<br>Sinserstrasse 67<br>6330 Cham, Schweiz</p>
+        <p>CHE&#8209;479.856.227</p>
+      </div>
+      <div class="footer__col">
+        <h4>Kontakt</h4>
+        <a href="mailto:axel@llmify.ch">axel@llmify.ch</a>
+        <a href="https://www.linkedin.com/company/llmify" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://kontexus.ch">Anmelden</a>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>© <span id="year">2026</span> LLMify AG</span>
+      <span class="footer__legallinks">
+        <a href="/npo/">Für NPOs</a>
+        <a href="#impressum" data-legal="impressum">Impressum</a>
+        <a href="#datenschutz" data-legal="datenschutz">Datenschutz</a>
+      </span>
+      <span class="langsw"><a href="./" class="is-active" aria-current="true">DE</a><a href="../fr/" lang="fr">FR</a><a href="../it/" lang="it">IT</a><a href="../en/" lang="en">EN</a></span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Rechtstexte: verbatim from index.html. Native <dialog>: focus trap, Escape
+     and backdrop come from the browser; page.js only opens them. -->
+<dialog class="legal" id="impressum" aria-labelledby="impressum-t">
+    <form method="dialog" class="legal__close">
+      <button aria-label="Schliessen">&times;</button>
+    </form>
+    <div class="legal__body">
+      <h2 id="impressum-t">Impressum</h2>
+
+      <h3>Unternehmen</h3>
+      <p>LLMify AG<br>Sinserstrasse 67<br>6330 Cham, Schweiz</p>
+
+      <h3>Handelsregister</h3>
+      <p>UID: CHE&#8209;479.856.227<br>
+         Rechtsform: Aktiengesellschaft<br>
+         Handelsregister: Zug</p>
+
+      <h3>Kontakt</h3>
+      <p>E-Mail: <a href="mailto:axel@llmify.ch">axel@llmify.ch</a></p>
+
+      <h3>Anwendbares Recht</h3>
+      <p>Es gilt Schweizer Recht. Gerichtsstand ist Zug.</p>
+    </div>
+  </dialog>
+
+  <dialog class="legal" id="datenschutz" aria-labelledby="datenschutz-t">
+    <form method="dialog" class="legal__close">
+      <button aria-label="Schliessen">&times;</button>
+    </form>
+    <div class="legal__body">
+      <h2 id="datenschutz-t">Datenschutzerklärung</h2>
+      <p class="legal__meta">Letzte Aktualisierung: August 2026</p>
+
+      <h3>Verantwortliche Stelle</h3>
+      <p>LLMify AG<br>Sinserstrasse 67<br>6330 Cham, Schweiz<br>
+         <a href="mailto:axel@llmify.ch">axel@llmify.ch</a></p>
+
+      <h3>Keine Cookies, keine Analyse</h3>
+      <p>Diese Website setzt keine Cookies, bindet keine Analyse- oder Tracking-Dienste ein und erstellt keine Nutzerprofile. Es gibt deshalb auch keine Einwilligung, die Sie erteilen oder widerrufen müssten.</p>
+
+      <h3>Server-Protokolle</h3>
+      <p>Die Website wird auf GitHub Pages betrieben. Beim Abruf einer Seite verarbeitet der Betreiber technisch notwendige Verbindungsdaten wie Ihre IP-Adresse, Zeitpunkt und aufgerufene Adresse. Diese Daten fallen beim Betrieb jedes Webservers an und werden von uns weder ausgewertet noch mit anderen Daten zusammengeführt.</p>
+
+      <h3>Schriftarten</h3>
+      <p>Alle Schriftarten werden von unserem eigenen Server ausgeliefert. Beim Besuch dieser Website werden keine Daten an Anbieter von Schriftarten übermittelt.</p>
+
+      <h3>Kontaktaufnahme</h3>
+      <p>Wenn Sie uns per E-Mail schreiben, verarbeiten wir die von Ihnen angegebenen Daten ausschliesslich zur Bearbeitung Ihrer Anfrage. Wir geben sie nicht an Dritte weiter und bewahren sie nur so lange auf, wie es dafür und für gesetzliche Aufbewahrungspflichten nötig ist.</p>
+
+      <h3>Ihre Rechte</h3>
+      <p>Sie haben folgende Rechte in Bezug auf Ihre personenbezogenen Daten:</p>
+      <ul>
+        <li>Recht auf Auskunft über Ihre gespeicherten Daten</li>
+        <li>Recht auf Berichtigung unrichtiger Daten</li>
+        <li>Recht auf Löschung Ihrer Daten</li>
+        <li>Recht auf Widerspruch gegen die Verarbeitung</li>
+        <li>Recht auf Datenübertragbarkeit</li>
+      </ul>
+      <p>Für die Ausübung dieser Rechte genügt eine E-Mail an <a href="mailto:axel@llmify.ch">axel@llmify.ch</a>.</p>
+
+      <h3>Sicherheit</h3>
+      <p>Wir halten uns an das Schweizer Datenschutzgesetz (DSG) und setzen angemessene technische und organisatorische Massnahmen ein, um Ihre Daten zu schützen.</p>
+
+      <h3>Anwendbares Recht</h3>
+      <p>Es gilt Schweizer Recht. Gerichtsstand ist Zug.</p>
+    </div>
+  </dialog>
+
+<script src="hero.js"></script>
+<script src="page.js"></script>
+</body>
+</html>

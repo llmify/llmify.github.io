@@ -1,0 +1,457 @@
+/* The hero of page.html: the <style> of variant-c.html minus the prototype tools,
+   then changed by hand for this page (the «+» tile, the phone layout); the two files
+   have diverged. Every rule is scoped to #usecases, and the class names that page.css
+   also uses (tile, gloss, btn, grad, ask, pb) carry the prefix h-, so no hero rule
+   reaches the sections and no page.css class rule reaches the hero. page.css's
+   element rules do reach it; the two that would change it are reset below.
+   Manrope's @font-face is in page.css. */
+
+/* what variant-c.html takes from its own <body> and page.css sets differently */
+#usecases { line-height: normal; }
+#usecases img { max-width: none; }
+
+#usecases {
+  --bg:#fbfbfa; --panel:#ffffff;
+  --line:rgba(20,24,34,.13); --line-soft:rgba(20,24,34,.08);
+  --text:#1c1e24; --muted:#5b6270; --faint:#9096a1;
+  --accent:#3674d9; --accent-2:#7454e0;
+  --font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --display:"Space Grotesk",var(--font);
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --radius:18px;
+  /* Kontexus app tokens (core/client/src/app/globals.css, light theme) */
+  --app:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --k-main:#f7f7f7; --k-bubble:#ececec; --k-line:#e5e5e5; --k-ink:#0d0d0d; --k-mut:#6e6e6e; --k-faint:#9b9b9b;
+  --k-control:#e9e9e9; --k-accent:#6B9FFF;
+  --t:66px; --gap:10px;
+}
+
+/* ---------- Hero frame ---------- */
+#usecases .hero { position: relative; overflow: hidden; overflow: clip; min-height: 680px; height: 100vh; isolation: isolate; }
+/* large screens: text and window grow in steps, so they do not sit small in the middle
+   of a wide wall (zoom scales layout and text together; the tiles size themselves) */
+@media (min-width: 1800px) and (min-height: 820px) { #usecases .hero__inner { zoom: 1.12; } }
+@media (min-width: 2200px) and (min-height: 950px) { #usecases .hero__inner { zoom: 1.25; } }
+@media (min-width: 2800px) and (min-height: 1200px) { #usecases .hero__inner { zoom: 1.45; } }
+
+/* ---------- Wall: flat, facing the viewer ---------- */
+#usecases .wall { position: absolute; inset: 0; z-index: 0; }
+#usecases .wall__grid { position: absolute; display: grid; gap: var(--gap); grid-auto-rows: var(--t); }
+#usecases .cell { width: var(--t); height: var(--t); position: relative; }
+#usecases .wall__grid, #usecases .cell { pointer-events: none; }
+#usecases .cell--empty { border-radius: 22%; border: 1px solid rgba(20,24,34,.06); background: rgba(255,255,255,.4); overflow: hidden;
+  opacity: var(--o, 1); transition: opacity .6s ease; }
+
+#usecases .h-tile {
+  all: unset; box-sizing: border-box; display: block; cursor: pointer; pointer-events: auto;
+  /* drawn 6 % larger than shown and scaled down at rest: the browser draws a tile once and
+     then scales that picture, so the lit state (scale 1.06) is shown at its drawn size and
+     stays sharp, and scaling down at rest stays sharp too. Seen from outside, size, motion
+     and ring are unchanged. */
+  width: calc(var(--t) * 1.06); height: calc(var(--t) * 1.06); margin: calc(var(--t) * -0.03); position: relative; border-radius: 22%;
+  /* the wall is flat; only a single tile tilts, with its own perspective */
+  transform: perspective(520px) translate3d(0, var(--y, 0px), var(--z, 0px)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(calc(var(--s, 1) / 1.06));
+  transition: transform .55s cubic-bezier(.2,.7,.2,1);
+}
+#usecases .h-tile.is-tracking { transition: transform .16s ease-out; }
+#usecases .h-tile__face {
+  position: absolute; inset: 0; border-radius: inherit; overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(20,24,34,.09);
+  box-shadow: 0 1px 2px rgba(20,24,34,.05), 0 8px 18px -12px rgba(20,24,34,.3);
+  display: grid; place-items: center;
+  transition: opacity .6s ease, box-shadow .35s ease;
+}
+/* glyph logos: centred on the white tile, with room around them */
+#usecases .h-tile__face img { width: 58%; height: 58%; object-fit: contain; display: block; }
+/* square logos bring their own plate: they fill the tile to the edge */
+#usecases .h-tile--sq .h-tile__face { background: transparent; border: 0; box-shadow: 0 1px 2px rgba(20,24,34,.08), 0 8px 18px -12px rgba(20,24,34,.35); }
+#usecases .h-tile--sq .h-tile__face img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+#usecases .h-tile--flag .h-tile__face { background: transparent; border: 0; }
+/* the «+» tile (page version only): dashed edge on a white face, a blue plus; never faded */
+#usecases .h-tile--plus .h-tile__face { background: #fff; border: 1.5px dashed rgba(54,116,217,.45); box-shadow: none; }
+#usecases .h-tile__face svg.plus { width: 40%; height: 40%; display: block; }
+#usecases .h-tile__face svg.flag { width: 100%; height: 100%; display: block; }
+/* the lit state: a ring drawn outside the tile edge (box-shadow of a layer the size of
+   the tile), so it hugs the logo with no gap between logo and ring */
+#usecases .h-tile::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 1;
+  box-shadow: inset 0 0 0 1px var(--accent), 0 0 0 2px var(--accent), 0 0 0 6px rgba(54,116,217,.13), 0 16px 30px -12px rgba(54,116,217,.5);
+  opacity: 0; transition: opacity .5s ease;
+}
+/* hover: the tile lifts toward the viewer and casts a deeper shadow */
+#usecases .h-tile:hover, #usecases .h-tile:focus-visible { --y: -3px; --z: 14px; z-index: 3; }
+#usecases .h-tile:hover .h-tile__face, #usecases .h-tile:focus-visible .h-tile__face { box-shadow: 0 2px 4px rgba(20,24,34,.08), 0 22px 30px -14px rgba(20,24,34,.45); }
+#usecases .h-tile:hover::before { opacity: .45; }
+#usecases .h-tile:focus-visible { outline: none; }
+#usecases .h-tile:focus-visible::before { opacity: 1; }
+
+/* the light sweep: only on the tiles of the running example. It starts when they light
+   up (display none -> block restarts the animation) and passes again every 4.5 s,
+   staggered by position so it travels across the lit tiles */
+#usecases .h-gloss {
+  position: absolute; top: -20%; bottom: -20%; left: 0; width: 60%; pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.22) 40%, rgba(255,255,255,.5) 50%, rgba(255,255,255,.22) 60%, rgba(255,255,255,0) 100%);
+  transform: translateX(-170%) skewX(-18deg);
+  display: none;
+}
+#usecases .h-tile.is-case .h-gloss {
+  display: block;
+  animation: h-gloss 4.5s cubic-bezier(.45,.05,.55,.95) infinite;
+  animation-delay: calc(var(--d, 0) * .4ms + 250ms);
+}
+@keyframes h-gloss {
+  0%   { transform: translateX(-170%) skewX(-18deg); }
+  30%  { transform: translateX(270%) skewX(-18deg); }
+  100% { transform: translateX(270%) skewX(-18deg); }
+}
+
+/* a running example: its tiles light up together and stay lit, the rest steps back */
+/* the rest fades to about a third and loses most of its colour; --fade-o and --fade-g
+   are set once by hero.js from TUNE.fade */
+#usecases .h-tile__face { filter: grayscale(0); transition: opacity .6s ease, filter .6s ease, box-shadow .35s ease; }
+#usecases .wall.is-running .h-tile:not(.is-case):not(.h-tile--flag):not(.h-tile--plus) .h-tile__face { opacity: var(--fade-o, .15); filter: grayscale(var(--fade-g, 1)); }
+/* a hovered or focused tile shows in full, even while faded (same specificity plus :hover) */
+#usecases .wall.is-running .h-tile:not(.is-case):not(.h-tile--flag):not(.h-tile--plus):hover .h-tile__face, #usecases .wall.is-running .h-tile:not(.is-case):not(.h-tile--flag):not(.h-tile--plus):focus-visible .h-tile__face { opacity: 1; filter: grayscale(0); }
+#usecases .wall.is-running .cell--empty { opacity: calc(var(--o, 1) * .75); }
+#usecases .h-tile.is-case { --y: -3px; --s: 1.06; z-index: 2; }
+#usecases .h-tile.is-case::before { opacity: 1; }
+#usecases .h-tile.is-case .h-tile__face { box-shadow: 0 1px 2px rgba(20,24,34,.06), 0 12px 24px -12px rgba(20,24,34,.35); }
+#usecases .h-tile.is-case:hover .h-tile__face { box-shadow: 0 2px 4px rgba(20,24,34,.08), 0 22px 30px -14px rgba(20,24,34,.45); }
+
+/* bottom edge fade */
+#usecases .veil { position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: linear-gradient(to bottom, rgba(251,251,250,0) calc(100% - 36px), var(--bg) 100%); }
+
+/* ---------- Content layer ---------- */
+#usecases .hero__inner {
+  position: relative; z-index: 2; height: 100%; max-width: 1320px; margin: 0 auto;
+  padding: 64px 56px; display: grid; grid-template-columns: minmax(340px, 1fr) minmax(480px, 560px);
+  gap: 96px; align-items: center; pointer-events: none;
+}
+#usecases .copy, #usecases .screen { pointer-events: auto; }
+#usecases .copy { max-width: 470px; margin-left: clamp(0px, 2.5vw, 48px); }   /* a little right of the column start, so tiles have room on its left */
+#usecases .copy h1 { margin: 0; font-weight: inherit; }
+#usecases .logo { width: min(290px, 100%); height: auto; display: block; margin: 0 0 34px; overflow: visible; }
+#usecases .kx-arm { stroke-dasharray: 18; stroke-dashoffset: 0; }
+#usecases .kx-dot { transform-box: fill-box; transform-origin: center; }
+#usecases .kx-glow { opacity: 0; transform-box: fill-box; transform-origin: center; }
+#usecases .kx-spark { opacity: 0; }
+#usecases .tagline { font-family: var(--display); font-weight: 700; font-size: clamp(2rem, 3.4vw, 2.9rem); line-height: 1.07; letter-spacing: -0.03em; margin: 0 0 18px; text-wrap: balance; }
+#usecases .h-grad { background: linear-gradient(92deg, var(--accent) 0%, var(--accent-2) 45%, var(--accent) 90%); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+#usecases .sub { font-size: 1.125rem; line-height: 1.55; color: var(--muted); margin: 0 0 32px; max-width: 440px; }
+#usecases .ctas { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+#usecases .h-btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 8px; border-radius: 13px; padding: 14px 28px; font: 600 1rem/1 var(--font); text-decoration: none; transition: background-color .2s ease, border-color .2s ease; }
+#usecases .h-btn--primary { background: var(--accent); color: #fff; box-shadow: 0 1px 2px rgba(20,24,34,.1), 0 8px 24px -12px rgba(54,116,217,.5); }
+#usecases .h-btn--primary:hover { background: #2d66c6; }
+#usecases .h-btn--ghost { background: var(--panel); color: var(--text); border: 1px solid var(--line); }
+#usecases .h-btn--ghost:hover { border-color: rgba(54,116,217,.45); }
+#usecases .h-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+#usecases .h-btn svg { width: 16px; height: 16px; }
+
+/* ---------- Screen: the Kontexus chat ---------- */
+#usecases .screen { position: relative; }
+#usecases .frame { background: var(--k-main); border: 1px solid rgba(20,24,34,.12); border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 30px 80px -32px rgba(20,24,34,.28), 0 12px 36px -18px rgba(20,24,34,.12); }
+#usecases .chrome { display: flex; align-items: center; gap: 7px; padding: 11px 16px; background: #fff; border-bottom: 1px solid var(--k-line); }
+#usecases .chrome i { width: 10px; height: 10px; border-radius: 50%; flex: none; background: #dcdcdc; }
+#usecases .chrome .url { margin: 0 auto; transform: translateX(-18px); font: 500 12px/1 var(--app); color: var(--k-mut); background: var(--k-main); border-radius: 8px; padding: 6px 44px; }
+
+#usecases .stagebody { position: relative; height: 420px; font-family: var(--app); color: var(--k-ink); }
+#usecases .layer { position: absolute; inset: 0; padding: 14px 22px 10px; display: flex; flex-direction: column; opacity: 0; transition: opacity .5s ease; }
+#usecases .layer.is-in { opacity: 1; }
+#usecases .layer.is-probe { visibility: hidden; bottom: auto; opacity: 1; transition: none; }
+#usecases .layer__top { font-size: 11.5px; color: var(--k-mut); margin-bottom: 6px; }
+/* user message: right, #ececec, 16px on every corner (Message.tsx) */
+#usecases .prompt { align-self: flex-end; max-width: 92%; background: var(--k-bubble); border-radius: 16px; padding: 9px 14px; font-size: 14.5px; line-height: 1.5; margin-bottom: 14px; }
+/* tool steps: one quiet line each, icon column with a hairline between (TimelineRow, .step-row) */
+#usecases .steps { display: flex; flex-direction: column; gap: 8px; margin: 0 0 12px; padding: 0; list-style: none; }
+#usecases .step { position: relative; display: flex; align-items: flex-start; gap: 11px; opacity: 0; transform: translateY(4px); transition: opacity .35s ease, transform .35s ease; }
+#usecases .step.on { opacity: 1; transform: none; }
+/* the hairline to the next step grows only once that step is there */
+#usecases .step:not(:last-child)::before { content: ""; position: absolute; left: 7px; top: .5rem; bottom: -.625rem; width: 1px; background: var(--k-line);
+  transform: scaleY(0); transform-origin: top; transition: transform .35s ease; }
+#usecases .step.on:has(+ .step.on)::before { transform: none; }
+#usecases .step__mk { position: relative; z-index: 1; width: 15px; flex: none; display: flex; justify-content: center; padding: 2px 0 3px; background: var(--k-main); }
+#usecases .step__mk img, #usecases .step__mk svg.gi { width: 16px; height: 16px; border-radius: 3px; display: block; transition: opacity .2s ease; }
+#usecases .step__mk svg.gi { color: var(--k-mut); }
+/* working indicator: the Kontexus mark beating as in the app (globals.css, kx-mark--working):
+   a quarter turn over the first two thirds while the arms flare and the core swells */
+#usecases .spin { position: absolute; left: 50%; top: 2px; width: 15px; height: 15px; margin-left: -7.5px; opacity: 0; }
+#usecases .spin svg { width: 15px; height: 15px; display: block; overflow: visible; }
+#usecases .step.running .spin { opacity: 1; }
+#usecases .step.running .step__mk img, #usecases .step.running .step__mk svg.gi { opacity: 0; }
+#usecases .kxm__spin { transform-box: view-box; transform-origin: 0 0; }
+#usecases .kxm__core { transform-box: fill-box; transform-origin: center; }
+#usecases .step.running .kxm__spin, #usecases .step.running .kxm__arm, #usecases .step.running .kxm__core {
+  animation-duration: .85s; animation-timing-function: cubic-bezier(.65,0,.35,1); animation-iteration-count: infinite; }
+#usecases .step.running .kxm__spin { animation-name: kxTurn; }
+#usecases .step.running .kxm__arm { animation-name: kxFlare; }
+#usecases .step.running .kxm__core { animation-name: kxCore; }
+@keyframes kxTurn { 0% { transform: rotate(0deg); } 65%, 100% { transform: rotate(90deg); } }
+@keyframes kxFlare { 0%, 65%, 100% { transform: translate(0, 0); } 32% { transform: translate(var(--ox), var(--oy)); } }
+@keyframes kxCore { 0%, 65%, 100% { transform: scale(1); } 32% { transform: scale(1.25); } }
+/* the answer streams in: word groups fade in one after another */
+#usecases .result .w { opacity: 0; transition: opacity .28s ease; }
+#usecases .result .w.on { opacity: 1; }
+#usecases .step__txt { flex: 1; min-width: 0; font-size: 13.5px; line-height: 1.4; color: var(--k-mut); }
+#usecases .step__d { display: block; font-size: 12.5px; color: var(--k-faint); margin-top: 1px; }
+#usecases .step.running .step__t {
+  --sb: color-mix(in srgb, #6e6e6e 70%, #f7f7f7);
+  background: linear-gradient(90deg, var(--sb) 0%, var(--sb) 30%, var(--k-ink) 50%, var(--sb) 70%, var(--sb) 100%);
+  background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+  animation: shimmer 2.2s linear infinite;
+}
+@keyframes shimmer { 0% { background-position: 125% 0; } 100% { background-position: -25% 0; } }
+/* assistant answer: plain text at the left edge, no avatar, no name */
+#usecases .result { font-size: 14.5px; line-height: 1.65; margin: 0; opacity: 0; transform: translateY(4px); transition: opacity .4s ease, transform .4s ease; }
+#usecases .result b { font-weight: 700; }
+/* approval card, simplified (Approvals/ApprovalFrame.tsx) */
+#usecases .h-ask { margin-top: 12px; background: #fff; border: 1px solid var(--k-line); border-radius: 18px; box-shadow: 0 8px 28px rgba(0,0,0,.07); overflow: hidden;
+  opacity: 0; transform: translateY(6px); transition: opacity .4s ease .2s, transform .4s ease .2s; }
+#usecases .h-ask__head { display: flex; align-items: center; gap: 11px; padding: 11px 14px 10px; }
+#usecases .h-ask__ic { width: 30px; height: 30px; border-radius: 8px; flex: none; object-fit: contain; }
+#usecases .h-ask__ic.gl { padding: 4px; background: #fff; border: 1px solid var(--k-line); }
+#usecases .h-ask__q { font-size: 14px; font-weight: 600; line-height: 1.3; }
+#usecases .h-ask__h { font-size: 12px; color: var(--k-mut); margin-top: 1px; }
+#usecases .h-ask__foot { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-top: 1px solid var(--k-line); }
+#usecases .h-ask__foot .sp { flex: 1; }
+#usecases .h-pb { display: inline-flex; align-items: center; height: 30px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 500; }
+#usecases .h-pb--ghost { color: var(--k-mut); }
+#usecases .h-pb--dark { background: var(--k-ink); color: #fff; }
+#usecases .layer.show-result .result, #usecases .layer.show-ask .h-ask { opacity: 1; transform: none; }
+#usecases .layer.is-probe .h-ask { opacity: 1; }
+/* composer: the white pill with hairline and soft shadow (InputArea.tsx, composerSurface.ts) */
+#usecases .composer { margin: 0 18px 14px; display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 6px 0 8px; background: #fff;
+  border: .5px solid rgba(13,13,13,.09); border-radius: 23px; box-shadow: 0 1px 2px rgba(0,0,0,.03), 0 4px 14px rgba(0,0,0,.045); font-family: var(--app); }
+#usecases .composer__btn { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; flex: none; color: var(--k-mut); }
+#usecases .composer__btn svg { width: 17px; height: 17px; }
+#usecases .composer__ph { flex: 1; font-size: 14px; color: var(--k-mut); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#usecases .composer__send { background: var(--k-control); color: var(--k-ink); }
+#usecases .composer__send svg { opacity: .4; width: 16px; height: 16px; }
+
+/* case picker under the screen: removed at the user's request; the tiles start cases */
+#usecases .picker { display: none !important; }
+#usecases .picker { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 14px auto 0; padding: 6px; width: fit-content; max-width: 100%;
+  background: rgba(255,255,255,.85); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid var(--line-soft); border-radius: 14px; }
+#usecases .picker button { all: unset; cursor: pointer; position: relative; font-size: 12.5px; font-weight: 500; color: var(--muted); padding: 6px 11px; border-radius: 9px; transition: color .2s ease, background-color .2s ease; }
+#usecases .picker button:hover { color: var(--text); background: rgba(20,24,34,.045); }
+#usecases .picker button[aria-current="true"] { color: var(--accent); background: rgba(54,116,217,.09); }
+#usecases .picker button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ---------- Info card ---------- */
+#usecases .tip { position: fixed; left: 0; top: 0; z-index: 50; width: 270px; pointer-events: none;
+  background: rgba(255,255,255,.95); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid var(--line-soft); border-radius: 12px; padding: 12px 14px;
+  box-shadow: 0 14px 36px -14px rgba(20,24,34,.28);
+  opacity: 0; transform: translate3d(var(--tx,0), calc(var(--ty,0) + 6px), 0); transition: opacity .2s ease, transform .25s cubic-bezier(.2,.7,.2,1); }
+#usecases .tip.is-on { opacity: 1; transform: translate3d(var(--tx,0), var(--ty,0), 0); }
+#usecases .tip__title { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+#usecases .tip__title img, #usecases .tip__title svg { width: 18px; height: 18px; object-fit: contain; border-radius: 4px; }
+#usecases .tip__text { font-size: 13px; line-height: 1.5; color: var(--muted); }
+#usecases .tip__hint { margin-top: 8px; font-size: 12px; font-weight: 600; color: var(--accent); }
+#usecases .tip__hint:empty { display: none; }
+
+/* ---------- Narrower desktops ---------- */
+@media (max-width: 1180px) {
+  #usecases .hero__inner { gap: 56px; padding: 56px 40px; grid-template-columns: minmax(300px, 1fr) minmax(440px, 520px); }
+}
+@media (max-width: 960px) and (min-width: 761px) {
+  #usecases .hero__inner { grid-template-columns: 1fr 1fr; gap: 36px; padding: 56px 28px; }
+  #usecases .picker { gap: 2px; padding: 4px; }
+  #usecases .picker button { padding: 6px 8px; font-size: 12px; }
+}
+
+/* ---------- Mobile (and phones in landscape): one screen, no scrolling ----------
+   The hero is exactly the visible height: the text, a small symbolic example card in
+   place of the chat window, and under it one band of tiles (two rows; landscape: one
+   row across both columns), only the connectors of the featured cases plus the Swiss
+   tile. Everything here applies to phones only. */
+#usecases .mcard { display: none; }
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  #usecases { --t: 38px; --gap: 10px; }
+  #usecases .hero { height: 100vh; height: 100svh; min-height: 540px; max-height: none; }
+  #usecases .hero__inner { display: flex; flex-direction: column; justify-content: center; align-items: stretch; gap: clamp(14px, 3.4svh, 34px);
+    height: 100%; max-width: 560px; padding: 16px; }
+  #usecases .copy { max-width: none; margin-left: 0; }
+  #usecases .logo { width: 160px; margin-bottom: clamp(10px, 2.2svh, 20px); }
+  #usecases .tagline { font-size: 1.75rem; line-height: 1.1; margin-bottom: 10px; }
+  #usecases .sub { font-size: .95rem; line-height: 1.5; margin-bottom: clamp(14px, 2.6svh, 24px); }
+  #usecases .ctas { gap: 8px; }
+  #usecases .h-btn { flex: 1 1 auto; justify-content: center; min-height: 44px; padding: 11px 14px; font-size: .9375rem; white-space: nowrap; }
+  #usecases .frame, #usecases .picker, #usecases .veil { display: none !important; }
+
+  /* the two bands of tiles */
+  /* the wall moves into the content column (script) and sits under the card as one band */
+  #usecases .wall { position: relative; inset: auto; flex: none; z-index: auto; }
+  #usecases .wall__grid.is-bands { position: static; display: flex; flex-direction: column; align-items: center; gap: var(--gap); }
+  #usecases .band { display: flex; justify-content: center; gap: var(--gap); }
+  /* a larger hit area than the tile itself, but no larger than half the gap */
+  #usecases .band .h-tile::after { content: ""; position: absolute; inset: calc(var(--gap) / -2); }
+  #usecases .band .h-tile::before { box-shadow: inset 0 0 0 1px var(--accent), 0 0 0 2px var(--accent), 0 0 0 5px rgba(54,116,217,.13), 0 10px 20px -10px rgba(54,116,217,.5); }
+  #usecases .band .h-tile__face { box-shadow: 0 1px 2px rgba(20,24,34,.06), 0 5px 12px -8px rgba(20,24,34,.3); }
+
+  /* the symbolic example: prompt, the step icons with a check each, the first sentence of the answer */
+  #usecases .mcard { display: block; position: relative; flex: none; background: #fff; border: 1px solid rgba(20,24,34,.1); border-radius: 16px; overflow: hidden;
+    box-shadow: 0 18px 40px -26px rgba(20,24,34,.32), 0 4px 14px -8px rgba(20,24,34,.1); font-family: var(--app); color: var(--k-ink); }
+  #usecases .mc { position: absolute; inset: 0; padding: 11px 14px 13px; display: flex; flex-direction: column; gap: 9px; opacity: 0; transition: opacity .2s ease; }
+  /* the old case fades out quickly, the new one comes in once it is nearly gone */
+  #usecases .mc.is-in { opacity: 1; transition: opacity .35s ease .15s; }
+  #usecases .mc.is-probe { visibility: hidden; bottom: auto; opacity: 1; transition: none; }
+  #usecases .mc__top { margin-left: auto; padding-left: 10px; font-size: 11px; line-height: 1.2; color: var(--k-faint); white-space: nowrap; }
+  #usecases .mc__prompt { align-self: flex-end; max-width: 94%; background: var(--k-bubble); border-radius: 14px; padding: 7px 12px; font-size: 13.5px; line-height: 1.4;
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+  #usecases .mc__steps { display: flex; align-items: center; height: 32px; }
+  #usecases .mc__step { position: relative; width: 28px; height: 28px; flex: none; opacity: 0; transform: scale(.8); transition: opacity .3s ease, transform .3s cubic-bezier(.2,.7,.2,1); }
+  #usecases .mc__step.on { opacity: 1; transform: none; }
+  #usecases .mc__step img, #usecases .mc__step svg.gi { width: 100%; height: 100%; display: block; border-radius: 7px; object-fit: contain; }
+  #usecases .mc__step.gl img, #usecases .mc__step svg.gi { padding: 5px; background: #fff; border: 1px solid var(--k-line); color: var(--k-mut); }
+  #usecases .mc__ok { position: absolute; right: -5px; bottom: -5px; width: 15px; height: 15px; border-radius: 50%; background: var(--accent); border: 2px solid #fff;
+    display: grid; place-items: center; opacity: 0; transform: scale(.4); transition: opacity .25s ease, transform .25s cubic-bezier(.2,.7,.2,1); }
+  #usecases .mc__ok svg { width: 8px; height: 8px; display: block; }
+  #usecases .mc__step.done .mc__ok { opacity: 1; transform: none; }
+  #usecases .mc__link { flex: 0 0 18px; height: 1.5px; margin: 0 7px; border-radius: 1px; background: var(--k-line); opacity: 0; transition: opacity .3s ease; }
+  #usecases .mc__link.on { opacity: 1; }
+  #usecases .mc__result { margin: 0; font-size: 13.5px; line-height: 1.45; opacity: 0; transition: opacity .4s ease;
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+  #usecases .mc__result b { font-weight: 700; }
+  #usecases .mc.show-result .mc__result { opacity: 1; }
+}
+/* ---------- Phones (page version only, not in variant-c.html) ----------
+   No buttons in the hero. Upright, the tiles form a wall across the text width and
+   the example card lies over its upper rows (hero.js, buildStackWall). The card is
+   never empty: the step icons of a case show as faint placeholders from its start
+   and fill in one by one. */
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  #usecases .ctas { display: none; }
+  #usecases .sub { margin-bottom: 0; }
+  #usecases .mc__step { opacity: .28; filter: grayscale(1); transform: scale(.9); transition: opacity .3s ease, filter .3s ease, transform .3s cubic-bezier(.2,.7,.2,1); }
+  #usecases .mc__step.on { opacity: 1; filter: none; transform: none; }
+  #usecases .mc__link { opacity: .5; }
+  #usecases .mc__link.on { opacity: 1; }
+
+  #usecases .hero.is-stack .screen { position: relative; }
+  #usecases .hero.is-stack .mcard { position: absolute; left: 0; right: 0; z-index: 2; border-radius: 18px; box-shadow: 0 1px 2px rgba(20,24,34,.05), 0 10px 24px -18px rgba(20,24,34,.3); }
+  /* the symbolic card: label, the request as plain text, the steps */
+  #usecases .is-stack .mc { padding: 9px 14px 11px; gap: 8px; justify-content: center; }
+  #usecases .is-stack .mc__steps { height: 30px; }
+  #usecases .is-stack .mc__step { width: 30px; height: 30px; }
+  #usecases .is-stack .mc__link { flex-basis: 16px; margin: 0 7px; }
+  /* narrow phones: a tighter card, so two rows still hold it */
+  @media (max-width: 380px) {
+    #usecases .is-stack .mc { padding: 9px 12px 10px; gap: 10px; }
+    #usecases .is-stack .mc__steps { height: 30px; }
+    #usecases .is-stack .mc__step { width: 28px; height: 28px; }
+    #usecases .is-stack .mc__prompt { font-size: 15px; }
+  }
+  #usecases .is-stack .mc__top { margin-left: auto; padding-left: 10px; }
+  /* the request: a chat bubble on the right, as in the app */
+  #usecases .is-stack .mc__prompt { align-self: flex-end; max-width: 92%; background: var(--k-bubble); border-radius: 14px; padding: 6px 12px; font-size: 14.5px; font-weight: 500; line-height: 1.35;
+    display: block; }
+  /* the Kontexus mark: it beats while working, then becomes a check */
+  #usecases .mc__mark { position: relative; flex: none; width: 22px; height: 22px; margin-right: 12px; }
+  #usecases .mc__mark > svg { width: 22px; height: 22px; display: block; overflow: visible; transition: opacity .25s ease, transform .25s ease; }
+  #usecases .mc__done { position: absolute; inset: 0; border-radius: 50%; background: var(--accent); display: grid; place-items: center;
+    opacity: 0; transform: scale(.4); transition: opacity .3s ease, transform .3s cubic-bezier(.2,.7,.2,1); }
+  #usecases .mc__done svg { width: 12px; height: 12px; }
+  #usecases .mc.is-working .kxm__spin, #usecases .mc.is-working .kxm__arm, #usecases .mc.is-working .kxm__core {
+    animation-duration: .85s; animation-timing-function: cubic-bezier(.65,0,.35,1); animation-iteration-count: infinite; }
+  #usecases .mc.is-working .kxm__spin { animation-name: kxTurn; }
+  #usecases .mc.is-working .kxm__arm { animation-name: kxFlare; }
+  #usecases .mc.is-working .kxm__core { animation-name: kxCore; }
+  #usecases .mc.is-done .mc__mark > svg { opacity: 0; transform: scale(.6); }
+  #usecases .mc.is-done .mc__done { opacity: 1; transform: none; }
+  /* the progress line along the bottom edge */
+  #usecases .mc__bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgba(54,116,217,.1); }
+  #usecases .mc__fill { position: absolute; inset: 0; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+  @media (prefers-reduced-motion: reduce) {
+    #usecases .mc.is-working .kxm__spin, #usecases .mc.is-working .kxm__arm, #usecases .mc.is-working .kxm__core { animation: none; }
+    #usecases .mc__fill, #usecases .mc__done, #usecases .mc__mark > svg { transition: opacity .2s ease; }
+  }
+  /* the order on phones: logo and headline, the wall with the card, then the sentence,
+     so the text does not widen line by line like a pyramid */
+  #usecases .hero.is-stack .hero__inner { display: flex; flex-direction: column; }
+  #usecases .hero.is-stack .copy { display: contents; }
+  #usecases .hero.is-stack .copy h1 { order: 0; }
+  #usecases .hero.is-stack .screen { order: 1; margin-top: 6px; }
+  #usecases .hero.is-stack .sub { order: 2; margin-top: 22px; }
+  #usecases .wall__grid.is-stack { position: static; display: grid; grid-auto-rows: var(--t);
+    justify-content: space-between; row-gap: var(--gap); column-gap: 0; }
+  #usecases .is-stack .h-tile::after { content: ""; position: absolute; inset: calc(var(--gap) / -2); }
+  #usecases .is-stack .h-tile::before { box-shadow: inset 0 0 0 1px var(--accent), 0 0 0 2px var(--accent), 0 0 0 5px rgba(54,116,217,.13), 0 10px 20px -10px rgba(54,116,217,.5); }
+  #usecases .is-stack .h-tile__face { box-shadow: 0 1px 2px rgba(20,24,34,.06), 0 5px 12px -8px rgba(20,24,34,.3); }
+  #usecases .h-tile--deco { pointer-events: none; cursor: default; }
+  #usecases .h-tile--deco::after { content: none; }
+}
+
+/* touch phones: a tapped tile keeps :hover until the next tap; it must not look lit
+   (or unfaded) after the example has moved on. Keyboard focus still shows. */
+@media (hover: none) and (max-width: 760px), (hover: none) and (max-height: 500px) and (orientation: landscape) {
+  #usecases .h-tile:hover:not(.is-case):not(:focus-visible) { --y: 0px; --z: 0px; }
+  #usecases .h-tile:hover:not(.is-case):not(:focus-visible)::before { opacity: 0; }
+  #usecases .wall.is-running .h-tile:not(.is-case):not(.h-tile--flag):not(.h-tile--plus):hover:not(:focus-visible) .h-tile__face { opacity: var(--fade-o, .15); filter: grayscale(var(--fade-g, 1)); }
+}
+/* narrow phones: both buttons still fit side by side */
+@media (max-width: 380px) {
+  #usecases .h-btn { padding: 11px 12px; font-size: .875rem; }
+  #usecases .h-btn--primary svg { display: none; }
+}
+/* phones in landscape: text left, card right, one thin row of tiles under both */
+@media (max-height: 500px) and (orientation: landscape) {
+  #usecases { --t: 34px; }
+  #usecases .hero { min-height: 320px; }
+  #usecases .hero__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 330px); align-items: center; align-content: center; gap: 28px;
+    max-width: 880px; padding: 12px 24px; row-gap: 18px; }
+  #usecases .wall { grid-column: 1 / -1; }
+  #usecases .logo { width: 128px; margin-bottom: 8px; }
+  #usecases .tagline { font-size: 1.45rem; margin-bottom: 8px; }
+  #usecases .sub { font-size: .875rem; line-height: 1.45; margin-bottom: 12px; }
+  #usecases .h-btn { flex: 0 0 auto; min-height: 40px; padding: 9px 16px; font-size: .875rem; }
+}
+
+/* ---------- Reduced motion: no movement, fades only ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #usecases .h-gloss, #usecases .h-tile.is-case .h-gloss { animation: none; display: none; }
+  #usecases .h-tile { transition: none; transform: none !important; }
+  #usecases .h-tile:hover .h-tile__face, #usecases .h-tile:focus-visible .h-tile__face { box-shadow: 0 1px 2px rgba(20,24,34,.05), 0 8px 18px -12px rgba(20,24,34,.3); }
+  #usecases .step, #usecases .result, #usecases .h-ask { transform: none !important; transition: opacity .3s ease; }
+  #usecases .spin svg, #usecases .step.running .step__t, #usecases .step.running .kxm__spin, #usecases .step.running .kxm__arm, #usecases .step.running .kxm__core { animation: none; }
+  #usecases .tip { transition: opacity .15s ease; transform: translate3d(var(--tx,0), var(--ty,0), 0); }
+  #usecases .mc__step, #usecases .mc__ok { transform: none !important; }
+}
+
+/* phones: the card looks like the app (its main background, the bubble, plain answer text),
+   and its texts are short enough that nothing is cut */
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  #usecases .hero.is-stack .mcard { background: var(--k-main); }
+  #usecases .is-stack .mc__result { -webkit-line-clamp: unset; line-clamp: none; display: block; font-size: 13.5px; }
+}
+@media (max-width: 380px) {
+  #usecases .is-stack .mc { padding: 8px 11px 9px; gap: 6px; }
+  #usecases .is-stack .mc__prompt { font-size: 13.5px; padding: 5px 11px; }
+  #usecases .is-stack .mc__steps { height: 26px; }
+  #usecases .is-stack .mc__step { width: 24px; height: 24px; }
+  #usecases .is-stack .mc__result { font-size: 13px; line-height: 1.4; }
+}
+
+/* phones: the request fades in first, then the steps, then the answer streams in word by
+   word; a little more room at the top of the card */
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  #usecases .is-stack .mc { padding-top: 13px; }
+  #usecases .is-stack .mc__prompt { opacity: 0; transform: translateY(4px); transition: opacity .35s ease, transform .35s cubic-bezier(.2,.7,.2,1); }
+  #usecases .is-stack .mc.p-on .mc__prompt { opacity: 1; transform: none; }
+  #usecases .is-stack .mc__steps { opacity: 0; transition: opacity .35s ease; }
+  #usecases .is-stack .mc.s-on .mc__steps { opacity: 1; }
+  #usecases .is-stack .mc__result .w { opacity: 0; transition: opacity .25s ease; }
+  #usecases .is-stack .mc__result .w.on { opacity: 1; }
+  #usecases .is-stack .mc.is-probe .mc__prompt, #usecases .is-stack .mc.is-probe .mc__steps, #usecases .is-stack .mc.is-probe .mc__result .w { opacity: 1; }
+}
+@media (max-width: 380px) { #usecases .is-stack .mc { padding-top: 11px; } }
+@media (prefers-reduced-motion: reduce) {
+  #usecases .is-stack .mc__prompt, #usecases .is-stack .mc__steps { transform: none; transition: opacity .2s ease; }
+}
+/* phones: the free height of the card is shared evenly above, between and below the
+   request, the steps and the answer, instead of collecting at the top and bottom */
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  #usecases .is-stack .mc { justify-content: space-evenly; gap: 4px; padding-top: 6px; padding-bottom: 6px; }
+}
