@@ -148,7 +148,7 @@
   };
   /* the «+» tile: for an application that is not on the wall (page version only). The
      claim follows the NPO page's FAQ: «besprechen wir die Anbindung gern». */
-  var PLUS = ['Ihre Anwendung fehlt?', 'Wir besprechen die Anbindung gern.', 'Klicken für eine Anfrage', 'Ihre Anwendung fehlt? Anbindung anfragen'];
+  var PLUS = ['Ihre Anwendung fehlt?', 'Wir besprechen die Anbindung gern.', 'Ein Klick auf die Kachel öffnet eine E-Mail.', 'Ihre Anwendung fehlt? Anbindung anfragen'];
   var PLUS_MAIL = 'mailto:info@llmify.ch?subject=Anbindung%20an%20Kontexus';
   var PLUS_SVG = '<svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M4 12h16" fill="none" stroke="#3674d9" stroke-width="2.4" stroke-linecap="round"/></svg>';
   var SWISS = ['Betrieben in der Schweiz','Plattform und Sprachmodell laufen standardmässig in der Schweiz. Dort liegen auch die Dateien Ihres Arbeitsbereichs.'];
@@ -963,7 +963,7 @@
     var icon = b.dataset.icon, t = icon === 'swiss' ? SWISS : icon === 'plus' ? PLUS : TIPS[icon];
     $('tipTitle').innerHTML = (icon === 'swiss' ? FLAG : icon === 'plus' ? PLUS_SVG : '<img src="' + src(icon) + '" alt="">') + '<span>' + esc(t[0]) + '</span>';
     $('tipText').textContent = t[1];
-    $('tipHint').textContent = icon === 'plus' ? PLUS[2] : icon !== 'swiss' && casesFor(icon).length ? 'Klicken für ein Beispiel →' : '';
+    $('tipHint').textContent = icon === 'plus' ? PLUS[2] : icon !== 'swiss' && casesFor(icon).length ? 'Ein Klick auf die Kachel zeigt ein Beispiel.' : '';
     var r = b.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight, vw = document.documentElement.clientWidth, vh = window.innerHeight;
     var x = Math.min(Math.max(12, r.left + r.width / 2 - tw / 2), vw - tw - 12);
     var y = r.top - th - 12;
