@@ -22,6 +22,12 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* Manrope, the font of the Kontexus app (OFL), for the chat window in the hero */
+@font-face {
+  font-family: "Manrope"; font-style: normal; font-weight: 200 800; font-display: swap;
+  src: url("fonts/Manrope-var.woff2") format("woff2");
+}
+
 /* tokens: the :root of variant-c.html, plus the page's own sizes */
 :root {
   --bg:#fbfbfa; --panel:#ffffff;
@@ -42,9 +48,10 @@
 }
 *,*::before,*::after { box-sizing: border-box; }
 html { scroll-padding-top: calc(var(--nav-h) + 16px); }
+/* in-page links (hero buttons, nav) scroll smoothly, as the hero links did in the iframe version */
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 html, body { margin: 0; }
 body { background: var(--bg); color: var(--text); font: 400 1rem/1.6 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-html.hero-d { --nav-h:0px; }
 ::selection { background: var(--accent); color: #fff; }
 img { max-width: 100%; }
 a { color: inherit; text-decoration: none; }
@@ -65,12 +72,14 @@ h1, h2, h3, h4, p, ul { margin: 0; }
   border-bottom: 1px solid transparent; transition: border-color .25s ease, background-color .25s ease; }
 .nav.is-scrolled { border-bottom-color: var(--line-soft); background: rgba(251,251,250,.95); }
 /* over the hero the nav stays out of sight; it slides in once the hero has scrolled
-   away (page.js sets .is-shown). Fixed, so it takes no space above the hero. */
-.nav { position: fixed; left: 0; right: 0; transform: translateY(-100%); visibility: hidden;
-  transition: transform .35s cubic-bezier(.2,.7,.2,1), visibility 0s linear .35s, border-color .25s ease, background-color .25s ease; }
-.nav.is-shown { transform: none; visibility: visible; transition: transform .35s cubic-bezier(.2,.7,.2,1), visibility 0s, border-color .25s ease, background-color .25s ease; }
+   away (page.js sets .is-shown). Fixed, so it takes no space above the hero.
+   Not visibility: hidden, so its links stay in the tab order: keyboard focus on one
+   of them brings the nav in. :focus-visible rather than :focus-within, so a mouse
+   click on the logo (which scrolls up to the hero) does not keep it there. */
+.nav { position: fixed; left: 0; right: 0; transform: translateY(-100%);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .25s ease, background-color .25s ease; }
+.nav.is-shown, .nav:has(:focus-visible) { transform: none; }
 @media (prefers-reduced-motion: reduce) { .nav, .nav.is-shown { transition: none; } }
-.nav[hidden] { display: none; }
 .nav__inner { display: flex; align-items: center; gap: 32px; height: var(--nav-h); max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
 .nav__logo { display: flex; align-items: center; border-radius: 6px; }
 .nav__logo img { height: 24px; width: auto; display: block; }
@@ -82,25 +91,13 @@ h1, h2, h3, h4, p, ul { margin: 0; }
 .langsw a:hover { color: var(--text); }
 .langsw a.is-active { color: var(--text); background: rgba(20,24,34,.06); }
 
-/* ---------- Hero (iframe, prototype only) ---------- */
-.hero-embed { position: relative; }
-.hero-embed iframe { display: block; width: 100%; height: 100vh; min-height: 680px; max-height: 980px; border: 0; background: var(--bg); }
-/* variant D sets its own height (page.js measures its document) */
-.hero-embed iframe.is-fitted { min-height: 0; max-height: none; }
-
-/* hero switch, prototype only */
-.heroswitch { position: fixed; left: 16px; bottom: 16px; z-index: 60; display: flex; align-items: center; gap: 2px; padding: 4px 4px 4px 10px;
-  font: 500 12px/1 var(--font); color: var(--muted);
-  background: rgba(255,255,255,.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  border: 1px solid var(--line-soft); border-radius: 12px; box-shadow: 0 10px 28px -14px rgba(20,24,34,.3); }
-.heroswitch__label { margin-right: 6px; }
-.heroswitch a { padding: 6px 10px; border-radius: 8px; color: var(--muted); font-weight: 600; }
-.heroswitch a:hover { color: var(--text); background: rgba(20,24,34,.045); }
-.heroswitch a[aria-current="true"] { color: var(--accent); background: rgba(54,116,217,.09); }
+/* ---------- Hero: hero.css (generated from variant-c.html) ---------- */
 
 /* ---------- Sections ---------- */
 .section { padding: var(--section) 0 0; }
-.section:last-of-type { padding-bottom: var(--section); }
+/* only the last section (the FAQ) keeps space below it, above the Alps band;
+   between sections the gap is one --section */
+main > .section:last-child { padding-bottom: var(--section); }
 .section__head { max-width: 640px; margin: 0 0 48px; }
 .overline { font-size: .8125rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
 .section__title { font-family: var(--display); font-weight: 700; font-size: clamp(1.9rem, 3.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.03em; text-wrap: balance; }
@@ -247,7 +244,6 @@ h1, h2, h3, h4, p, ul { margin: 0; }
   .ptile { padding: 26px 22px 22px; }
   .legal__body { padding: 32px 22px 34px; }
   .footer__inner { grid-template-columns: 1fr; }
-  .heroswitch { left: 8px; bottom: 8px; }
 }
 @media (max-width: 380px) {
   .nav__links { gap: 12px; }
@@ -306,6 +302,9 @@ h1, h2, h3, h4, p, ul { margin: 0; }
 .faq details[open] summary svg { transform: rotate(45deg); }
 .faq details p { max-width: 62em; padding: 0 0 22px; margin-top: -6px; color: var(--muted); line-height: 1.6; }
 .faq summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+/* the FAQ box has the tile look but is no tile to press: no lift, no ring */
+.ptile.faq:hover { --y: 0px; box-shadow: var(--card-shadow); }
+.ptile.faq:hover::before { opacity: 0; }
 @media (max-width: 760px) { .faq { padding: 4px 20px; } }
 
 /* ---------- The tile grid, faintly, here and there behind the sections ----------
