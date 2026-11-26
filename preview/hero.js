@@ -661,6 +661,9 @@
     cells.forEach(function (cell, i) {
       if (!cell.classList.contains('cell--empty')) return;
       if (hit(rects[i], cr, 8)) { cell.style.setProperty('--o', 0); return; }
+      /* below the hero: hidden; the row that runs over the bottom edge stays whole, the
+         section grid below starts with the next row */
+      if (!P.mobile && rects[i].top >= P.hr.bottom - 1) { cell.style.setProperty('--o', 0); return; }
       /* phones: no empty cells beside text and screen, only in the bands */
       if (P.mobile && rects[i].bottom > cr.top && rects[i].top < P.sr.bottom) { cell.style.setProperty('--o', 0); return; }
       var d = 99;
