@@ -645,18 +645,35 @@
   body #usecases .hero.is-stack .logo { width: 200px; }
 }
 
-/* stacked hero: the work steps show the app's logo instead of a ring with a tick */
-#usecases .hero.is-stack .mc__st.mc__lg { width: 22px; height: 22px; border: 0; border-radius: 6px; background: none;
-  animation: none !important; filter: grayscale(1); opacity: .35; transition: opacity .3s ease, filter .3s ease; }
-#usecases .hero.is-stack .mc__row.on .mc__lg, #usecases .hero.is-stack .mc__row.done .mc__lg { filter: none; opacity: 1; }
-#usecases .hero.is-stack .mc__lg img, #usecases .hero.is-stack .mc__lg svg.gi { width: 100%; height: 100%; display: block; border-radius: 6px; object-fit: contain; }
+/* stacked hero: the work steps as in the app (and in the desktop window). A step appears
+   when it starts; while it runs, the Kontexus mark beats in place of the app's logo and the
+   text shimmers; once done, the app's logo shows. No ticks. */
+#usecases .hero.is-stack .mc__row { opacity: 0; transform: translateY(4px); color: var(--k-ink);
+  transition: opacity .3s ease, transform .3s cubic-bezier(.2,.7,.2,1); }
+#usecases .hero.is-stack .mc__row.on { opacity: 1; transform: none; }
+#usecases .hero.is-stack .mc__row .mc__st.mc__lg, #usecases .hero.is-stack .mc__row.on .mc__st.mc__lg, #usecases .hero.is-stack .mc__row.done .mc__st.mc__lg { width: 22px; height: 22px; border: 0; border-radius: 6px; background: none;
+  animation: none !important; filter: none; opacity: 1; }
+#usecases .hero.is-stack .mc__lg img, #usecases .hero.is-stack .mc__lg svg.gi { width: 100%; height: 100%; display: block; border-radius: 6px; object-fit: contain; transition: opacity .2s ease; }
 #usecases .hero.is-stack .mc__lg.gl img { padding: 3px; background: #fff; border: 1px solid var(--k-line, #e5e5e5); box-sizing: border-box; }
-#usecases .hero.is-stack .mc__lg .mc__ok { position: absolute; right: -5px; bottom: -5px; width: 13px; height: 13px; border-radius: 50%;
-  background: var(--accent); border: 2px solid #fff; display: grid; place-items: center; opacity: 0; transform: scale(.4);
-  transition: opacity .25s ease, transform .25s cubic-bezier(.2,.7,.2,1); }
-#usecases .hero.is-stack .mc__lg .mc__ok svg { width: 7px; height: 7px; opacity: 1; transform: none; display: block; }
-#usecases .hero.is-stack .mc__row.done .mc__lg .mc__ok { opacity: 1; transform: none; }
-@media (min-width: 761px) { #usecases .hero.is-stack .mc__st.mc__lg { width: 24px; height: 24px; } }
+#usecases .hero.is-stack .mc__lg .spin { position: absolute; inset: 2px; width: auto; height: auto; margin: 0; top: 2px; left: 2px; opacity: 0; }
+#usecases .hero.is-stack .mc__row .mc__lg .spin svg, #usecases .hero.is-stack .mc__row .mc__lg svg.gi { width: 100%; height: 100%; opacity: 1; transform: none; display: block; }
+#usecases .hero.is-stack .mc__row.on:not(.done) .mc__lg .spin { opacity: 1; }
+#usecases .hero.is-stack .mc__row.on:not(.done) .mc__lg img, #usecases .hero.is-stack .mc__row.on:not(.done) .mc__lg svg.gi { opacity: 0; }
+#usecases .hero.is-stack .mc__row.on:not(.done) .kxm__spin, #usecases .hero.is-stack .mc__row.on:not(.done) .kxm__arm, #usecases .hero.is-stack .mc__row.on:not(.done) .kxm__core {
+  animation-duration: .85s; animation-timing-function: cubic-bezier(.65,0,.35,1); animation-iteration-count: infinite; }
+#usecases .hero.is-stack .mc__row.on:not(.done) .kxm__spin { animation-name: kxTurn; }
+#usecases .hero.is-stack .mc__row.on:not(.done) .kxm__arm { animation-name: kxFlare; }
+#usecases .hero.is-stack .mc__row.on:not(.done) .kxm__core { animation-name: kxCore; }
+#usecases .hero.is-stack .mc__row.on:not(.done) .mc__rt {
+  --sb: color-mix(in srgb, #6e6e6e 70%, #f7f7f7);
+  background: linear-gradient(90deg, var(--sb) 0%, var(--sb) 30%, var(--k-ink) 50%, var(--sb) 70%, var(--sb) 100%);
+  background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+  animation: shimmer 2.2s linear infinite; }
+@media (min-width: 761px) { #usecases .hero.is-stack .mc__row .mc__st.mc__lg { width: 24px; height: 24px; } }
+@media (prefers-reduced-motion: reduce) {
+  #usecases .hero.is-stack .mc__row { transform: none; }
+  #usecases .hero.is-stack .mc__row .mc__rt, #usecases .hero.is-stack .mc__row .kxm__spin, #usecases .hero.is-stack .mc__row .kxm__arm, #usecases .hero.is-stack .mc__row .kxm__core { animation: none !important; }
+}
 
 /* stacked hero: the steps show the apps, so the row of lit tiles under the card is left out
    and the card ends without the room the row used to hang into */

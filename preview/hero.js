@@ -881,10 +881,10 @@
   };
   function cardHTMLv3(c) {
     var rows = c.steps.map(function (st) {
-      /* each step shows the logo of the app it uses: grey while waiting, in colour once it
-         runs, with a small check when it is done */
+      /* as in the app: a step appears when it starts; while it runs the Kontexus mark beats
+         in place of the app's logo and the text shimmers; when it is done the logo shows */
       var gl = st[0] !== 'websearch' && SQUARE.indexOf(st[0]) < 0 ? ' gl' : '';
-      return '<li class="mc__row"><span class="mc__st mc__lg' + gl + '">' + rowIcon(st[0]) + '<span class="mc__ok">' + TICK + '</span></span><span class="mc__rt">' + esc(st[1]) + '</span></li>';
+      return '<li class="mc__row"><span class="mc__st mc__lg' + gl + '">' + rowIcon(st[0]) + '<span class="spin">' + SPIN + '</span></span><span class="mc__rt">' + esc(st[1]) + '</span></li>';
     }).join('');
     return '<div class="mc__prompt">' + esc(TASK3[c.id] || TASK[c.id] || c.prompt) + '</div>' +
       '<ol class="mc__list">' + rows + '</ol>' +
@@ -942,7 +942,7 @@
       ev.push({ at: 150, fn: function () { L.classList.add('p-on'); } });
       ev.push({ at: 750, fn: function () { L.classList.add('s-on'); } });
       /* m3: the text lines need a little longer to read than the icons */
-      var gap = v3 ? 760 : CARD_GAP, chk = v3 ? 560 : CARD_CHECK, at = v3 ? 850 : 1000;
+      var gap = v3 ? 900 : CARD_GAP, chk = v3 ? 700 : CARD_CHECK, at = v3 ? 850 : 1000;
       steps.forEach(function (st, i) {
         var a = at;
         ev.push({ at: a, fn: function () { if (i && links[i - 1]) links[i - 1].classList.add('on'); st.classList.add('on'); } });
