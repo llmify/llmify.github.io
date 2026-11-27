@@ -79,11 +79,58 @@
   });
 })();
 
-/* product card 3: tapping the leaf tile opens its note, tapping elsewhere closes it */
+/* product cards: notes on .hint elements (data-hint-t = title, data-hint = text).
+   Mouse: shown while the pointer is on the element. Touch: a tap opens it, a tap elsewhere
+   closes it. Keyboard: shown while the element has focus. One note per card, placed above
+   the element if there is room in the card's picture area, otherwise below, and kept
+   inside it horizontally. */
 (function () {
-  var t = document.querySelector('.tile--leaf');
-  if (!t) return;
-  t.querySelector('.leaf').addEventListener('click', function (e) { e.stopPropagation(); t.classList.toggle('is-open'); });
-  document.addEventListener('click', function () { t.classList.remove('is-open'); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') t.classList.remove('is-open'); });
+  var open = null;
+  function tipFor(vis) {
+    var t = vis.querySelector(':scope > .hint__tip');
+    if (!t) {
+      t = document.createElement('div'); t.className = 'hint__tip'; t.setAttribute('role', 'tooltip');
+      t.id = 'hint-' + Math.random().toString(36).slice(2, 8); vis.appendChild(t);
+    }
+    return t;
+  }
+  function show(el) {
+    var vis = el.closest('.card__vis'); if (!vis) return;
+    if (open && open !== el) hide(open);
+    var t = tipFor(vis);
+    t.innerHTML = '<b></b><span></span>';
+    t.firstChild.textContent = el.dataset.hintT || ''; t.lastChild.textContent = el.dataset.hint || '';
+    el.setAttribute('aria-describedby', t.id);
+    var v = vis.getBoundingClientRect(), r = el.getBoundingClientRect();
+    t.style.left = '0px'; t.style.top = '0px';
+    var w = t.offsetWidth, h = t.offsetHeight, gap = 8;
+    var x = r.left - v.left + r.width / 2 - w / 2;
+    x = Math.max(0, Math.min(x, v.width - w));
+    var above = r.top - v.top - gap - h, below = r.bottom - v.top + gap;
+    var y = above >= -12 ? above : below;
+    t.style.left = Math.round(x) + 'px'; t.style.top = Math.round(y) + 'px';
+    t.classList.add('is-on'); open = el;
+  }
+  function hide(el) {
+    var vis = el.closest('.card__vis'); var t = vis && vis.querySelector(':scope > .hint__tip');
+    if (t) t.classList.remove('is-on');
+    el.removeAttribute('aria-describedby');
+    if (open === el) open = null;
+  }
+  document.querySelectorAll('#produkt .hint').forEach(function (el) {
+    el.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') show(el); });
+    el.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(el); });
+    /* keyboard focus only; a click or tap also focuses, but is handled below */
+    el.addEventListener('focus', function () { if (el.matches(':focus-visible')) show(el); });
+    el.addEventListener('blur', function () { hide(el); });
+    var lastType = '';
+    el.addEventListener('pointerdown', function (e) { lastType = e.pointerType; });
+    el.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (lastType === 'mouse') return;   /* the mouse shows it by pointing */
+      if (open === el) hide(el); else show(el);
+    });
+  });
+  document.addEventListener('click', function () { if (open) hide(open); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && open) hide(open); });
 })();
