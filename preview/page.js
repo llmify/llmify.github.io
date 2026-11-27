@@ -78,3 +78,12 @@
     dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
   });
 })();
+
+/* product card 3: tapping the leaf tile opens its note, tapping elsewhere closes it */
+(function () {
+  var t = document.querySelector('.tile--leaf');
+  if (!t) return;
+  t.querySelector('.leaf').addEventListener('click', function (e) { e.stopPropagation(); t.classList.toggle('is-open'); });
+  document.addEventListener('click', function () { t.classList.remove('is-open'); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') t.classList.remove('is-open'); });
+})();
