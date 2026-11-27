@@ -50,7 +50,7 @@
         "description": "Kontexus handles recurring office work in Swiss software such as Fundraiso and Bexio. Your data and the AI model stay in Switzerland, and before anything goes out, Kontexus asks first.",
         "inLanguage": "en",
         "datePublished": "2026-11-18",
-        "dateModified": "2026-11-24",
+        "dateModified": "2026-11-27",
         "isPartOf": {
           "@id": "https://llmify.ch/#website"
         },
@@ -198,7 +198,7 @@
             "name": "Where is our data stored?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Kontexus runs in Switzerland, and with the Swiss AI model your data stays here too. If you choose a model from an international provider or connect a service with servers abroad, for example Mailchimp, Salesforce or HubSpot, the data you process with it goes to that provider. Both are your decision."
+              "text": "Kontexus runs in Switzerland, in Infomaniak’s data centres, and with the Swiss AI model your data stays here too. These data centres run exclusively on renewable electricity. If you choose a model from an international provider or connect a service with servers abroad, for example Mailchimp, Salesforce or HubSpot, the data you process with it goes to that provider. Both are your decision."
             }
           },
           {
@@ -308,6 +308,11 @@
     .hero__top .nav__tag { position: relative; top: 5px; }
     h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.25rem, 5.4vw, 3.5rem); line-height: 1.06; letter-spacing: -.03em; text-wrap: balance; }
     .hero__lead { margin-top: 24px; font-size: 1.125rem; color: var(--muted); max-width: 32em; }
+    .hero__eco { margin-top: 22px; display: flex; align-items: flex-start; gap: 8px; font-size: .875rem; color: var(--muted); }
+    .hero__eco svg { flex: none; width: 16px; height: 16px; margin-top: 3px; }
+    .hero__eco b { color: var(--text); font-weight: 500; }
+    .hero__eco a { color: inherit; text-decoration: underline; text-decoration-color: var(--line-soft); text-underline-offset: 3px; }
+    .hero__eco a:hover { color: var(--text); }
     .hero__lead mark { background: var(--tint); color: var(--text); font-weight: 600; padding: 1px 5px; border-radius: 5px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
     /* Fenster, wie das Demo-Fenster der Startseite */
@@ -473,6 +478,7 @@
         <div class="hero__top"><img class="hero__brand" src="/npo/img/kontexus-wordmark-rose.svg" alt="Kontexus" width="162" height="58"><span class="nav__tag">AI for Swiss non-profits</span></div>
         <h1>More time for people. <span class="grad">Less for administration.</span></h1>
         <p class="hero__lead">Kontexus handles recurring office work in <mark>Swiss software</mark> such as Fundraiso and Bexio. Your data and the AI model <mark>stay in Switzerland</mark>, and before anything goes out, <mark>Kontexus asks first</mark>.</p>
+        <p class="hero__eco"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 16c0-7 4.5-11.5 12.5-12.5C16.5 11.5 12 16 4 16zm0 0l6.5-6.5" fill="none" stroke="#3f8f5f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Hosted in Switzerland at <a href="https://www.infomaniak.com/en/ecology" rel="noopener">Infomaniak</a>, on <b>100% renewable electricity</b>.</span></p>
       </div>
       <div class="win" role="img" aria-label="Kontexus at work: asked to “Find foundations for our neighbourhood lunch club and draft a grant application”, Kontexus searches Fundraiso for matching foundations, reads the project description and earlier applications in OneDrive, and presents the draft application for approval.">
         <div class="win__bar" aria-hidden="true"><i></i><i></i><i></i><b>Kontexus</b></div>
@@ -553,7 +559,7 @@
         <details><summary><h2>What can non-profits use Kontexus for?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>For office work that keeps coming back. Kontexus searches Fundraiso for grant-making foundations that fit your project and drafts the application from your earlier ones. It collects the news from your Teams channel and drafts the next newsletter in Mailchimp. And it finds open invoices in Bexio and drafts friendly payment reminders.</p></details>
         <details><summary><h2>Do we have to explain everything to Kontexus every time?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>No. A routine that works well can be saved as a skill: for example, how your grant applications are structured or the tone of your payment reminders. Kontexus then draws on it by itself, and next time a short request is enough.</p></details>
         <details><summary><h2>What does Kontexus cost?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>The Start plan costs CHF 60 per person per month, excl. VAT. All available integrations are included, and onboarding comes at no extra cost. Terms for larger teams and pilot projects are available on request.</p></details>
-        <details><summary><h2>Where is our data stored?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Kontexus runs in Switzerland, and with the Swiss AI model your data stays here too. If you choose a model from an international provider or connect a service with servers abroad, for example Mailchimp, Salesforce or HubSpot, the data you process with it goes to that provider. Both are your decision.</p></details>
+        <details><summary><h2>Where is our data stored?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Kontexus runs in Switzerland, in Infomaniak’s data centres, and with the Swiss AI model your data stays here too. These data centres run exclusively on renewable electricity. If you choose a model from an international provider or connect a service with servers abroad, for example Mailchimp, Salesforce or HubSpot, the data you process with it goes to that provider. Both are your decision.</p></details>
         <details><summary><h2>Does Kontexus send anything without asking?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>No. Before anything goes out, Kontexus asks first. An email, for example, waits for your approval, and you allow or decline it.</p></details>
         <details><summary><h2>Which software does Kontexus work with?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>The focus is on Swiss software such as Fundraiso, Bexio and Zefix. Added to that are Microsoft 365 (Outlook, Calendar, Teams, OneDrive), Mailchimp, Salesforce, HubSpot and more, and Kontexus works with Word, Excel and PDF files. The RaiseNow integration is in development. If you use another system, we are happy to discuss the integration.</p></details>
         <details><summary><h2>How do we get started?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>You sign up at kontexus.ch or request a 30-minute office check: you tell us about your day-to-day office work, we show what Kontexus could take on. Demo access to try it out is available on request.</p></details>

@@ -50,7 +50,7 @@
         "description": "Kontexus prend en charge le travail administratif récurrent dans des logiciels suisses comme Fundraiso et Bexio. Vos données et le modèle d’IA restent en Suisse, et avant tout envoi, Kontexus vous demande.",
         "inLanguage": "fr-CH",
         "datePublished": "2026-11-18",
-        "dateModified": "2026-11-24",
+        "dateModified": "2026-11-27",
         "isPartOf": {
           "@id": "https://llmify.ch/#website"
         },
@@ -198,7 +198,7 @@
             "name": "Où se trouvent nos données ?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Kontexus tourne en Suisse, et avec le modèle d’IA suisse, vos données y restent aussi. Si vous choisissez le modèle d’un fournisseur international ou si vous connectez un service dont les serveurs sont à l’étranger, par exemple Mailchimp, Salesforce ou HubSpot, les données que vous traitez ainsi vont chez ce fournisseur. C’est vous qui décidez dans les deux cas."
+              "text": "Kontexus tourne en Suisse, dans les centres de données d’Infomaniak, et avec le modèle d’IA suisse, vos données y restent aussi. Ces centres de données fonctionnent exclusivement à l’électricité renouvelable. Si vous choisissez le modèle d’un fournisseur international ou si vous connectez un service dont les serveurs sont à l’étranger, par exemple Mailchimp, Salesforce ou HubSpot, les données que vous traitez ainsi vont chez ce fournisseur. C’est vous qui décidez dans les deux cas."
             }
           },
           {
@@ -308,6 +308,11 @@
     .hero__top .nav__tag { position: relative; top: 5px; }
     h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.25rem, 5.4vw, 3.5rem); line-height: 1.06; letter-spacing: -.03em; text-wrap: balance; }
     .hero__lead { margin-top: 24px; font-size: 1.125rem; color: var(--muted); max-width: 32em; }
+    .hero__eco { margin-top: 22px; display: flex; align-items: flex-start; gap: 8px; font-size: .875rem; color: var(--muted); }
+    .hero__eco svg { flex: none; width: 16px; height: 16px; margin-top: 3px; }
+    .hero__eco b { color: var(--text); font-weight: 500; }
+    .hero__eco a { color: inherit; text-decoration: underline; text-decoration-color: var(--line-soft); text-underline-offset: 3px; }
+    .hero__eco a:hover { color: var(--text); }
     .hero__lead mark { background: var(--tint); color: var(--text); font-weight: 600; padding: 1px 5px; border-radius: 5px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
     /* Fenster, wie das Demo-Fenster der Startseite */
@@ -473,6 +478,7 @@
         <div class="hero__top"><img class="hero__brand" src="/npo/img/kontexus-wordmark-rose.svg" alt="Kontexus" width="162" height="58"><span class="nav__tag">IA pour les OBNL suisses</span></div>
         <h1>Plus de temps pour l’humain. <span class="grad">Moins pour l’administration.</span></h1>
         <p class="hero__lead">Kontexus prend en charge le travail administratif récurrent dans des <mark>logiciels suisses</mark> comme Fundraiso et Bexio. Vos données et le modèle d’IA <mark>restent en Suisse</mark>, et avant tout envoi, <mark>Kontexus vous demande</mark>.</p>
+        <p class="hero__eco"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 16c0-7 4.5-11.5 12.5-12.5C16.5 11.5 12 16 4 16zm0 0l6.5-6.5" fill="none" stroke="#3f8f5f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Hébergé en Suisse chez <a href="https://www.infomaniak.com/fr/ecologie" rel="noopener">Infomaniak</a>, avec <b>100&nbsp;% d’électricité renouvelable</b>.</span></p>
       </div>
       <div class="win" role="img" aria-label="Kontexus au travail : à la demande « Trouve des fondations pour notre table de midi de quartier et rédige une demande de soutien », Kontexus cherche des fondations adaptées dans Fundraiso, lit le descriptif du projet et les demandes précédentes dans OneDrive et soumet le projet de demande pour validation.">
         <div class="win__bar" aria-hidden="true"><i></i><i></i><i></i><b>Kontexus</b></div>
@@ -553,7 +559,7 @@
         <details><summary><h2>À quoi Kontexus peut-il servir dans une organisation à but non lucratif ?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Pour le travail administratif qui revient sans cesse. Kontexus cherche dans Fundraiso les fondations donatrices qui correspondent à votre projet et rédige la demande à partir de vos demandes précédentes. Il rassemble les nouvelles de votre canal Teams et rédige la prochaine newsletter dans Mailchimp. Et il trouve les factures ouvertes dans Bexio et rédige des rappels de paiement aimables.</p></details>
         <details><summary><h2>Faut-il tout réexpliquer à Kontexus à chaque fois ?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Non. Une façon de faire qui a fait ses preuves peut être enregistrée comme skill : par exemple, la structure de vos demandes de soutien ou le ton de vos rappels de paiement. Kontexus s’y réfère alors de lui-même, et la fois suivante, une courte consigne suffit.</p></details>
         <details><summary><h2>Combien coûte Kontexus ?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>L’abonnement Start coûte CHF 60 par personne et par mois, hors TVA. Toutes les connexions disponibles sont incluses, la mise en route est comprise sans supplément. Les conditions pour les grandes équipes et les projets pilotes sont fixées sur demande.</p></details>
-        <details><summary><h2>Où se trouvent nos données ?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Kontexus tourne en Suisse, et avec le modèle d’IA suisse, vos données y restent aussi. Si vous choisissez le modèle d’un fournisseur international ou si vous connectez un service dont les serveurs sont à l’étranger, par exemple Mailchimp, Salesforce ou HubSpot, les données que vous traitez ainsi vont chez ce fournisseur. C’est vous qui décidez dans les deux cas.</p></details>
+        <details><summary><h2>Où se trouvent nos données ?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Kontexus tourne en Suisse, dans les centres de données d’Infomaniak, et avec le modèle d’IA suisse, vos données y restent aussi. Ces centres de données fonctionnent exclusivement à l’électricité renouvelable. Si vous choisissez le modèle d’un fournisseur international ou si vous connectez un service dont les serveurs sont à l’étranger, par exemple Mailchimp, Salesforce ou HubSpot, les données que vous traitez ainsi vont chez ce fournisseur. C’est vous qui décidez dans les deux cas.</p></details>
         <details><summary><h2>Kontexus envoie-t-il quelque chose sans demander ?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Non. Avant tout envoi, Kontexus vous demande. Un e-mail, par exemple, attend votre validation, et vous l’autorisez ou le refusez.</p></details>
         <details><summary><h2>Avec quels logiciels Kontexus travaille-t-il ?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>L’accent est mis sur des logiciels suisses comme Fundraiso, Bexio et Zefix. S’y ajoutent Microsoft 365 (Outlook, Calendrier, Teams, OneDrive), Mailchimp, Salesforce, HubSpot et d’autres, et Kontexus travaille avec des fichiers Word, Excel et PDF. La connexion à RaiseNow est en développement. Si vous utilisez un autre système, parlons volontiers de la connexion.</p></details>
         <details><summary><h2>Comment commencer ?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Vous vous inscrivez sur kontexus.ch ou vous demandez un bilan administratif de 30 minutes : vous nous racontez votre quotidien administratif, nous montrons ce que Kontexus pourrait prendre en charge. Un accès de démonstration pour essayer est possible sur demande.</p></details>

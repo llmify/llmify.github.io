@@ -50,7 +50,7 @@
         "description": "Kontexus sbriga il lavoro d’ufficio ricorrente in software svizzeri come Fundraiso e Bexio. I vostri dati e il modello di IA restano in Svizzera, e prima che qualcosa esca, Kontexus chiede conferma.",
         "inLanguage": "it-CH",
         "datePublished": "2026-11-18",
-        "dateModified": "2026-11-24",
+        "dateModified": "2026-11-27",
         "isPartOf": {
           "@id": "https://llmify.ch/#website"
         },
@@ -198,7 +198,7 @@
             "name": "Dove si trovano i nostri dati?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Kontexus gira in Svizzera, e con il modello di IA svizzero anche i vostri dati restano qui. Se scegliete il modello di un fornitore internazionale o collegate un servizio con server all’estero, per esempio Mailchimp, Salesforce o HubSpot, i dati che elaborate in questo modo vanno a quel fornitore. In entrambi i casi decidete voi."
+              "text": "Kontexus gira in Svizzera, nei data center di Infomaniak, e con il modello di IA svizzero anche i vostri dati restano qui. Questi data center usano esclusivamente elettricità da fonti rinnovabili. Se scegliete il modello di un fornitore internazionale o collegate un servizio con server all’estero, per esempio Mailchimp, Salesforce o HubSpot, i dati che elaborate in questo modo vanno a quel fornitore. In entrambi i casi decidete voi."
             }
           },
           {
@@ -308,6 +308,11 @@
     .hero__top .nav__tag { position: relative; top: 5px; }
     h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.25rem, 5.4vw, 3.5rem); line-height: 1.06; letter-spacing: -.03em; text-wrap: balance; }
     .hero__lead { margin-top: 24px; font-size: 1.125rem; color: var(--muted); max-width: 32em; }
+    .hero__eco { margin-top: 22px; display: flex; align-items: flex-start; gap: 8px; font-size: .875rem; color: var(--muted); }
+    .hero__eco svg { flex: none; width: 16px; height: 16px; margin-top: 3px; }
+    .hero__eco b { color: var(--text); font-weight: 500; }
+    .hero__eco a { color: inherit; text-decoration: underline; text-decoration-color: var(--line-soft); text-underline-offset: 3px; }
+    .hero__eco a:hover { color: var(--text); }
     .hero__lead mark { background: var(--tint); color: var(--text); font-weight: 600; padding: 1px 5px; border-radius: 5px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
     /* Fenster, wie das Demo-Fenster der Startseite */
@@ -473,6 +478,7 @@
         <div class="hero__top"><img class="hero__brand" src="/npo/img/kontexus-wordmark-rose.svg" alt="Kontexus" width="162" height="58"><span class="nav__tag">IA per il non profit svizzero</span></div>
         <h1>Più tempo per le persone. <span class="grad">Meno per l’amministrazione.</span></h1>
         <p class="hero__lead">Kontexus sbriga il lavoro d’ufficio ricorrente in <mark>software svizzeri</mark> come Fundraiso e Bexio. I vostri dati e il modello di IA <mark>restano in Svizzera</mark>, e prima che qualcosa esca, <mark>Kontexus chiede conferma</mark>.</p>
+        <p class="hero__eco"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 16c0-7 4.5-11.5 12.5-12.5C16.5 11.5 12 16 4 16zm0 0l6.5-6.5" fill="none" stroke="#3f8f5f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Ospitato in Svizzera presso <a href="https://www.infomaniak.com/it/ecologia" rel="noopener">Infomaniak</a>, con il <b>100&nbsp;% di elettricità rinnovabile</b>.</span></p>
       </div>
       <div class="win" role="img" aria-label="Kontexus al lavoro: alla richiesta «Trova fondazioni per il nostro pranzo di quartiere e prepara una richiesta di contributo», Kontexus cerca in Fundraiso le fondazioni adatte, legge la descrizione del progetto e le richieste precedenti in OneDrive e sottopone la bozza della richiesta per approvazione.">
         <div class="win__bar" aria-hidden="true"><i></i><i></i><i></i><b>Kontexus</b></div>
@@ -553,7 +559,7 @@
         <details><summary><h2>Per che cosa può servire Kontexus a un’organizzazione non profit?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Per il lavoro d’ufficio che si ripete continuamente. Kontexus cerca in Fundraiso le fondazioni donatrici adatte al vostro progetto e prepara la richiesta a partire dalle vostre richieste precedenti. Raccoglie le novità dal vostro canale Teams e prepara la prossima newsletter in Mailchimp. E trova le fatture aperte in Bexio e prepara solleciti di pagamento cortesi.</p></details>
         <details><summary><h2>Dobbiamo rispiegare tutto a Kontexus ogni volta?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>No. Una procedura che funziona può essere salvata come skill: per esempio, come sono strutturate le vostre richieste di contributo o con quale tono sollecitate i pagamenti. Kontexus vi fa poi riferimento da solo, e la volta successiva basta una breve richiesta.</p></details>
         <details><summary><h2>Quanto costa Kontexus?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>L’abbonamento Start costa CHF 60 per persona al mese, IVA esclusa. Tutti i collegamenti disponibili sono inclusi, l’introduzione è compresa senza supplemento. Le condizioni per team più grandi e progetti pilota si concordano su richiesta.</p></details>
-        <details><summary><h2>Dove si trovano i nostri dati?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Kontexus gira in Svizzera, e con il modello di IA svizzero anche i vostri dati restano qui. Se scegliete il modello di un fornitore internazionale o collegate un servizio con server all’estero, per esempio Mailchimp, Salesforce o HubSpot, i dati che elaborate in questo modo vanno a quel fornitore. In entrambi i casi decidete voi.</p></details>
+        <details><summary><h2>Dove si trovano i nostri dati?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Kontexus gira in Svizzera, nei data center di Infomaniak, e con il modello di IA svizzero anche i vostri dati restano qui. Questi data center usano esclusivamente elettricità da fonti rinnovabili. Se scegliete il modello di un fornitore internazionale o collegate un servizio con server all’estero, per esempio Mailchimp, Salesforce o HubSpot, i dati che elaborate in questo modo vanno a quel fornitore. In entrambi i casi decidete voi.</p></details>
         <details><summary><h2>Kontexus invia qualcosa senza chiedere?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>No. Prima che qualcosa esca, Kontexus chiede conferma. Un’e-mail, per esempio, attende la vostra approvazione, e voi la consentite o la rifiutate.</p></details>
         <details><summary><h2>Con quali software lavora Kontexus?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>L’accento è posto su software svizzeri come Fundraiso, Bexio e Zefix. Si aggiungono Microsoft 365 (Outlook, Calendario, Teams, OneDrive), Mailchimp, Salesforce, HubSpot e altri, e Kontexus lavora con file Word, Excel e PDF. Il collegamento a RaiseNow è in sviluppo. Se usate un altro sistema, parliamo volentieri del collegamento.</p></details>
         <details><summary><h2>Come iniziamo?</h2><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v14M3 10h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary><p>Vi registrate su kontexus.ch oppure richiedete un check dell’ufficio di 30 minuti: ci raccontate il vostro quotidiano d’ufficio, noi mostriamo che cosa Kontexus potrebbe sbrigare. Un accesso demo per provare è possibile su richiesta.</p></details>

@@ -4,7 +4,7 @@
 
 LLMify AG is based in Cham, Zug, Switzerland, and is recognised by ETH Zurich as *A Start-up Company of ETH Zurich* (since 20 May 2026). The product is Kontexus, described at https://llmify.ch/#produkt. The application itself runs at https://kontexus.ch, where the entry page is a sign-in form rather than a description.
 
-Last updated: 24 November 2026.
+Last updated: 27 November 2026.
 
 ## Product: Kontexus
 
