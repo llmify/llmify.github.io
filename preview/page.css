@@ -358,3 +358,21 @@ main > .section:last-child { padding-bottom: var(--section); }
 @media (min-width: 761px) and (min-height: 501px) {
   body #usecases .hero__inner { padding-bottom: calc(64px + var(--nav-h)); }
 }
+
+/* product card 3: a leaf tile with «100 %»; pointing at it (or tapping it) shows a short
+   note above it, over the empty top row, never over the Swiss flag */
+#souveraenitaet .card__vis { position: relative; }
+.tile--leaf { z-index: 2; }
+.leaf { all: unset; box-sizing: border-box; position: absolute; inset: 0; border-radius: inherit; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  background: #fff; border: 1px solid rgba(20,24,34,.08); box-shadow: 0 1px 2px rgba(20,24,34,.06), 0 8px 18px -12px rgba(20,24,34,.35); }
+.leaf svg { width: 46%; height: 46%; fill: #3d9a6a; stroke: #fff; stroke-width: 1.4; stroke-linecap: round; }
+.leaf svg path:last-child { stroke: #fff; }
+.leaf span { font-family: var(--display); font-size: clamp(11px, 3vw, 14px); font-weight: 700; color: #2f7d55; letter-spacing: -.01em; line-height: 1; }
+.leaf:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.leaf__tip { position: absolute; left: 0; bottom: calc(100% + 8px); width: max-content; max-width: min(300px, 78vw); z-index: 5;
+  padding: 9px 12px; border-radius: 12px; background: #fff; border: 1px solid rgba(20,24,34,.1);
+  box-shadow: 0 12px 28px -12px rgba(20,24,34,.35); font-size: .8125rem; line-height: 1.45; color: var(--muted);
+  opacity: 0; transform: translateY(4px); pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+.leaf__tip b { display: block; color: var(--ink, #1d1d1f); font-weight: 600; margin-bottom: 2px; }
+.tile--leaf:hover .leaf__tip, .leaf:focus-visible + .leaf__tip, .tile--leaf.is-open .leaf__tip { opacity: 1; transform: none; }

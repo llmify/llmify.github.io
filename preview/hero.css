@@ -267,9 +267,10 @@
    The hero is exactly the visible height: the text, a small symbolic example card in
    place of the chat window, and under it one band of tiles (two rows; landscape: one
    row across both columns), only the connectors of the featured cases plus the Swiss
-   tile. Everything here applies to phones only. */
+   tile. Everything here applies to phones, and up to 1179 px wide also to the
+   simple mode (end of file), which uses the phone-upright layout. */
 #usecases .mcard { display: none; }
-@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+@media (max-width: 1179.98px), (max-height: 500px) and (orientation: landscape) {
   #usecases { --t: 38px; --gap: 10px; }
   #usecases .hero { height: 100vh; height: 100svh; min-height: 540px; max-height: none; }
   #usecases .hero__inner { display: flex; flex-direction: column; justify-content: center; align-items: stretch; gap: clamp(14px, 3.4svh, 34px);
@@ -323,7 +324,7 @@
    the example card lies over its upper rows (hero.js, buildStackWall). The card is
    never empty: the step icons of a case show as faint placeholders from its start
    and fill in one by one. */
-@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+@media (max-width: 1179.98px), (max-height: 500px) and (orientation: landscape) {
   #usecases .ctas { display: none; }
   #usecases .sub { margin-bottom: 0; }
   #usecases .mc__step { opacity: .28; filter: grayscale(1); transform: scale(.9); transition: opacity .3s ease, filter .3s ease, transform .3s cubic-bezier(.2,.7,.2,1); }
@@ -387,7 +388,7 @@
 
 /* touch phones: a tapped tile keeps :hover until the next tap; it must not look lit
    (or unfaded) after the example has moved on. Keyboard focus still shows. */
-@media (hover: none) and (max-width: 760px), (hover: none) and (max-height: 500px) and (orientation: landscape) {
+@media (hover: none) and (max-width: 1179.98px), (hover: none) and (max-height: 500px) and (orientation: landscape) {
   #usecases .h-tile:hover:not(.is-case):not(:focus-visible) { --y: 0px; --z: 0px; }
   #usecases .h-tile:hover:not(.is-case):not(:focus-visible)::before { opacity: 0; }
   #usecases .wall.is-running .h-tile:not(.is-case):not(.h-tile--flag):not(.h-tile--plus):hover:not(:focus-visible) .h-tile__face { opacity: var(--fade-o, .15); filter: grayscale(var(--fade-g, 1)); }
@@ -423,7 +424,7 @@
 
 /* phones: the card looks like the app (its main background, the bubble, plain answer text),
    and its texts are short enough that nothing is cut */
-@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+@media (max-width: 1179.98px), (max-height: 500px) and (orientation: landscape) {
   #usecases .hero.is-stack .mcard { background: var(--k-main); }
   #usecases .is-stack .mc__result { -webkit-line-clamp: unset; line-clamp: none; display: block; font-size: 13.5px; }
 }
@@ -437,7 +438,7 @@
 
 /* phones: the request fades in first, then the steps, then the answer streams in word by
    word; a little more room at the top of the card */
-@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+@media (max-width: 1179.98px), (max-height: 500px) and (orientation: landscape) {
   #usecases .is-stack .mc { padding-top: 13px; }
   #usecases .is-stack .mc__prompt { opacity: 0; transform: translateY(4px); transition: opacity .35s ease, transform .35s cubic-bezier(.2,.7,.2,1); }
   #usecases .is-stack .mc.p-on .mc__prompt { opacity: 1; transform: none; }
@@ -453,7 +454,7 @@
 }
 /* phones: the free height of the card is shared evenly above, between and below the
    request, the steps and the answer, instead of collecting at the top and bottom */
-@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+@media (max-width: 1179.98px), (max-height: 500px) and (orientation: landscape) {
   #usecases .is-stack .mc { justify-content: space-evenly; gap: 4px; padding-top: 6px; padding-bottom: 6px; }
 }
 /* the Salesforce cloud is wide and flat: give it more of the tile than the other glyphs */
@@ -464,10 +465,147 @@
 #usecases .wall.is-running .h-tile--sq:not(.is-case):not(.h-tile--flag):not(.h-tile--plus) .h-tile__face { opacity: .15; filter: grayscale(1) contrast(.6) brightness(1.3); }
 #usecases .wall.is-running .h-tile--sq:not(.is-case):not(.h-tile--flag):not(.h-tile--plus):hover .h-tile__face,
 #usecases .wall.is-running .h-tile--sq:not(.is-case):not(.h-tile--flag):not(.h-tile--plus):focus-visible .h-tile__face { opacity: 1; filter: none; }
-@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+@media (max-width: 1179.98px), (max-height: 500px) and (orientation: landscape) {
   #usecases .wall.is-running .h-tile--sq:not(.is-case):not(.h-tile--flag):not(.h-tile--plus):hover:not(:focus-visible) .h-tile__face { opacity: .15; filter: grayscale(1) contrast(.6) brightness(1.3); }
 }
 /* the text block is wider than its text: clicks pass through it to tiles beside the text,
    only its links take them */
 #usecases .copy { pointer-events: none; }
 #usecases .copy a, #usecases .copy button { pointer-events: auto; }
+
+/* ======================================================================
+   Variant m3 (phones upright only): demo-led.
+   Nav: LLMify logo and one «Preise» pill. Hero: top-aligned, not one fixed
+   screen; small Kontexus logo, headline, subtitle, two buttons, then the
+   example card as the main visual with a row of the running case's tiles
+   (and the Swiss tile) over its bottom edge. Landscape phones and desktop
+   are unchanged: every rule here is behind .is-stack or the portrait condition.
+   The block below runs up to 1179.98 px, so the simple mode (end of file) uses it too.
+   ====================================================================== */
+@media (max-width: 760px) and (min-height: 501px) {
+  .nav__inner { gap: 12px; }
+  .nav__links { margin-inline: auto 0; gap: 0; }
+  .nav__links a:not([href="#preise"]) { display: none; }
+  .nav__links a[href="#preise"] { display: inline-flex; align-items: center; height: 34px; padding: 0 15px; border-radius: 999px;
+    background: #fff; border: 1px solid var(--line); color: var(--text); font-size: .875rem; font-weight: 600; }
+  .nav .langsw { display: none; }
+}
+
+@media (max-width: 1179.98px) {
+  body #usecases .hero.is-stack { height: auto; min-height: 0; max-height: none; }
+  body #usecases .hero.is-stack .hero__inner { display: flex; flex-direction: column; justify-content: flex-start; gap: 0;
+    height: auto; max-width: 520px; padding: 28px 16px 44px; }
+  #usecases .hero.is-stack .copy { display: block; }
+  #usecases .hero.is-stack .logo { width: 170px; margin: 0 0 16px -3.5px; } /* «k» flush with the headline */
+  #usecases .hero.is-stack .tagline { font-size: clamp(1.85rem, 8.4vw, 2.3rem); line-height: 1.06; margin: 0 0 12px; }
+  #usecases .hero.is-stack .sub { margin: 0; font-size: 1rem; line-height: 1.5; max-width: 36ch; text-wrap: pretty; }
+  #usecases .hero.is-stack .ctas { display: flex; gap: 8px; margin-top: 20px; }
+  #usecases .hero.is-stack .h-btn { flex: 1 1 auto; justify-content: center; min-height: 46px; padding: 12px 14px; font-size: .9375rem; border-radius: 12px; }
+  #usecases .hero.is-stack .h-btn--primary svg { display: inline; width: 15px; height: 15px; }
+
+  /* the card and the row of tiles under it */
+  #usecases .hero.is-stack .screen { margin-top: 28px; padding-bottom: calc(var(--t) * .55); }
+  #usecases .hero.is-stack .mcard { position: relative; left: auto; right: auto; z-index: 1; background: #fff; border-radius: 20px;
+    border: 1px solid rgba(20,24,34,.09);
+    box-shadow: 0 1px 2px rgba(20,24,34,.04), 0 24px 48px -28px rgba(20,24,34,.36), 0 6px 16px -10px rgba(20,24,34,.1); }
+  #usecases .hero.is-stack .mc { justify-content: flex-start; gap: 0; padding: 14px 16px calc(var(--t) * .45 + 16px); }
+  #usecases .hero.is-stack .mc__head { display: flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 600; letter-spacing: .02em;
+    color: var(--k-faint); line-height: 1.2; }
+  /* one line under the card and its tiles: the Swiss cross and «Betrieben in der Schweiz» */
+  #usecases .hero.is-stack .origin { order: 9; display: flex; justify-content: center; align-items: center; gap: 8px; margin: 30px 0 0;
+    font-size: 13px; font-weight: 500; color: var(--k-faint, #8a8f98); }
+  #usecases .hero.is-stack .origin .flag { width: 14px; height: 14px; flex: none; display: block; }
+  #usecases .hero.is-stack .mc__prompt { margin-top: 10px; max-width: 90%; font-size: 15px; font-weight: 500; line-height: 1.38; padding: 8px 13px; border-radius: 16px 16px 5px 16px; }
+  #usecases .hero.is-stack .mc__list { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px;
+    opacity: 1; }
+  #usecases .hero.is-stack .mc__row { display: flex; align-items: center; gap: 10px; font-size: 14px; line-height: 1.3; color: #b9bcc2; transition: color .3s ease; min-width: 0; }
+  #usecases .hero.is-stack .mc__rt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  #usecases .hero.is-stack .mc__row.on { color: var(--k-ink); }
+  #usecases .hero.is-stack .mc__st { position: relative; flex: none; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #dcdee2;
+    display: grid; place-items: center; transition: background-color .25s ease, border-color .25s ease; }
+  #usecases .hero.is-stack .mc__st svg { width: 10px; height: 10px; opacity: 0; transform: scale(.5); transition: opacity .25s ease, transform .25s cubic-bezier(.2,.7,.2,1); }
+  #usecases .hero.is-stack .mc__row.on .mc__st { border-color: rgba(54,116,217,.25); border-top-color: var(--accent); animation: m3spin .7s linear infinite; }
+  #usecases .hero.is-stack .mc__row.done .mc__st { animation: none; background: var(--accent); border-color: var(--accent); }
+  #usecases .hero.is-stack .mc__row.done .mc__st svg { opacity: 1; transform: none; }
+  /* the answer: pinned to the bottom, a quiet placeholder until it streams in */
+  #usecases .hero.is-stack .mc__ans { position: relative; margin-top: auto; padding-top: 14px; }
+  #usecases .hero.is-stack .mc__result { position: relative; font-size: 14px; line-height: 1.45; color: var(--k-ink); opacity: 1; }
+  #usecases .hero.is-stack .mc__ph { position: absolute; left: 0; right: 0; top: 14px; display: flex; flex-direction: column; gap: 9px; padding-top: 3px; transition: opacity .3s ease; }
+  #usecases .hero.is-stack .mc__ph i { display: block; height: 11px; border-radius: 6px; background: #eef0f2; }
+  #usecases .hero.is-stack .mc__ph i + i { width: 62%; }
+  #usecases .hero.is-stack .mc.show-result .mc__ph { opacity: 0; }
+  #usecases .hero.is-stack .mc.is-probe .mc__ph { display: none; }
+
+  /* the row of tiles: centred, half over the card's bottom edge */
+  #usecases .hero.is-stack .wall { position: absolute; left: 0; right: 0; bottom: 0; top: auto; height: var(--t); z-index: 3; }
+  #usecases .wall__grid.is-row { position: absolute; inset: 0; display: block; }
+  #usecases .crow { position: absolute; inset: 0; display: flex; justify-content: center; gap: var(--gap);
+    transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1); }
+  #usecases .crow.is-new { opacity: 0; transform: translateY(6px); }
+  #usecases .crow.is-out { opacity: 0; transition-duration: .25s; pointer-events: none; }
+  #usecases .crow .cell--swiss { margin-left: 8px; }
+  #usecases .crow .h-tile::after { content: ""; position: absolute; inset: calc(var(--gap) / -2); }
+  #usecases .crow .h-tile::before { box-shadow: inset 0 0 0 1px var(--accent), 0 0 0 2px var(--accent), 0 0 0 5px rgba(54,116,217,.13), 0 10px 20px -10px rgba(54,116,217,.5); }
+  #usecases .crow .h-tile__face { box-shadow: 0 1px 2px rgba(20,24,34,.06), 0 6px 14px -8px rgba(20,24,34,.32); }
+  #usecases .crow .h-tile--flag .h-tile__face { box-shadow: 0 1px 2px rgba(20,24,34,.08), 0 6px 14px -8px rgba(20,24,34,.32); }
+}
+@media (max-width: 380px) {
+  #usecases .hero.is-stack .h-btn { padding: 12px 10px; font-size: .875rem; }
+  #usecases .hero.is-stack .h-btn--primary svg { display: none; }
+  #usecases .hero.is-stack .mc { padding-left: 14px; padding-right: 14px; }
+  #usecases .hero.is-stack .mc__prompt { font-size: 14px; }
+  #usecases .hero.is-stack .mc__row, #usecases .hero.is-stack .mc__result { font-size: 13.5px; }
+  #usecases .hero.is-stack .sub { text-wrap: balance; }
+}
+/* short phones (640–700 px): a little less air above the card, so headline, subtitle,
+   buttons and the top of the card share the first screen */
+@media (max-width: 760px) and (max-height: 700px) {
+  body #usecases .hero.is-stack .hero__inner { padding-top: 22px; }
+  #usecases .hero.is-stack .logo { width: 150px; margin-bottom: 12px; margin-left: -3px; }
+  #usecases .hero.is-stack .ctas { margin-top: 16px; }
+  #usecases .hero.is-stack .screen { margin-top: 22px; }
+}
+@keyframes m3spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  #usecases .hero.is-stack .mc__row.on .mc__st { animation: none; }
+  #usecases .crow { transition: opacity .2s ease; transform: none; }
+}
+
+/* the line under the card exists only in the phone layout */
+#usecases .hero:not(.is-stack) .origin { display: none; }
+/* phones upright: the company logo in the bar is small, the product logo in the hero
+   is the large one, so the two read as maker and product */
+@media (max-width: 760px) and (min-height: 501px) {
+  .nav__logo img { height: 16px; }
+}
+
+/* ======================================================================
+   Simple mode: tablets and small laptops, 761 to 1179 px wide (not landscape
+   phones). Here the wall cannot frame the window without crowding it, so the
+   hero takes the layout of phones upright (hero-m3.js uses the same width in
+   STACKED; the phone rules above run up to 1179.98 px for this). This block
+   only makes it larger and centres it; the desktop nav stays as it is.
+   ====================================================================== */
+@media (min-width: 761px) and (max-width: 1179.98px) {
+  body #usecases .hero.is-stack .hero__inner { max-width: 640px; padding: 64px 32px 80px; }
+  #usecases .hero.is-stack .copy { text-align: center; }
+  #usecases .hero.is-stack .logo { width: 220px; margin: 0 auto 24px; }
+  #usecases .hero.is-stack .tagline { font-size: clamp(2.6rem, 5.2vw, 3.1rem); line-height: 1.05; margin: 0 0 16px; }
+  #usecases .hero.is-stack .sub { margin: 0 auto; font-size: 1.125rem; line-height: 1.55; max-width: 42ch; text-wrap: balance; }
+  #usecases .hero.is-stack .ctas { justify-content: center; gap: 12px; margin-top: 28px; }
+  #usecases .hero.is-stack .h-btn { flex: 0 0 auto; min-height: 50px; padding: 13px 24px; font-size: 1rem; }
+
+  #usecases .hero.is-stack .screen { margin-top: 48px; }
+  #usecases .hero.is-stack .mcard { border-radius: 22px; }
+  #usecases .hero.is-stack .mc { padding: 20px 24px calc(var(--t) * .45 + 22px); }
+  #usecases .hero.is-stack .mc__head { font-size: 12.5px; }
+  #usecases .hero.is-stack .mc__prompt { margin-top: 12px; font-size: 16.5px; padding: 10px 15px; }
+  #usecases .hero.is-stack .mc__list { margin-top: 18px; gap: 12px; }
+  #usecases .hero.is-stack .mc__row { font-size: 15.5px; gap: 12px; }
+  #usecases .hero.is-stack .mc__st { width: 20px; height: 20px; }
+  #usecases .hero.is-stack .mc__ans { padding-top: 18px; }
+  #usecases .hero.is-stack .mc__result { font-size: 15.5px; }
+  #usecases .hero.is-stack .mc__ph { top: 18px; }
+  #usecases .hero.is-stack .origin { font-size: 14px; }
+  #usecases .hero.is-stack .origin .flag { width: 15px; height: 15px; }
+}

@@ -199,7 +199,12 @@
   /* ---------------- Wall ---------------- */
   var tilesByIcon = {};
   var NEED = ORDER.length + 2;            /* every connector once, the Swiss tile and the «+» tile */
-  var STACKED = '(max-width: 760px), (max-height: 500px) and (orientation: landscape)';
+  /* phones, and the simple mode from 761 to 1179 px wide: there the wall cannot frame the
+     window without crowding it (it came out tight at 900 to 1100 px), so tablets and small
+     laptops get the phone-upright layout, larger (hero-m3.css, end of file). One width
+     rule, the same as in the CSS, so script and styles never disagree. */
+  var STACKED = '(max-width: 1179.98px), (max-height: 500px) and (orientation: landscape)';
+  var SIMPLE = '(min-width: 761px) and (max-width: 1179.98px)';
   var inner = hero.querySelector('.hero__inner');
 
   function rng(seed) { return function () { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }; }
@@ -227,8 +232,9 @@
     if (mobile) { buildBands(); return; }
     /* back from phone width: the wall returns to its place behind the content */
     if (wall.parentNode !== hero) hero.insertBefore(wall, hero.querySelector('.veil'));
-    grid.classList.remove('is-bands', 'is-stack');
-    hero.classList.remove('is-stack');
+    grid.classList.remove('is-bands', 'is-stack', 'is-row');
+    hero.classList.remove('is-stack', 'is-simple');
+    var og = $('origin'); if (og) og.remove();   /* the line under the card exists only in the stacked layout */
     mcard.style.top = '';
     var W = hero.clientWidth, P, S;
     {
@@ -309,8 +315,9 @@
     grid.textContent = '';
     tilesByIcon = {};
     hero.classList.toggle('is-stack', !land);
-    sizeCard();   /* measure the card with the phone styles in place */
-    if (land) buildLandBand(); else buildStackWall();
+    hero.classList.toggle('is-simple', !land && window.matchMedia(SIMPLE).matches);
+    if (land) buildLandBand(); else buildRow(current || FEATURED[0], false);
+    sizeCard();   /* measure the card with the phone styles and the row's --t in place */
     var first = grid.querySelector('button.h-tile'); if (first) first.tabIndex = 0;
     applyLit();
   }
@@ -324,8 +331,9 @@
     var g = Math.max(6, Math.min(16, Math.floor((avail - n * t) / (n - 1))));
     hero.style.setProperty('--t', t + 'px');
     hero.style.setProperty('--gap', g + 'px');
-    grid.classList.remove('is-stack');
+    grid.classList.remove('is-stack', 'is-row');
     grid.classList.add('is-bands');
+    var og = $('origin'); if (og) og.remove();
     mcard.style.top = '';
     if (wall.parentNode !== inner) inner.appendChild(wall);
     var band = document.createElement('div');
@@ -335,6 +343,48 @@
       cell.appendChild(bandTile(icon, c * 90)); band.appendChild(cell);
     });
     grid.appendChild(band);
+  }
+
+  /* variant m3, phones upright: no wall. One short row of tiles hangs over the bottom
+     edge of the card: the applications of the running case, lit, and the Swiss tile at
+     the end. It is rebuilt for each case; the old row fades out under the new one. */
+  function isPortrait() { return isStacked() && !window.matchMedia(LAND).matches; }
+  function buildRow(c, animate) {
+    var w = hero.clientWidth, simple = window.matchMedia(SIMPLE).matches;
+    var t = simple ? 54 : w < 370 ? 40 : 44, g = simple ? 12 : 10;
+    hero.style.setProperty('--t', t + 'px');
+    hero.style.setProperty('--gap', g + 'px');
+    grid.classList.remove('is-bands', 'is-stack');
+    grid.classList.add('is-row');
+    grid.style.gridTemplateColumns = '';
+    mcard.style.top = '';
+    if (wall.parentNode !== screen) screen.insertBefore(wall, mcard.nextSibling);
+    tilesByIcon = {};
+    var old = grid.querySelectorAll('.crow');
+    old.forEach(function (o) {
+      o.classList.add('is-out'); o.setAttribute('aria-hidden', 'true');
+      o.querySelectorAll('.h-tile').forEach(function (b) { b.tabIndex = -1; });
+      if (animate) setTimeout(function () { o.remove(); }, 450); else o.remove();
+    });
+    var row = document.createElement('div');
+    row.className = 'crow' + (animate ? ' is-new' : '');
+    var icons = c.connectors.filter(function (k, i) { return c.connectors.indexOf(k) === i && k !== 'swiss'; });
+    /* the Swiss cross is not in this row: one line under the card says where it runs */
+    var origin = $('origin');
+    if (!origin) {
+      origin = document.createElement('p'); origin.id = 'origin'; origin.className = 'origin';
+      origin.innerHTML = FLAG + '<span>' + esc(SWISS[0]) + '</span>';
+    }
+    if (origin.previousElementSibling !== screen) screen.parentNode.insertBefore(origin, screen.nextSibling);
+    icons.forEach(function (icon, i) {
+      var cell = document.createElement('div');
+      cell.className = 'cell' + (icon === 'swiss' ? ' cell--swiss' : '');
+      cell.appendChild(bandTile(icon, i * 90));
+      row.appendChild(cell);
+    });
+    grid.appendChild(row);
+    var first = row.querySelector('button.h-tile'); if (first) first.tabIndex = 0;
+    if (animate) requestAnimationFrame(function () { requestAnimationFrame(function () { row.classList.remove('is-new'); }); });
   }
 
   /* phones upright: a wall across the full text width, its outer tiles flush with the
@@ -810,7 +860,33 @@
     'anlass-gaeste': '15 neue Gäste sind vorbereitet.',
     'formular-lieferant': '14 von 18 Feldern sind ausgefüllt.'
   };
+  /* variant m3, phones upright: a fuller card. A small label, the request as a bubble,
+     every step as a line of text that runs and checks off, the answer pinned to the
+     bottom with a placeholder until it streams in. The applications are the tiles under the card. */
+  var TICK = '<svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.2 5.3l1.9 1.9 3.8-4.2"/></svg>';
+  /* m3: the answer in two short sentences, the figure first and the question Kontexus asks before it acts */
+  /* m3: requests that fit two lines of the bubble, so the card has no empty band */
+  var TASK3 = { 'vertrieb-teams': 'Antworten Sie Sandra in Teams mit dem Stand aus Salesforce.' };
+  var ANSWER3 = {
+    'treuhand-kreditoren': "14 Rechnungen über total CHF 18'420.35 sind vorbereitet. Soll ich sie in bexio erfassen?",
+    'vertrieb-teams': "In Verhandlung, CHF 48'000, Abschluss am 15. Dezember. Soll ich Sandra antworten?",
+    'finanzen-vr': 'Umsatz Q3 CHF 2.41 Mio., 6 % über Vorjahr. Die Präsentation hat 6 Folien.',
+    'termin-projektteam': 'Alle 5 sind am Dienstag, 1. Dezember, 14:00–15:00 frei. Soll ich die Einladung senden?',
+    'npo-stiftungen': '6 von 18 passenden Stiftungen sind vorbereitet. Soll ich sie in Notion anlegen?',
+    'npo-newsletter': '29 neue Mitglieder fehlen im Newsletter. Soll ich sie hinzufügen?'
+  };
+  function cardHTMLv3(c) {
+    var rows = c.steps.map(function (st) {
+      return '<li class="mc__row"><span class="mc__st">' + TICK + '</span><span class="mc__rt">' + esc(st[1]) + '</span></li>';
+    }).join('');
+    return '<div class="mc__head"><span>Beispiel: ' + esc(c.title) + '</span></div>' +
+      '<div class="mc__prompt">' + esc(TASK3[c.id] || TASK[c.id] || c.prompt) + '</div>' +
+      '<ol class="mc__list">' + rows + '</ol>' +
+      '<div class="mc__ans"><span class="mc__ph" aria-hidden="true"><i></i><i></i></span>' +
+      '<p class="mc__result">' + bold(ANSWER3[c.id] || ANSWER[c.id] || firstSentence(c.result)) + '</p></div>';
+  }
   function cardHTML(c) {
+    if (isPortrait()) return cardHTMLv3(c);
     /* each tool once per run: on the phone there are no details that would tell two
        steps of the same tool apart */
     /* keep each tool at its LAST step, so the order reads «look up, then act»
@@ -846,8 +922,10 @@
     var L = document.createElement('div'); L.className = 'mc'; L.innerHTML = cardHTML(c);
     mcard.appendChild(L);
     requestAnimationFrame(function () { requestAnimationFrame(function () { L.classList.add('is-in'); }); });
+    var v3 = isPortrait();
+    if (v3) buildRow(c, true);
     light(c);
-    var steps = L.querySelectorAll('.mc__step'), links = L.querySelectorAll('.mc__link'), ev = [];
+    var steps = L.querySelectorAll(v3 ? '.mc__row' : '.mc__step'), links = L.querySelectorAll('.mc__link'), ev = [];
     if (reduced) {
       steps.forEach(function (st) { st.classList.add('on', 'done'); });
       links.forEach(function (l) { l.classList.add('on'); });
@@ -857,14 +935,15 @@
       /* first the request, then the steps, then the answer streams in */
       ev.push({ at: 150, fn: function () { L.classList.add('p-on'); } });
       ev.push({ at: 750, fn: function () { L.classList.add('s-on'); } });
-      var at = 1000;
+      /* m3: the text lines need a little longer to read than the icons */
+      var gap = v3 ? 760 : CARD_GAP, chk = v3 ? 560 : CARD_CHECK, at = v3 ? 850 : 1000;
       steps.forEach(function (st, i) {
         var a = at;
-        ev.push({ at: a, fn: function () { if (i) links[i - 1].classList.add('on'); st.classList.add('on'); } });
-        ev.push({ at: a + CARD_CHECK, fn: function () { st.classList.add('done'); } });
-        at += CARD_GAP;
+        ev.push({ at: a, fn: function () { if (i && links[i - 1]) links[i - 1].classList.add('on'); st.classList.add('on'); } });
+        ev.push({ at: a + chk, fn: function () { st.classList.add('done'); } });
+        at += gap;
       });
-      var tr = at - CARD_GAP + CARD_CHECK + 250;
+      var tr = at - gap + chk + 250;
       var words = streamify(L.querySelector('.mc__result')), t = tr, k = 0, n = 0;
       ev.push({ at: tr, fn: function () { L.classList.add('show-result'); } });
       while (k < words.length) {
@@ -1058,13 +1137,14 @@
   });
 
   /* ---------------- Init ---------------- */
-  var lastMode = null;
+  var lastMode = null, lastPortrait = null;
   function layout() {
-    var m = isStacked();
+    var m = isStacked(), pm = isPortrait();
     sizeBody(); sizeCard(); buildWall();
-    /* crossing between phone and desktop: show the running case in the other form */
-    if (lastMode !== null && m !== lastMode && current) play(current);
-    lastMode = m;
+    /* crossing between phone and desktop: show the running case in the other form
+       (m3: also between phone upright and landscape, whose cards differ) */
+    if (lastMode !== null && (m !== lastMode || pm !== lastPortrait) && current) play(current);
+    lastMode = m; lastPortrait = pm;
   }
   /* the layout depends on the viewport (the hero's own height is set by the layout on
      phones and when it has to grow), so watch the window, not the hero */
@@ -1088,7 +1168,7 @@
   applyFade();
   remember();
   sizeBody();
-  lastMode = isStacked(); sizeCard();
+  lastMode = isStacked(); lastPortrait = isPortrait(); sizeCard();
   play(FEATURED[0]);
   buildWall();
   var fontsReady = (document.fonts && document.fonts.ready) || Promise.resolve();
