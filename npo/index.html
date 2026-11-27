@@ -310,7 +310,10 @@
     .hero__eco b { color: var(--text); font-weight: 500; }
     .hero__eco a { color: inherit; text-decoration: underline; text-decoration-color: var(--line-soft); text-underline-offset: 3px; }
     .hero__eco a:hover { color: var(--text); }
-    .hero__lead mark { background: var(--tint); color: var(--text); font-weight: 600; padding: 1px 5px; border-radius: 5px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+    /* Die Markierung ragt links und rechts 3px über das Wort hinaus, als Schatten
+       statt als Innenabstand: so verschiebt sie weder den Zeilenanfang noch den
+       Abstand zum nächsten Zeichen. */
+    .hero__lead mark { background: var(--tint); color: var(--text); font-weight: 600; padding: 1px 0; border-radius: 3px; box-shadow: -3px 0 0 var(--tint), 3px 0 0 var(--tint); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
     /* Fenster, wie das Demo-Fenster der Startseite */
     .win { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 1px 2px rgba(20, 24, 34, .04), 0 30px 60px -30px rgba(20, 24, 34, .22); overflow: hidden; font-size: .84rem; line-height: 1.4; }
