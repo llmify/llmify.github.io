@@ -44,15 +44,17 @@ stillschweigend alles, was mit `_` oder `.` beginnt. Nicht löschen.
 `main` als Artefakt hoch und veröffentlicht es. Kein Build, die Seite liegt
 fertig im Repo.
 
-Der Workflow ersetzt den von GitHub automatisch erzeugten. Zwei Gründe, beide
-am 06.08.2026 teuer gelernt:
+Hochladen und Veröffentlichen sind zwei Jobs. Im selben Job fand das
+Deployment das eben hochgeladene Artefakt gelegentlich nicht, weil es die
+Liste der Artefakte eine halbe Sekunde nach dem Hochladen abfragte.
 
-- Dessen Zeitlimit von zehn Minuten war nicht änderbar. Als die Auslieferung
-  bei GitHub langsam war, hat die Action laufende Deployments selbst
-  abgebrochen. Hier steht `timeout: 1800000`, also dreissig Minuten.
-- Es gab keine Möglichkeit, ein Deployment ohne neuen Commit zu wiederholen.
-  Dieser Workflow hat `workflow_dispatch`: in der Actions-Ansicht auf
-  «Run workflow», fertig. Oder `gh workflow run pages.yml`.
+Schlägt ein Lauf trotzdem fehl, bleibt die Seite ohne Meldung auf dem alten
+Stand. Wiederholen: in der Actions-Ansicht «Re-run jobs», oder
+`gh run rerun <id>`. Ein Deployment ohne neuen Commit: «Run workflow» oder
+`gh workflow run pages.yml`.
+
+Das Zeitlimit des Deployments ist zehn Minuten. Das ist das Maximum der
+Action `deploy-pages`; einen höheren Wert kürzt sie darauf.
 
 Die Pages-Quelle muss dafür in den Einstellungen auf **GitHub Actions** stehen,
 nicht auf «Deploy from a branch».
