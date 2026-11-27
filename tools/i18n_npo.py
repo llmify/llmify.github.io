@@ -77,7 +77,6 @@ T = [
     ('aria-label="LLMify, zur Startseite"', 'aria-label="LLMify, vers la page d’accueil"',
      'aria-label="LLMify, alla pagina iniziale"', 'aria-label="LLMify, to the home page"'),
     ('aria-label="Sprache"', 'aria-label="Langue"', 'aria-label="Lingua"', 'aria-label="Language"'),
-    (">Zur Hauptseite<", ">Page principale<", ">Pagina principale<", ">Main site<"),
     # --- Einstieg ---
     (">KI für Schweizer NPOs<", ">IA pour les OBNL suisses<", ">IA per il non profit svizzero<", ">AI for Swiss non-profits<"),
     ('Mehr Zeit für Menschen. <span class="grad">Weniger für Administration.</span>',
