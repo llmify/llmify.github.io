@@ -318,7 +318,8 @@
     hero.classList.toggle('is-simple', !land && window.matchMedia(SIMPLE).matches);
     if (land) buildLandBand(); else buildRow(current || FEATURED[0], false);
     sizeCard();   /* measure the card with the phone styles and the row's --t in place */
-    var first = grid.querySelector('button.h-tile'); if (first) first.tabIndex = 0;
+    /* the landscape band is clickable; the row under the card is not (see buildRow) */
+    var first = land && grid.querySelector('button.h-tile'); if (first) first.tabIndex = 0;
     applyLit();
   }
 
@@ -383,7 +384,10 @@
       row.appendChild(cell);
     });
     grid.appendChild(row);
-    var first = row.querySelector('button.h-tile'); if (first) first.tabIndex = 0;
+    /* the row only shows which apps the running example uses: tapping a tile does nothing,
+       and it is not in the tab order (the card names the apps) */
+    row.setAttribute('aria-hidden', 'true');
+    row.querySelectorAll('.h-tile').forEach(function (b) { b.tabIndex = -1; });
     if (animate) requestAnimationFrame(function () { requestAnimationFrame(function () { row.classList.remove('is-new'); }); });
   }
 

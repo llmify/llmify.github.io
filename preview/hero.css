@@ -609,3 +609,6 @@
   #usecases .hero.is-stack .origin { font-size: 14px; }
   #usecases .hero.is-stack .origin .flag { width: 15px; height: 15px; }
 }
+
+/* stacked hero (phones, 761–1179 px): the tiles under the card are not clickable */
+#usecases .crow .h-tile { pointer-events: none; cursor: default; }
