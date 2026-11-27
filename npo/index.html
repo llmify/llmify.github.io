@@ -304,7 +304,7 @@
     .hero { padding: clamp(44px, 7vw, 88px) 0 0; }
     .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: clamp(36px, 6vw, 72px); align-items: center; }
     .hero__top { display: flex; align-items: center; gap: 6px 18px; flex-wrap: wrap; margin-bottom: 22px; }
-    .hero__brand { height: 58px; width: auto; margin: 0 0 0 -18px; }
+    .hero__brand { height: 58px; width: auto; margin: 0 0 0 -13px; }
     .hero__top .nav__tag { position: relative; top: 5px; }
     h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.25rem, 5.4vw, 3.5rem); line-height: 1.06; letter-spacing: -.03em; text-wrap: balance; }
     .hero__lead { margin-top: 24px; font-size: 1.125rem; color: var(--muted); max-width: 32em; }
@@ -458,6 +458,9 @@
       .cell--own { border-top-style: dashed; border-top-color: var(--line); }
       .cell--hot { grid-column: 1; }
       .nav__tag { font-size: .68rem; }
+      .hero__brand { height: 44px; margin-left: -10px; }
+      .hero__top { margin-bottom: 26px; }
+      .hero__top .nav__tag { top: 4px; }
     }
   </style>
 </head>
