@@ -881,10 +881,12 @@
   };
   function cardHTMLv3(c) {
     var rows = c.steps.map(function (st) {
-      return '<li class="mc__row"><span class="mc__st">' + TICK + '</span><span class="mc__rt">' + esc(st[1]) + '</span></li>';
+      /* each step shows the logo of the app it uses: grey while waiting, in colour once it
+         runs, with a small check when it is done */
+      var gl = st[0] !== 'websearch' && SQUARE.indexOf(st[0]) < 0 ? ' gl' : '';
+      return '<li class="mc__row"><span class="mc__st mc__lg' + gl + '">' + rowIcon(st[0]) + '<span class="mc__ok">' + TICK + '</span></span><span class="mc__rt">' + esc(st[1]) + '</span></li>';
     }).join('');
-    return '<div class="mc__head"><span>Beispiel: ' + esc(c.title) + '</span></div>' +
-      '<div class="mc__prompt">' + esc(TASK3[c.id] || TASK[c.id] || c.prompt) + '</div>' +
+    return '<div class="mc__prompt">' + esc(TASK3[c.id] || TASK[c.id] || c.prompt) + '</div>' +
       '<ol class="mc__list">' + rows + '</ol>' +
       '<div class="mc__ans"><span class="mc__ph" aria-hidden="true"><i></i><i></i></span>' +
       '<p class="mc__result">' + bold(ANSWER3[c.id] || ANSWER[c.id] || firstSentence(c.result)) + '</p></div>';
